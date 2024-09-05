@@ -1,0 +1,132 @@
+<.live_component
+  id="header"
+  date_range={@date_range}
+  module={PhoenixAnalytics.Web.Live.Components.Header}
+/>
+
+<div class="mb-20 grid flex-1 scroll-mt-20 items-start gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:gap-10">
+  <.live_component
+    id="unique-visitors-stat"
+    source={:unique_visitors}
+    date_range={@date_range}
+    stat_unit="visits"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="total-pageviews-stat"
+    source={:total_pageviews}
+    date_range={@date_range}
+    stat_unit="views"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="total-requests-stat"
+    source={:total_requests}
+    date_range={@date_range}
+    stat_unit="requests"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="views-per-visit-stat"
+    source={:views_per_visit}
+    date_range={@date_range}
+    stat_unit="views"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="visit-duration-stat"
+    source={:visit_duration}
+    date_range={@date_range}
+    stat_unit="time"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="bounce-rate-stat"
+    source={:bounce_rate}
+    date_range={@date_range}
+    stat_unit="%"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+</div>
+
+<.live_component
+  id="visits-chart"
+  date_range={@date_range}
+  interval={@interval}
+  module={PhoenixAnalytics.Web.Live.Components.VisitsChart}
+/>
+
+<div class="mt-16 grid flex-1 scroll-mt-20 items-start gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:gap-10">
+  <.live_component
+    id="popular-pages-chart"
+    source={:pages}
+    chart_title="Top Pages"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+
+  <.live_component
+    id="popular-referer-chart"
+    source={:referers}
+    chart_title="Top Referer"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+
+  <.live_component
+    id="device-usage-chart-1"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.DeviceChart}
+  />
+</div>
+
+<div class="mt-16">
+  <.live_component
+    id="statuses-chart"
+    date_range={@date_range}
+    interval={@interval}
+    module={PhoenixAnalytics.Web.Live.Components.StatusChart}
+  />
+</div>
+
+<div class="mt-16 grid flex-1 scroll-mt-20 items-start gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:gap-10">
+  <.live_component
+    id="slowest-pages-chart"
+    source={:pages}
+    chart_title="Slowest Pages"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.ResChart}
+  />
+
+  <.live_component
+    id="slowest-resources-chart"
+    source={:resources}
+    chart_title="Slowest Resources"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.ResChart}
+  />
+
+  <.live_component
+    id="popular-404-chart"
+    source={:not_founds}
+    chart_title="404s"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+</div>
+
+<div class="mt-16">
+  <.live_component
+    id="requests-chart"
+    date_range={@date_range}
+    interval={@interval}
+    module={PhoenixAnalytics.Web.Live.Components.RequestsChart}
+  />
+</div>
+
+<.live_component id="header" module={PhoenixAnalytics.Web.Live.Components.Footer} />
