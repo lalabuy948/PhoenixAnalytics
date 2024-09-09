@@ -63,8 +63,8 @@ defmodule PhoenixAnalytics.Services.Utility do
   """
   def get_device_type(agent_string) do
     cond do
-      String.contains?(agent_string, "Mobile") -> "mobile"
       String.contains?(agent_string, "Pad") -> "tablet"
+      String.contains?(agent_string, "Mobile") -> "mobile"
       true -> "desktop"
     end
   end
