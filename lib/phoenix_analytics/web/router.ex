@@ -43,7 +43,18 @@ defmodule PhoenixAnalytics.Web.Router do
   defmacro phoenix_analytics_dashboard(path, opts \\ []) do
     quote bind_quoted: [path: path, opts: opts] do
       scoped_path = Phoenix.Router.scoped_path(__MODULE__, path)
-      {session_name, session_opts} = parse_options(opts, scoped_path)
+
+      custom_on_mount = Keyword.get(opts, :on_mount, [])
+
+      on_mount =
+        [{PhoenixAnalytics.Web.Hooks.SetAssigns, {:set_dashboard_path, path}}] ++ custom_on_mount
+
+      session_name = Keyword.get(opts, :as, :phoenix_analytics_dashboard)
+
+      session_opts = [
+        on_mount: on_mount,
+        root_layout: {PhoenixAnalytics.Web.Layouts, :root}
+      ]
 
       scope path, alias: false, as: false do
         import Phoenix.LiveView.Router, only: [live: 4, live_session: 3]
@@ -53,21 +64,5 @@ defmodule PhoenixAnalytics.Web.Router do
         end
       end
     end
-  end
-
-  def parse_options(opts, path) do
-    custom_on_mount = Keyword.get(opts, :on_mount, [])
-
-    on_mount =
-      [{PhoenixAnalytics.Web.Hooks.SetAssigns, {:set_dashboard_path, path}}] ++ custom_on_mount
-
-    session_name = Keyword.get(opts, :as, :phoenix_analytics_dashboard)
-
-    session_opts = [
-      on_mount: on_mount,
-      root_layout: {PhoenixAnalytics.Web.Layouts, :root}
-    ]
-
-    {session_name, session_opts}
   end
 end
