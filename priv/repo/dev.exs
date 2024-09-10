@@ -1,7 +1,7 @@
 #!/usr/bin/env elixir
 Mix.install([
   {:phoenix_playground, "~> 0.1.5"},
-  {:phoenix_analytics, path: "../phoenix_analytics", force: true}
+  {:phoenix_analytics, path: ".", force: true}
 ])
 
 IO.puts("DUCK_PATH: #{System.get_env("DUCK_PATH")}")
@@ -95,7 +95,8 @@ end
 PhoenixPlayground.start(
   plug: DevRouter,
   endpoint_options: [
-    secret_key_base: "gpaTilt0aZo38EYNrPqIA8rNGhsuysCMe8GxMps6/HZQ3xnjtIiG0UyKIHBaI+FM"
+    secret_key_base: "gpaTilt0aZo38EYNrPqIA8rNGhsuysCMe8GxMps6/HZQ3xnjtIiG0UyKIHBaI+FM",
+    ip: {0, 0, 0, 0},
   ],
   open_browser: false,
   child_specs: []
