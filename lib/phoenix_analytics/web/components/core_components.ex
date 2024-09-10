@@ -2,9 +2,9 @@ defmodule PhoenixAnalytics.Web.CoreComponents do
   @moduledoc false
 
   use Phoenix.Component
+  use Gettext, backend: PhoenixAnalytics.Web.Gettext
 
   alias Phoenix.LiveView.JS
-  import PhoenixAnalytics.Web.Gettext
 
   @doc """
   Renders a modal.
