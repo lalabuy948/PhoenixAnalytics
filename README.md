@@ -30,7 +30,7 @@ by adding `phoenix_analytics` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_analytics, "~> 0.1.1"}
+    {:phoenix_analytics, "~> 0.1.2"}
   ]
 end
 ```
