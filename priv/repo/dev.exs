@@ -1,7 +1,7 @@
 #!/usr/bin/env elixir
 Mix.install([
   {:phoenix_playground, "~> 0.1.5"},
-  {:phoenix_analytics, path: "../phoenix_analytics", force: true}
+  {:phoenix_analytics, path: ".", force: true}
 ])
 
 IO.puts("DUCK_PATH: #{System.get_env("DUCK_PATH")}")
