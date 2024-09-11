@@ -78,6 +78,13 @@ use PhoenixAnalytics.Web, :router
 phoenix_analytics_dashboard "/analytics"
 ```
 
+Update your `.gitignore`
+
+```.gitignore
+*.duckdb
+*.duckdb.*
+```
+
 > ‼️ Please test thoroughly before proceeding to production!
 
 ## Documentation
