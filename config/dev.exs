@@ -1,6 +1,6 @@
 import Config
 
-config :phoenix_analytics, database_path: System.get_env("DUCK_PATH") || "dev.duckdb"
+config :phoenix_analytics, duckdb_path: System.get_env("DUCK_PATH") || "dev.duckdb"
 
 config :esbuild, :version, "0.17.11"
 config :tailwind, :version, "3.2.7"

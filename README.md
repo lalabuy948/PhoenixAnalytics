@@ -6,7 +6,7 @@
   <a title="View documentation" href="https://hexdocs.pm/phoenix_analytics"><img src="https://img.shields.io/badge/hex.pm-docs-blue.svg" alt="View documentation" /></a>
 </p>
 
-![](/github/hero.png)
+![](https://raw.githubusercontent.com/lalabuy948/PhoenixAnalytics/master/github/hero.png)
 
 Phoenix Analytics is embedded plug and play tool designed for Phoenix applications. It provides a simple and efficient way to track and analyze user behavior and application performance without impacting your main application's performance and database.
 
@@ -39,29 +39,8 @@ Update `config/config.exs`
 
 ```exs
 config :phoenix_analytics,
-  database_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
+  duckdb_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com"
-```
-
-Add migration file
-
-> In case you have ecto less / no migrations project you can do the following:
-
-> `iex -S mix` `PhoenixAnalytics.Migration.up()`
-
-```sh
-mix ecto.gen.migration add_phoenix_analytics
-```
-
-```elixir
-defmodule MyApp.Repo.Migrations.AddPhoenixAnalytics do
-  def up, do: PhoenixAnalytics.Migration.up()
-  def down, do: PhoenixAnalytics.Migration.down()
-end
-```
-
-```sh
-mix ecto.migrate
 ```
 
 Add plug to enable tracking to `endpoint.ex`, ‼️ add it straight after your `Plug.Static`
@@ -156,5 +135,5 @@ There is a plan to build a separate backend to be powered by ClickHouse in order
 
 ### Heavily inspired by
 
-- [https://github.com/elixir-error-tracker/error-tracker](https://github.com/elixir-error-tracker/error-tracker)
-- [https://plausible.io](https://plausible.io)
+- [error-tracker](https://github.com/elixir-error-tracker/error-tracker)
+- [plausible.io](https://plausible.io)

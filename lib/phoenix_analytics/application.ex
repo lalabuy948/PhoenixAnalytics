@@ -1,5 +1,6 @@
 defmodule PhoenixAnalytics.Application do
   @moduledoc false
+  alias PhoenixAnalytics.Services.Utility
 
   use Application
 
@@ -15,6 +16,18 @@ defmodule PhoenixAnalytics.Application do
       PhoenixAnalytics.Services.Batcher
     ]
 
+    run_migrations()
+
     Supervisor.start_link(children, strategy: :one_for_one, name: __MODULE__)
+  end
+
+  defp run_migrations do
+    if Utility.mode() == :duck_only do
+      PhoenixAnalytics.Migration.duck_up()
+    end
+
+    if Utility.mode() == :duck_postgres do
+      PhoenixAnalytics.Migration.enable_postgres_ext()
+    end
   end
 end

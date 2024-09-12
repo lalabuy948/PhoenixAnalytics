@@ -61,6 +61,7 @@ defmodule PhoenixAnalytics.MixProject do
     [
       {:uuid, "~> 1.1"},
       {:plug, "~> 1.16"},
+      {:ecto, "~> 3.11"},
       {:cachex, "~> 3.6"},
       {:gettext, "~> 0.20"},
       {:duckdbex, "~> 0.3"},
