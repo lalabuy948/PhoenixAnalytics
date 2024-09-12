@@ -41,3 +41,17 @@ Update your `.gitignore`
 *.duckdb
 *.duckdb.*
 ```
+
+## Start Server
+
+Install dependancies
+
+```sh
+mix deps.get
+```
+
+Run server
+
+```sh
+mix phx.server
+```
