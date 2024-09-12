@@ -12,15 +12,14 @@ defmodule PhoenixAnalytics.Entities.Request do
     field(:method, :string)
     field(:path, :string)
     field(:status_code, :integer)
-    field(:duration_ms, :float)
+    field(:duration_ms, :integer)
     field(:user_agent, :string)
     field(:remote_ip, :string)
     field(:referer, :string)
-    field(:device, :string)
+    field(:device_type, :string)
     field(:session_id, :binary_id)
     field(:session_page_views, :integer)
-
-    timestamps(inserted_at: :inserted_at, updated_at: false)
+    field(:inserted_at, :string)
   end
 
   @doc false
