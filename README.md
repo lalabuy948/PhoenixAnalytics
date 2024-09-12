@@ -39,7 +39,7 @@ Update `config/config.exs`
 
 ```exs
 config :phoenix_analytics,
-  duckdb_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com"
 ```
 
@@ -48,7 +48,7 @@ config :phoenix_analytics,
 
 ```exs
 config :phoenix_analytics,
-  duckdb_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com",
   postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost"
 ```
@@ -132,8 +132,9 @@ mix setup
 Then you would need some database with seeds. Here is command for this:
 
 ```sh
-DUCK_PATH="analytics.duckdb" mix run priv/repo/seeds.exs
+DUCKDB_PATH="analytics.duckdb" mix run priv/repo/seeds.exs
 ```
+
 > [!NOTE]
 > Move database with seeds to example project which you going to use.
 

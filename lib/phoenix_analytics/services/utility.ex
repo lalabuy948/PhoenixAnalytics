@@ -83,6 +83,25 @@ defmodule PhoenixAnalytics.Services.Utility do
   """
   def uuid, do: UUID.uuid4()
 
+  @doc """
+  Determines the current mode of operation based on database configurations.
+
+  This function checks the application environment for DuckDB and PostgreSQL
+  configurations to determine the current mode of operation.
+
+  ## Returns
+
+  An atom indicating the mode:
+    * `:duck_only` if only DuckDB is configured
+    * `:duck_postgres` if both DuckDB and PostgreSQL are configured
+    * `:duck_only` as a fallback if no valid configuration is found
+
+  ## Examples
+
+      iex> PhoenixAnalytics.Services.Utility.mode()
+      :duck_only
+
+  """
   def mode() do
     duckdb_path = Application.fetch_env(:phoenix_analytics, :duckdb_path)
     postgre_repo = Application.fetch_env(:phoenix_analytics, :postgres_conn)

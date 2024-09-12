@@ -5,7 +5,7 @@ defmodule PhoenixAnalytics.Migration do
   alias PhoenixAnalytics.Services.Bridge
 
   @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
-             System.get_env("DUCK_PATH")
+             System.get_env("DUCKDB_PATH")
 
   def up do
     {:ok, db} = Duckdbex.open(@db_path)
