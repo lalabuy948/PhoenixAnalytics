@@ -13,9 +13,12 @@ defmodule PhoenixAnalytics.Repo do
   """
 
   use GenServer
+
+  alias PhoenixAnalytics.Queries
+  alias PhoenixAnalytics.Services.Bridge
   alias PhoenixAnalytics.Services.Utility
   alias PhoenixAnalytics.Services.Telemetry
-  alias PhoenixAnalytics.Queries.{Insert}
+  alias PhoenixAnalytics.Queries.Insert
 
   @table PhoenixAnalytics.Queries.Table.name()
   @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
@@ -92,6 +95,7 @@ defmodule PhoenixAnalytics.Repo do
     with {:ok, db} <- Duckdbex.open(@db_path),
          {:ok, conn} = Duckdbex.connection(db),
          {:ok, read_conn} = Duckdbex.connection(db) do
+      Bridge.attach_postgres(conn)
       {:ok, %{connection: conn, read_connection: read_conn}}
     else
       {:error, reason} ->
@@ -203,29 +207,25 @@ defmodule PhoenixAnalytics.Repo do
   For performance testing, you can run `../priv/repo/seeds.exs` locally.
   """
   def insert_many(batch) do
-    case Utility.mode() do
-      :duck_only -> insert_many_duck(batch)
-      :duck_postgres -> insert_many_postgres(batch)
-    end
-  end
-
-  defp insert_many_duck(batch) do
     case get_connection() do
       {:ok, conection} ->
         prepared = prepare_requests(batch)
-        {:ok, appender} = Duckdbex.appender(conection, @table)
-        Duckdbex.appender_add_rows(appender, prepared)
+
+        if Utility.mode() == :duck_postgres do
+          for row <- prepared do
+            query = Queries.Insert.insert_one_query()
+            {:ok, stmt_ref} = Duckdbex.prepare_statement(conection, query)
+            {:ok, _result_ref} = Duckdbex.execute_statement(stmt_ref, row)
+          end
+        else
+          {:ok, appender} = Duckdbex.appender(conection, @table)
+          Duckdbex.appender_add_rows(appender, prepared)
+        end
 
       {:error, reason} ->
         Telemetry.log_error(:repo, reason)
         {:error, reason}
     end
-  end
-
-  defp insert_many_postgres(batch) do
-    postgre_repo = Application.fetch_env!(:phoenix_analytics, :postgres_repo)
-    prepared = Enum.map(batch, fn request_log -> Map.from_struct(request_log) end)
-    postgre_repo.insert_all(PhoenixAnalytics.Entities.Request, prepared)
   end
 
   defp prepare_requests(batch) do

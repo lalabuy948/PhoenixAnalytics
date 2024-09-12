@@ -2,13 +2,16 @@ defmodule PhoenixAnalytics.Migration do
   @moduledoc false
 
   alias PhoenixAnalytics.Queries
+  alias PhoenixAnalytics.Services.Bridge
 
   @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
              System.get_env("DUCK_PATH")
 
-  def duck_up do
+  def up do
     {:ok, db} = Duckdbex.open(@db_path)
     {:ok, conn} = Duckdbex.connection(db)
+
+    Bridge.attach_postgres(conn)
 
     query = Queries.Table.create_requests()
 
@@ -23,9 +26,11 @@ defmodule PhoenixAnalytics.Migration do
     end
   end
 
-  def duck_down do
+  def down do
     {:ok, db} = Duckdbex.open(@db_path)
     {:ok, conn} = Duckdbex.connection(db)
+
+    Bridge.attach_postgres(conn)
 
     query = Queries.Table.drop_requests()
 
@@ -38,13 +43,5 @@ defmodule PhoenixAnalytics.Migration do
         IO.puts("Failed to roll back migration: #{reason}")
         {:error, reason}
     end
-  end
-
-  def enable_postgres_ext do
-    {:ok, db} = Duckdbex.open(@db_path)
-    {:ok, conn} = Duckdbex.connection(db)
-
-    Duckdbex.query(conn, "INSTALL postgres;")
-    Duckdbex.query(conn, "LOAD postgres;")
   end
 end
