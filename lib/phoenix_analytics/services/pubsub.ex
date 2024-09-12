@@ -64,7 +64,9 @@ defmodule PhoenixAnalytics.Services.PubSub do
   Broadcasts an event to all subscribers of the request topic.
 
   This function sends the provided event to all processes that have subscribed to the request topic.
-  It's typically used to distribute information about new requests or updates to existing requests.
+  It's typically used to distribute information about new requests.
+
+  In case of Postgres backend local broadcast is used to avoid any data duplication across nodes.
 
   ## Parameters
 
