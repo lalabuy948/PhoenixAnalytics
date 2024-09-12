@@ -42,3 +42,31 @@ Update your `.gitignore`
 *.duckdb
 *.duckdb.*
 ```
+
+## Start Server
+
+Install dependancies
+
+```sh
+mix deps.get
+```
+
+Start database container
+
+```sh
+docker compose -f postgres-compose.yml up
+```
+
+Run migrations
+
+```sh
+mix ecto.create
+
+mix ecto.migrate
+```
+
+Run server
+
+```sh
+mix phx.server
+```
