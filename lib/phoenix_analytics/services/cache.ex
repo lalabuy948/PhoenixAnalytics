@@ -11,7 +11,7 @@ defmodule PhoenixAnalytics.Services.Cache do
   """
 
   @cache :pa_cache
-  @ttl 60 * 2
+  @ttl Application.compile_env(:phoenix_analytics, :cache_ttl, 0)
 
   @doc false
   def name() do
@@ -84,6 +84,12 @@ defmodule PhoenixAnalytics.Services.Cache do
       {:ok, "cached_value"}
   """
   def fetch(key, callback) do
-    Cachex.fetch(@cache, key, fn _ -> {:commit, callback.()} end, ttl: :timer.seconds(@ttl))
+    cond do
+      @ttl > 0 ->
+        Cachex.fetch(@cache, key, fn _ -> {:commit, callback.()} end, ttl: :timer.seconds(@ttl))
+
+      true ->
+        {:ok, callback.()}
+    end
   end
 end
