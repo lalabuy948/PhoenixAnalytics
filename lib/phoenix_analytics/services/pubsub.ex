@@ -9,6 +9,7 @@ defmodule PhoenixAnalytics.Services.PubSub do
 
   """
 
+  alias PhoenixAnalytics.Services.Utility
   alias Phoenix.PubSub
 
   @pubsub :pa_pubsub
@@ -85,6 +86,9 @@ defmodule PhoenixAnalytics.Services.PubSub do
   """
   @spec broadcast(PhoenixAnalytics.Entities.RequestLog.t()) :: :ok | {:error, term()}
   def broadcast(event) do
-    PubSub.broadcast(@pubsub, @topic, {:request_sent, event})
+    case Utility.mode() do
+      :duck_postgres -> PubSub.local_broadcast(@pubsub, @topic, {:request_sent, event})
+      _ -> PubSub.broadcast(@pubsub, @topic, {:request_sent, event})
+    end
   end
 end
