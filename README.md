@@ -64,6 +64,7 @@ Update your `.gitignore`
 *.duckdb.*
 ```
 
+> [!WARNING]
 > ‼️ Please test thoroughly before proceeding to production!
 
 ## Documentation
@@ -98,19 +99,19 @@ mix setup
 Then you would need some database with seeds. Here is command for this:
 
 ```sh
-DUCK_PATH="dev.duckdb" mix run priv/repo/seeds.exs
+DUCK_PATH="analytics.duckdb" mix run priv/repo/seeds.exs
 ```
+> [!NOTE]
+> Move database with seeds to example project which you going to use.
 
-Lastly you can start dev server:
+Lastly you can use one of example applications to start server.
 
 ```sh
-DUCK_PATH="dev.duckdb" elixir priv/repo/dev.exs
-```
+cd examples/duck_only/
 
-or
+mix deps.get
 
-```sh
-DUCK_PATH="dev.duckdb" iex priv/repo/dev.exs
+mix phx.server
 ```
 
 You can navigate to `http://localhost:4000/dev/analytics`
