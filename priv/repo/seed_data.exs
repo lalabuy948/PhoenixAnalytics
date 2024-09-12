@@ -56,7 +56,7 @@ defmodule SeedData do
       method: Enum.random(@methods),
       path: Enum.random(@paths),
       status_code: Enum.random([200, 201, 400, 401, 403, 404, 500, 301, 302]),
-      duration_ms: :rand.uniform() * 1000,
+      duration_ms: :rand.uniform(486) + 15,
       user_agent: Enum.random(@user_agents),
       remote_ip: Enum.random(generate_random_ips()),
       referer: Enum.random(@referers),
