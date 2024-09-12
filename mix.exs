@@ -60,6 +60,7 @@ defmodule PhoenixAnalytics.MixProject do
   defp deps do
     [
       {:plug, "~> 1.16"},
+      {:ecto, "~> 3.11"},
       {:cachex, "~> 3.6"},
       {:duckdbex, "~> 0.3"},
       {:telemetry, "~> 1.2"},

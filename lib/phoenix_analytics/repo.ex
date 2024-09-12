@@ -13,10 +13,12 @@ defmodule PhoenixAnalytics.Repo do
   """
 
   use GenServer
+  alias PhoenixAnalytics.Services.Utility
   alias PhoenixAnalytics.Services.Telemetry
+  alias PhoenixAnalytics.Queries.{Insert}
 
   @table PhoenixAnalytics.Queries.Table.name()
-  @db_path Application.compile_env(:phoenix_analytics, :database_path) ||
+  @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
              System.get_env("DUCK_PATH")
 
   @doc false
@@ -201,16 +203,36 @@ defmodule PhoenixAnalytics.Repo do
   For performance testing, you can run `../priv/repo/seeds.exs` locally.
   """
   def insert_many(batch) do
+    case Utility.mode() do
+      :duck_only -> insert_many_duck(batch)
+      :duck_postgres -> insert_many_postgres(batch)
+    end
+  end
+
+  defp insert_many_duck(batch) do
     case get_connection() do
       {:ok, conection} ->
+        prepared = prepare_requests(batch)
         {:ok, appender} = Duckdbex.appender(conection, @table)
-
-        Duckdbex.appender_add_rows(appender, batch)
+        Duckdbex.appender_add_rows(appender, prepared)
 
       {:error, reason} ->
         Telemetry.log_error(:repo, reason)
         {:error, reason}
     end
+  end
+
+  defp insert_many_postgres(batch) do
+    postgre_repo = Application.fetch_env(:phoenix_analytics, :postres_repo)
+    postgre_repo.insert_many(PhoenixAnalytics.Entities.Request, batch)
+  end
+
+  defp prepare_requests(batch) do
+    Enum.map(batch, fn request_log ->
+      # as for batch insert we use appender, there is no need for query
+      {_, params} = Insert.insert_one(request_log)
+      params
+    end)
   end
 
   @doc """
