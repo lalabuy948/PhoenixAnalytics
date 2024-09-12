@@ -15,14 +15,11 @@ defmodule PhoenixAnalytics.Repo do
   use GenServer
 
   alias PhoenixAnalytics.Queries
-  alias PhoenixAnalytics.Services.Bridge
-  alias PhoenixAnalytics.Services.Utility
-  alias PhoenixAnalytics.Services.Telemetry
-  alias PhoenixAnalytics.Queries.Insert
+  alias PhoenixAnalytics.Services.{Bridge, Utility, Telemetry}
 
   @table PhoenixAnalytics.Queries.Table.name()
   @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
-             System.get_env("DUCK_PATH")
+             System.get_env("DUCKDB_PATH")
 
   @doc false
   def start_link(_) do
@@ -183,15 +180,15 @@ defmodule PhoenixAnalytics.Repo do
   end
 
   @doc """
-  Inserts multiple rows into the database using the DuckDB appender.
+  Inserts multiple RequestLog entries into the database using the DuckDB appender.
 
   This function retrieves the database connection, creates an appender for the specified table,
-  and adds multiple rows to the table in a batch operation. This method is more efficient
+  and adds multiple RequestLog entries to the table in a batch operation. This method is more efficient
   for inserting large amounts of data compared to individual inserts.
 
   ## Parameters
 
-    * `batch` - A list of rows to be inserted into the table.
+    * `batch` - A list of RequestLog.t() to be inserted into the table.
 
   ## Returns
 
@@ -200,7 +197,7 @@ defmodule PhoenixAnalytics.Repo do
 
   ## Examples
 
-      iex> batch = [["John", 30], ["Jane", 25]]
+      iex> batch = [%RequestLog{method: "GET", path: "/home"}, %RequestLog{method: "POST", path: "/api"}]
       iex> PhoenixAnalytics.Repo.insert_many(batch)
       :ok
 
@@ -209,15 +206,13 @@ defmodule PhoenixAnalytics.Repo do
   def insert_many(batch) do
     case get_connection() do
       {:ok, conection} ->
-        prepared = prepare_requests(batch)
-
         if Utility.mode() == :duck_postgres do
-          for row <- prepared do
-            query = Queries.Insert.insert_one_query()
-            {:ok, stmt_ref} = Duckdbex.prepare_statement(conection, query)
-            {:ok, _result_ref} = Duckdbex.execute_statement(stmt_ref, row)
-          end
+          {query, params} = Queries.Insert.insert_many(batch)
+
+          {:ok, stmt_ref} = Duckdbex.prepare_statement(conection, query)
+          {:ok, _result_ref} = Duckdbex.execute_statement(stmt_ref, params)
         else
+          prepared = prepare_requests(batch)
           {:ok, appender} = Duckdbex.appender(conection, @table)
           Duckdbex.appender_add_rows(appender, prepared)
         end
@@ -228,10 +223,11 @@ defmodule PhoenixAnalytics.Repo do
     end
   end
 
+  @doc false
   defp prepare_requests(batch) do
     Enum.map(batch, fn request_log ->
       # as for batch insert we use appender, there is no need for query
-      {_, params} = Insert.insert_one(request_log)
+      {_, params} = Queries.Insert.insert_one(request_log)
       params
     end)
   end

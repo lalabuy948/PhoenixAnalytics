@@ -2,7 +2,8 @@ defmodule PhoenixAnalytics.Queries.Table do
   @moduledoc false
   alias PhoenixAnalytics.Services.Utility
 
-  @requests if Utility.mode() == :duck_postgres, do: "postgres_db.requests", else: "requests"
+  @db_alias "postgres_db"
+  @requests if Utility.mode() == :duck_postgres, do: "#{@db_alias}.requests", else: "requests"
 
   def name() do
     @requests
@@ -37,6 +38,6 @@ defmodule PhoenixAnalytics.Queries.Table do
 
   def attach_postgres do
     postgres_conn = Application.fetch_env!(:phoenix_analytics, :postgres_conn)
-    "ATTACH '#{postgres_conn}' AS postgres_db (TYPE POSTGRES);"
+    "ATTACH '#{postgres_conn}' AS #{@db_alias} (TYPE POSTGRES);"
   end
 end

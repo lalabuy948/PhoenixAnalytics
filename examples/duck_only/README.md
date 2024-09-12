@@ -17,7 +17,7 @@ Update `config/config.exs`
 
 ```exs
 config :phoenix_analytics,
-  duckdb_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com"
 ```
 
