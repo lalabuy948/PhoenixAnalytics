@@ -5,7 +5,7 @@ defmodule PhoenixAnalytics.Queries.Insert do
   alias PhoenixAnalytics.Entities.RequestLog
 
   @table Table.name()
-  @columns ~w(request_id method path status_code duration_ms user_agent remote_ip referer device session_id session_duration session_page_views)
+  @columns ~w(request_id method path status_code duration_ms user_agent remote_ip referer device session_id session_page_views inserted_at)
   @placeholders List.duplicate("?", length(@columns)) |> Enum.join(", ")
   @query "INSERT INTO #{@table} (#{Enum.join(@columns, ", ")}) VALUES (#{@placeholders});"
 
@@ -13,6 +13,8 @@ defmodule PhoenixAnalytics.Queries.Insert do
   def insert_one(%RequestLog{} = request_data) do
     {@query, prepare_values(request_data)}
   end
+
+  def insert_one_query, do: @query
 
   @spec prepare_values(RequestLog.t()) :: list()
   defp prepare_values(%RequestLog{} = request_data) do

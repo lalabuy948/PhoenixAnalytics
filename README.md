@@ -43,6 +43,39 @@ config :phoenix_analytics,
   app_domain: System.get_env("PHX_HOST") || "example.com"
 ```
 
+> [!IMPORTANT]
+> In case you have dynamic cluster, you can use your PostgresDB as backend.
+
+```exs
+config :phoenix_analytics,
+  duckdb_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
+  app_domain: System.get_env("PHX_HOST") || "example.com",
+  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost"
+```
+
+Add migration file
+
+> In case you have ecto less / no migrations project you can do the following:
+
+> `iex -S mix` `PhoenixAnalytics.Migration.up()`
+
+```sh
+mix ecto.gen.migration add_phoenix_analytics
+```
+
+```elixir
+defmodule MyApp.Repo.Migrations.AddPhoenixAnalytics do
+  use Ecto.Migration
+
+  def up, do: PhoenixAnalytics.Migration.up()
+  def down, do: PhoenixAnalytics.Migration.down()
+end
+```
+
+```sh
+mix ecto.migrate
+```
+
 Add plug to enable tracking to `endpoint.ex`, ‼️ add it straight after your `Plug.Static`
 
 ```elixir

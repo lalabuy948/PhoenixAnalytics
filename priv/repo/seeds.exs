@@ -2,7 +2,7 @@
 
 Code.require_file("./priv/repo/seed_data.exs")
 
-PhoenixAnalytics.Migration.duck_up()
+PhoenixAnalytics.Migration.up()
 
 db_path = System.get_env("DUCK_PATH") || "analytics.duckdb"
 {:ok, db} = Duckdbex.open(db_path)
