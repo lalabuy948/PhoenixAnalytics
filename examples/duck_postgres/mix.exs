@@ -1,9 +1,9 @@
-defmodule DuckOnly.MixProject do
+defmodule DuckPostgres.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :duck_only,
+      app: :duck_postgres,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule DuckOnly.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {DuckOnly.Application, []},
+      mod: {DuckPostgres.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -33,6 +33,9 @@ defmodule DuckOnly.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.14"},
+      {:phoenix_ecto, "~> 4.5"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
@@ -68,12 +71,15 @@ defmodule DuckOnly.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "assets.setup", "assets.build"],
+      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind duck_only", "esbuild duck_only"],
+      "assets.build": ["tailwind duck_postgres", "esbuild duck_postgres"],
       "assets.deploy": [
-        "tailwind duck_only --minify",
-        "esbuild duck_only --minify",
+        "tailwind duck_postgres --minify",
+        "esbuild duck_postgres --minify",
         "phx.digest"
       ]
     ]

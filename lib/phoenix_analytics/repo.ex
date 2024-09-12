@@ -223,8 +223,9 @@ defmodule PhoenixAnalytics.Repo do
   end
 
   defp insert_many_postgres(batch) do
-    postgre_repo = Application.fetch_env(:phoenix_analytics, :postres_repo)
-    postgre_repo.insert_many(PhoenixAnalytics.Entities.Request, batch)
+    postgre_repo = Application.fetch_env!(:phoenix_analytics, :postgres_repo)
+    prepared = Enum.map(batch, fn request_log -> Map.from_struct(request_log) end)
+    postgre_repo.insert_all(PhoenixAnalytics.Entities.Request, prepared)
   end
 
   defp prepare_requests(batch) do

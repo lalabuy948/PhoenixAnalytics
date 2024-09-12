@@ -1,4 +1,4 @@
-defmodule PhoenixAnalytics.Repo.Migrations.CreateRequests do
+defmodule DuckPostgres.Repo.Migrations.AddRequestsTable do
   use Ecto.Migration
 
   def change do

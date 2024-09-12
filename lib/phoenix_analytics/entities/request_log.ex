@@ -19,7 +19,7 @@ defmodule PhoenixAnalytics.Entities.RequestLog do
   @type status_code :: non_neg_integer()
 
   @typedoc "Duration of the request in milliseconds"
-  @type duration_ms :: float()
+  @type duration_ms :: integer()
 
   @typedoc "User agent string of the client"
   @type user_agent :: String.t() | nil
