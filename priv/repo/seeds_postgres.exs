@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS postgres_db.requests (
   device VARCHAR,
   session_id UUID,
   session_page_views INTEGER,
-  inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  inserted_at TIMESTAMP
 );
 """
 
