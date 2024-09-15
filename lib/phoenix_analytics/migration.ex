@@ -11,7 +11,7 @@ defmodule PhoenixAnalytics.Migration do
     {:ok, db} = Duckdbex.open(@db_path)
     {:ok, conn} = Duckdbex.connection(db)
 
-    Bridge.attach_postgres(conn)
+    Bridge.attach_postgres(db, conn)
 
     query = Queries.Table.create_requests()
 
@@ -30,7 +30,7 @@ defmodule PhoenixAnalytics.Migration do
     {:ok, db} = Duckdbex.open(@db_path)
     {:ok, conn} = Duckdbex.connection(db)
 
-    Bridge.attach_postgres(conn)
+    Bridge.attach_postgres(db, conn)
 
     query = Queries.Table.drop_requests()
 
