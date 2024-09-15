@@ -38,5 +38,7 @@ defmodule PhoenixAnalytics.Services.Bridge do
         {:error, error} -> raise "duckdb: postgres connection failed: #{inspect(error)}"
       end
     end
+
+    {:ok, "duckdb: postgres database not used"}
   end
 end
