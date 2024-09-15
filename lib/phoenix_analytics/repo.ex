@@ -91,9 +91,8 @@ defmodule PhoenixAnalytics.Repo do
   def init(_state) do
     with {:ok, db} <- Duckdbex.open(@db_path),
          {:ok, conn} = Duckdbex.connection(db),
-         {:ok, read_conn} = Duckdbex.connection(db) do
-      Bridge.attach_postgres(db, conn)
-
+         {:ok, read_conn} = Duckdbex.connection(db),
+         {:ok, _} = Bridge.attach_postgres(db, conn) do
       {:ok, %{connection: conn, read_connection: read_conn}}
     else
       {:error, reason} ->
