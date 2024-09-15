@@ -1,5 +1,4 @@
 defmodule PhoenixAnalytics.Services.Bridge do
-  alias PhoenixAnalytics.Queries
   alias PhoenixAnalytics.Services.Utility
 
   @doc """
@@ -21,10 +20,17 @@ defmodule PhoenixAnalytics.Services.Bridge do
   """
   def attach_postgres(conn) do
     if Utility.mode() == :duck_postgres do
-      Duckdbex.query(conn, "INSTALL postgres;")
-      Duckdbex.query(conn, "LOAD postgres;")
+      Duckdbex.query(conn, "INSTALL postgres_scanner;") |> IO.inspect()
+      Duckdbex.query(conn, "LOAD postgres_scanner;") |> IO.inspect()
 
-      Duckdbex.query(conn, Queries.Table.attach_postgres()) |> IO.inspect()
+      Duckdbex.query(conn, "SET pg_experimental_filter_pushdown=TRUE;") |> IO.inspect()
+      Duckdbex.query(conn, "SET pg_pages_per_task = 9876543;") |> IO.inspect()
+      Duckdbex.query(conn, "SET pg_use_ctid_scan=false;") |> IO.inspect()
+
+      postgres_conn = Application.fetch_env!(:phoenix_analytics, :postgres_conn)
+
+      Duckdbex.query(conn, "ATTACH '#{postgres_conn}' AS postgres_db (TYPE POSTGRES);")
+      |> IO.inspect()
     end
   end
 end

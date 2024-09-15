@@ -5,14 +5,17 @@ Code.require_file("./priv/repo/seed_data.exs")
 {:ok, db} = Duckdbex.open()
 {:ok, conn} = Duckdbex.connection(db)
 
-Duckdbex.query(conn, "INSTALL postgres;")
-Duckdbex.query(conn, "LOAD postgres;")
+Duckdbex.query(conn, "INSTALL postgres_scanner;") |> IO.inspect()
+Duckdbex.query(conn, "LOAD postgres_scanner;") |> IO.inspect()
 
 Duckdbex.query(
   conn,
   "ATTACH 'dbname=postgres user=phoenix password=analytics host=localhost' AS postgres_db (TYPE POSTGRES);"
 )
 |> IO.inspect()
+
+Duckdbex.query(conn, "SET pg_experimental_filter_pushdown=TRUE;") |> IO.inspect()
+Duckdbex.query(conn, "SET pg_pages_per_task = 100000;") |> IO.inspect()
 
 query = """
 CREATE TABLE IF NOT EXISTS postgres_db.requests (
@@ -35,7 +38,7 @@ Duckdbex.query(conn, query) |> IO.inspect()
 
 batch_size = 1_000
 
-1..1_000_000
+1..1
 |> Enum.chunk_every(batch_size)
 |> Enum.with_index(1)
 |> Enum.each(fn {data, index} ->
