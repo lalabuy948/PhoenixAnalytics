@@ -62,7 +62,6 @@ defmodule PhoenixAnalytics.MixProject do
       {:uuid, "~> 1.1"},
       {:plug, "~> 1.16"},
       {:cachex, "~> 3.6"},
-      {:gettext, "~> 0.20"},
       {:duckdbex, "~> 0.3"},
       {:telemetry, "~> 1.2"},
       {:live_react, "~> 0.1"},
