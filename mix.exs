@@ -59,13 +59,13 @@ defmodule PhoenixAnalytics.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:uuid, "~> 1.1"},
       {:plug, "~> 1.16"},
       {:cachex, "~> 3.6"},
       {:gettext, "~> 0.20"},
       {:duckdbex, "~> 0.3"},
       {:telemetry, "~> 1.2"},
       {:live_react, "~> 0.1"},
+      {:elixir_uuid, "~> 1.2"},
       {:phoenix_live_view, "~> 1.0.0-rc.1 or ~> 1.0"},
       # --- dev deps ---
       {:ex_doc, "~> 0.33", only: :dev},
