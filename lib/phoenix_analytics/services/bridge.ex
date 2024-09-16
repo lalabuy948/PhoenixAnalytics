@@ -35,7 +35,7 @@ defmodule PhoenixAnalytics.Services.Bridge do
 
       case Duckdbex.query(conn, "ATTACH '#{postgres_conn}' AS postgres_db (TYPE POSTGRES);") do
         {:ok, _} -> {:ok, "duckdb: postgres database connected"}
-        {:error, error} -> raise "duckdb: postgres connection failed: #{inspect(error)}"
+        {:error, error} -> {:error, "duckdb: postgres connection failed: #{inspect(error)}"}
       end
     end
 
