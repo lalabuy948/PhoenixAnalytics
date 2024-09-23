@@ -38,7 +38,7 @@ Duckdbex.query(conn, query) |> IO.inspect()
 
 batch_size = 1_000
 
-1..1
+1..1_000_000
 |> Enum.chunk_every(batch_size)
 |> Enum.with_index(1)
 |> Enum.each(fn {data, index} ->

@@ -151,6 +151,17 @@ Then you would need some database with seeds. Here is command for this:
 DUCKDB_PATH="analytics.duckdb" mix run priv/repo/seeds.exs
 ```
 
+or if you would like to test with Postgres backend:
+
+```sh
+cd examples/duck_postgres/
+
+docker compose -f postgres-compose.yml up
+
+# from project root
+mix run priv/repo/seeds_postgres.exs
+```
+
 > [!NOTE]
 > Move database with seeds to example project which you going to use.
 
