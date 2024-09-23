@@ -18,10 +18,8 @@ defmodule PhoenixAnalyticsTest do
 
     request_log = SeedData.generate_request_data()
 
-    {_, params} = PhoenixAnalytics.Queries.Insert.insert_one(request_log)
-
     result =
-      case Batcher.send_batch([params]) do
+      case Batcher.send_batch([request_log]) do
         :ok -> :ok
         {:error, reason} -> reason
       end

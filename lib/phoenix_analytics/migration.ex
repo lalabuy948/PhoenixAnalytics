@@ -2,13 +2,16 @@ defmodule PhoenixAnalytics.Migration do
   @moduledoc false
 
   alias PhoenixAnalytics.Queries
+  alias PhoenixAnalytics.Services.Bridge
 
-  @db_path Application.compile_env(:phoenix_analytics, :database_path) ||
-             System.get_env("DUCK_PATH")
+  @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
+             System.get_env("DUCKDB_PATH")
 
-  def up() do
+  def up do
     {:ok, db} = Duckdbex.open(@db_path)
     {:ok, conn} = Duckdbex.connection(db)
+
+    Bridge.attach_postgres(db, conn)
 
     query = Queries.Table.create_requests()
 
@@ -23,9 +26,11 @@ defmodule PhoenixAnalytics.Migration do
     end
   end
 
-  def down() do
+  def down do
     {:ok, db} = Duckdbex.open(@db_path)
     {:ok, conn} = Duckdbex.connection(db)
+
+    Bridge.attach_postgres(db, conn)
 
     query = Queries.Table.drop_requests()
 

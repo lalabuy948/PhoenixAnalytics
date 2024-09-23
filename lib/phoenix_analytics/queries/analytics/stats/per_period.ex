@@ -112,7 +112,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
                   )) AS period
           )
           SELECT * FROM (
-            SELECT date_trunc('#{interval}', ds.period)::VARCHAR AS date, count(*) as hits,
+            SELECT date_trunc('#{interval}', ds.period)::VARCHAR AS date, count(request_id) as hits,
 
             FROM date_series ds
             LEFT JOIN #{@table} ON date_trunc('day', inserted_at) = ds.period AND method = 'GET'
@@ -138,7 +138,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
                 )) AS period
         )
         SELECT * FROM (
-          SELECT date_trunc('#{interval}', ds.period)::VARCHAR AS date, count(*) as hits,
+          SELECT date_trunc('#{interval}', ds.period)::VARCHAR AS date, count(request_id) as hits,
 
           FROM date_series ds
           LEFT JOIN #{@table} ON date_trunc('day', inserted_at) = ds.period

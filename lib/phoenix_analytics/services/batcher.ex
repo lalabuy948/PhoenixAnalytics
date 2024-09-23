@@ -26,7 +26,6 @@ defmodule PhoenixAnalytics.Services.Batcher do
   use GenServer
 
   alias PhoenixAnalytics.Services.PubSub
-  alias PhoenixAnalytics.Queries
   alias PhoenixAnalytics.Repo
 
   @batch_size 1_000
@@ -74,13 +73,11 @@ defmodule PhoenixAnalytics.Services.Batcher do
   @doc false
   @impl true
   def handle_cast({:insert, request_log}, state) do
-    # as for batch insert we use appender, there is no need for query
-    {_, params} = Queries.Insert.insert_one(request_log)
-
-    new_batch = [params | state.batch]
+    new_batch = [request_log | state.batch]
 
     if length(new_batch) >= @batch_size do
       send_batch(new_batch)
+
       {:noreply, %{state | batch: [], last_insert_time: :os.system_time(:millisecond)}}
     else
       {:noreply, %{state | batch: new_batch}}
