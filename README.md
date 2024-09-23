@@ -37,7 +37,7 @@ end
 
 Update `config/config.exs`
 
-```exs
+```elixir
 config :phoenix_analytics,
   duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com"
@@ -46,7 +46,7 @@ config :phoenix_analytics,
 > [!IMPORTANT]
 > In case you have dynamic cluster, you can use your PostgresDB as backend.
 
-```exs
+```elixir
 config :phoenix_analytics,
   duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com",
@@ -56,7 +56,7 @@ config :phoenix_analytics,
 > [!IMPORTANT]
 > In case you would like to proceed with Postgres option, consider enabling caching.
 
-```exs
+```elixir
 config :phoenix_analytics,
   duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com",
