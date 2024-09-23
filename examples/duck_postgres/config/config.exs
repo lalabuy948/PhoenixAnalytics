@@ -10,7 +10,8 @@ import Config
 config :phoenix_analytics,
   app_domain: "example.com",
   duckdb_path: "analytics.duckdb",
-  postgres_conn: "dbname=postgres user=phoenix password=analytics host=localhost"
+  postgres_conn: "dbname=postgres user=phoenix password=analytics host=localhost",
+  cache_ttl: System.get_env("CACHE_TTL") || 120
 
 config :duck_postgres,
   ecto_repos: [DuckPostgres.Repo],
