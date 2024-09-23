@@ -8,6 +8,8 @@
 
 ![](https://raw.githubusercontent.com/lalabuy948/PhoenixAnalytics/master/github/hero.png)
 
+![](https://raw.githubusercontent.com/lalabuy948/PhoenixAnalytics/master/github/screenshot.png)
+
 Phoenix Analytics is embedded plug and play tool designed for Phoenix applications. It provides a simple and efficient way to track and analyze user behavior and application performance without impacting your main application's performance and database.
 
 Key features:
