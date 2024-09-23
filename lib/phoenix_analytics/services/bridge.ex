@@ -27,15 +27,18 @@ defmodule PhoenixAnalytics.Services.Bridge do
         {:error, "duckdb: failed to load postgres extension"}
       end
 
-      Duckdbex.query(conn, "SET pg_experimental_filter_pushdown=TRUE;")
-      Duckdbex.query(conn, "SET pg_pages_per_task = 9876543;")
-      Duckdbex.query(conn, "SET pg_use_ctid_scan=false;")
-
       postgres_conn = Application.fetch_env!(:phoenix_analytics, :postgres_conn)
 
       case Duckdbex.query(conn, "ATTACH '#{postgres_conn}' AS postgres_db (TYPE POSTGRES);") do
-        {:ok, _} -> {:ok, "duckdb: postgres database connected"}
-        {:error, error} -> {:error, "duckdb: postgres connection failed: #{inspect(error)}"}
+        {:ok, _} ->
+          {:ok, _ref} = Duckdbex.query(conn, "SET pg_experimental_filter_pushdown=TRUE;")
+          {:ok, _ref} = Duckdbex.query(conn, "SET pg_pages_per_task = 9876543;")
+          {:ok, _ref} = Duckdbex.query(conn, "SET pg_use_ctid_scan=false;")
+
+          {:ok, "duckdb: postgres database connected"}
+
+        {:error, error} ->
+          {:error, "duckdb: postgres connection failed: #{inspect(error)}"}
       end
     end
 

@@ -12,7 +12,12 @@ defmodule PhoenixAnalytics.Web.Live.Components.VisitsChart do
   def render(assigns) do
     ~H"""
     <div>
-      <.react name="VisitsChart" dateRange={@date_range} chartData={@chart_data} socket={@socket} />
+      <.react
+        name="VisitsChart"
+        dateRange={@date_range}
+        chartData={@chart_data.result || []}
+        socket={@socket}
+      />
     </div>
     """
   end
@@ -24,7 +29,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.VisitsChart do
 
     {:ok,
      assign(socket, assigns)
-     |> assign(:chart_data, chart_data(date_range, interval))}
+     |> assign_async(:chart_data, fn -> {:ok, %{chart_data: chart_data(date_range, interval)}} end)}
   end
 
   defp chart_data(%{from: from, to: to} = _date_range, interval) do

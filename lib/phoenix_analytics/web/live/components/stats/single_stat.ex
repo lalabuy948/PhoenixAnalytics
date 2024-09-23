@@ -13,11 +13,11 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
     <div>
       <.react
         name="SingleStat"
-        statData={@stat_data}
         statUnit={@stat_unit}
         statTitle={@stat_title}
         dateRange={@date_range}
-        chartData={@chart_data}
+        statData={@stat_data.result || 0}
+        chartData={@chart_data.result || []}
         socket={@socket}
       />
     </div>
@@ -25,11 +25,11 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
   end
 
   def update(assigns, socket) do
-    stat_data = stat_data(assigns.source, assigns.date_range)
-    chart_data = chart_data(assigns.source, assigns.date_range)
+    source = assigns.source
+    date_range = assigns.date_range
 
     stat_title =
-      case assigns.source do
+      case source do
         :unique_visitors -> "Unique visitors"
         :total_pageviews -> "Total Pageviews"
         :total_requests -> "Total Requests"
@@ -41,8 +41,12 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
     {:ok,
      assign(socket, assigns)
      |> assign(:stat_title, stat_title)
-     |> assign(:stat_data, stat_data)
-     |> assign(:chart_data, chart_data)}
+     |> assign_async(:stat_data, fn ->
+       {:ok, %{stat_data: stat_data(source, date_range)}}
+     end)
+     |> assign_async(:chart_data, fn ->
+       {:ok, %{chart_data: chart_data(source, date_range)}}
+     end)}
   end
 
   defp stat_data(source, %{from: from, to: to} = _date_range) do

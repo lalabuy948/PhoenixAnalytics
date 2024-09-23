@@ -48,15 +48,15 @@ defmodule PhoenixAnalytics.Repo do
   end
 
   @doc """
-  Retrieves the current `read` DuckDB connection from the GenServer state.
+  Creates and returns a new DuckDB read connection.
 
-  This function sends a synchronous call to the GenServer to get the current
-  database connection stored in its state.
+  This function opens a new connection to the DuckDB database for read operations,
+  allowing for increased read throughput by not relying on the GenServer state.
 
   ## Returns
 
-    * `{:ok, connection}` - If the connection is successfully retrieved.
-    * `{:error, reason}` - If there's an error retrieving the connection.
+    * `{:ok, connection}` - If a new connection is successfully created.
+    * `{:error, reason}` - If there's an error creating the connection.
 
   ## Examples
 
@@ -65,7 +65,11 @@ defmodule PhoenixAnalytics.Repo do
 
   """
   def get_read_connection do
-    GenServer.call(__MODULE__, :get_read_connection)
+    with {:ok, db} <- Duckdbex.open(@db_path),
+         {:ok, connection} <- Duckdbex.connection(db),
+         {:ok, _} <- Bridge.attach_postgres(db, connection) do
+      {:ok, connection}
+    end
   end
 
   # --- server callbacks ---
@@ -90,9 +94,9 @@ defmodule PhoenixAnalytics.Repo do
   """
   def init(_state) do
     with {:ok, db} <- Duckdbex.open(@db_path),
-         {:ok, conn} = Duckdbex.connection(db),
-         {:ok, read_conn} = Duckdbex.connection(db),
-         {:ok, _} = Bridge.attach_postgres(db, conn) do
+         {:ok, conn} <- Duckdbex.connection(db),
+         {:ok, read_conn} <- Duckdbex.connection(db),
+         {:ok, _} <- Bridge.attach_postgres(db, conn) do
       {:ok, %{connection: conn, read_connection: read_conn}}
     else
       {:error, reason} ->
@@ -104,11 +108,6 @@ defmodule PhoenixAnalytics.Repo do
   @doc false
   def handle_call(:get_connection, _from, state) do
     {:reply, {:ok, state.connection}, state}
-  end
-
-  @doc false
-  def handle_call(:get_read_connection, _from, state) do
-    {:reply, {:ok, state.read_connection}, state}
   end
 
   @doc """
@@ -258,7 +257,6 @@ defmodule PhoenixAnalytics.Repo do
       {:ok, conection} ->
         {:ok, stmt_ref} = Duckdbex.prepare_statement(conection, query)
         {:ok, result_ref} = Duckdbex.execute_statement(stmt_ref, params)
-
         Duckdbex.fetch_all(result_ref)
 
       {:error, reason} ->

@@ -19,7 +19,7 @@ defmodule DuckPostgres.MixProject do
   def application do
     [
       mod: {DuckPostgres.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :wx, :observer]
     ]
   end
 

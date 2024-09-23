@@ -12,7 +12,12 @@ defmodule PhoenixAnalytics.Web.Live.Components.DeviceChart do
   def render(assigns) do
     ~H"""
     <div>
-      <.react name="DeviceChart" dateRange={@date_range} chartData={@chart_data} socket={@socket} />
+      <.react
+        name="DeviceChart"
+        dateRange={@date_range}
+        chartData={@chart_data.result || []}
+        socket={@socket}
+      />
     </div>
     """
   end
@@ -20,11 +25,12 @@ defmodule PhoenixAnalytics.Web.Live.Components.DeviceChart do
   @impl true
   def update(assigns, socket) do
     date_range = assigns.date_range
-    chart_data = chart_data(date_range)
 
     {:ok,
      assign(socket, assigns)
-     |> assign(:chart_data, chart_data)}
+     |> assign_async(:chart_data, fn ->
+       {:ok, %{chart_data: chart_data(date_range)}}
+     end)}
   end
 
   defp chart_data(%{from: from, to: to} = _date_range) do
