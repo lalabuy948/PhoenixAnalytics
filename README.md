@@ -53,6 +53,17 @@ config :phoenix_analytics,
   postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost"
 ```
 
+> [!IMPORTANT]
+> In case you would like to proceed with Postgres option, consider enabling caching.
+
+```exs
+config :phoenix_analytics,
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
+  app_domain: System.get_env("PHX_HOST") || "example.com",
+  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost",
+  cache_ttl: System.get_env("CACHE_TTL") || 120 # seconds
+```
+
 Add migration file
 
 > In case you have ecto less / no migrations project you can do the following:
@@ -62,6 +73,11 @@ Add migration file
 ```sh
 mix ecto.gen.migration add_phoenix_analytics
 ```
+
+> [!TIP]
+> Based on your configuration migration will be run in appropriate database.
+> If only `duckdb_path` then in duckdb file.
+> If `duckdb_path` and `postgres_conn` provided then in your Postgres database.
 
 ```elixir
 defmodule MyApp.Repo.Migrations.AddPhoenixAnalytics do
