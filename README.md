@@ -188,12 +188,9 @@ Script can be found here: `vegeta/vegeta.sh`
 
 ## For whom this library
 
-- [x] Single instance Phoenix app
-- [x] Multiple instances of Phoenix app without auto scaling group
-
-- [ ] Multiple instances of Phoenix app **with** auto scaling group
-
-There is a plan to build a separate backend to be powered by ClickHouse in order to track requests across multiple nodes in orchestrated scenarios.
+- [x] Single instance Phoenix app (duckdb only recommended)
+- [x] Multiple instances of Phoenix app **without** auto scaling group (duckdb or postgres option can be used)
+- [x] Multiple instances of Phoenix app **with** auto scaling group (only postgres powered apps supported at the moment)
 
 ### Heavily inspired by
 
