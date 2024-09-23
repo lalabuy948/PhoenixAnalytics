@@ -1,3 +1,3 @@
 import Config
 
-config :phoenix_analytics, database_path: "test.duckdb"
+config :phoenix_analytics, duckdb_path: "test.duckdb"

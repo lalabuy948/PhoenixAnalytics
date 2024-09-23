@@ -56,14 +56,14 @@ defmodule SeedData do
       method: Enum.random(@methods),
       path: Enum.random(@paths),
       status_code: Enum.random([200, 201, 400, 401, 403, 404, 500, 301, 302]),
-      duration_ms: :rand.uniform() * 1000,
+      duration_ms: :rand.uniform(486) + 15,
       user_agent: Enum.random(@user_agents),
       remote_ip: Enum.random(generate_random_ips()),
       referer: Enum.random(@referers),
       device_type: Utility.get_device_type(Enum.random(@user_agents)),
       session_id: UUID.uuid4(),
       session_page_views: if(:rand.uniform() < 0.9, do: 1, else: :rand.uniform(5) + 1),
-      inserted_at: PhoenixAnalytics.Services.Utility.inserted_at()
+      inserted_at: random_inserted_at()
     }
   end
 
@@ -82,14 +82,10 @@ defmodule SeedData do
   end
 
   defp random_inserted_at do
-    now = NaiveDateTime.utc_now()
     random_seconds = :rand.uniform(360 * 24 * 60 * 60)
-    random_time = NaiveDateTime.add(now, -random_seconds, :second)
-    format_timestamp(random_time)
-  end
 
-  defp format_timestamp(datetime) do
-    datetime
+    NaiveDateTime.utc_now()
+    |> NaiveDateTime.add(-random_seconds, :second)
     |> NaiveDateTime.truncate(:millisecond)
     |> NaiveDateTime.to_string()
     |> String.replace("T", " ")

@@ -6,7 +6,7 @@
   <a title="View documentation" href="https://hexdocs.pm/phoenix_analytics"><img src="https://img.shields.io/badge/hex.pm-docs-blue.svg" alt="View documentation" /></a>
 </p>
 
-![](/github/hero.png)
+![](https://raw.githubusercontent.com/lalabuy948/PhoenixAnalytics/master/github/hero.png)
 
 Phoenix Analytics is embedded plug and play tool designed for Phoenix applications. It provides a simple and efficient way to track and analyze user behavior and application performance without impacting your main application's performance and database.
 
@@ -30,7 +30,7 @@ by adding `phoenix_analytics` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_analytics, "~> 0.1.3"}
+    {:phoenix_analytics, "~> 0.2"}
   ]
 end
 ```
@@ -39,8 +39,29 @@ Update `config/config.exs`
 
 ```exs
 config :phoenix_analytics,
-  database_path: System.get_env("DUCK_PATH") || "analytics.duckdb",
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
   app_domain: System.get_env("PHX_HOST") || "example.com"
+```
+
+> [!IMPORTANT]
+> In case you have dynamic cluster, you can use your PostgresDB as backend.
+
+```exs
+config :phoenix_analytics,
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
+  app_domain: System.get_env("PHX_HOST") || "example.com",
+  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost"
+```
+
+> [!IMPORTANT]
+> In case you would like to proceed with Postgres option, consider enabling caching.
+
+```exs
+config :phoenix_analytics,
+  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
+  app_domain: System.get_env("PHX_HOST") || "example.com",
+  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost",
+  cache_ttl: System.get_env("CACHE_TTL") || 120 # seconds
 ```
 
 Add migration file
@@ -53,8 +74,15 @@ Add migration file
 mix ecto.gen.migration add_phoenix_analytics
 ```
 
+> [!TIP]
+> Based on your configuration migration will be run in appropriate database.
+> If only `duckdb_path` then in duckdb file.
+> If `duckdb_path` and `postgres_conn` provided then in your Postgres database.
+
 ```elixir
 defmodule MyApp.Repo.Migrations.AddPhoenixAnalytics do
+  use Ecto.Migration
+
   def up, do: PhoenixAnalytics.Migration.up()
   def down, do: PhoenixAnalytics.Migration.down()
 end
@@ -85,6 +113,7 @@ Update your `.gitignore`
 *.duckdb.*
 ```
 
+> [!WARNING]
 > ‼️ Please test thoroughly before proceeding to production!
 
 ## Documentation
@@ -119,19 +148,31 @@ mix setup
 Then you would need some database with seeds. Here is command for this:
 
 ```sh
-DUCK_PATH="dev.duckdb" mix run priv/repo/seeds.exs
+DUCKDB_PATH="analytics.duckdb" mix run priv/repo/seeds.exs
 ```
 
-Lastly you can start dev server:
+or if you would like to test with Postgres backend:
 
 ```sh
-DUCK_PATH="dev.duckdb" elixir priv/repo/dev.exs
+cd examples/duck_postgres/
+
+docker compose -f postgres-compose.yml up
+
+# from project root
+mix run priv/repo/seeds_postgres.exs
 ```
 
-or
+> [!NOTE]
+> Move database with seeds to example project which you going to use.
+
+Lastly you can use one of example applications to start server.
 
 ```sh
-DUCK_PATH="dev.duckdb" iex priv/repo/dev.exs
+cd examples/duck_only/
+
+mix deps.get
+
+mix phx.server
 ```
 
 You can navigate to `http://localhost:4000/dev/analytics`
@@ -147,14 +188,11 @@ Script can be found here: `vegeta/vegeta.sh`
 
 ## For whom this library
 
-- [x] Single instance Phoenix app
-- [x] Multiple instances of Phoenix app without auto scaling group
-
-- [ ] Multiple instances of Phoenix app **with** auto scaling group
-
-There is a plan to build a separate backend to be powered by ClickHouse in order to track requests across multiple nodes in orchestrated scenarios.
+- [x] Single instance Phoenix app (duckdb only recommended)
+- [x] Multiple instances of Phoenix app **without** auto scaling group (duckdb or postgres option can be used)
+- [x] Multiple instances of Phoenix app **with** auto scaling group (only postgres powered apps supported at the moment)
 
 ### Heavily inspired by
 
-- [https://github.com/elixir-error-tracker/error-tracker](https://github.com/elixir-error-tracker/error-tracker)
-- [https://plausible.io](https://plausible.io)
+- [error-tracker](https://github.com/elixir-error-tracker/error-tracker)
+- [plausible.io](https://plausible.io)

@@ -15,7 +15,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
       <.react
         name="ResChart"
         dateRange={@date_range}
-        chartData={@chart_data}
+        chartData={@chart_data.result || []}
         chartTitle={@chart_title}
         socket={@socket}
       />
@@ -30,7 +30,9 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
 
     {:ok,
      assign(socket, assigns)
-     |> assign(:chart_data, chart_data(data_source, date_range))}
+     |> assign_async(:chart_data, fn ->
+       {:ok, %{chart_data: chart_data(data_source, date_range)}}
+     end)}
   end
 
   defp chart_data(source, %{from: from, to: to} = _date_range) do
