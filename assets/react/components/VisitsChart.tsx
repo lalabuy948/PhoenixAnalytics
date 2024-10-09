@@ -167,7 +167,7 @@ export function VisitsChart({
                       ...(interval === "hour" && { hour: "numeric" }),
                     });
                   }}
-                  indicator="dashed"
+                  indicator="dot"
                 />
               }
             />

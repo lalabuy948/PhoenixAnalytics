@@ -89,7 +89,7 @@ export function ResChart({
             <ChartTooltip
               cursor={false}
               content={
-                <ChartTooltipContent className="w-[175px]" indicator="line" />
+                <ChartTooltipContent className="w-[175px]" indicator="dot" />
               }
             />
             <Bar
