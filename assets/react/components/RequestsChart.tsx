@@ -129,6 +129,7 @@ export function RequestsChart({
                 <ChartTooltipContent
                   className="w-[170px]"
                   nameKey="views"
+                  indicator="dot"
                   labelFormatter={(value) => {
                     return new Date(value).toLocaleDateString("en-US", {
                       month: "short",

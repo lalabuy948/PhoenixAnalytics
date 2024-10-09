@@ -88,7 +88,7 @@ export function PopularChart({
             <ChartTooltip
               cursor={false}
               content={
-                <ChartTooltipContent className="w-[200px]" indicator="line" />
+                <ChartTooltipContent className="w-[200px]" indicator="dot" />
               }
             />
             <Bar

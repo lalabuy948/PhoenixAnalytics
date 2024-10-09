@@ -194,7 +194,7 @@ export function StatusChart({
                       ...(interval === "hour" && { hour: "numeric" }),
                     });
                   }}
-                  indicator="dashed"
+                  indicator="dot"
                 />
               }
             />
