@@ -109,8 +109,10 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
 
   defp generate_uuid, do: Utility.uuid()
 
-  defp format_ip({a, b, c, d}), do: "#{a}.#{b}.#{c}.#{d}"
-  defp format_ip(ip), do: to_string(ip)
+  defp hash_ip(ip), do: :erlang.phash2(ip, 1_000_000) |> Integer.to_string()
+
+  defp format_ip({a, b, c, d}), do: "#{a}.#{b}.#{c}.#{d}" |> hash_ip
+  defp format_ip(ip), do: to_string(ip) |> hash_ip
 
   defp remote_ip(conn = %Plug.Conn{}) do
     remote_ip =
