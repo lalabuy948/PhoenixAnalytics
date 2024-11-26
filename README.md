@@ -66,6 +66,18 @@ config :phoenix_analytics,
   cache_ttl: System.get_env("CACHE_TTL") || 120 # seconds
 ```
 
+> [!IMPORTANT]
+> In case you are hosting your app on fly.io or heroku which doesn't let to persist data on the disk, 
+> you can add `in_memory: true` into :phoenix_analytics config. 
+> And don't forget to remove `duckdb_path` from the config, otherwise PA will try to create duckdb on the disk. 
+
+```elixir
+config :phoenix_analytics,
+  app_domain: System.get_env("PHX_HOST") || "example.com",
+  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost",
+  in_memory: true
+```
+
 Add migration file
 
 > In case you have ecto less / no migrations project you can do the following:
