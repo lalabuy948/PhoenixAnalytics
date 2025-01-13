@@ -20,6 +20,8 @@ defmodule PhoenixAnalytics.Repo do
   @table PhoenixAnalytics.Queries.Table.name()
   @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
              System.get_env("DUCKDB_PATH")
+  @in_memory Application.compile_env(:phoenix_analytics, :in_memory) ||
+               System.get_env("DUCKDB_IN_MEMORY")
 
   @doc false
   def start_link(_) do
@@ -65,10 +67,17 @@ defmodule PhoenixAnalytics.Repo do
 
   """
   def get_read_connection do
-    with {:ok, db} <- Duckdbex.open(@db_path),
+    with {:ok, db} <- open_duckdb(),
          {:ok, connection} <- Duckdbex.connection(db),
          {:ok, _} <- Bridge.attach_postgres(db, connection) do
       {:ok, connection}
+    end
+  end
+
+  defp open_duckdb() do
+    case @in_memory do
+      true -> Duckdbex.open()
+      _ -> Duckdbex.open(@db_path)
     end
   end
 
@@ -93,7 +102,7 @@ defmodule PhoenixAnalytics.Repo do
 
   """
   def init(_state) do
-    with {:ok, db} <- Duckdbex.open(@db_path),
+    with {:ok, db} <- open_duckdb(),
          {:ok, conn} <- Duckdbex.connection(db),
          {:ok, read_conn} <- Duckdbex.connection(db),
          {:ok, _} <- Bridge.attach_postgres(db, conn) do

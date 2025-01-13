@@ -79,7 +79,7 @@ export function DeviceChart({
                 <ChartTooltipContent
                   className="w-[150px]"
                   hideLabel
-                  indicator="dashed"
+                  indicator="dot"
                 />
               }
             />
