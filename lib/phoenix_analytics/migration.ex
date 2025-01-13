@@ -6,9 +6,11 @@ defmodule PhoenixAnalytics.Migration do
 
   @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
              System.get_env("DUCKDB_PATH")
+  @in_memory Application.compile_env(:phoenix_analytics, :in_memory) ||
+               System.get_env("DUCKDB_IN_MEMORY")
 
   def up do
-    {:ok, db} = Duckdbex.open(@db_path)
+    {:ok, db} = open_duckdb()
     {:ok, conn} = Duckdbex.connection(db)
 
     Bridge.attach_postgres(db, conn)
@@ -27,7 +29,7 @@ defmodule PhoenixAnalytics.Migration do
   end
 
   def down do
-    {:ok, db} = Duckdbex.open(@db_path)
+    {:ok, db} = open_duckdb()
     {:ok, conn} = Duckdbex.connection(db)
 
     Bridge.attach_postgres(db, conn)
@@ -42,6 +44,13 @@ defmodule PhoenixAnalytics.Migration do
       {:error, reason} ->
         IO.puts("Failed to roll back migration: #{reason}")
         {:error, reason}
+    end
+  end
+
+  defp open_duckdb() do
+    case @in_memory do
+      true -> Duckdbex.open()
+      _ -> Duckdbex.open(@db_path)
     end
   end
 end
