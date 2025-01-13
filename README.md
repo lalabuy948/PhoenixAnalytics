@@ -32,7 +32,7 @@ by adding `phoenix_analytics` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_analytics, "~> 0.2"}
+    {:phoenix_analytics, "~> 0.3"}
   ]
 end
 ```
@@ -67,9 +67,9 @@ config :phoenix_analytics,
 ```
 
 > [!IMPORTANT]
-> In case you are hosting your app on fly.io or heroku which doesn't let to persist data on the disk, 
-> you can add `in_memory: true` into :phoenix_analytics config. 
-> And don't forget to remove `duckdb_path` from the config, otherwise PA will try to create duckdb on the disk. 
+> In case you are hosting your app on fly.io or heroku which doesn't let to persist data on the disk,
+> you can add `in_memory: true` into :phoenix_analytics config.
+> And don't forget to remove `duckdb_path` from the config, otherwise PA will try to create duckdb on the disk.
 
 ```elixir
 config :phoenix_analytics,
