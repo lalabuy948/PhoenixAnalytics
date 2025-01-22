@@ -130,6 +130,58 @@ Update your `.gitignore`
 > [!WARNING]
 > ‼️ Please test thoroughly before proceeding to production!
 
+
+### Deploying
+
+#### Self-host with Coolify
+If you're self-hosting with Coolify and you want to use DuckDB, you will have to make a few changes to the Dockerfile.
+Coolify creates container volumes with `nobody:root` and without write permissions. We have to add that.
+
+1. Create a storage in your project
+    - choose Volume Mount
+    - you only need to give it a destination, I use `/app/data`  
+
+
+2. Add the path in your env variables and make it available at build time.
+For example
+    - `DUCKDB_PATH`
+    - `/app/data/analytics.duckdb`
+    - - [x] Build variable?
+
+ 
+3. Update the Dockerfile
+ 
+```Dockerfile
+# in builder phase add
+ARG DUCKDB_PATH
+ENV DUCKDB_PATH=${DUCKDB_PATH}
+
+...
+...
+
+# in runner phase, add after these lines
+WORKDIR "/app"
+RUN chown nobody /app
+
+#
+# add the following
+#
+WORKDIR /app/data # replace `/app/data` by whichever path you choose 
+RUN chown nobody:root /app/data
+RUN chmod -R g+w /app/data
+WORKDIR "/app"
+
+...
+
+# set runner ENV
+ENV MIX_ENV="prod"
+...
+```
+
+
+
+
+
 ## Documentation
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
