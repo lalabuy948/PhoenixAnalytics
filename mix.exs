@@ -1,7 +1,7 @@
 defmodule PhoenixAnalytics.MixProject do
   use Mix.Project
 
-  @version "0.3.0"
+  @version "0.3.1"
 
   def project do
     [
@@ -61,7 +61,7 @@ defmodule PhoenixAnalytics.MixProject do
     [
       {:plug, "~> 1.16"},
       {:cachex, "~> 3.6"},
-      {:duckdbex, "~> 0.3"},
+      {:duckdbex, "0.3.7"},
       {:telemetry, "~> 1.2"},
       {:live_react, "~> 0.1"},
       {:elixir_uuid, "~> 1.2"},
