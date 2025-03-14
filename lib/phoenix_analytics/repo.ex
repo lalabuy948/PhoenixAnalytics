@@ -223,6 +223,9 @@ defmodule PhoenixAnalytics.Repo do
           prepared = prepare_requests(batch)
           {:ok, appender} = Duckdbex.appender(conection, @table)
           Duckdbex.appender_add_rows(appender, prepared)
+
+          # force to persist values
+          Duckdbex.appender_close(appender)
         end
 
       {:error, reason} ->
@@ -262,7 +265,7 @@ defmodule PhoenixAnalytics.Repo do
 
   """
   def execute_fetch({query, params}) do
-    case get_read_connection() do
+    case get_connection() do
       {:ok, conection} ->
         {:ok, stmt_ref} = Duckdbex.prepare_statement(conection, query)
         {:ok, result_ref} = Duckdbex.execute_statement(stmt_ref, params)
