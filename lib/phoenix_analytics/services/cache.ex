@@ -57,7 +57,7 @@ defmodule PhoenixAnalytics.Services.Cache do
       iex> PhoenixAnalytics.Services.Cache.add("existing_key", "updated_value")
       {:ok, true}
   """
-  def add(key, value), do: Cachex.put(@cache, key, value, ttl: :timer.seconds(@ttl))
+  def add(key, value), do: Cachex.put(@cache, key, value, expire: :timer.seconds(@ttl))
 
   @doc """
   Fetches a value from the cache for the given key, or computes and caches it if not present.
@@ -86,7 +86,9 @@ defmodule PhoenixAnalytics.Services.Cache do
   def fetch(key, callback) do
     cond do
       @ttl > 0 ->
-        Cachex.fetch(@cache, key, fn _ -> {:commit, callback.()} end, ttl: :timer.seconds(@ttl))
+        Cachex.fetch(@cache, key, fn _ -> {:commit, callback.()} end,
+          expire: :timer.seconds(@ttl)
+        )
 
       true ->
         {:ok, callback.()}
