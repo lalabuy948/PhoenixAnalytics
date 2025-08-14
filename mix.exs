@@ -71,10 +71,10 @@ defmodule PhoenixAnalytics.MixProject do
       {:ex_doc, "~> 0.33", only: :dev},
       {:esbuild, "~> 0.8", only: :dev, runtime: false},
       {:tailwind, "~> 0.1", only: :dev, runtime: false},
-      # Database adapters for development and testing (optional)
-      {:postgrex, "~> 0.17", only: [:dev, :test], optional: true},
-      {:ecto_sqlite3, "~> 0.12", only: [:dev, :test], optional: true},
-      {:myxql, "~> 0.6", only: [:dev, :test], optional: true}
+      # Database adapters for development and testing
+      {:postgrex, "~> 0.17", only: [:dev, :test]},
+      {:ecto_sqlite3, "~> 0.12", only: [:dev, :test]},
+      {:myxql, "~> 0.6", only: [:dev, :test]}
     ]
   end
 
@@ -95,9 +95,6 @@ defmodule PhoenixAnalytics.MixProject do
         PhoenixAnalytics.Services.PubSub,
         PhoenixAnalytics.Services.Telemetry,
         PhoenixAnalytics.Services.Utility
-      ],
-      Repository: [
-        PhoenixAnalytics.Repo
       ]
     ]
   end

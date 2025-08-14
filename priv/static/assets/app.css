@@ -591,8 +591,8 @@ video {
   --popover-foreground: 0 0% 98%;
   --primary: 221.2 83.2% 53.3%;
   --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
   --muted: 240 3.7% 15.9%;
   --muted-foreground: 240 5% 64.9%;
   --accent: 240 3.7% 15.9%;
@@ -607,6 +607,262 @@ video {
   --chart-3: 216 92% 60%;
   --chart-4: 210 98% 78%;
   --chart-5: 212 97% 87%;
+}
+
+/* Color Theme Classes */
+
+.theme-zinc {
+  --primary: 240 6% 10%;
+  --primary-foreground: 0 0% 98%;
+  --ring: 240 6% 10%;
+  --chart-1: 240 6% 10%;
+  --chart-2: 240 5% 26%;
+  --chart-3: 240 5% 41%;
+  --chart-4: 240 4% 56%;
+  --chart-5: 240 4% 71%;
+}
+
+.theme-slate {
+  --primary: 215.4 16.3% 46.9%;
+  --primary-foreground: 210 40% 98%;
+  --ring: 215.4 16.3% 46.9%;
+  --chart-1: 215.4 16.3% 46.9%;
+  --chart-2: 215.3 19.3% 34.5%;
+  --chart-3: 215.4 16.3% 56.9%;
+  --chart-4: 214.3 31.8% 71.4%;
+  --chart-5: 210 40% 86.1%;
+}
+
+.theme-stone {
+  --primary: 24 10% 10%;
+  --primary-foreground: 60 9% 98%;
+  --ring: 24 10% 10%;
+  --chart-1: 24 10% 10%;
+  --chart-2: 24 9% 25%;
+  --chart-3: 24 6% 44%;
+  --chart-4: 24 6% 63%;
+  --chart-5: 60 9% 78%;
+}
+
+.theme-gray {
+  --primary: 220.9 39.3% 11%;
+  --primary-foreground: 220 14.3% 95.9%;
+  --ring: 220.9 39.3% 11%;
+  --chart-1: 220.9 39.3% 11%;
+  --chart-2: 217.2 32.6% 17.5%;
+  --chart-3: 215 20.2% 65.1%;
+  --chart-4: 220 14.3% 75.9%;
+  --chart-5: 220 13% 91%;
+}
+
+.theme-neutral {
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 96.1%;
+  --ring: 0 0% 9%;
+  --chart-1: 0 0% 9%;
+  --chart-2: 0 0% 25%;
+  --chart-3: 0 0% 45%;
+  --chart-4: 0 0% 65%;
+  --chart-5: 0 0% 85%;
+}
+
+.theme-red {
+  --primary: 0 72.2% 50.6%;
+  --primary-foreground: 0 85.7% 97.3%;
+  --ring: 0 72.2% 50.6%;
+  --chart-1: 0 72.2% 50.6%;
+  --chart-2: 0 84% 60.2%;
+  --chart-3: 0 91% 71.2%;
+  --chart-4: 0 96% 82.3%;
+  --chart-5: 0 93% 94.1%;
+}
+
+.theme-rose {
+  --primary: 346.8 77.2% 49.8%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --ring: 346.8 77.2% 49.8%;
+  --chart-1: 346.8 77.2% 49.8%;
+  --chart-2: 347.8 83.3% 58%;
+  --chart-3: 348.5 89.9% 66.3%;
+  --chart-4: 349.7 95.4% 74.9%;
+  --chart-5: 351 95.9% 84.3%;
+}
+
+.theme-orange {
+  --primary: 24.6 95% 53.1%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --ring: 24.6 95% 53.1%;
+  --chart-1: 24.6 95% 53.1%;
+  --chart-2: 20.5 90.2% 48.2%;
+  --chart-3: 24.3 92.8% 58.8%;
+  --chart-4: 25.4 95.1% 69.4%;
+  --chart-5: 32.1 94.8% 83.5%;
+}
+
+.theme-green {
+  --primary: 142.1 76.2% 36.3%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --ring: 142.1 76.2% 36.3%;
+  --chart-1: 142.1 76.2% 36.3%;
+  --chart-2: 141.8 85.2% 32.5%;
+  --chart-3: 142.4 71.8% 29.2%;
+  --chart-4: 141.9 69.2% 58.2%;
+  --chart-5: 142.7 64.2% 69.6%;
+}
+
+.theme-blue {
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --ring: 221.2 83.2% 53.3%;
+  --chart-1: 221.2 83.2% 53.3%;
+  --chart-2: 212 95% 68%;
+  --chart-3: 216 92% 60%;
+  --chart-4: 210 98% 78%;
+  --chart-5: 212 97% 87%;
+}
+
+.theme-yellow {
+  --primary: 47.9 95.8% 53.1%;
+  --primary-foreground: 26 83.3% 14.1%;
+  --ring: 47.9 95.8% 53.1%;
+  --chart-1: 47.9 95.8% 53.1%;
+  --chart-2: 48.4 95.9% 58.4%;
+  --chart-3: 48 96% 63.3%;
+  --chart-4: 48 100% 67.1%;
+  --chart-5: 49.6 100% 80%;
+}
+
+.theme-violet {
+  --primary: 262.1 83.3% 57.8%;
+  --primary-foreground: 210 40% 98%;
+  --ring: 262.1 83.3% 57.8%;
+  --chart-1: 262.1 83.3% 57.8%;
+  --chart-2: 263.4 70% 50.4%;
+  --chart-3: 270.3 69.3% 54.1%;
+  --chart-4: 262.1 73.3% 66.8%;
+  --chart-5: 263.5 71% 76.8%;
+}
+
+/* Dark mode overrides for color themes */
+
+.dark.theme-zinc {
+  --primary: 240 6% 10%;
+  --primary-foreground: 0 0% 98%;
+  --chart-1: 240 6% 90%;
+  --chart-2: 240 5% 74%;
+  --chart-3: 240 5% 59%;
+  --chart-4: 240 4% 44%;
+  --chart-5: 240 4% 29%;
+}
+
+.dark.theme-slate {
+  --primary: 215.4 16.3% 46.9%;
+  --primary-foreground: 210 40% 98%;
+  --chart-1: 210 40% 86.1%;
+  --chart-2: 214.3 31.8% 71.4%;
+  --chart-3: 215.4 16.3% 56.9%;
+  --chart-4: 215.3 19.3% 34.5%;
+  --chart-5: 215.4 16.3% 46.9%;
+}
+
+.dark.theme-stone {
+  --primary: 24 10% 10%;
+  --primary-foreground: 60 9% 98%;
+  --chart-1: 60 9% 78%;
+  --chart-2: 24 6% 63%;
+  --chart-3: 24 6% 44%;
+  --chart-4: 24 9% 25%;
+  --chart-5: 24 10% 10%;
+}
+
+.dark.theme-gray {
+  --primary: 220.9 39.3% 11%;
+  --primary-foreground: 220 14.3% 95.9%;
+  --chart-1: 220 13% 91%;
+  --chart-2: 220 14.3% 75.9%;
+  --chart-3: 215 20.2% 65.1%;
+  --chart-4: 217.2 32.6% 17.5%;
+  --chart-5: 220.9 39.3% 11%;
+}
+
+.dark.theme-neutral {
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 96.1%;
+  --chart-1: 0 0% 85%;
+  --chart-2: 0 0% 65%;
+  --chart-3: 0 0% 45%;
+  --chart-4: 0 0% 25%;
+  --chart-5: 0 0% 9%;
+}
+
+.dark.theme-red {
+  --primary: 0 72.2% 50.6%;
+  --primary-foreground: 0 85.7% 97.3%;
+  --chart-1: 0 72.2% 50.6%;
+  --chart-2: 0 84% 60.2%;
+  --chart-3: 0 91% 71.2%;
+  --chart-4: 0 96% 82.3%;
+  --chart-5: 0 93% 94.1%;
+}
+
+.dark.theme-rose {
+  --primary: 346.8 77.2% 49.8%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --chart-1: 346.8 77.2% 49.8%;
+  --chart-2: 347.8 83.3% 58%;
+  --chart-3: 348.5 89.9% 66.3%;
+  --chart-4: 349.7 95.4% 74.9%;
+  --chart-5: 351 95.9% 84.3%;
+}
+
+.dark.theme-orange {
+  --primary: 24.6 95% 53.1%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --chart-1: 24.6 95% 53.1%;
+  --chart-2: 20.5 90.2% 48.2%;
+  --chart-3: 24.3 92.8% 58.8%;
+  --chart-4: 25.4 95.1% 69.4%;
+  --chart-5: 32.1 94.8% 83.5%;
+}
+
+.dark.theme-green {
+  --primary: 142.1 76.2% 36.3%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --chart-1: 142.1 76.2% 36.3%;
+  --chart-2: 141.8 85.2% 32.5%;
+  --chart-3: 142.4 71.8% 29.2%;
+  --chart-4: 141.9 69.2% 58.2%;
+  --chart-5: 142.7 64.2% 69.6%;
+}
+
+.dark.theme-blue {
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --chart-1: 221.2 83.2% 53.3%;
+  --chart-2: 212 95% 68%;
+  --chart-3: 216 92% 60%;
+  --chart-4: 210 98% 78%;
+  --chart-5: 212 97% 87%;
+}
+
+.dark.theme-yellow {
+  --primary: 47.9 95.8% 53.1%;
+  --primary-foreground: 26 83.3% 14.1%;
+  --chart-1: 47.9 95.8% 53.1%;
+  --chart-2: 48.4 95.9% 58.4%;
+  --chart-3: 48 96% 63.3%;
+  --chart-4: 48 100% 67.1%;
+  --chart-5: 49.6 100% 80%;
+}
+
+.dark.theme-violet {
+  --primary: 262.1 83.3% 57.8%;
+  --primary-foreground: 210 40% 98%;
+  --chart-1: 262.1 83.3% 57.8%;
+  --chart-2: 263.4 70% 50.4%;
+  --chart-3: 270.3 69.3% 54.1%;
+  --chart-4: 262.1 73.3% 66.8%;
+  --chart-5: 263.5 71% 76.8%;
 }
 
 * {
@@ -680,6 +936,10 @@ body {
   right: -1rem;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -706,6 +966,10 @@ body {
 
 .right-5 {
   right: 1.25rem;
+}
+
+.top-0 {
+  top: 0px;
 }
 
 .top-1 {
@@ -761,6 +1025,10 @@ body {
 .my-20 {
   margin-top: 5rem;
   margin-bottom: 5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .mb-20 {
@@ -887,6 +1155,10 @@ body {
   height: 1.75rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-9 {
   height: 2.25rem;
 }
@@ -901,6 +1173,10 @@ body {
 
 .h-\[var\(--radix-select-trigger-height\)\] {
   height: var(--radix-select-trigger-height);
+}
+
+.h-full {
+  height: 100%;
 }
 
 .h-px {
@@ -925,6 +1201,10 @@ body {
 
 .w-0 {
   width: 0px;
+}
+
+.w-0\.5 {
+  width: 0.125rem;
 }
 
 .w-1 {
@@ -961,6 +1241,10 @@ body {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-48 {
+  width: 12rem;
 }
 
 .w-5 {
@@ -1121,6 +1405,10 @@ body {
 
 .scroll-mt-20 {
   scroll-margin-top: 5rem;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -1290,6 +1578,10 @@ body {
   border-width: 1px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-\[1\.5px\] {
   border-width: 1.5px;
 }
@@ -1314,6 +1606,10 @@ body {
   border-color: hsl(var(--border) / 0.5);
 }
 
+.border-foreground\/20 {
+  border-color: hsl(var(--foreground) / 0.2);
+}
+
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -1321,6 +1617,14 @@ body {
 
 .border-input {
   border-color: hsl(var(--input));
+}
+
+.border-muted {
+  border-color: hsl(var(--muted));
+}
+
+.border-ring {
+  border-color: hsl(var(--ring));
 }
 
 .border-rose-400 {
@@ -1578,6 +1882,10 @@ body {
 
 .text-\[0\.8rem\] {
   font-size: 0.8rem;
+}
+
+.text-\[10px\] {
+  font-size: 10px;
 }
 
 .text-lg {

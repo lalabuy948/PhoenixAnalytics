@@ -42,7 +42,10 @@ defmodule PhoenixAnalytics.Web.Live.Components.Header do
         <%!-- Right side of navbar --%>
         <div class="flex items-center gap-4 font-semibold leading-6">
           <.react name="DateRangePicker" socket={@socket} dateRange={@date_range} />
-          <.react name="ThemeToggle" socket={@socket} />
+          <div class="flex items-center gap-2">
+            <.react name="ColorSelector" socket={@socket} />
+            <.react name="ThemeToggle" socket={@socket} />
+          </div>
         </div>
       </div>
     </header>

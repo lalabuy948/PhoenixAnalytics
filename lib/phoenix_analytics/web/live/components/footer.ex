@@ -58,7 +58,10 @@ defmodule PhoenixAnalytics.Web.Live.Components.Footer do
 
         <%!-- Right side of footer --%>
         <div class="flex items-center gap-4 font-semibold leading-6">
-          <.react name="ThemeToggle" socket={@socket} />
+          <div class="flex items-center gap-2">
+            <.react name="ColorSelector" socket={@socket} />
+            <.react name="ThemeToggle" socket={@socket} />
+          </div>
         </div>
       </div>
     </footer>

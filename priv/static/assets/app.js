@@ -577,7 +577,7 @@
             }
             return element;
           };
-          function createElement30(type, config, children) {
+          function createElement31(type, config, children) {
             var propName;
             var props = {};
             var key = null;
@@ -1151,7 +1151,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState25(initialState) {
+          function useState26(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1163,7 +1163,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect25(create, deps) {
+          function useEffect26(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1676,7 +1676,7 @@
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
               }
             }
-            var element = createElement30.apply(this, arguments);
+            var element = createElement31.apply(this, arguments);
             if (element == null) {
               return element;
             }
@@ -1946,7 +1946,7 @@
           exports.useContext = useContext8;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect25;
+          exports.useEffect = useEffect26;
           exports.useId = useId4;
           exports.useImperativeHandle = useImperativeHandle2;
           exports.useInsertionEffect = useInsertionEffect;
@@ -1954,7 +1954,7 @@
           exports.useMemo = useMemo10;
           exports.useReducer = useReducer3;
           exports.useRef = useRef22;
-          exports.useState = useState25;
+          exports.useState = useState26;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -1985,7 +1985,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React98 = require_react();
+          var React99 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -2011,7 +2011,7 @@
             }
             return null;
           }
-          var ReactSharedInternals2 = React98.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals2 = React99.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format3) {
             {
               {
@@ -3355,9 +3355,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React98 = require_react();
+          var React99 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals2 = React98.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals2 = React99.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4962,7 +4962,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React98.Children.forEach(props.children, function(child) {
+                  React99.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -10361,7 +10361,7 @@
               }
             }
           }
-          function createElement30(type, props, rootContainerElement, parentNamespace) {
+          function createElement31(type, props, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
@@ -11222,7 +11222,7 @@
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement30(type, props, rootContainerInstance, parentNamespace);
+            var domElement = createElement31(type, props, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props);
             return domElement;
@@ -38437,6 +38437,21 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     ["path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z", key: "a7tn18" }]
   ]);
 
+  // node_modules/lucide-react/dist/esm/icons/palette.js
+  var Palette = createLucideIcon("Palette", [
+    ["circle", { cx: "13.5", cy: "6.5", r: ".5", fill: "currentColor", key: "1okk4w" }],
+    ["circle", { cx: "17.5", cy: "10.5", r: ".5", fill: "currentColor", key: "f64h9f" }],
+    ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor", key: "fotxhn" }],
+    ["circle", { cx: "6.5", cy: "12.5", r: ".5", fill: "currentColor", key: "qy21gx" }],
+    [
+      "path",
+      {
+        d: "M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z",
+        key: "12rzf8"
+      }
+    ]
+  ]);
+
   // node_modules/lucide-react/dist/esm/icons/sun.js
   var Sun = createLucideIcon("Sun", [
     ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
@@ -46751,8 +46766,559 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return /* @__PURE__ */ React38.createElement(DropdownMenu2, null, /* @__PURE__ */ React38.createElement(DropdownMenuTrigger2, { asChild: true }, /* @__PURE__ */ React38.createElement(Button, { variant: "outline", size: "icon" }, /* @__PURE__ */ React38.createElement(Sun, { className: "h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" }), /* @__PURE__ */ React38.createElement(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" }), /* @__PURE__ */ React38.createElement("span", { className: "sr-only" }, "Toggle theme"))), /* @__PURE__ */ React38.createElement(DropdownMenuContent2, { align: "end" }, /* @__PURE__ */ React38.createElement(DropdownMenuItem2, { onClick: () => setThemeState("theme-light") }, "Light"), /* @__PURE__ */ React38.createElement(DropdownMenuItem2, { onClick: () => setThemeState("dark") }, "Dark"), /* @__PURE__ */ React38.createElement(DropdownMenuItem2, { onClick: () => setThemeState("system") }, "System")));
   }
 
+  // react/components/ColorSelector.tsx
+  var React39 = __toESM(require_react());
+
+  // node_modules/react-hotkeys-hook/dist/react-hotkeys-hook.esm.js
+  var import_react6 = __toESM(require_react());
+  var import_jsx_runtime17 = __toESM(require_jsx_runtime());
+  function _extends() {
+    _extends = Object.assign ? Object.assign.bind() : function(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    };
+    return _extends.apply(this, arguments);
+  }
+  var reservedModifierKeywords = ["shift", "alt", "meta", "mod", "ctrl"];
+  var mappedKeys = {
+    esc: "escape",
+    "return": "enter",
+    ".": "period",
+    ",": "comma",
+    "-": "slash",
+    " ": "space",
+    "`": "backquote",
+    "#": "backslash",
+    "+": "bracketright",
+    ShiftLeft: "shift",
+    ShiftRight: "shift",
+    AltLeft: "alt",
+    AltRight: "alt",
+    MetaLeft: "meta",
+    MetaRight: "meta",
+    OSLeft: "meta",
+    OSRight: "meta",
+    ControlLeft: "ctrl",
+    ControlRight: "ctrl"
+  };
+  function mapKey(key) {
+    return (mappedKeys[key] || key).trim().toLowerCase().replace(/key|digit|numpad|arrow/, "");
+  }
+  function isHotkeyModifier(key) {
+    return reservedModifierKeywords.includes(key);
+  }
+  function parseKeysHookInput(keys2, splitKey) {
+    if (splitKey === void 0) {
+      splitKey = ",";
+    }
+    return keys2.split(splitKey);
+  }
+  function parseHotkey(hotkey, combinationKey, description) {
+    if (combinationKey === void 0) {
+      combinationKey = "+";
+    }
+    var keys2 = hotkey.toLocaleLowerCase().split(combinationKey).map(function(k2) {
+      return mapKey(k2);
+    });
+    var modifiers = {
+      alt: keys2.includes("alt"),
+      ctrl: keys2.includes("ctrl") || keys2.includes("control"),
+      shift: keys2.includes("shift"),
+      meta: keys2.includes("meta"),
+      mod: keys2.includes("mod")
+    };
+    var singleCharKeys = keys2.filter(function(k2) {
+      return !reservedModifierKeywords.includes(k2);
+    });
+    return _extends({}, modifiers, {
+      keys: singleCharKeys,
+      description
+    });
+  }
+  (function() {
+    if (typeof document !== "undefined") {
+      document.addEventListener("keydown", function(e) {
+        if (e.key === void 0) {
+          return;
+        }
+        pushToCurrentlyPressedKeys([mapKey(e.key), mapKey(e.code)]);
+      });
+      document.addEventListener("keyup", function(e) {
+        if (e.key === void 0) {
+          return;
+        }
+        removeFromCurrentlyPressedKeys([mapKey(e.key), mapKey(e.code)]);
+      });
+    }
+    if (typeof window !== "undefined") {
+      window.addEventListener("blur", function() {
+        currentlyPressedKeys.clear();
+      });
+    }
+  })();
+  var currentlyPressedKeys = /* @__PURE__ */ new Set();
+  function isReadonlyArray(value) {
+    return Array.isArray(value);
+  }
+  function isHotkeyPressed(key, splitKey) {
+    if (splitKey === void 0) {
+      splitKey = ",";
+    }
+    var hotkeyArray = isReadonlyArray(key) ? key : key.split(splitKey);
+    return hotkeyArray.every(function(hotkey) {
+      return currentlyPressedKeys.has(hotkey.trim().toLowerCase());
+    });
+  }
+  function pushToCurrentlyPressedKeys(key) {
+    var hotkeyArray = Array.isArray(key) ? key : [key];
+    if (currentlyPressedKeys.has("meta")) {
+      currentlyPressedKeys.forEach(function(key2) {
+        return !isHotkeyModifier(key2) && currentlyPressedKeys["delete"](key2.toLowerCase());
+      });
+    }
+    hotkeyArray.forEach(function(hotkey) {
+      return currentlyPressedKeys.add(hotkey.toLowerCase());
+    });
+  }
+  function removeFromCurrentlyPressedKeys(key) {
+    var hotkeyArray = Array.isArray(key) ? key : [key];
+    if (key === "meta") {
+      currentlyPressedKeys.clear();
+    } else {
+      hotkeyArray.forEach(function(hotkey) {
+        return currentlyPressedKeys["delete"](hotkey.toLowerCase());
+      });
+    }
+  }
+  function maybePreventDefault(e, hotkey, preventDefault) {
+    if (typeof preventDefault === "function" && preventDefault(e, hotkey) || preventDefault === true) {
+      e.preventDefault();
+    }
+  }
+  function isHotkeyEnabled(e, hotkey, enabled) {
+    if (typeof enabled === "function") {
+      return enabled(e, hotkey);
+    }
+    return enabled === true || enabled === void 0;
+  }
+  function isKeyboardEventTriggeredByInput(ev) {
+    return isHotkeyEnabledOnTag(ev, ["input", "textarea", "select"]);
+  }
+  function isHotkeyEnabledOnTag(_ref, enabledOnTags) {
+    var target = _ref.target;
+    if (enabledOnTags === void 0) {
+      enabledOnTags = false;
+    }
+    var targetTagName = target && target.tagName;
+    if (isReadonlyArray(enabledOnTags)) {
+      return Boolean(targetTagName && enabledOnTags && enabledOnTags.some(function(tag) {
+        return tag.toLowerCase() === targetTagName.toLowerCase();
+      }));
+    }
+    return Boolean(targetTagName && enabledOnTags && enabledOnTags === true);
+  }
+  function isScopeActive(activeScopes, scopes) {
+    if (activeScopes.length === 0 && scopes) {
+      console.warn('A hotkey has the "scopes" option set, however no active scopes were found. If you want to use the global scopes feature, you need to wrap your app in a <HotkeysProvider>');
+      return true;
+    }
+    if (!scopes) {
+      return true;
+    }
+    return activeScopes.some(function(scope) {
+      return scopes.includes(scope);
+    }) || activeScopes.includes("*");
+  }
+  var isHotkeyMatchingKeyboardEvent = function isHotkeyMatchingKeyboardEvent2(e, hotkey, ignoreModifiers) {
+    if (ignoreModifiers === void 0) {
+      ignoreModifiers = false;
+    }
+    var alt = hotkey.alt, meta = hotkey.meta, mod = hotkey.mod, shift4 = hotkey.shift, ctrl = hotkey.ctrl, keys2 = hotkey.keys;
+    var pressedKeyUppercase = e.key, code = e.code, ctrlKey = e.ctrlKey, metaKey = e.metaKey, shiftKey = e.shiftKey, altKey = e.altKey;
+    var keyCode = mapKey(code);
+    var pressedKey = pressedKeyUppercase.toLowerCase();
+    if (!(keys2 != null && keys2.includes(keyCode)) && !(keys2 != null && keys2.includes(pressedKey)) && !["ctrl", "control", "unknown", "meta", "alt", "shift", "os"].includes(keyCode)) {
+      return false;
+    }
+    if (!ignoreModifiers) {
+      if (alt === !altKey && pressedKey !== "alt") {
+        return false;
+      }
+      if (shift4 === !shiftKey && pressedKey !== "shift") {
+        return false;
+      }
+      if (mod) {
+        if (!metaKey && !ctrlKey) {
+          return false;
+        }
+      } else {
+        if (meta === !metaKey && pressedKey !== "meta" && pressedKey !== "os") {
+          return false;
+        }
+        if (ctrl === !ctrlKey && pressedKey !== "ctrl" && pressedKey !== "control") {
+          return false;
+        }
+      }
+    }
+    if (keys2 && keys2.length === 1 && (keys2.includes(pressedKey) || keys2.includes(keyCode))) {
+      return true;
+    } else if (keys2) {
+      return isHotkeyPressed(keys2);
+    } else if (!keys2) {
+      return true;
+    }
+    return false;
+  };
+  var BoundHotkeysProxyProvider = /* @__PURE__ */ (0, import_react6.createContext)(void 0);
+  var useBoundHotkeysProxy = function useBoundHotkeysProxy2() {
+    return (0, import_react6.useContext)(BoundHotkeysProxyProvider);
+  };
+  function deepEqual2(x2, y2) {
+    return x2 && y2 && typeof x2 === "object" && typeof y2 === "object" ? Object.keys(x2).length === Object.keys(y2).length && //@ts-ignore
+    Object.keys(x2).reduce(function(isEqual6, key) {
+      return isEqual6 && deepEqual2(x2[key], y2[key]);
+    }, true) : x2 === y2;
+  }
+  var HotkeysContext = /* @__PURE__ */ (0, import_react6.createContext)({
+    hotkeys: [],
+    enabledScopes: [],
+    toggleScope: function toggleScope() {
+    },
+    enableScope: function enableScope() {
+    },
+    disableScope: function disableScope() {
+    }
+  });
+  var useHotkeysContext = function useHotkeysContext2() {
+    return (0, import_react6.useContext)(HotkeysContext);
+  };
+  function useDeepEqualMemo(value) {
+    var ref = (0, import_react6.useRef)(void 0);
+    if (!deepEqual2(ref.current, value)) {
+      ref.current = value;
+    }
+    return ref.current;
+  }
+  var stopPropagation = function stopPropagation2(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  };
+  var useSafeLayoutEffect = typeof window !== "undefined" ? import_react6.useLayoutEffect : import_react6.useEffect;
+  function useHotkeys(keys2, callback, options, dependencies) {
+    var ref = (0, import_react6.useRef)(null);
+    var hasTriggeredRef = (0, import_react6.useRef)(false);
+    var _options = !(options instanceof Array) ? options : !(dependencies instanceof Array) ? dependencies : void 0;
+    var _keys = isReadonlyArray(keys2) ? keys2.join(_options == null ? void 0 : _options.splitKey) : keys2;
+    var _deps = options instanceof Array ? options : dependencies instanceof Array ? dependencies : void 0;
+    var memoisedCB = (0, import_react6.useCallback)(callback, _deps != null ? _deps : []);
+    var cbRef = (0, import_react6.useRef)(memoisedCB);
+    if (_deps) {
+      cbRef.current = memoisedCB;
+    } else {
+      cbRef.current = callback;
+    }
+    var memoisedOptions = useDeepEqualMemo(_options);
+    var _useHotkeysContext = useHotkeysContext(), enabledScopes = _useHotkeysContext.enabledScopes;
+    var proxy = useBoundHotkeysProxy();
+    useSafeLayoutEffect(function() {
+      if ((memoisedOptions == null ? void 0 : memoisedOptions.enabled) === false || !isScopeActive(enabledScopes, memoisedOptions == null ? void 0 : memoisedOptions.scopes)) {
+        return;
+      }
+      var listener = function listener2(e, isKeyUp) {
+        var _e$target;
+        if (isKeyUp === void 0) {
+          isKeyUp = false;
+        }
+        if (isKeyboardEventTriggeredByInput(e) && !isHotkeyEnabledOnTag(e, memoisedOptions == null ? void 0 : memoisedOptions.enableOnFormTags)) {
+          return;
+        }
+        if (ref.current !== null) {
+          var rootNode = ref.current.getRootNode();
+          if ((rootNode instanceof Document || rootNode instanceof ShadowRoot) && rootNode.activeElement !== ref.current && !ref.current.contains(rootNode.activeElement)) {
+            stopPropagation(e);
+            return;
+          }
+        }
+        if ((_e$target = e.target) != null && _e$target.isContentEditable && !(memoisedOptions != null && memoisedOptions.enableOnContentEditable)) {
+          return;
+        }
+        parseKeysHookInput(_keys, memoisedOptions == null ? void 0 : memoisedOptions.splitKey).forEach(function(key) {
+          var _hotkey$keys;
+          var hotkey = parseHotkey(key, memoisedOptions == null ? void 0 : memoisedOptions.combinationKey);
+          if (isHotkeyMatchingKeyboardEvent(e, hotkey, memoisedOptions == null ? void 0 : memoisedOptions.ignoreModifiers) || (_hotkey$keys = hotkey.keys) != null && _hotkey$keys.includes("*")) {
+            if (memoisedOptions != null && memoisedOptions.ignoreEventWhen != null && memoisedOptions.ignoreEventWhen(e)) {
+              return;
+            }
+            if (isKeyUp && hasTriggeredRef.current) {
+              return;
+            }
+            maybePreventDefault(e, hotkey, memoisedOptions == null ? void 0 : memoisedOptions.preventDefault);
+            if (!isHotkeyEnabled(e, hotkey, memoisedOptions == null ? void 0 : memoisedOptions.enabled)) {
+              stopPropagation(e);
+              return;
+            }
+            cbRef.current(e, hotkey);
+            if (!isKeyUp) {
+              hasTriggeredRef.current = true;
+            }
+          }
+        });
+      };
+      var handleKeyDown = function handleKeyDown2(event) {
+        if (event.key === void 0) {
+          return;
+        }
+        pushToCurrentlyPressedKeys(mapKey(event.code));
+        if ((memoisedOptions == null ? void 0 : memoisedOptions.keydown) === void 0 && (memoisedOptions == null ? void 0 : memoisedOptions.keyup) !== true || memoisedOptions != null && memoisedOptions.keydown) {
+          listener(event);
+        }
+      };
+      var handleKeyUp = function handleKeyUp2(event) {
+        if (event.key === void 0) {
+          return;
+        }
+        removeFromCurrentlyPressedKeys(mapKey(event.code));
+        hasTriggeredRef.current = false;
+        if (memoisedOptions != null && memoisedOptions.keyup) {
+          listener(event, true);
+        }
+      };
+      var domNode = ref.current || (_options == null ? void 0 : _options.document) || document;
+      domNode.addEventListener("keyup", handleKeyUp);
+      domNode.addEventListener("keydown", handleKeyDown);
+      if (proxy) {
+        parseKeysHookInput(_keys, memoisedOptions == null ? void 0 : memoisedOptions.splitKey).forEach(function(key) {
+          return proxy.addHotkey(parseHotkey(key, memoisedOptions == null ? void 0 : memoisedOptions.combinationKey, memoisedOptions == null ? void 0 : memoisedOptions.description));
+        });
+      }
+      return function() {
+        domNode.removeEventListener("keyup", handleKeyUp);
+        domNode.removeEventListener("keydown", handleKeyDown);
+        if (proxy) {
+          parseKeysHookInput(_keys, memoisedOptions == null ? void 0 : memoisedOptions.splitKey).forEach(function(key) {
+            return proxy.removeHotkey(parseHotkey(key, memoisedOptions == null ? void 0 : memoisedOptions.combinationKey, memoisedOptions == null ? void 0 : memoisedOptions.description));
+          });
+        }
+      };
+    }, [_keys, memoisedOptions, enabledScopes]);
+    return ref;
+  }
+
+  // react/components/ColorSelector.tsx
+  var colorThemes = [
+    {
+      name: "zinc",
+      label: "Zinc",
+      cssClass: "theme-zinc",
+      colors: {
+        primary: "hsl(240 6% 10%)",
+        secondary: "hsl(240 5% 96%)",
+        accent: "hsl(240 5% 96%)"
+      }
+    },
+    {
+      name: "slate",
+      label: "Slate",
+      cssClass: "theme-slate",
+      colors: {
+        primary: "hsl(215.4 16.3% 46.9%)",
+        secondary: "hsl(210 40% 96%)",
+        accent: "hsl(210 40% 96%)"
+      }
+    },
+    {
+      name: "stone",
+      label: "Stone",
+      cssClass: "theme-stone",
+      colors: {
+        primary: "hsl(24 10% 10%)",
+        secondary: "hsl(60 9% 98%)",
+        accent: "hsl(60 9% 98%)"
+      }
+    },
+    {
+      name: "gray",
+      label: "Gray",
+      cssClass: "theme-gray",
+      colors: {
+        primary: "hsl(220.9 39.3% 11%)",
+        secondary: "hsl(220 14.3% 95.9%)",
+        accent: "hsl(220 14.3% 95.9%)"
+      }
+    },
+    {
+      name: "neutral",
+      label: "Neutral",
+      cssClass: "theme-neutral",
+      colors: {
+        primary: "hsl(0 0% 9%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "red",
+      label: "Red",
+      cssClass: "theme-red",
+      colors: {
+        primary: "hsl(0 72.2% 50.6%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "rose",
+      label: "Rose",
+      cssClass: "theme-rose",
+      colors: {
+        primary: "hsl(346.8 77.2% 49.8%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "orange",
+      label: "Orange",
+      cssClass: "theme-orange",
+      colors: {
+        primary: "hsl(24.6 95% 53.1%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "green",
+      label: "Green",
+      cssClass: "theme-green",
+      colors: {
+        primary: "hsl(142.1 76.2% 36.3%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "blue",
+      label: "Blue",
+      cssClass: "theme-blue",
+      colors: {
+        primary: "hsl(221.2 83.2% 53.3%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "yellow",
+      label: "Yellow",
+      cssClass: "theme-yellow",
+      colors: {
+        primary: "hsl(47.9 95.8% 53.1%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    },
+    {
+      name: "violet",
+      label: "Violet",
+      cssClass: "theme-violet",
+      colors: {
+        primary: "hsl(262.1 83.3% 57.8%)",
+        secondary: "hsl(0 0% 96.1%)",
+        accent: "hsl(0 0% 96.1%)"
+      }
+    }
+  ];
+  function ColorSelector() {
+    const [selectedTheme, setSelectedTheme] = React39.useState("blue");
+    React39.useEffect(() => {
+      const savedTheme = localStorage.getItem("color-theme") || "blue";
+      setSelectedTheme(savedTheme);
+      applyTheme(savedTheme);
+    }, []);
+    const applyTheme = (themeName) => {
+      const theme = colorThemes.find((t) => t.name === themeName);
+      if (!theme)
+        return;
+      colorThemes.forEach((t) => {
+        document.documentElement.classList.remove(t.cssClass);
+      });
+      document.documentElement.classList.add(theme.cssClass);
+      localStorage.setItem("color-theme", themeName);
+    };
+    const handleThemeChange = (themeName) => {
+      setSelectedTheme(themeName);
+      applyTheme(themeName);
+    };
+    useHotkeys("1", () => handleThemeChange("zinc"), []);
+    useHotkeys("2", () => handleThemeChange("slate"), []);
+    useHotkeys("3", () => handleThemeChange("stone"), []);
+    useHotkeys("4", () => handleThemeChange("gray"), []);
+    useHotkeys("5", () => handleThemeChange("neutral"), []);
+    useHotkeys("6", () => handleThemeChange("red"), []);
+    useHotkeys("7", () => handleThemeChange("rose"), []);
+    useHotkeys("8", () => handleThemeChange("orange"), []);
+    useHotkeys("9", () => handleThemeChange("green"), []);
+    useHotkeys("0", () => handleThemeChange("blue"), []);
+    useHotkeys("minus", () => handleThemeChange("yellow"), []);
+    useHotkeys("equal", () => handleThemeChange("violet"), []);
+    return /* @__PURE__ */ React39.createElement(DropdownMenu2, null, /* @__PURE__ */ React39.createElement(DropdownMenuTrigger2, { asChild: true }, /* @__PURE__ */ React39.createElement(Button, { variant: "outline", size: "icon" }, /* @__PURE__ */ React39.createElement(Palette, { className: "h-[1.2rem] w-[1.2rem]" }), /* @__PURE__ */ React39.createElement("span", { className: "sr-only" }, "Select color theme"))), /* @__PURE__ */ React39.createElement(DropdownMenuContent2, { align: "end", className: "w-48" }, /* @__PURE__ */ React39.createElement("div", { className: "p-2" }, /* @__PURE__ */ React39.createElement("div", { className: "mb-2 text-sm font-medium" }, "Color Theme"), /* @__PURE__ */ React39.createElement("div", { className: "grid grid-cols-3 gap-2" }, colorThemes.map((theme, index2) => {
+      const getShortcutKey = (index3) => {
+        if (index3 < 9)
+          return String(index3 + 1);
+        if (index3 === 9)
+          return "0";
+        if (index3 === 10)
+          return "-";
+        if (index3 === 11)
+          return "=";
+        return "";
+      };
+      return /* @__PURE__ */ React39.createElement(
+        "button",
+        {
+          key: theme.name,
+          className: cn(
+            "relative h-8 w-full rounded-md border-2 border-muted bg-popover",
+            selectedTheme === theme.name && "border-ring"
+          ),
+          onClick: () => handleThemeChange(theme.name),
+          title: `${theme.label} (${getShortcutKey(index2)})`
+        },
+        /* @__PURE__ */ React39.createElement("div", { className: "flex h-full w-full items-center gap-1 rounded-sm p-1" }, /* @__PURE__ */ React39.createElement(
+          "div",
+          {
+            className: "h-4 w-4 rounded-full border border-foreground/20",
+            style: { backgroundColor: theme.colors.primary }
+          }
+        ), /* @__PURE__ */ React39.createElement(
+          "div",
+          {
+            className: "h-4 w-4 rounded-full border border-foreground/20",
+            style: { backgroundColor: theme.colors.secondary }
+          }
+        ), /* @__PURE__ */ React39.createElement(
+          "div",
+          {
+            className: "h-4 w-4 rounded-full border border-foreground/20",
+            style: { backgroundColor: theme.colors.accent }
+          }
+        )),
+        selectedTheme === theme.name && /* @__PURE__ */ React39.createElement(Check, { className: "absolute right-1 top-1 h-3 w-3" }),
+        /* @__PURE__ */ React39.createElement("span", { className: "absolute bottom-0 left-1 text-[10px] text-muted-foreground opacity-60" }, getShortcutKey(index2)),
+        /* @__PURE__ */ React39.createElement("span", { className: "sr-only" }, theme.label)
+      );
+    })))));
+  }
+
   // react/components/VisitsChart.tsx
-  var React85 = __toESM(require_react());
+  var React86 = __toESM(require_react());
 
   // node_modules/date-fns/toDate.mjs
   function toDate(argument) {
@@ -48480,7 +49046,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   }
 
   // node_modules/recharts/es6/container/Surface.js
-  var import_react8 = __toESM(require_react());
+  var import_react9 = __toESM(require_react());
 
   // node_modules/recharts/es6/util/ReactUtils.js
   var import_get2 = __toESM(require_get());
@@ -48488,7 +49054,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   var import_isString2 = __toESM(require_isString());
   var import_isFunction = __toESM(require_isFunction());
   var import_isObject2 = __toESM(require_isObject());
-  var import_react7 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
   var import_react_is = __toESM(require_react_is());
 
   // node_modules/recharts/es6/util/DataUtils.js
@@ -48616,7 +49182,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   }
 
   // node_modules/recharts/es6/util/types.js
-  var import_react6 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
   var import_isObject = __toESM(require_isObject());
   function _typeof(o) {
     "@babel/helpers - typeof";
@@ -48949,7 +49515,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return null;
     }
     var inputProps = props;
-    if (/* @__PURE__ */ (0, import_react6.isValidElement)(props)) {
+    if (/* @__PURE__ */ (0, import_react7.isValidElement)(props)) {
       inputProps = props.props;
     }
     if (!(0, import_isObject.default)(inputProps)) {
@@ -49061,7 +49627,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return lastResult;
     }
     var result = [];
-    import_react7.Children.forEach(children, function(child) {
+    import_react8.Children.forEach(children, function(child) {
       if ((0, import_isNil2.default)(child))
         return;
       if ((0, import_react_is.isFragment)(child)) {
@@ -49123,7 +49689,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return null;
     }
     var inputProps = props;
-    if (/* @__PURE__ */ (0, import_react7.isValidElement)(props)) {
+    if (/* @__PURE__ */ (0, import_react8.isValidElement)(props)) {
       inputProps = props.props;
     }
     if (!(0, import_isObject2.default)(inputProps)) {
@@ -49142,8 +49708,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (nextChildren === prevChildren) {
       return true;
     }
-    var count3 = import_react7.Children.count(nextChildren);
-    if (count3 !== import_react7.Children.count(prevChildren)) {
+    var count3 = import_react8.Children.count(nextChildren);
+    if (count3 !== import_react8.Children.count(prevChildren)) {
       return false;
     }
     if (count3 === 0) {
@@ -49213,8 +49779,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
 
   // node_modules/recharts/es6/container/Surface.js
   var _excluded3 = ["children", "width", "height", "viewBox", "className", "style", "title", "desc"];
-  function _extends() {
-    _extends = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends2() {
+    _extends2 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -49225,7 +49791,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends.apply(this, arguments);
+    return _extends2.apply(this, arguments);
   }
   function _objectWithoutProperties2(source, excluded) {
     if (source == null)
@@ -49267,20 +49833,20 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       y: 0
     };
     var layerClass = clsx_default("recharts-surface", className);
-    return /* @__PURE__ */ import_react8.default.createElement("svg", _extends({}, filterProps(others, true, "svg"), {
+    return /* @__PURE__ */ import_react9.default.createElement("svg", _extends2({}, filterProps(others, true, "svg"), {
       className: layerClass,
       width,
       height,
       style,
       viewBox: "".concat(svgView.x, " ").concat(svgView.y, " ").concat(svgView.width, " ").concat(svgView.height)
-    }), /* @__PURE__ */ import_react8.default.createElement("title", null, title), /* @__PURE__ */ import_react8.default.createElement("desc", null, desc), children);
+    }), /* @__PURE__ */ import_react9.default.createElement("title", null, title), /* @__PURE__ */ import_react9.default.createElement("desc", null, desc), children);
   }
 
   // node_modules/recharts/es6/container/Layer.js
-  var import_react9 = __toESM(require_react());
+  var import_react10 = __toESM(require_react());
   var _excluded4 = ["children", "className"];
-  function _extends2() {
-    _extends2 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends3() {
+    _extends3 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -49291,7 +49857,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends2.apply(this, arguments);
+    return _extends3.apply(this, arguments);
   }
   function _objectWithoutProperties3(source, excluded) {
     if (source == null)
@@ -49324,10 +49890,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return target;
   }
-  var Layer = /* @__PURE__ */ import_react9.default.forwardRef(function(props, ref) {
+  var Layer = /* @__PURE__ */ import_react10.default.forwardRef(function(props, ref) {
     var children = props.children, className = props.className, others = _objectWithoutProperties3(props, _excluded4);
     var layerClass = clsx_default("recharts-layer", className);
-    return /* @__PURE__ */ import_react9.default.createElement("g", _extends2({
+    return /* @__PURE__ */ import_react10.default.createElement("g", _extends3({
       className: layerClass
     }, filterProps(others, true), {
       ref
@@ -49335,10 +49901,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/component/Legend.js
-  var import_react12 = __toESM(require_react());
+  var import_react13 = __toESM(require_react());
 
   // node_modules/recharts/es6/component/DefaultLegendContent.js
-  var import_react11 = __toESM(require_react());
+  var import_react12 = __toESM(require_react());
   var import_isFunction2 = __toESM(require_isFunction());
 
   // node_modules/recharts/es6/util/LogUtils.js
@@ -49365,7 +49931,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/shape/Symbols.js
-  var import_react10 = __toESM(require_react());
+  var import_react11 = __toESM(require_react());
   var import_upperFirst = __toESM(require_upperFirst());
 
   // node_modules/d3-shape/src/constant.js
@@ -50390,8 +50956,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }, _typeof3(o);
   }
   var _excluded5 = ["type", "size", "sizeType"];
-  function _extends3() {
-    _extends3 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends4() {
+    _extends4 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -50402,7 +50968,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends3.apply(this, arguments);
+    return _extends4.apply(this, arguments);
   }
   function ownKeys(e, r3) {
     var t = Object.keys(e);
@@ -50536,7 +51102,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     var className = props.className, cx2 = props.cx, cy = props.cy;
     var filteredProps = filterProps(props, true);
     if (cx2 === +cx2 && cy === +cy && size4 === +size4) {
-      return /* @__PURE__ */ import_react10.default.createElement("path", _extends3({}, filteredProps, {
+      return /* @__PURE__ */ import_react11.default.createElement("path", _extends4({}, filteredProps, {
         className: clsx_default("recharts-symbols", className),
         transform: "translate(".concat(cx2, ", ").concat(cy, ")"),
         d: getPath5()
@@ -50555,8 +51121,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof4(o);
   }
-  function _extends4() {
-    _extends4 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends5() {
+    _extends5 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -50567,7 +51133,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends4.apply(this, arguments);
+    return _extends5.apply(this, arguments);
   }
   function ownKeys2(e, r3) {
     var t = Object.keys(e);
@@ -50709,7 +51275,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           var thirdSize = SIZE / 3;
           var color2 = data.inactive ? inactiveColor : data.color;
           if (data.type === "plainline") {
-            return /* @__PURE__ */ import_react11.default.createElement("line", {
+            return /* @__PURE__ */ import_react12.default.createElement("line", {
               strokeWidth: 4,
               fill: "none",
               stroke: color2,
@@ -50722,7 +51288,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             });
           }
           if (data.type === "line") {
-            return /* @__PURE__ */ import_react11.default.createElement("path", {
+            return /* @__PURE__ */ import_react12.default.createElement("path", {
               strokeWidth: 4,
               fill: "none",
               stroke: color2,
@@ -50731,19 +51297,19 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             });
           }
           if (data.type === "rect") {
-            return /* @__PURE__ */ import_react11.default.createElement("path", {
+            return /* @__PURE__ */ import_react12.default.createElement("path", {
               stroke: "none",
               fill: color2,
               d: "M0,".concat(SIZE / 8, "h").concat(SIZE, "v").concat(SIZE * 3 / 4, "h").concat(-SIZE, "z"),
               className: "recharts-legend-icon"
             });
           }
-          if (/* @__PURE__ */ import_react11.default.isValidElement(data.legendIcon)) {
+          if (/* @__PURE__ */ import_react12.default.isValidElement(data.legendIcon)) {
             var iconProps = _objectSpread2({}, data);
             delete iconProps.legendIcon;
-            return /* @__PURE__ */ import_react11.default.cloneElement(data.legendIcon, iconProps);
+            return /* @__PURE__ */ import_react12.default.cloneElement(data.legendIcon, iconProps);
           }
-          return /* @__PURE__ */ import_react11.default.createElement(Symbols, {
+          return /* @__PURE__ */ import_react12.default.createElement(Symbols, {
             fill: color2,
             cx: halfSize,
             cy: halfSize,
@@ -50792,16 +51358,16 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             // eslint-disable-line max-len
           );
           var color2 = entry.inactive ? inactiveColor : entry.color;
-          return /* @__PURE__ */ import_react11.default.createElement("li", _extends4({
+          return /* @__PURE__ */ import_react12.default.createElement("li", _extends5({
             className,
             style: itemStyle,
             key: "legend-item-".concat(i)
-          }, adaptEventsOfChild(_this.props, entry, i)), /* @__PURE__ */ import_react11.default.createElement(Surface, {
+          }, adaptEventsOfChild(_this.props, entry, i)), /* @__PURE__ */ import_react12.default.createElement(Surface, {
             width: iconSize,
             height: iconSize,
             viewBox,
             style: svgStyle
-          }, _this.renderIcon(entry)), /* @__PURE__ */ import_react11.default.createElement("span", {
+          }, _this.renderIcon(entry)), /* @__PURE__ */ import_react12.default.createElement("span", {
             className: "recharts-legend-item-text",
             style: {
               color: color2
@@ -50821,13 +51387,13 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           margin: 0,
           textAlign: layout === "horizontal" ? align : "left"
         };
-        return /* @__PURE__ */ import_react11.default.createElement("ul", {
+        return /* @__PURE__ */ import_react12.default.createElement("ul", {
           className: "recharts-default-legend",
           style: finalStyle
         }, this.renderItems());
       }
     }]);
-  }(import_react11.PureComponent);
+  }(import_react12.PureComponent);
   _defineProperty2(DefaultLegendContent, "displayName", "Legend");
   _defineProperty2(DefaultLegendContent, "defaultProps", {
     iconSize: 14,
@@ -51013,14 +51579,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return entry.value;
   }
   function renderContent(content, props) {
-    if (/* @__PURE__ */ import_react12.default.isValidElement(content)) {
-      return /* @__PURE__ */ import_react12.default.cloneElement(content, props);
+    if (/* @__PURE__ */ import_react13.default.isValidElement(content)) {
+      return /* @__PURE__ */ import_react13.default.cloneElement(content, props);
     }
     if (typeof content === "function") {
-      return /* @__PURE__ */ import_react12.default.createElement(content, props);
+      return /* @__PURE__ */ import_react13.default.createElement(content, props);
     }
     var ref = props.ref, otherProps = _objectWithoutProperties5(props, _excluded6);
-    return /* @__PURE__ */ import_react12.default.createElement(DefaultLegendContent, otherProps);
+    return /* @__PURE__ */ import_react13.default.createElement(DefaultLegendContent, otherProps);
   }
   var EPS = 1;
   var Legend = /* @__PURE__ */ function(_PureComponent) {
@@ -51136,7 +51702,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           width: width || "auto",
           height: height || "auto"
         }, this.getDefaultPosition(wrapperStyle)), wrapperStyle);
-        return /* @__PURE__ */ import_react12.default.createElement("div", {
+        return /* @__PURE__ */ import_react13.default.createElement("div", {
           className: "recharts-legend-wrapper",
           style: outerStyle,
           ref: function ref(node) {
@@ -51163,7 +51729,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return null;
       }
     }]);
-  }(import_react12.PureComponent);
+  }(import_react13.PureComponent);
   _defineProperty3(Legend, "displayName", "Legend");
   _defineProperty3(Legend, "defaultProps", {
     iconSize: 14,
@@ -51173,10 +51739,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/component/Tooltip.js
-  var import_react15 = __toESM(require_react());
+  var import_react16 = __toESM(require_react());
 
   // node_modules/recharts/es6/component/DefaultTooltipContent.js
-  var import_react13 = __toESM(require_react());
+  var import_react14 = __toESM(require_react());
   var import_sortBy = __toESM(require_sortBy());
   var import_isNil3 = __toESM(require_isNil());
   function _typeof6(o) {
@@ -51187,8 +51753,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof6(o);
   }
-  function _extends5() {
-    _extends5 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends6() {
+    _extends6 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -51199,7 +51765,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends5.apply(this, arguments);
+    return _extends6.apply(this, arguments);
   }
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
@@ -51340,22 +51906,22 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }
           return (
             // eslint-disable-next-line react/no-array-index-key
-            /* @__PURE__ */ import_react13.default.createElement("li", {
+            /* @__PURE__ */ import_react14.default.createElement("li", {
               className: "recharts-tooltip-item",
               key: "tooltip-item-".concat(i),
               style: finalItemStyle
-            }, isNumOrStr(finalName) ? /* @__PURE__ */ import_react13.default.createElement("span", {
+            }, isNumOrStr(finalName) ? /* @__PURE__ */ import_react14.default.createElement("span", {
               className: "recharts-tooltip-item-name"
-            }, finalName) : null, isNumOrStr(finalName) ? /* @__PURE__ */ import_react13.default.createElement("span", {
+            }, finalName) : null, isNumOrStr(finalName) ? /* @__PURE__ */ import_react14.default.createElement("span", {
               className: "recharts-tooltip-item-separator"
-            }, separator) : null, /* @__PURE__ */ import_react13.default.createElement("span", {
+            }, separator) : null, /* @__PURE__ */ import_react14.default.createElement("span", {
               className: "recharts-tooltip-item-value"
-            }, finalValue), /* @__PURE__ */ import_react13.default.createElement("span", {
+            }, finalValue), /* @__PURE__ */ import_react14.default.createElement("span", {
               className: "recharts-tooltip-item-unit"
             }, entry.unit || ""))
           );
         });
-        return /* @__PURE__ */ import_react13.default.createElement("ul", {
+        return /* @__PURE__ */ import_react14.default.createElement("ul", {
           className: "recharts-tooltip-item-list",
           style: listStyle
         }, items);
@@ -51383,17 +51949,17 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       role: "status",
       "aria-live": "assertive"
     } : {};
-    return /* @__PURE__ */ import_react13.default.createElement("div", _extends5({
+    return /* @__PURE__ */ import_react14.default.createElement("div", _extends6({
       className: wrapperCN,
       style: finalStyle
-    }, accessibilityAttributes), /* @__PURE__ */ import_react13.default.createElement("p", {
+    }, accessibilityAttributes), /* @__PURE__ */ import_react14.default.createElement("p", {
       className: labelCN,
       style: finalLabelStyle
-    }, /* @__PURE__ */ import_react13.default.isValidElement(finalLabel) ? finalLabel : "".concat(finalLabel)), renderContent3());
+    }, /* @__PURE__ */ import_react14.default.isValidElement(finalLabel) ? finalLabel : "".concat(finalLabel)), renderContent3());
   };
 
   // node_modules/recharts/es6/component/TooltipBoundingBox.js
-  var import_react14 = __toESM(require_react());
+  var import_react15 = __toESM(require_react());
 
   // node_modules/recharts/es6/util/tooltip/translate.js
   function _typeof7(o) {
@@ -51748,7 +52314,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return (
           // This element allow listening to the `Escape` key.
           // See https://github.com/recharts/recharts/pull/2925
-          /* @__PURE__ */ import_react14.default.createElement("div", {
+          /* @__PURE__ */ import_react15.default.createElement("div", {
             tabIndex: -1,
             className: cssClasses,
             style: outerStyle,
@@ -51759,7 +52325,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         );
       }
     }]);
-  }(import_react14.PureComponent);
+  }(import_react15.PureComponent);
 
   // node_modules/recharts/es6/util/Global.js
   var parseIsSsrByDefault = function parseIsSsrByDefault2() {
@@ -51915,13 +52481,13 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return entry.dataKey;
   }
   function renderContent2(content, props) {
-    if (/* @__PURE__ */ import_react15.default.isValidElement(content)) {
-      return /* @__PURE__ */ import_react15.default.cloneElement(content, props);
+    if (/* @__PURE__ */ import_react16.default.isValidElement(content)) {
+      return /* @__PURE__ */ import_react16.default.cloneElement(content, props);
     }
     if (typeof content === "function") {
-      return /* @__PURE__ */ import_react15.default.createElement(content, props);
+      return /* @__PURE__ */ import_react16.default.createElement(content, props);
     }
-    return /* @__PURE__ */ import_react15.default.createElement(DefaultTooltipContent, props);
+    return /* @__PURE__ */ import_react16.default.createElement(DefaultTooltipContent, props);
   }
   var Tooltip = /* @__PURE__ */ function(_PureComponent) {
     function Tooltip2() {
@@ -51941,7 +52507,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }), payloadUniqBy, defaultUniqBy2);
         }
         var hasPayload = finalPayload.length > 0;
-        return /* @__PURE__ */ import_react15.default.createElement(TooltipBoundingBox, {
+        return /* @__PURE__ */ import_react16.default.createElement(TooltipBoundingBox, {
           allowEscapeViewBox,
           animationDuration,
           animationEasing,
@@ -51960,7 +52526,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         })));
       }
     }]);
-  }(import_react15.PureComponent);
+  }(import_react16.PureComponent);
   _defineProperty7(Tooltip, "displayName", "Tooltip");
   _defineProperty7(Tooltip, "defaultProps", {
     accessibilityLayer: false,
@@ -51999,7 +52565,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/component/ResponsiveContainer.js
-  var import_react16 = __toESM(require_react());
+  var import_react17 = __toESM(require_react());
   var import_throttle = __toESM(require_throttle());
   function _typeof10(o) {
     "@babel/helpers - typeof";
@@ -52111,15 +52677,15 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (Array.isArray(arr))
       return arr;
   }
-  var ResponsiveContainer = /* @__PURE__ */ (0, import_react16.forwardRef)(function(_ref, ref) {
+  var ResponsiveContainer = /* @__PURE__ */ (0, import_react17.forwardRef)(function(_ref, ref) {
     var aspect = _ref.aspect, _ref$initialDimension = _ref.initialDimension, initialDimension = _ref$initialDimension === void 0 ? {
       width: -1,
       height: -1
     } : _ref$initialDimension, _ref$width = _ref.width, width = _ref$width === void 0 ? "100%" : _ref$width, _ref$height = _ref.height, height = _ref$height === void 0 ? "100%" : _ref$height, _ref$minWidth = _ref.minWidth, minWidth = _ref$minWidth === void 0 ? 0 : _ref$minWidth, minHeight = _ref.minHeight, maxHeight = _ref.maxHeight, children = _ref.children, _ref$debounce = _ref.debounce, debounce = _ref$debounce === void 0 ? 0 : _ref$debounce, id2 = _ref.id, className = _ref.className, onResize = _ref.onResize, _ref$style = _ref.style, style = _ref$style === void 0 ? {} : _ref$style;
-    var containerRef = (0, import_react16.useRef)(null);
-    var onResizeRef = (0, import_react16.useRef)();
+    var containerRef = (0, import_react17.useRef)(null);
+    var onResizeRef = (0, import_react17.useRef)();
     onResizeRef.current = onResize;
-    (0, import_react16.useImperativeHandle)(ref, function() {
+    (0, import_react17.useImperativeHandle)(ref, function() {
       return Object.defineProperty(containerRef.current, "current", {
         get: function get8() {
           console.warn("The usage of ref.current.current is deprecated and will no longer be supported.");
@@ -52128,11 +52694,11 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         configurable: true
       });
     });
-    var _useState = (0, import_react16.useState)({
+    var _useState = (0, import_react17.useState)({
       containerWidth: initialDimension.width,
       containerHeight: initialDimension.height
     }), _useState2 = _slicedToArray2(_useState, 2), sizes = _useState2[0], setSizes = _useState2[1];
-    var setContainerSize = (0, import_react16.useCallback)(function(newWidth, newHeight) {
+    var setContainerSize = (0, import_react17.useCallback)(function(newWidth, newHeight) {
       setSizes(function(prevState) {
         var roundedWidth = Math.round(newWidth);
         var roundedHeight = Math.round(newHeight);
@@ -52145,7 +52711,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         };
       });
     }, []);
-    (0, import_react16.useEffect)(function() {
+    (0, import_react17.useEffect)(function() {
       var callback = function callback2(entries) {
         var _onResizeRef$current;
         var _entries$0$contentRec = entries[0].contentRect, containerWidth2 = _entries$0$contentRec.width, containerHeight2 = _entries$0$contentRec.height;
@@ -52166,7 +52732,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         observer.disconnect();
       };
     }, [setContainerSize, debounce]);
-    var chartContent = (0, import_react16.useMemo)(function() {
+    var chartContent = (0, import_react17.useMemo)(function() {
       var containerWidth = sizes.containerWidth, containerHeight = sizes.containerHeight;
       if (containerWidth < 0 || containerHeight < 0) {
         return null;
@@ -52187,9 +52753,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       warn(calculatedWidth > 0 || calculatedHeight > 0, "The width(%s) and height(%s) of chart should be greater than 0,\n       please check the style of container, or the props width(%s) and height(%s),\n       or add a minWidth(%s) or minHeight(%s) or use aspect(%s) to control the\n       height and width.", calculatedWidth, calculatedHeight, width, height, minWidth, minHeight, aspect);
       var isCharts = !Array.isArray(children) && getDisplayName(children.type).endsWith("Chart");
-      return import_react16.default.Children.map(children, function(child) {
-        if (/* @__PURE__ */ import_react16.default.isValidElement(child)) {
-          return /* @__PURE__ */ (0, import_react16.cloneElement)(child, _objectSpread7({
+      return import_react17.default.Children.map(children, function(child) {
+        if (/* @__PURE__ */ import_react17.default.isValidElement(child)) {
+          return /* @__PURE__ */ (0, import_react17.cloneElement)(child, _objectSpread7({
             width: calculatedWidth,
             height: calculatedHeight
           }, isCharts ? {
@@ -52204,7 +52770,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return child;
       });
     }, [aspect, children, height, maxHeight, minHeight, minWidth, sizes, width]);
-    return /* @__PURE__ */ import_react16.default.createElement("div", {
+    return /* @__PURE__ */ import_react17.default.createElement("div", {
       id: id2 ? "".concat(id2) : void 0,
       className: clsx_default("recharts-responsive-container", className),
       style: _objectSpread7(_objectSpread7({}, style), {}, {
@@ -52225,7 +52791,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   Cell.displayName = "Cell";
 
   // node_modules/recharts/es6/component/Text.js
-  var import_react17 = __toESM(require_react());
+  var import_react18 = __toESM(require_react());
   var import_isNil4 = __toESM(require_isNil());
 
   // node_modules/recharts/es6/util/DOMUtils.js
@@ -52613,8 +53179,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   // node_modules/recharts/es6/component/Text.js
   var _excluded7 = ["x", "y", "lineHeight", "capHeight", "scaleToFit", "textAnchor", "verticalAnchor", "fill"];
   var _excluded22 = ["dx", "dy", "angle", "className", "breakAll"];
-  function _extends6() {
-    _extends6 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends7() {
+    _extends7 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -52625,7 +53191,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends6.apply(this, arguments);
+    return _extends7.apply(this, arguments);
   }
   function _objectWithoutProperties6(source, excluded) {
     if (source == null)
@@ -52841,7 +53407,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   var DEFAULT_FILL = "#808080";
   var Text = function Text2(_ref5) {
     var _ref5$x = _ref5.x, propsX = _ref5$x === void 0 ? 0 : _ref5$x, _ref5$y = _ref5.y, propsY = _ref5$y === void 0 ? 0 : _ref5$y, _ref5$lineHeight = _ref5.lineHeight, lineHeight = _ref5$lineHeight === void 0 ? "1em" : _ref5$lineHeight, _ref5$capHeight = _ref5.capHeight, capHeight = _ref5$capHeight === void 0 ? "0.71em" : _ref5$capHeight, _ref5$scaleToFit = _ref5.scaleToFit, scaleToFit = _ref5$scaleToFit === void 0 ? false : _ref5$scaleToFit, _ref5$textAnchor = _ref5.textAnchor, textAnchor = _ref5$textAnchor === void 0 ? "start" : _ref5$textAnchor, _ref5$verticalAnchor = _ref5.verticalAnchor, verticalAnchor = _ref5$verticalAnchor === void 0 ? "end" : _ref5$verticalAnchor, _ref5$fill = _ref5.fill, fill = _ref5$fill === void 0 ? DEFAULT_FILL : _ref5$fill, props = _objectWithoutProperties6(_ref5, _excluded7);
-    var wordsByLines = (0, import_react17.useMemo)(function() {
+    var wordsByLines = (0, import_react18.useMemo)(function() {
       return getWordsByLines({
         breakAll: props.breakAll,
         children: props.children,
@@ -52881,7 +53447,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (transforms.length) {
       textProps.transform = transforms.join(" ");
     }
-    return /* @__PURE__ */ import_react17.default.createElement("text", _extends6({}, filterProps(textProps, true), {
+    return /* @__PURE__ */ import_react18.default.createElement("text", _extends7({}, filterProps(textProps, true), {
       x: x2,
       y: y2,
       className: clsx_default("recharts-text", className),
@@ -52892,7 +53458,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return (
         // duplicate words will cause duplicate keys
         // eslint-disable-next-line react/no-array-index-key
-        /* @__PURE__ */ import_react17.default.createElement("tspan", {
+        /* @__PURE__ */ import_react18.default.createElement("tspan", {
           x: x2,
           dy: index2 === 0 ? startDy : lineHeight,
           key: "".concat(words, "-").concat(index2)
@@ -52902,14 +53468,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/component/Label.js
-  var import_react20 = __toESM(require_react());
+  var import_react21 = __toESM(require_react());
   var import_isNil7 = __toESM(require_isNil());
   var import_isFunction6 = __toESM(require_isFunction());
   var import_isObject3 = __toESM(require_isObject());
 
   // node_modules/recharts/es6/util/PolarUtils.js
   var import_isNil6 = __toESM(require_isNil());
-  var import_react19 = __toESM(require_react());
+  var import_react20 = __toESM(require_react());
   var import_isFunction5 = __toESM(require_isFunction());
 
   // node_modules/victory-vendor/es/d3-scale.js
@@ -56362,7 +56928,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   var getTickValuesFixedDomain = memoize(getTickValuesFixedDomainFn);
 
   // node_modules/recharts/es6/cartesian/ErrorBar.js
-  var import_react18 = __toESM(require_react());
+  var import_react19 = __toESM(require_react());
 
   // node_modules/tiny-invariant/dist/esm/tiny-invariant.js
   var isProduction = false;
@@ -56389,8 +56955,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof13(o);
   }
-  function _extends7() {
-    _extends7 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends8() {
+    _extends8 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -56401,7 +56967,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends7.apply(this, arguments);
+    return _extends8.apply(this, arguments);
   }
   function _slicedToArray6(arr, i) {
     return _arrayWithHoles6(arr) || _iterableToArrayLimit6(arr, i) || _unsupportedIterableToArray7(arr, i) || _nonIterableRest6();
@@ -56664,23 +57230,23 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               y2: _yMin
             });
           }
-          return /* @__PURE__ */ import_react18.default.createElement(Layer, _extends7({
+          return /* @__PURE__ */ import_react19.default.createElement(Layer, _extends8({
             className: "recharts-errorBar",
             key: "bar-".concat(lineCoordinates.map(function(c2) {
               return "".concat(c2.x1, "-").concat(c2.x2, "-").concat(c2.y1, "-").concat(c2.y2);
             }))
           }, svgProps), lineCoordinates.map(function(coordinates) {
-            return /* @__PURE__ */ import_react18.default.createElement("line", _extends7({}, coordinates, {
+            return /* @__PURE__ */ import_react19.default.createElement("line", _extends8({}, coordinates, {
               key: "line-".concat(coordinates.x1, "-").concat(coordinates.x2, "-").concat(coordinates.y1, "-").concat(coordinates.y2)
             }));
           }));
         });
-        return /* @__PURE__ */ import_react18.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react19.default.createElement(Layer, {
           className: "recharts-errorBars"
         }, errorBars);
       }
     }]);
-  }(import_react18.default.Component);
+  }(import_react19.default.Component);
   _defineProperty10(ErrorBar, "defaultProps", {
     stroke: "black",
     strokeWidth: 1.5,
@@ -57956,7 +58522,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return null;
   };
   var getTickClassName = function getTickClassName2(tick) {
-    return !/* @__PURE__ */ (0, import_react19.isValidElement)(tick) && !(0, import_isFunction5.default)(tick) && typeof tick !== "boolean" ? tick.className : "";
+    return !/* @__PURE__ */ (0, import_react20.isValidElement)(tick) && !(0, import_isFunction5.default)(tick) && typeof tick !== "boolean" ? tick.className : "";
   };
 
   // node_modules/recharts/es6/component/Label.js
@@ -58080,8 +58646,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return ("string" === r3 ? String : Number)(t);
   }
-  function _extends8() {
-    _extends8 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends9() {
+    _extends9 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -58092,7 +58658,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends8.apply(this, arguments);
+    return _extends9.apply(this, arguments);
   }
   var getLabel = function getLabel2(props) {
     var value = props.value, formatter = props.formatter;
@@ -58129,13 +58695,13 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     var endPoint = polarToCartesian(cx2, cy, radius, labelAngle + (direction ? 1 : -1) * 359);
     var path2 = "M".concat(startPoint.x, ",").concat(startPoint.y, "\n    A").concat(radius, ",").concat(radius, ",0,1,").concat(direction ? 0 : 1, ",\n    ").concat(endPoint.x, ",").concat(endPoint.y);
     var id2 = (0, import_isNil7.default)(labelProps.id) ? uniqueId("recharts-radial-line-") : labelProps.id;
-    return /* @__PURE__ */ import_react20.default.createElement("text", _extends8({}, attrs, {
+    return /* @__PURE__ */ import_react21.default.createElement("text", _extends9({}, attrs, {
       dominantBaseline: "central",
       className: clsx_default("recharts-radial-bar-label", className)
-    }), /* @__PURE__ */ import_react20.default.createElement("defs", null, /* @__PURE__ */ import_react20.default.createElement("path", {
+    }), /* @__PURE__ */ import_react21.default.createElement("defs", null, /* @__PURE__ */ import_react21.default.createElement("path", {
       id: id2,
       d: path2
-    })), /* @__PURE__ */ import_react20.default.createElement("textPath", {
+    })), /* @__PURE__ */ import_react21.default.createElement("textPath", {
       xlinkHref: "#".concat(id2)
     }, label));
   };
@@ -58336,16 +58902,16 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       offset: offset4
     }, restProps);
     var viewBox = props.viewBox, position = props.position, value = props.value, children = props.children, content = props.content, _props$className = props.className, className = _props$className === void 0 ? "" : _props$className, textBreakAll = props.textBreakAll;
-    if (!viewBox || (0, import_isNil7.default)(value) && (0, import_isNil7.default)(children) && !/* @__PURE__ */ (0, import_react20.isValidElement)(content) && !(0, import_isFunction6.default)(content)) {
+    if (!viewBox || (0, import_isNil7.default)(value) && (0, import_isNil7.default)(children) && !/* @__PURE__ */ (0, import_react21.isValidElement)(content) && !(0, import_isFunction6.default)(content)) {
       return null;
     }
-    if (/* @__PURE__ */ (0, import_react20.isValidElement)(content)) {
-      return /* @__PURE__ */ (0, import_react20.cloneElement)(content, props);
+    if (/* @__PURE__ */ (0, import_react21.isValidElement)(content)) {
+      return /* @__PURE__ */ (0, import_react21.cloneElement)(content, props);
     }
     var label;
     if ((0, import_isFunction6.default)(content)) {
-      label = /* @__PURE__ */ (0, import_react20.createElement)(content, props);
-      if (/* @__PURE__ */ (0, import_react20.isValidElement)(label)) {
+      label = /* @__PURE__ */ (0, import_react21.createElement)(content, props);
+      if (/* @__PURE__ */ (0, import_react21.isValidElement)(label)) {
         return label;
       }
     } else {
@@ -58357,7 +58923,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return renderRadialLabel(props, label, attrs);
     }
     var positionAttrs = isPolarLabel ? getAttrsOfPolarLabel(props) : getAttrsOfCartesianLabel(props);
-    return /* @__PURE__ */ import_react20.default.createElement(Text, _extends8({
+    return /* @__PURE__ */ import_react21.default.createElement(Text, _extends9({
       className: clsx_default("recharts-label", className)
     }, attrs, positionAttrs, {
       breakAll: textBreakAll
@@ -58416,40 +58982,40 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return null;
     }
     if (label === true) {
-      return /* @__PURE__ */ import_react20.default.createElement(Label3, {
+      return /* @__PURE__ */ import_react21.default.createElement(Label3, {
         key: "label-implicit",
         viewBox
       });
     }
     if (isNumOrStr(label)) {
-      return /* @__PURE__ */ import_react20.default.createElement(Label3, {
+      return /* @__PURE__ */ import_react21.default.createElement(Label3, {
         key: "label-implicit",
         viewBox,
         value: label
       });
     }
-    if (/* @__PURE__ */ (0, import_react20.isValidElement)(label)) {
+    if (/* @__PURE__ */ (0, import_react21.isValidElement)(label)) {
       if (label.type === Label3) {
-        return /* @__PURE__ */ (0, import_react20.cloneElement)(label, {
+        return /* @__PURE__ */ (0, import_react21.cloneElement)(label, {
           key: "label-implicit",
           viewBox
         });
       }
-      return /* @__PURE__ */ import_react20.default.createElement(Label3, {
+      return /* @__PURE__ */ import_react21.default.createElement(Label3, {
         key: "label-implicit",
         content: label,
         viewBox
       });
     }
     if ((0, import_isFunction6.default)(label)) {
-      return /* @__PURE__ */ import_react20.default.createElement(Label3, {
+      return /* @__PURE__ */ import_react21.default.createElement(Label3, {
         key: "label-implicit",
         content: label,
         viewBox
       });
     }
     if ((0, import_isObject3.default)(label)) {
-      return /* @__PURE__ */ import_react20.default.createElement(Label3, _extends8({
+      return /* @__PURE__ */ import_react21.default.createElement(Label3, _extends9({
         viewBox
       }, label, {
         key: "label-implicit"
@@ -58465,7 +59031,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     var children = parentProps.children;
     var parentViewBox = parseViewBox(parentProps);
     var explicitChildren = findAllByType(children, Label3).map(function(child, index2) {
-      return /* @__PURE__ */ (0, import_react20.cloneElement)(child, {
+      return /* @__PURE__ */ (0, import_react21.cloneElement)(child, {
         viewBox: viewBox || parentViewBox,
         // eslint-disable-next-line react/no-array-index-key
         key: "label-".concat(index2)
@@ -58481,7 +59047,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   Label3.renderCallByParent = renderCallByParent;
 
   // node_modules/recharts/es6/component/LabelList.js
-  var import_react21 = __toESM(require_react());
+  var import_react22 = __toESM(require_react());
   var import_isNil8 = __toESM(require_isNil());
   var import_isObject4 = __toESM(require_isObject());
   var import_isFunction7 = __toESM(require_isFunction());
@@ -58530,8 +59096,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       arr2[i] = arr[i];
     return arr2;
   }
-  function _extends9() {
-    _extends9 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends10() {
+    _extends10 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -58542,7 +59108,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends9.apply(this, arguments);
+    return _extends10.apply(this, arguments);
   }
   function ownKeys13(e, r3) {
     var t = Object.keys(e);
@@ -58630,14 +59196,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (!data || !data.length) {
       return null;
     }
-    return /* @__PURE__ */ import_react21.default.createElement(Layer, {
+    return /* @__PURE__ */ import_react22.default.createElement(Layer, {
       className: "recharts-label-list"
     }, data.map(function(entry, index2) {
       var value = (0, import_isNil8.default)(dataKey) ? valueAccessor(entry, index2) : getValueByDataKey(entry && entry.payload, dataKey);
       var idProps = (0, import_isNil8.default)(id2) ? {} : {
         id: "".concat(id2, "-").concat(index2)
       };
-      return /* @__PURE__ */ import_react21.default.createElement(Label3, _extends9({}, filterProps(entry, true), others, idProps, {
+      return /* @__PURE__ */ import_react22.default.createElement(Label3, _extends10({}, filterProps(entry, true), others, idProps, {
         parentViewBox: entry.parentViewBox,
         value,
         textBreakAll,
@@ -58655,20 +59221,20 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return null;
     }
     if (label === true) {
-      return /* @__PURE__ */ import_react21.default.createElement(LabelList, {
+      return /* @__PURE__ */ import_react22.default.createElement(LabelList, {
         key: "labelList-implicit",
         data
       });
     }
-    if (/* @__PURE__ */ import_react21.default.isValidElement(label) || (0, import_isFunction7.default)(label)) {
-      return /* @__PURE__ */ import_react21.default.createElement(LabelList, {
+    if (/* @__PURE__ */ import_react22.default.isValidElement(label) || (0, import_isFunction7.default)(label)) {
+      return /* @__PURE__ */ import_react22.default.createElement(LabelList, {
         key: "labelList-implicit",
         data,
         content: label
       });
     }
     if ((0, import_isObject4.default)(label)) {
-      return /* @__PURE__ */ import_react21.default.createElement(LabelList, _extends9({
+      return /* @__PURE__ */ import_react22.default.createElement(LabelList, _extends10({
         data
       }, label, {
         key: "labelList-implicit"
@@ -58683,7 +59249,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     var children = parentProps.children;
     var explicitChildren = findAllByType(children, LabelList).map(function(child, index2) {
-      return /* @__PURE__ */ (0, import_react21.cloneElement)(child, {
+      return /* @__PURE__ */ (0, import_react22.cloneElement)(child, {
         data,
         // eslint-disable-next-line react/no-array-index-key
         key: "labelList-".concat(index2)
@@ -58698,7 +59264,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   LabelList.renderCallByParent = renderCallByParent3;
 
   // node_modules/recharts/es6/shape/Sector.js
-  var import_react22 = __toESM(require_react());
+  var import_react23 = __toESM(require_react());
   function _typeof19(o) {
     "@babel/helpers - typeof";
     return _typeof19 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -58707,8 +59273,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof19(o);
   }
-  function _extends10() {
-    _extends10 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends11() {
+    _extends11 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -58719,7 +59285,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends10.apply(this, arguments);
+    return _extends11.apply(this, arguments);
   }
   function ownKeys14(e, r3) {
     var t = Object.keys(e);
@@ -58914,7 +59480,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         endAngle
       });
     }
-    return /* @__PURE__ */ import_react22.default.createElement("path", _extends10({}, filterProps(props, true), {
+    return /* @__PURE__ */ import_react23.default.createElement("path", _extends11({}, filterProps(props, true), {
       className: layerClass,
       d: path2,
       role: "img"
@@ -58922,7 +59488,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/shape/Curve.js
-  var React53 = __toESM(require_react());
+  var React54 = __toESM(require_react());
   var import_upperFirst3 = __toESM(require_upperFirst());
   var import_isFunction8 = __toESM(require_isFunction());
   function _typeof20(o) {
@@ -58933,8 +59499,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof20(o);
   }
-  function _extends11() {
-    _extends11 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends12() {
+    _extends12 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -58945,7 +59511,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends11.apply(this, arguments);
+    return _extends12.apply(this, arguments);
   }
   function ownKeys15(e, r3) {
     var t = Object.keys(e);
@@ -59071,7 +59637,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return null;
     }
     var realPath = points && points.length ? getPath(props) : path2;
-    return /* @__PURE__ */ React53.createElement("path", _extends11({}, filterProps(props, false), adaptEventHandlers(props), {
+    return /* @__PURE__ */ React54.createElement("path", _extends12({}, filterProps(props, false), adaptEventHandlers(props), {
       className: clsx_default("recharts-curve", className),
       d: realPath,
       ref: pathRef
@@ -59079,10 +59645,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/shape/Rectangle.js
-  var import_react24 = __toESM(require_react());
+  var import_react25 = __toESM(require_react());
 
   // node_modules/react-smooth/es6/Animate.js
-  var import_react23 = __toESM(require_react());
+  var import_react24 = __toESM(require_react());
   var import_prop_types = __toESM(require_prop_types());
 
   // node_modules/fast-equals/dist/esm/index.mjs
@@ -59453,7 +60019,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return comparator(a2, b, state);
     };
   }
-  var deepEqual2 = createCustomEqual();
+  var deepEqual3 = createCustomEqual();
   var strictDeepEqual = createCustomEqual({ strict: true });
   var circularDeepEqual = createCustomEqual({ circular: true });
   var strictCircularDeepEqual = createCustomEqual({
@@ -60441,7 +61007,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }
           return;
         }
-        if (deepEqual2(prevProps.to, to) && prevProps.canBegin && prevProps.isActive) {
+        if (deepEqual3(prevProps.to, to) && prevProps.canBegin && prevProps.isActive) {
           return;
         }
         var isTriggered = !prevProps.canBegin || !prevProps.isActive;
@@ -60565,7 +61131,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "render",
       value: function render() {
         var _this$props4 = this.props, children = _this$props4.children, begin = _this$props4.begin, duration = _this$props4.duration, attributeName = _this$props4.attributeName, easing = _this$props4.easing, isActive = _this$props4.isActive, steps = _this$props4.steps, from = _this$props4.from, to = _this$props4.to, canBegin = _this$props4.canBegin, onAnimationEnd2 = _this$props4.onAnimationEnd, shouldReAnimate = _this$props4.shouldReAnimate, onAnimationReStart = _this$props4.onAnimationReStart, others = _objectWithoutProperties10(_this$props4, _excluded11);
-        var count3 = import_react23.Children.count(children);
+        var count3 = import_react24.Children.count(children);
         var stateStyle = this.state.style;
         if (typeof children === "function") {
           return children(stateStyle);
@@ -60575,22 +61141,22 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         }
         var cloneContainer = function cloneContainer2(container) {
           var _container$props = container.props, _container$props$styl = _container$props.style, style = _container$props$styl === void 0 ? {} : _container$props$styl, className = _container$props.className;
-          var res = /* @__PURE__ */ (0, import_react23.cloneElement)(container, _objectSpread18(_objectSpread18({}, others), {}, {
+          var res = /* @__PURE__ */ (0, import_react24.cloneElement)(container, _objectSpread18(_objectSpread18({}, others), {}, {
             style: _objectSpread18(_objectSpread18({}, style), stateStyle),
             className
           }));
           return res;
         };
         if (count3 === 1) {
-          return cloneContainer(import_react23.Children.only(children));
+          return cloneContainer(import_react24.Children.only(children));
         }
-        return /* @__PURE__ */ import_react23.default.createElement("div", null, import_react23.Children.map(children, function(child) {
+        return /* @__PURE__ */ import_react24.default.createElement("div", null, import_react24.Children.map(children, function(child) {
           return cloneContainer(child);
         }));
       }
     }]);
     return Animate2;
-  }(import_react23.PureComponent);
+  }(import_react24.PureComponent);
   Animate.displayName = "Animate";
   Animate.defaultProps = {
     begin: 0,
@@ -60646,8 +61212,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof25(o);
   }
-  function _extends12() {
-    _extends12 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends13() {
+    _extends13 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -60658,7 +61224,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends12.apply(this, arguments);
+    return _extends13.apply(this, arguments);
   }
   function _slicedToArray10(arr, i) {
     return _arrayWithHoles11(arr) || _iterableToArrayLimit10(arr, i) || _unsupportedIterableToArray16(arr, i) || _nonIterableRest11();
@@ -60830,9 +61396,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
   var Rectangle = function Rectangle2(rectangleProps) {
     var props = _objectSpread19(_objectSpread19({}, defaultProps2), rectangleProps);
-    var pathRef = (0, import_react24.useRef)();
-    var _useState = (0, import_react24.useState)(-1), _useState2 = _slicedToArray10(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
-    (0, import_react24.useEffect)(function() {
+    var pathRef = (0, import_react25.useRef)();
+    var _useState = (0, import_react25.useState)(-1), _useState2 = _slicedToArray10(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
+    (0, import_react25.useEffect)(function() {
       if (pathRef.current && pathRef.current.getTotalLength) {
         try {
           var pathTotalLength = pathRef.current.getTotalLength();
@@ -60850,12 +61416,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     var layerClass = clsx_default("recharts-rectangle", className);
     if (!isUpdateAnimationActive) {
-      return /* @__PURE__ */ import_react24.default.createElement("path", _extends12({}, filterProps(props, true), {
+      return /* @__PURE__ */ import_react25.default.createElement("path", _extends13({}, filterProps(props, true), {
         className: layerClass,
         d: getRectanglePath(x2, y2, width, height, radius)
       }));
     }
-    return /* @__PURE__ */ import_react24.default.createElement(es6_default, {
+    return /* @__PURE__ */ import_react25.default.createElement(es6_default, {
       canBegin: totalLength > 0,
       from: {
         width,
@@ -60874,7 +61440,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       isActive: isUpdateAnimationActive
     }, function(_ref) {
       var currWidth = _ref.width, currHeight = _ref.height, currX = _ref.x, currY = _ref.y;
-      return /* @__PURE__ */ import_react24.default.createElement(es6_default, {
+      return /* @__PURE__ */ import_react25.default.createElement(es6_default, {
         canBegin: totalLength > 0,
         from: "0px ".concat(totalLength === -1 ? 1 : totalLength, "px"),
         to: "".concat(totalLength, "px 0px"),
@@ -60883,7 +61449,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         duration: animationDuration,
         isActive: isAnimationActive,
         easing: animationEasing
-      }, /* @__PURE__ */ import_react24.default.createElement("path", _extends12({}, filterProps(props, true), {
+      }, /* @__PURE__ */ import_react25.default.createElement("path", _extends13({}, filterProps(props, true), {
         className: layerClass,
         d: getRectanglePath(currX, currY, currWidth, currHeight, radius),
         ref: pathRef
@@ -60892,10 +61458,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/shape/Polygon.js
-  var import_react25 = __toESM(require_react());
+  var import_react26 = __toESM(require_react());
   var _excluded12 = ["points", "className", "baseLinePoints", "connectNulls"];
-  function _extends13() {
-    _extends13 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends14() {
+    _extends14 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -60906,7 +61472,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends13.apply(this, arguments);
+    return _extends14.apply(this, arguments);
   }
   function _objectWithoutProperties11(source, excluded) {
     if (source == null)
@@ -61021,22 +61587,22 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (baseLinePoints && baseLinePoints.length) {
       var hasStroke = others.stroke && others.stroke !== "none";
       var rangePath = getRanglePath(points, baseLinePoints, connectNulls);
-      return /* @__PURE__ */ import_react25.default.createElement("g", {
+      return /* @__PURE__ */ import_react26.default.createElement("g", {
         className: layerClass
-      }, /* @__PURE__ */ import_react25.default.createElement("path", _extends13({}, filterProps(others, true), {
+      }, /* @__PURE__ */ import_react26.default.createElement("path", _extends14({}, filterProps(others, true), {
         fill: rangePath.slice(-1) === "Z" ? others.fill : "none",
         stroke: "none",
         d: rangePath
-      })), hasStroke ? /* @__PURE__ */ import_react25.default.createElement("path", _extends13({}, filterProps(others, true), {
+      })), hasStroke ? /* @__PURE__ */ import_react26.default.createElement("path", _extends14({}, filterProps(others, true), {
         fill: "none",
         d: getSinglePolygonPath(points, connectNulls)
-      })) : null, hasStroke ? /* @__PURE__ */ import_react25.default.createElement("path", _extends13({}, filterProps(others, true), {
+      })) : null, hasStroke ? /* @__PURE__ */ import_react26.default.createElement("path", _extends14({}, filterProps(others, true), {
         fill: "none",
         d: getSinglePolygonPath(baseLinePoints, connectNulls)
       })) : null);
     }
     var singlePath = getSinglePolygonPath(points, connectNulls);
-    return /* @__PURE__ */ import_react25.default.createElement("path", _extends13({}, filterProps(others, true), {
+    return /* @__PURE__ */ import_react26.default.createElement("path", _extends14({}, filterProps(others, true), {
       fill: singlePath.slice(-1) === "Z" ? others.fill : "none",
       className: layerClass,
       d: singlePath
@@ -61044,46 +61610,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/shape/Dot.js
-  var React57 = __toESM(require_react());
-  function _extends14() {
-    _extends14 = Object.assign ? Object.assign.bind() : function(target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
-        }
-      }
-      return target;
-    };
-    return _extends14.apply(this, arguments);
-  }
-  var Dot = function Dot2(props) {
-    var cx2 = props.cx, cy = props.cy, r3 = props.r, className = props.className;
-    var layerClass = clsx_default("recharts-dot", className);
-    if (cx2 === +cx2 && cy === +cy && r3 === +r3) {
-      return /* @__PURE__ */ React57.createElement("circle", _extends14({}, filterProps(props, false), adaptEventHandlers(props), {
-        className: layerClass,
-        cx: cx2,
-        cy,
-        r: r3
-      }));
-    }
-    return null;
-  };
-
-  // node_modules/recharts/es6/shape/Cross.js
-  var import_react26 = __toESM(require_react());
-  function _typeof26(o) {
-    "@babel/helpers - typeof";
-    return _typeof26 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-      return typeof o2;
-    } : function(o2) {
-      return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-    }, _typeof26(o);
-  }
-  var _excluded13 = ["x", "y", "top", "left", "width", "height", "className"];
+  var React58 = __toESM(require_react());
   function _extends15() {
     _extends15 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
@@ -61097,6 +61624,45 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return target;
     };
     return _extends15.apply(this, arguments);
+  }
+  var Dot = function Dot2(props) {
+    var cx2 = props.cx, cy = props.cy, r3 = props.r, className = props.className;
+    var layerClass = clsx_default("recharts-dot", className);
+    if (cx2 === +cx2 && cy === +cy && r3 === +r3) {
+      return /* @__PURE__ */ React58.createElement("circle", _extends15({}, filterProps(props, false), adaptEventHandlers(props), {
+        className: layerClass,
+        cx: cx2,
+        cy,
+        r: r3
+      }));
+    }
+    return null;
+  };
+
+  // node_modules/recharts/es6/shape/Cross.js
+  var import_react27 = __toESM(require_react());
+  function _typeof26(o) {
+    "@babel/helpers - typeof";
+    return _typeof26 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+      return typeof o2;
+    } : function(o2) {
+      return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+    }, _typeof26(o);
+  }
+  var _excluded13 = ["x", "y", "top", "left", "width", "height", "className"];
+  function _extends16() {
+    _extends16 = Object.assign ? Object.assign.bind() : function(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    };
+    return _extends16.apply(this, arguments);
   }
   function ownKeys20(e, r3) {
     var t = Object.keys(e);
@@ -61191,14 +61757,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (!isNumber2(x2) || !isNumber2(y2) || !isNumber2(width) || !isNumber2(height) || !isNumber2(top2) || !isNumber2(left)) {
       return null;
     }
-    return /* @__PURE__ */ import_react26.default.createElement("path", _extends15({}, filterProps(props, true), {
+    return /* @__PURE__ */ import_react27.default.createElement("path", _extends16({}, filterProps(props, true), {
       className: clsx_default("recharts-cross", className),
       d: getPath3(x2, y2, width, height, top2, left)
     }));
   };
 
   // node_modules/recharts/es6/polar/PolarRadiusAxis.js
-  var import_react27 = __toESM(require_react());
+  var import_react28 = __toESM(require_react());
   var import_maxBy = __toESM(require_maxBy());
   var import_minBy = __toESM(require_minBy());
   var import_isFunction9 = __toESM(require_isFunction());
@@ -61212,8 +61778,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof27(o);
   }
-  function _extends16() {
-    _extends16 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends17() {
+    _extends17 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -61224,7 +61790,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends16.apply(this, arguments);
+    return _extends17.apply(this, arguments);
   }
   function ownKeys21(e, r3) {
     var t = Object.keys(e);
@@ -61449,7 +62015,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           x2: point1.x,
           y2: point1.y
         });
-        return /* @__PURE__ */ import_react27.default.createElement("line", _extends16({
+        return /* @__PURE__ */ import_react28.default.createElement("line", _extends17({
           className: "recharts-polar-radius-axis-line"
         }, props));
       }
@@ -61474,12 +62040,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }, coord), {}, {
             payload: entry
           });
-          return /* @__PURE__ */ import_react27.default.createElement(Layer, _extends16({
+          return /* @__PURE__ */ import_react28.default.createElement(Layer, _extends17({
             className: clsx_default("recharts-polar-radius-axis-tick", getTickClassName(tick)),
             key: "tick-".concat(entry.coordinate)
           }, adaptEventsOfChild(_this.props, entry, i)), PolarRadiusAxis2.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value, i) : entry.value));
         });
-        return /* @__PURE__ */ import_react27.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react28.default.createElement(Layer, {
           className: "recharts-polar-radius-axis-ticks"
         }, items);
       }
@@ -61490,7 +62056,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         if (!ticks2 || !ticks2.length) {
           return null;
         }
-        return /* @__PURE__ */ import_react27.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react28.default.createElement(Layer, {
           className: clsx_default("recharts-polar-radius-axis", this.props.className)
         }, axisLine && this.renderAxisLine(), tick && this.renderTicks(), Label3.renderCallByParent(this.props, this.getViewBox()));
       }
@@ -61498,19 +62064,19 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "renderTickItem",
       value: function renderTickItem(option, props, value) {
         var tickItem;
-        if (/* @__PURE__ */ import_react27.default.isValidElement(option)) {
-          tickItem = /* @__PURE__ */ import_react27.default.cloneElement(option, props);
+        if (/* @__PURE__ */ import_react28.default.isValidElement(option)) {
+          tickItem = /* @__PURE__ */ import_react28.default.cloneElement(option, props);
         } else if ((0, import_isFunction9.default)(option)) {
           tickItem = option(props);
         } else {
-          tickItem = /* @__PURE__ */ import_react27.default.createElement(Text, _extends16({}, props, {
+          tickItem = /* @__PURE__ */ import_react28.default.createElement(Text, _extends17({}, props, {
             className: "recharts-polar-radius-axis-tick-value"
           }), value);
         }
         return tickItem;
       }
     }]);
-  }(import_react27.PureComponent);
+  }(import_react28.PureComponent);
   _defineProperty23(PolarRadiusAxis, "displayName", "PolarRadiusAxis");
   _defineProperty23(PolarRadiusAxis, "axisType", "radiusAxis");
   _defineProperty23(PolarRadiusAxis, "defaultProps", {
@@ -61530,7 +62096,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/polar/PolarAngleAxis.js
-  var import_react28 = __toESM(require_react());
+  var import_react29 = __toESM(require_react());
   var import_isFunction10 = __toESM(require_isFunction());
   function _typeof28(o) {
     "@babel/helpers - typeof";
@@ -61540,8 +62106,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof28(o);
   }
-  function _extends17() {
-    _extends17 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends18() {
+    _extends18 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -61552,7 +62118,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends17.apply(this, arguments);
+    return _extends18.apply(this, arguments);
   }
   function ownKeys22(e, r3) {
     var t = Object.keys(e);
@@ -61731,7 +62297,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           fill: "none"
         }, filterProps(axisLine, false));
         if (axisLineType === "circle") {
-          return /* @__PURE__ */ import_react28.default.createElement(Dot, _extends17({
+          return /* @__PURE__ */ import_react29.default.createElement(Dot, _extends18({
             className: "recharts-polar-angle-axis-line"
           }, props, {
             cx: cx2,
@@ -61743,7 +62309,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var points = ticks2.map(function(entry) {
           return polarToCartesian(cx2, cy, radius, entry.coordinate);
         });
-        return /* @__PURE__ */ import_react28.default.createElement(Polygon, _extends17({
+        return /* @__PURE__ */ import_react29.default.createElement(Polygon, _extends18({
           className: "recharts-polar-angle-axis-line"
         }, props, {
           points
@@ -61773,14 +62339,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             x: lineCoord.x2,
             y: lineCoord.y2
           });
-          return /* @__PURE__ */ import_react28.default.createElement(Layer, _extends17({
+          return /* @__PURE__ */ import_react29.default.createElement(Layer, _extends18({
             className: clsx_default("recharts-polar-angle-axis-tick", getTickClassName(tick)),
             key: "tick-".concat(entry.coordinate)
-          }, adaptEventsOfChild(_this.props, entry, i)), tickLine && /* @__PURE__ */ import_react28.default.createElement("line", _extends17({
+          }, adaptEventsOfChild(_this.props, entry, i)), tickLine && /* @__PURE__ */ import_react29.default.createElement("line", _extends18({
             className: "recharts-polar-angle-axis-tick-line"
           }, tickLineProps, lineCoord)), tick && PolarAngleAxis2.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value, i) : entry.value));
         });
-        return /* @__PURE__ */ import_react28.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react29.default.createElement(Layer, {
           className: "recharts-polar-angle-axis-ticks"
         }, items);
       }
@@ -61791,7 +62357,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         if (radius <= 0 || !ticks2 || !ticks2.length) {
           return null;
         }
-        return /* @__PURE__ */ import_react28.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react29.default.createElement(Layer, {
           className: clsx_default("recharts-polar-angle-axis", this.props.className)
         }, axisLine && this.renderAxisLine(), this.renderTicks());
       }
@@ -61799,19 +62365,19 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "renderTickItem",
       value: function renderTickItem(option, props, value) {
         var tickItem;
-        if (/* @__PURE__ */ import_react28.default.isValidElement(option)) {
-          tickItem = /* @__PURE__ */ import_react28.default.cloneElement(option, props);
+        if (/* @__PURE__ */ import_react29.default.isValidElement(option)) {
+          tickItem = /* @__PURE__ */ import_react29.default.cloneElement(option, props);
         } else if ((0, import_isFunction10.default)(option)) {
           tickItem = option(props);
         } else {
-          tickItem = /* @__PURE__ */ import_react28.default.createElement(Text, _extends17({}, props, {
+          tickItem = /* @__PURE__ */ import_react29.default.createElement(Text, _extends18({}, props, {
             className: "recharts-polar-angle-axis-tick-value"
           }), value);
         }
         return tickItem;
       }
     }]);
-  }(import_react28.PureComponent);
+  }(import_react29.PureComponent);
   _defineProperty24(PolarAngleAxis, "displayName", "PolarAngleAxis");
   _defineProperty24(PolarAngleAxis, "axisType", "angleAxis");
   _defineProperty24(PolarAngleAxis, "defaultProps", {
@@ -61830,21 +62396,21 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/polar/Pie.js
-  var import_react31 = __toESM(require_react());
+  var import_react32 = __toESM(require_react());
   var import_get4 = __toESM(require_get());
   var import_isEqual3 = __toESM(require_isEqual());
   var import_isNil9 = __toESM(require_isNil());
   var import_isFunction12 = __toESM(require_isFunction());
 
   // node_modules/recharts/es6/util/ActiveShapeUtils.js
-  var import_react30 = __toESM(require_react());
+  var import_react31 = __toESM(require_react());
   var import_isFunction11 = __toESM(require_isFunction());
   var import_isPlainObject = __toESM(require_isPlainObject());
   var import_isBoolean = __toESM(require_isBoolean());
   var import_isEqual2 = __toESM(require_isEqual());
 
   // node_modules/recharts/es6/shape/Trapezoid.js
-  var import_react29 = __toESM(require_react());
+  var import_react30 = __toESM(require_react());
   function _typeof29(o) {
     "@babel/helpers - typeof";
     return _typeof29 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -61853,8 +62419,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof29(o);
   }
-  function _extends18() {
-    _extends18 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends19() {
+    _extends19 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -61865,7 +62431,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends18.apply(this, arguments);
+    return _extends19.apply(this, arguments);
   }
   function _slicedToArray11(arr, i) {
     return _arrayWithHoles12(arr) || _iterableToArrayLimit11(arr, i) || _unsupportedIterableToArray18(arr, i) || _nonIterableRest12();
@@ -61992,9 +62558,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
   var Trapezoid = function Trapezoid2(props) {
     var trapezoidProps = _objectSpread23(_objectSpread23({}, defaultProps3), props);
-    var pathRef = (0, import_react29.useRef)();
-    var _useState = (0, import_react29.useState)(-1), _useState2 = _slicedToArray11(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
-    (0, import_react29.useEffect)(function() {
+    var pathRef = (0, import_react30.useRef)();
+    var _useState = (0, import_react30.useState)(-1), _useState2 = _slicedToArray11(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
+    (0, import_react30.useEffect)(function() {
       if (pathRef.current && pathRef.current.getTotalLength) {
         try {
           var pathTotalLength = pathRef.current.getTotalLength();
@@ -62012,12 +62578,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     var layerClass = clsx_default("recharts-trapezoid", className);
     if (!isUpdateAnimationActive) {
-      return /* @__PURE__ */ import_react29.default.createElement("g", null, /* @__PURE__ */ import_react29.default.createElement("path", _extends18({}, filterProps(trapezoidProps, true), {
+      return /* @__PURE__ */ import_react30.default.createElement("g", null, /* @__PURE__ */ import_react30.default.createElement("path", _extends19({}, filterProps(trapezoidProps, true), {
         className: layerClass,
         d: getTrapezoidPath(x2, y2, upperWidth, lowerWidth, height)
       })));
     }
-    return /* @__PURE__ */ import_react29.default.createElement(es6_default, {
+    return /* @__PURE__ */ import_react30.default.createElement(es6_default, {
       canBegin: totalLength > 0,
       from: {
         upperWidth: 0,
@@ -62038,7 +62604,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       isActive: isUpdateAnimationActive
     }, function(_ref) {
       var currUpperWidth = _ref.upperWidth, currLowerWidth = _ref.lowerWidth, currHeight = _ref.height, currX = _ref.x, currY = _ref.y;
-      return /* @__PURE__ */ import_react29.default.createElement(es6_default, {
+      return /* @__PURE__ */ import_react30.default.createElement(es6_default, {
         canBegin: totalLength > 0,
         from: "0px ".concat(totalLength === -1 ? 1 : totalLength, "px"),
         to: "".concat(totalLength, "px 0px"),
@@ -62046,7 +62612,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         begin: animationBegin,
         duration: animationDuration,
         easing: animationEasing
-      }, /* @__PURE__ */ import_react29.default.createElement("path", _extends18({}, filterProps(trapezoidProps, true), {
+      }, /* @__PURE__ */ import_react30.default.createElement("path", _extends19({}, filterProps(trapezoidProps, true), {
         className: layerClass,
         d: getTrapezoidPath(currX, currY, currUpperWidth, currLowerWidth, currHeight),
         ref: pathRef
@@ -62151,14 +62717,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     var shapeType = _ref.shapeType, elementProps = _ref.elementProps;
     switch (shapeType) {
       case "rectangle":
-        return /* @__PURE__ */ import_react30.default.createElement(Rectangle, elementProps);
+        return /* @__PURE__ */ import_react31.default.createElement(Rectangle, elementProps);
       case "trapezoid":
-        return /* @__PURE__ */ import_react30.default.createElement(Trapezoid, elementProps);
+        return /* @__PURE__ */ import_react31.default.createElement(Trapezoid, elementProps);
       case "sector":
-        return /* @__PURE__ */ import_react30.default.createElement(Sector, elementProps);
+        return /* @__PURE__ */ import_react31.default.createElement(Sector, elementProps);
       case "symbols":
         if (isSymbolsProps(shapeType, elementProps)) {
-          return /* @__PURE__ */ import_react30.default.createElement(Symbols, elementProps);
+          return /* @__PURE__ */ import_react31.default.createElement(Symbols, elementProps);
         }
         break;
       default:
@@ -62166,7 +62732,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
   }
   function getPropsFromShapeOption(option) {
-    if (/* @__PURE__ */ (0, import_react30.isValidElement)(option)) {
+    if (/* @__PURE__ */ (0, import_react31.isValidElement)(option)) {
       return option.props;
     }
     return option;
@@ -62174,25 +62740,25 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   function Shape(_ref2) {
     var option = _ref2.option, shapeType = _ref2.shapeType, _ref2$propTransformer = _ref2.propTransformer, propTransformer = _ref2$propTransformer === void 0 ? defaultPropTransformer : _ref2$propTransformer, _ref2$activeClassName = _ref2.activeClassName, activeClassName = _ref2$activeClassName === void 0 ? "recharts-active-shape" : _ref2$activeClassName, isActive = _ref2.isActive, props = _objectWithoutProperties14(_ref2, _excluded15);
     var shape;
-    if (/* @__PURE__ */ (0, import_react30.isValidElement)(option)) {
-      shape = /* @__PURE__ */ (0, import_react30.cloneElement)(option, _objectSpread24(_objectSpread24({}, props), getPropsFromShapeOption(option)));
+    if (/* @__PURE__ */ (0, import_react31.isValidElement)(option)) {
+      shape = /* @__PURE__ */ (0, import_react31.cloneElement)(option, _objectSpread24(_objectSpread24({}, props), getPropsFromShapeOption(option)));
     } else if ((0, import_isFunction11.default)(option)) {
       shape = option(props);
     } else if ((0, import_isPlainObject.default)(option) && !(0, import_isBoolean.default)(option)) {
       var nextProps = propTransformer(option, props);
-      shape = /* @__PURE__ */ import_react30.default.createElement(ShapeSelector, {
+      shape = /* @__PURE__ */ import_react31.default.createElement(ShapeSelector, {
         shapeType,
         elementProps: nextProps
       });
     } else {
       var elementProps = props;
-      shape = /* @__PURE__ */ import_react30.default.createElement(ShapeSelector, {
+      shape = /* @__PURE__ */ import_react31.default.createElement(ShapeSelector, {
         shapeType,
         elementProps
       });
     }
     if (isActive) {
-      return /* @__PURE__ */ import_react30.default.createElement(Layer, {
+      return /* @__PURE__ */ import_react31.default.createElement(Layer, {
         className: activeClassName
       }, shape);
     }
@@ -62288,8 +62854,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof31(o);
   }
-  function _extends19() {
-    _extends19 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends20() {
+    _extends20 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -62300,7 +62866,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends19.apply(this, arguments);
+    return _extends20.apply(this, arguments);
   }
   function ownKeys25(e, r3) {
     var t = Object.keys(e);
@@ -62506,12 +63072,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }
           return (
             // eslint-disable-next-line react/no-array-index-key
-            /* @__PURE__ */ import_react31.default.createElement(Layer, {
+            /* @__PURE__ */ import_react32.default.createElement(Layer, {
               key: "label-".concat(entry.startAngle, "-").concat(entry.endAngle, "-").concat(entry.midAngle, "-").concat(i)
             }, labelLine && Pie2.renderLabelLineItem(labelLine, lineProps, "line"), Pie2.renderLabelItem(label, labelProps, getValueByDataKey(entry, realDataKey)))
           );
         });
-        return /* @__PURE__ */ import_react31.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react32.default.createElement(Layer, {
           className: "recharts-pie-labels"
         }, labels2);
       }
@@ -62530,7 +63096,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             stroke: blendStroke ? entry.fill : entry.stroke,
             tabIndex: -1
           });
-          return /* @__PURE__ */ import_react31.default.createElement(Layer, _extends19({
+          return /* @__PURE__ */ import_react32.default.createElement(Layer, _extends20({
             ref: function ref(_ref) {
               if (_ref && !_this2.sectorRefs.includes(_ref)) {
                 _this2.sectorRefs.push(_ref);
@@ -62541,7 +63107,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }, adaptEventsOfChild(_this2.props, entry, i), {
             // eslint-disable-next-line react/no-array-index-key
             key: "sector-".concat(entry === null || entry === void 0 ? void 0 : entry.startAngle, "-").concat(entry === null || entry === void 0 ? void 0 : entry.endAngle, "-").concat(entry.midAngle, "-").concat(i)
-          }), /* @__PURE__ */ import_react31.default.createElement(Shape, _extends19({
+          }), /* @__PURE__ */ import_react32.default.createElement(Shape, _extends20({
             option: sectorOptions,
             isActive,
             shapeType: "sector"
@@ -62554,7 +63120,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var _this3 = this;
         var _this$props3 = this.props, sectors = _this$props3.sectors, isAnimationActive = _this$props3.isAnimationActive, animationBegin = _this$props3.animationBegin, animationDuration = _this$props3.animationDuration, animationEasing = _this$props3.animationEasing, animationId = _this$props3.animationId;
         var _this$state = this.state, prevSectors = _this$state.prevSectors, prevIsAnimationActive = _this$state.prevIsAnimationActive;
-        return /* @__PURE__ */ import_react31.default.createElement(es6_default, {
+        return /* @__PURE__ */ import_react32.default.createElement(es6_default, {
           begin: animationBegin,
           duration: animationDuration,
           isActive: isAnimationActive,
@@ -62596,7 +63162,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               curAngle = _latest.endAngle;
             }
           });
-          return /* @__PURE__ */ import_react31.default.createElement(Layer, null, _this3.renderSectorsStatically(stepData));
+          return /* @__PURE__ */ import_react32.default.createElement(Layer, null, _this3.renderSectorsStatically(stepData));
         });
       }
     }, {
@@ -62662,7 +63228,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           return null;
         }
         var layerClass = clsx_default("recharts-pie", className);
-        return /* @__PURE__ */ import_react31.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react32.default.createElement(Layer, {
           tabIndex: this.props.rootTabIndex,
           className: layerClass,
           ref: function ref(_ref3) {
@@ -62712,14 +63278,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }, {
       key: "renderLabelLineItem",
       value: function renderLabelLineItem(option, props, key) {
-        if (/* @__PURE__ */ import_react31.default.isValidElement(option)) {
-          return /* @__PURE__ */ import_react31.default.cloneElement(option, props);
+        if (/* @__PURE__ */ import_react32.default.isValidElement(option)) {
+          return /* @__PURE__ */ import_react32.default.cloneElement(option, props);
         }
         if ((0, import_isFunction12.default)(option)) {
           return option(props);
         }
         var className = clsx_default("recharts-pie-label-line", typeof option !== "boolean" ? option.className : "");
-        return /* @__PURE__ */ import_react31.default.createElement(Curve, _extends19({}, props, {
+        return /* @__PURE__ */ import_react32.default.createElement(Curve, _extends20({}, props, {
           key,
           type: "linear",
           className
@@ -62728,24 +63294,24 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }, {
       key: "renderLabelItem",
       value: function renderLabelItem(option, props, value) {
-        if (/* @__PURE__ */ import_react31.default.isValidElement(option)) {
-          return /* @__PURE__ */ import_react31.default.cloneElement(option, props);
+        if (/* @__PURE__ */ import_react32.default.isValidElement(option)) {
+          return /* @__PURE__ */ import_react32.default.cloneElement(option, props);
         }
         var label = value;
         if ((0, import_isFunction12.default)(option)) {
           label = option(props);
-          if (/* @__PURE__ */ import_react31.default.isValidElement(label)) {
+          if (/* @__PURE__ */ import_react32.default.isValidElement(label)) {
             return label;
           }
         }
         var className = clsx_default("recharts-pie-label-text", typeof option !== "boolean" && !(0, import_isFunction12.default)(option) ? option.className : "");
-        return /* @__PURE__ */ import_react31.default.createElement(Text, _extends19({}, props, {
+        return /* @__PURE__ */ import_react32.default.createElement(Text, _extends20({}, props, {
           alignmentBaseline: "middle",
           className
         }), label);
       }
     }]);
-  }(import_react31.PureComponent);
+  }(import_react32.PureComponent);
   _Pie = Pie;
   _defineProperty27(Pie, "displayName", "Pie");
   _defineProperty27(Pie, "defaultProps", {
@@ -62887,7 +63453,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/Brush.js
-  var import_react32 = __toESM(require_react());
+  var import_react33 = __toESM(require_react());
   var import_isFunction13 = __toESM(require_isFunction());
   var import_range2 = __toESM(require_range());
 
@@ -62970,8 +63536,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof33(o);
   }
-  function _extends20() {
-    _extends20 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends21() {
+    _extends21 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -62982,7 +63548,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends20.apply(this, arguments);
+    return _extends21.apply(this, arguments);
   }
   function ownKeys27(e, r3) {
     var t = Object.keys(e);
@@ -63337,7 +63903,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "renderBackground",
       value: function renderBackground() {
         var _this$props6 = this.props, x2 = _this$props6.x, y2 = _this$props6.y, width = _this$props6.width, height = _this$props6.height, fill = _this$props6.fill, stroke = _this$props6.stroke;
-        return /* @__PURE__ */ import_react32.default.createElement("rect", {
+        return /* @__PURE__ */ import_react33.default.createElement("rect", {
           stroke,
           fill,
           x: x2,
@@ -63350,11 +63916,11 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "renderPanorama",
       value: function renderPanorama() {
         var _this$props7 = this.props, x2 = _this$props7.x, y2 = _this$props7.y, width = _this$props7.width, height = _this$props7.height, data = _this$props7.data, children = _this$props7.children, padding = _this$props7.padding;
-        var chartElement = import_react32.Children.only(children);
+        var chartElement = import_react33.Children.only(children);
         if (!chartElement) {
           return null;
         }
-        return /* @__PURE__ */ import_react32.default.cloneElement(chartElement, {
+        return /* @__PURE__ */ import_react33.default.cloneElement(chartElement, {
           x: x2,
           y: y2,
           width,
@@ -63377,7 +63943,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           height
         });
         var ariaLabelBrush = ariaLabel || "Min value: ".concat((_data$startIndex = data[startIndex]) === null || _data$startIndex === void 0 ? void 0 : _data$startIndex.name, ", Max value: ").concat((_data$endIndex = data[endIndex]) === null || _data$endIndex === void 0 ? void 0 : _data$endIndex.name);
-        return /* @__PURE__ */ import_react32.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react33.default.createElement(Layer, {
           tabIndex: 0,
           role: "slider",
           "aria-label": ariaLabelBrush,
@@ -63416,7 +63982,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var _this$props9 = this.props, y2 = _this$props9.y, height = _this$props9.height, stroke = _this$props9.stroke, travellerWidth = _this$props9.travellerWidth;
         var x2 = Math.min(startX, endX) + travellerWidth;
         var width = Math.max(Math.abs(endX - startX) - travellerWidth, 0);
-        return /* @__PURE__ */ import_react32.default.createElement("rect", {
+        return /* @__PURE__ */ import_react33.default.createElement("rect", {
           className: "recharts-brush-slide",
           onMouseEnter: this.handleEnterSlideOrTraveller,
           onMouseLeave: this.handleLeaveSlideOrTraveller,
@@ -63444,14 +64010,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           pointerEvents: "none",
           fill: stroke
         };
-        return /* @__PURE__ */ import_react32.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react33.default.createElement(Layer, {
           className: "recharts-brush-texts"
-        }, /* @__PURE__ */ import_react32.default.createElement(Text, _extends20({
+        }, /* @__PURE__ */ import_react33.default.createElement(Text, _extends21({
           textAnchor: "end",
           verticalAnchor: "middle",
           x: Math.min(startX, endX) - offset4,
           y: y2 + height / 2
-        }, attrs), this.getTextOfTick(startIndex)), /* @__PURE__ */ import_react32.default.createElement(Text, _extends20({
+        }, attrs), this.getTextOfTick(startIndex)), /* @__PURE__ */ import_react33.default.createElement(Text, _extends21({
           textAnchor: "start",
           verticalAnchor: "middle",
           x: Math.max(startX, endX) + travellerWidth + offset4,
@@ -63467,9 +64033,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           return null;
         }
         var layerClass = clsx_default("recharts-brush", className);
-        var isPanoramic = import_react32.default.Children.count(children) === 1;
+        var isPanoramic = import_react33.default.Children.count(children) === 1;
         var style = generatePrefixStyle("userSelect", "none");
-        return /* @__PURE__ */ import_react32.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react33.default.createElement(Layer, {
           className: layerClass,
           onMouseLeave: this.handleLeaveWrapper,
           onTouchMove: this.handleTouchMove,
@@ -63481,21 +64047,21 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       value: function renderDefaultTraveller(props) {
         var x2 = props.x, y2 = props.y, width = props.width, height = props.height, stroke = props.stroke;
         var lineY = Math.floor(y2 + height / 2) - 1;
-        return /* @__PURE__ */ import_react32.default.createElement(import_react32.default.Fragment, null, /* @__PURE__ */ import_react32.default.createElement("rect", {
+        return /* @__PURE__ */ import_react33.default.createElement(import_react33.default.Fragment, null, /* @__PURE__ */ import_react33.default.createElement("rect", {
           x: x2,
           y: y2,
           width,
           height,
           fill: stroke,
           stroke: "none"
-        }), /* @__PURE__ */ import_react32.default.createElement("line", {
+        }), /* @__PURE__ */ import_react33.default.createElement("line", {
           x1: x2 + 1,
           y1: lineY,
           x2: x2 + width - 1,
           y2: lineY,
           fill: "none",
           stroke: "#fff"
-        }), /* @__PURE__ */ import_react32.default.createElement("line", {
+        }), /* @__PURE__ */ import_react33.default.createElement("line", {
           x1: x2 + 1,
           y1: lineY + 2,
           x2: x2 + width - 1,
@@ -63508,8 +64074,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "renderTraveller",
       value: function renderTraveller(option, props) {
         var rectangle;
-        if (/* @__PURE__ */ import_react32.default.isValidElement(option)) {
-          rectangle = /* @__PURE__ */ import_react32.default.cloneElement(option, props);
+        if (/* @__PURE__ */ import_react33.default.isValidElement(option)) {
+          rectangle = /* @__PURE__ */ import_react33.default.cloneElement(option, props);
         } else if ((0, import_isFunction13.default)(option)) {
           rectangle = option(props);
         } else {
@@ -63575,7 +64141,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return x2 >= valueRange[end] ? end : start;
       }
     }]);
-  }(import_react32.PureComponent);
+  }(import_react33.PureComponent);
   _defineProperty29(Brush, "displayName", "Brush");
   _defineProperty29(Brush, "defaultProps", {
     height: 40,
@@ -63594,7 +64160,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/ReferenceLine.js
-  var import_react36 = __toESM(require_react());
+  var import_react37 = __toESM(require_react());
   var import_isFunction14 = __toESM(require_isFunction());
   var import_some = __toESM(require_some());
 
@@ -63613,12 +64179,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   var import_every = __toESM(require_every());
 
   // node_modules/recharts/es6/cartesian/Bar.js
-  var import_react34 = __toESM(require_react());
+  var import_react35 = __toESM(require_react());
   var import_isEqual4 = __toESM(require_isEqual());
   var import_isNil10 = __toESM(require_isNil());
 
   // node_modules/recharts/es6/util/BarUtils.js
-  var import_react33 = __toESM(require_react());
+  var import_react34 = __toESM(require_react());
   var _excluded16 = ["x", "y"];
   function _typeof34(o) {
     "@babel/helpers - typeof";
@@ -63628,8 +64194,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof34(o);
   }
-  function _extends21() {
-    _extends21 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends22() {
+    _extends22 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -63640,7 +64206,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends21.apply(this, arguments);
+    return _extends22.apply(this, arguments);
   }
   function ownKeys28(e, r3) {
     var t = Object.keys(e);
@@ -63741,7 +64307,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     });
   }
   function BarRectangle(props) {
-    return /* @__PURE__ */ import_react33.default.createElement(Shape, _extends21({
+    return /* @__PURE__ */ import_react34.default.createElement(Shape, _extends22({
       shapeType: "rectangle",
       propTransformer: typeguardBarRectangleProps,
       activeClassName: "recharts-active-bar"
@@ -63803,8 +64369,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return target;
   }
-  function _extends22() {
-    _extends22 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends23() {
+    _extends23 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -63815,7 +64381,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends22.apply(this, arguments);
+    return _extends23.apply(this, arguments);
   }
   function ownKeys29(e, r3) {
     var t = Object.keys(e);
@@ -63985,13 +64551,13 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             onAnimationStart: _this2.handleAnimationStart,
             onAnimationEnd: _this2.handleAnimationEnd
           });
-          return /* @__PURE__ */ import_react34.default.createElement(Layer, _extends22({
+          return /* @__PURE__ */ import_react35.default.createElement(Layer, _extends23({
             className: "recharts-bar-rectangle"
           }, adaptEventsOfChild(_this2.props, entry, i), {
             // https://github.com/recharts/recharts/issues/5415
             // eslint-disable-next-line react/no-array-index-key
             key: "rectangle-".concat(entry === null || entry === void 0 ? void 0 : entry.x, "-").concat(entry === null || entry === void 0 ? void 0 : entry.y, "-").concat(entry === null || entry === void 0 ? void 0 : entry.value, "-").concat(i)
-          }), /* @__PURE__ */ import_react34.default.createElement(BarRectangle, props));
+          }), /* @__PURE__ */ import_react35.default.createElement(BarRectangle, props));
         });
       }
     }, {
@@ -64000,7 +64566,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var _this3 = this;
         var _this$props2 = this.props, data = _this$props2.data, layout = _this$props2.layout, isAnimationActive = _this$props2.isAnimationActive, animationBegin = _this$props2.animationBegin, animationDuration = _this$props2.animationDuration, animationEasing = _this$props2.animationEasing, animationId = _this$props2.animationId;
         var prevData = this.state.prevData;
-        return /* @__PURE__ */ import_react34.default.createElement(es6_default, {
+        return /* @__PURE__ */ import_react35.default.createElement(es6_default, {
           begin: animationBegin,
           duration: animationDuration,
           isActive: isAnimationActive,
@@ -64044,7 +64610,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               width: w
             });
           });
-          return /* @__PURE__ */ import_react34.default.createElement(Layer, null, _this3.renderRectanglesStatically(stepData));
+          return /* @__PURE__ */ import_react35.default.createElement(Layer, null, _this3.renderRectanglesStatically(stepData));
         });
       }
     }, {
@@ -64077,7 +64643,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             index: i,
             className: "recharts-bar-background-rectangle"
           });
-          return /* @__PURE__ */ import_react34.default.createElement(BarRectangle, _extends22({
+          return /* @__PURE__ */ import_react35.default.createElement(BarRectangle, _extends23({
             key: "background-bar-".concat(i),
             option: _this4.props.background,
             isActive: i === activeIndex
@@ -64108,8 +64674,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var errorBarProps = {
           clipPath: needClip ? "url(#clipPath-".concat(clipPathId, ")") : null
         };
-        return /* @__PURE__ */ import_react34.default.createElement(Layer, errorBarProps, errorBarItems.map(function(item) {
-          return /* @__PURE__ */ import_react34.default.cloneElement(item, {
+        return /* @__PURE__ */ import_react35.default.createElement(Layer, errorBarProps, errorBarItems.map(function(item) {
+          return /* @__PURE__ */ import_react35.default.cloneElement(item, {
             key: "error-bar-".concat(clipPathId, "-").concat(item.props.dataKey),
             data,
             xAxis,
@@ -64133,16 +64699,16 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var needClipY = yAxis && yAxis.allowDataOverflow;
         var needClip = needClipX || needClipY;
         var clipPathId = (0, import_isNil10.default)(id2) ? this.id : id2;
-        return /* @__PURE__ */ import_react34.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react35.default.createElement(Layer, {
           className: layerClass
-        }, needClipX || needClipY ? /* @__PURE__ */ import_react34.default.createElement("defs", null, /* @__PURE__ */ import_react34.default.createElement("clipPath", {
+        }, needClipX || needClipY ? /* @__PURE__ */ import_react35.default.createElement("defs", null, /* @__PURE__ */ import_react35.default.createElement("clipPath", {
           id: "clipPath-".concat(clipPathId)
-        }, /* @__PURE__ */ import_react34.default.createElement("rect", {
+        }, /* @__PURE__ */ import_react35.default.createElement("rect", {
           x: needClipX ? left : left - width / 2,
           y: needClipY ? top2 : top2 - height / 2,
           width: needClipX ? width : width * 2,
           height: needClipY ? height : height * 2
-        }))) : null, /* @__PURE__ */ import_react34.default.createElement(Layer, {
+        }))) : null, /* @__PURE__ */ import_react35.default.createElement(Layer, {
           className: "recharts-bar-rectangles",
           clipPath: needClip ? "url(#clipPath-".concat(clipPathId, ")") : null
         }, background ? this.renderBackground() : null, this.renderRectangles()), this.renderErrorBar(needClip, clipPathId), (!isAnimationActive || isAnimationFinished) && LabelList.renderCallByParent(this.props, data));
@@ -64165,7 +64731,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return null;
       }
     }]);
-  }(import_react34.PureComponent);
+  }(import_react35.PureComponent);
   _Bar = Bar;
   _defineProperty31(Bar, "displayName", "Bar");
   _defineProperty31(Bar, "defaultProps", {
@@ -64574,7 +65140,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
 
   // node_modules/recharts/es6/context/chartLayoutContext.js
-  var import_react35 = __toESM(require_react());
+  var import_react36 = __toESM(require_react());
   var import_find = __toESM(require_find());
   var import_every2 = __toESM(require_every());
 
@@ -64600,34 +65166,34 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof37(o);
   }
-  var XAxisContext = /* @__PURE__ */ (0, import_react35.createContext)(void 0);
-  var YAxisContext = /* @__PURE__ */ (0, import_react35.createContext)(void 0);
-  var ViewBoxContext = /* @__PURE__ */ (0, import_react35.createContext)(void 0);
-  var OffsetContext = /* @__PURE__ */ (0, import_react35.createContext)({});
-  var ClipPathIdContext = /* @__PURE__ */ (0, import_react35.createContext)(void 0);
-  var ChartHeightContext = /* @__PURE__ */ (0, import_react35.createContext)(0);
-  var ChartWidthContext = /* @__PURE__ */ (0, import_react35.createContext)(0);
+  var XAxisContext = /* @__PURE__ */ (0, import_react36.createContext)(void 0);
+  var YAxisContext = /* @__PURE__ */ (0, import_react36.createContext)(void 0);
+  var ViewBoxContext = /* @__PURE__ */ (0, import_react36.createContext)(void 0);
+  var OffsetContext = /* @__PURE__ */ (0, import_react36.createContext)({});
+  var ClipPathIdContext = /* @__PURE__ */ (0, import_react36.createContext)(void 0);
+  var ChartHeightContext = /* @__PURE__ */ (0, import_react36.createContext)(0);
+  var ChartWidthContext = /* @__PURE__ */ (0, import_react36.createContext)(0);
   var ChartLayoutContextProvider = function ChartLayoutContextProvider2(props) {
     var _props$state = props.state, xAxisMap = _props$state.xAxisMap, yAxisMap = _props$state.yAxisMap, offset4 = _props$state.offset, clipPathId = props.clipPathId, children = props.children, width = props.width, height = props.height;
     var viewBox = calculateViewBox(offset4);
-    return /* @__PURE__ */ import_react35.default.createElement(XAxisContext.Provider, {
+    return /* @__PURE__ */ import_react36.default.createElement(XAxisContext.Provider, {
       value: xAxisMap
-    }, /* @__PURE__ */ import_react35.default.createElement(YAxisContext.Provider, {
+    }, /* @__PURE__ */ import_react36.default.createElement(YAxisContext.Provider, {
       value: yAxisMap
-    }, /* @__PURE__ */ import_react35.default.createElement(OffsetContext.Provider, {
+    }, /* @__PURE__ */ import_react36.default.createElement(OffsetContext.Provider, {
       value: offset4
-    }, /* @__PURE__ */ import_react35.default.createElement(ViewBoxContext.Provider, {
+    }, /* @__PURE__ */ import_react36.default.createElement(ViewBoxContext.Provider, {
       value: viewBox
-    }, /* @__PURE__ */ import_react35.default.createElement(ClipPathIdContext.Provider, {
+    }, /* @__PURE__ */ import_react36.default.createElement(ClipPathIdContext.Provider, {
       value: clipPathId
-    }, /* @__PURE__ */ import_react35.default.createElement(ChartHeightContext.Provider, {
+    }, /* @__PURE__ */ import_react36.default.createElement(ChartHeightContext.Provider, {
       value: height
-    }, /* @__PURE__ */ import_react35.default.createElement(ChartWidthContext.Provider, {
+    }, /* @__PURE__ */ import_react36.default.createElement(ChartWidthContext.Provider, {
       value: width
     }, children)))))));
   };
   var useClipPathId = function useClipPathId2() {
-    return (0, import_react35.useContext)(ClipPathIdContext);
+    return (0, import_react36.useContext)(ClipPathIdContext);
   };
   function getKeysForDebug(object) {
     var keys2 = Object.keys(object);
@@ -64637,42 +65203,42 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return "Available ids are: ".concat(keys2, ".");
   }
   var useXAxisOrThrow = function useXAxisOrThrow2(xAxisId) {
-    var xAxisMap = (0, import_react35.useContext)(XAxisContext);
+    var xAxisMap = (0, import_react36.useContext)(XAxisContext);
     !(xAxisMap != null) ? true ? invariant(false, "Could not find Recharts context; are you sure this is rendered inside a Recharts wrapper component?") : invariant(false) : void 0;
     var xAxis = xAxisMap[xAxisId];
     !(xAxis != null) ? true ? invariant(false, 'Could not find xAxis by id "'.concat(xAxisId, '" [').concat(_typeof37(xAxisId), "]. ").concat(getKeysForDebug(xAxisMap))) : invariant(false) : void 0;
     return xAxis;
   };
   var useArbitraryXAxis = function useArbitraryXAxis2() {
-    var xAxisMap = (0, import_react35.useContext)(XAxisContext);
+    var xAxisMap = (0, import_react36.useContext)(XAxisContext);
     return getAnyElementOfObject(xAxisMap);
   };
   var useYAxisWithFiniteDomainOrRandom = function useYAxisWithFiniteDomainOrRandom2() {
-    var yAxisMap = (0, import_react35.useContext)(YAxisContext);
+    var yAxisMap = (0, import_react36.useContext)(YAxisContext);
     var yAxisWithFiniteDomain = (0, import_find.default)(yAxisMap, function(axis) {
       return (0, import_every2.default)(axis.domain, Number.isFinite);
     });
     return yAxisWithFiniteDomain || getAnyElementOfObject(yAxisMap);
   };
   var useYAxisOrThrow = function useYAxisOrThrow2(yAxisId) {
-    var yAxisMap = (0, import_react35.useContext)(YAxisContext);
+    var yAxisMap = (0, import_react36.useContext)(YAxisContext);
     !(yAxisMap != null) ? true ? invariant(false, "Could not find Recharts context; are you sure this is rendered inside a Recharts wrapper component?") : invariant(false) : void 0;
     var yAxis = yAxisMap[yAxisId];
     !(yAxis != null) ? true ? invariant(false, 'Could not find yAxis by id "'.concat(yAxisId, '" [').concat(_typeof37(yAxisId), "]. ").concat(getKeysForDebug(yAxisMap))) : invariant(false) : void 0;
     return yAxis;
   };
   var useViewBox = function useViewBox2() {
-    var viewBox = (0, import_react35.useContext)(ViewBoxContext);
+    var viewBox = (0, import_react36.useContext)(ViewBoxContext);
     return viewBox;
   };
   var useOffset = function useOffset2() {
-    return (0, import_react35.useContext)(OffsetContext);
+    return (0, import_react36.useContext)(OffsetContext);
   };
   var useChartWidth = function useChartWidth2() {
-    return (0, import_react35.useContext)(ChartWidthContext);
+    return (0, import_react36.useContext)(ChartWidthContext);
   };
   var useChartHeight = function useChartHeight2() {
-    return (0, import_react35.useContext)(ChartHeightContext);
+    return (0, import_react36.useContext)(ChartHeightContext);
   };
 
   // node_modules/recharts/es6/cartesian/ReferenceLine.js
@@ -64858,8 +65424,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (Array.isArray(arr))
       return arr;
   }
-  function _extends23() {
-    _extends23 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends24() {
+    _extends24 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -64870,16 +65436,16 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends23.apply(this, arguments);
+    return _extends24.apply(this, arguments);
   }
   var renderLine = function renderLine2(option, props) {
     var line;
-    if (/* @__PURE__ */ import_react36.default.isValidElement(option)) {
-      line = /* @__PURE__ */ import_react36.default.cloneElement(option, props);
+    if (/* @__PURE__ */ import_react37.default.isValidElement(option)) {
+      line = /* @__PURE__ */ import_react37.default.cloneElement(option, props);
     } else if ((0, import_isFunction14.default)(option)) {
       line = option(props);
     } else {
-      line = /* @__PURE__ */ import_react36.default.createElement("line", _extends23({}, props, {
+      line = /* @__PURE__ */ import_react37.default.createElement("line", _extends24({}, props, {
         className: "recharts-reference-line-line"
       }));
     }
@@ -64968,7 +65534,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       x2,
       y2
     });
-    return /* @__PURE__ */ import_react36.default.createElement(Layer, {
+    return /* @__PURE__ */ import_react37.default.createElement(Layer, {
       className: clsx_default("recharts-reference-line", className)
     }, renderLine(shape, lineProps), Label3.renderCallByParent(props, rectWithCoords({
       x1,
@@ -64986,10 +65552,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return _createClass14(ReferenceLine2, [{
       key: "render",
       value: function render() {
-        return /* @__PURE__ */ import_react36.default.createElement(ReferenceLineImpl, this.props);
+        return /* @__PURE__ */ import_react37.default.createElement(ReferenceLineImpl, this.props);
       }
     }]);
-  }(import_react36.default.Component);
+  }(import_react37.default.Component);
   _defineProperty33(ReferenceLine, "displayName", "ReferenceLine");
   _defineProperty33(ReferenceLine, "defaultProps", {
     isFront: false,
@@ -65004,10 +65570,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/ReferenceDot.js
-  var import_react37 = __toESM(require_react());
+  var import_react38 = __toESM(require_react());
   var import_isFunction15 = __toESM(require_isFunction());
-  function _extends24() {
-    _extends24 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends25() {
+    _extends25 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -65018,7 +65584,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends24.apply(this, arguments);
+    return _extends25.apply(this, arguments);
   }
   function _typeof39(o) {
     "@babel/helpers - typeof";
@@ -65192,7 +65758,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           cx: cx2,
           cy
         });
-        return /* @__PURE__ */ import_react37.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react38.default.createElement(Layer, {
           className: clsx_default("recharts-reference-dot", className)
         }, ReferenceDot2.renderDot(shape, dotProps), Label3.renderCallByParent(this.props, {
           x: cx2 - r3,
@@ -65202,7 +65768,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         }));
       }
     }]);
-  }(import_react37.default.Component);
+  }(import_react38.default.Component);
   _defineProperty34(ReferenceDot, "displayName", "ReferenceDot");
   _defineProperty34(ReferenceDot, "defaultProps", {
     isFront: false,
@@ -65217,12 +65783,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
   _defineProperty34(ReferenceDot, "renderDot", function(option, props) {
     var dot;
-    if (/* @__PURE__ */ import_react37.default.isValidElement(option)) {
-      dot = /* @__PURE__ */ import_react37.default.cloneElement(option, props);
+    if (/* @__PURE__ */ import_react38.default.isValidElement(option)) {
+      dot = /* @__PURE__ */ import_react38.default.cloneElement(option, props);
     } else if ((0, import_isFunction15.default)(option)) {
       dot = option(props);
     } else {
-      dot = /* @__PURE__ */ import_react37.default.createElement(Dot, _extends24({}, props, {
+      dot = /* @__PURE__ */ import_react38.default.createElement(Dot, _extends25({}, props, {
         cx: props.cx,
         cy: props.cy,
         className: "recharts-reference-dot-dot"
@@ -65232,10 +65798,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/ReferenceArea.js
-  var import_react38 = __toESM(require_react());
+  var import_react39 = __toESM(require_react());
   var import_isFunction16 = __toESM(require_isFunction());
-  function _extends25() {
-    _extends25 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends26() {
+    _extends26 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -65246,7 +65812,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends25.apply(this, arguments);
+    return _extends26.apply(this, arguments);
   }
   function _typeof40(o) {
     "@babel/helpers - typeof";
@@ -65427,14 +65993,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           return null;
         }
         var clipPath = ifOverflowMatches(this.props, "hidden") ? "url(#".concat(clipPathId, ")") : void 0;
-        return /* @__PURE__ */ import_react38.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react39.default.createElement(Layer, {
           className: clsx_default("recharts-reference-area", className)
         }, ReferenceArea2.renderRect(shape, _objectSpread33(_objectSpread33({
           clipPath
         }, filterProps(this.props, true)), rect)), Label3.renderCallByParent(this.props, rect));
       }
     }]);
-  }(import_react38.default.Component);
+  }(import_react39.default.Component);
   _defineProperty35(ReferenceArea, "displayName", "ReferenceArea");
   _defineProperty35(ReferenceArea, "defaultProps", {
     isFront: false,
@@ -65449,12 +66015,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
   _defineProperty35(ReferenceArea, "renderRect", function(option, props) {
     var rect;
-    if (/* @__PURE__ */ import_react38.default.isValidElement(option)) {
-      rect = /* @__PURE__ */ import_react38.default.cloneElement(option, props);
+    if (/* @__PURE__ */ import_react39.default.isValidElement(option)) {
+      rect = /* @__PURE__ */ import_react39.default.cloneElement(option, props);
     } else if ((0, import_isFunction16.default)(option)) {
       rect = option(props);
     } else {
-      rect = /* @__PURE__ */ import_react38.default.createElement(Rectangle, _extends25({}, props, {
+      rect = /* @__PURE__ */ import_react39.default.createElement(Rectangle, _extends26({}, props, {
         className: "recharts-reference-area-rect"
       }));
     }
@@ -65462,7 +66028,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/CartesianAxis.js
-  var import_react39 = __toESM(require_react());
+  var import_react40 = __toESM(require_react());
   var import_isFunction18 = __toESM(require_isFunction());
   var import_get5 = __toESM(require_get());
 
@@ -65763,8 +66329,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof42(o);
   }
-  function _extends26() {
-    _extends26 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends27() {
+    _extends27 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -65775,7 +66341,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends26.apply(this, arguments);
+    return _extends27.apply(this, arguments);
   }
   function ownKeys35(e, r3) {
     var t = Object.keys(e);
@@ -66077,7 +66643,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             y2: y2 + height
           });
         }
-        return /* @__PURE__ */ import_react39.default.createElement("line", _extends26({}, props, {
+        return /* @__PURE__ */ import_react40.default.createElement("line", _extends27({}, props, {
           className: clsx_default("recharts-cartesian-axis-line", (0, import_get5.default)(axisLine, "className"))
         }));
       }
@@ -66118,14 +66684,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               visibleTicksCount: finalTicks.length,
               tickFormatter
             });
-            return /* @__PURE__ */ import_react39.default.createElement(Layer, _extends26({
+            return /* @__PURE__ */ import_react40.default.createElement(Layer, _extends27({
               className: "recharts-cartesian-axis-tick",
               key: "tick-".concat(entry.value, "-").concat(entry.coordinate, "-").concat(entry.tickCoord)
-            }, adaptEventsOfChild(_this2.props, entry, i)), tickLine && /* @__PURE__ */ import_react39.default.createElement("line", _extends26({}, tickLineProps, lineCoord, {
+            }, adaptEventsOfChild(_this2.props, entry, i)), tickLine && /* @__PURE__ */ import_react40.default.createElement("line", _extends27({}, tickLineProps, lineCoord, {
               className: clsx_default("recharts-cartesian-axis-tick-line", (0, import_get5.default)(tickLine, "className"))
             })), tick && CartesianAxis2.renderTickItem(tick, tickProps, "".concat((0, import_isFunction18.default)(tickFormatter) ? tickFormatter(entry.value, i) : entry.value).concat(unit2 || "")));
           });
-          return /* @__PURE__ */ import_react39.default.createElement("g", {
+          return /* @__PURE__ */ import_react40.default.createElement("g", {
             className: "recharts-cartesian-axis-ticks"
           }, items);
         }
@@ -66146,7 +66712,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         if (width <= 0 || height <= 0 || !finalTicks || !finalTicks.length) {
           return null;
         }
-        return /* @__PURE__ */ import_react39.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react40.default.createElement(Layer, {
           className: clsx_default("recharts-cartesian-axis", className),
           ref: function ref(_ref2) {
             _this3.layerReference = _ref2;
@@ -66158,8 +66724,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       value: function renderTickItem(option, props, value) {
         var tickItem;
         var combinedClassName = clsx_default(props.className, "recharts-cartesian-axis-tick-value");
-        if (/* @__PURE__ */ import_react39.default.isValidElement(option)) {
-          tickItem = /* @__PURE__ */ import_react39.default.cloneElement(option, _objectSpread35(_objectSpread35({}, props), {}, {
+        if (/* @__PURE__ */ import_react40.default.isValidElement(option)) {
+          tickItem = /* @__PURE__ */ import_react40.default.cloneElement(option, _objectSpread35(_objectSpread35({}, props), {}, {
             className: combinedClassName
           }));
         } else if ((0, import_isFunction18.default)(option)) {
@@ -66167,14 +66733,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             className: combinedClassName
           }));
         } else {
-          tickItem = /* @__PURE__ */ import_react39.default.createElement(Text, _extends26({}, props, {
+          tickItem = /* @__PURE__ */ import_react40.default.createElement(Text, _extends27({}, props, {
             className: "recharts-cartesian-axis-tick-value"
           }), value);
         }
         return tickItem;
       }
     }]);
-  }(import_react39.Component);
+  }(import_react40.Component);
   _defineProperty37(CartesianAxis, "displayName", "CartesianAxis");
   _defineProperty37(CartesianAxis, "defaultProps", {
     x: 0,
@@ -66204,7 +66770,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/CartesianGrid.js
-  var import_react40 = __toESM(require_react());
+  var import_react41 = __toESM(require_react());
   var import_isFunction19 = __toESM(require_isFunction());
   var _excluded19 = ["x1", "y1", "x2", "y2", "key"];
   var _excluded26 = ["offset"];
@@ -66262,8 +66828,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return ("string" === r3 ? String : Number)(t);
   }
-  function _extends27() {
-    _extends27 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends28() {
+    _extends28 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -66274,7 +66840,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends27.apply(this, arguments);
+    return _extends28.apply(this, arguments);
   }
   function _objectWithoutProperties18(source, excluded) {
     if (source == null)
@@ -66313,7 +66879,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return null;
     }
     var fillOpacity = props.fillOpacity, x2 = props.x, y2 = props.y, width = props.width, height = props.height, ry = props.ry;
-    return /* @__PURE__ */ import_react40.default.createElement("rect", {
+    return /* @__PURE__ */ import_react41.default.createElement("rect", {
       x: x2,
       y: y2,
       ry,
@@ -66327,14 +66893,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   };
   function renderLineItem(option, props) {
     var lineItem;
-    if (/* @__PURE__ */ import_react40.default.isValidElement(option)) {
-      lineItem = /* @__PURE__ */ import_react40.default.cloneElement(option, props);
+    if (/* @__PURE__ */ import_react41.default.isValidElement(option)) {
+      lineItem = /* @__PURE__ */ import_react41.default.cloneElement(option, props);
     } else if ((0, import_isFunction19.default)(option)) {
       lineItem = option(props);
     } else {
       var x1 = props.x1, y1 = props.y1, x2 = props.x2, y2 = props.y2, key = props.key, others = _objectWithoutProperties18(props, _excluded19);
       var _filterProps = filterProps(others, false), __ = _filterProps.offset, restOfFilteredProps = _objectWithoutProperties18(_filterProps, _excluded26);
-      lineItem = /* @__PURE__ */ import_react40.default.createElement("line", _extends27({}, restOfFilteredProps, {
+      lineItem = /* @__PURE__ */ import_react41.default.createElement("line", _extends28({}, restOfFilteredProps, {
         x1,
         y1,
         x2,
@@ -66361,7 +66927,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       });
       return renderLineItem(horizontal, lineItemProps);
     });
-    return /* @__PURE__ */ import_react40.default.createElement("g", {
+    return /* @__PURE__ */ import_react41.default.createElement("g", {
       className: "recharts-cartesian-grid-horizontal"
     }, items);
   }
@@ -66381,7 +66947,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       });
       return renderLineItem(vertical, lineItemProps);
     });
-    return /* @__PURE__ */ import_react40.default.createElement("g", {
+    return /* @__PURE__ */ import_react41.default.createElement("g", {
       className: "recharts-cartesian-grid-vertical"
     }, items);
   }
@@ -66405,7 +66971,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return null;
       }
       var colorIndex = i % horizontalFill.length;
-      return /* @__PURE__ */ import_react40.default.createElement("rect", {
+      return /* @__PURE__ */ import_react41.default.createElement("rect", {
         key: "react-".concat(i),
         y: entry,
         x: x2,
@@ -66417,7 +66983,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         className: "recharts-cartesian-grid-bg"
       });
     });
-    return /* @__PURE__ */ import_react40.default.createElement("g", {
+    return /* @__PURE__ */ import_react41.default.createElement("g", {
       className: "recharts-cartesian-gridstripes-horizontal"
     }, items);
   }
@@ -66441,7 +67007,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return null;
       }
       var colorIndex = i % verticalFill.length;
-      return /* @__PURE__ */ import_react40.default.createElement("rect", {
+      return /* @__PURE__ */ import_react41.default.createElement("rect", {
         key: "react-".concat(i),
         x: entry,
         y: y2,
@@ -66453,7 +67019,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         className: "recharts-cartesian-grid-bg"
       });
     });
-    return /* @__PURE__ */ import_react40.default.createElement("g", {
+    return /* @__PURE__ */ import_react41.default.createElement("g", {
       className: "recharts-cartesian-gridstripes-vertical"
     }, items);
   }
@@ -66550,9 +67116,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         verticalPoints = _generatorResult;
       }
     }
-    return /* @__PURE__ */ import_react40.default.createElement("g", {
+    return /* @__PURE__ */ import_react41.default.createElement("g", {
       className: "recharts-cartesian-grid"
-    }, /* @__PURE__ */ import_react40.default.createElement(Background, {
+    }, /* @__PURE__ */ import_react41.default.createElement(Background, {
       fill: propsIncludingDefaults.fill,
       fillOpacity: propsIncludingDefaults.fillOpacity,
       x: propsIncludingDefaults.x,
@@ -66560,26 +67126,26 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       width: propsIncludingDefaults.width,
       height: propsIncludingDefaults.height,
       ry: propsIncludingDefaults.ry
-    }), /* @__PURE__ */ import_react40.default.createElement(HorizontalGridLines, _extends27({}, propsIncludingDefaults, {
+    }), /* @__PURE__ */ import_react41.default.createElement(HorizontalGridLines, _extends28({}, propsIncludingDefaults, {
       offset: offset4,
       horizontalPoints,
       xAxis,
       yAxis
-    })), /* @__PURE__ */ import_react40.default.createElement(VerticalGridLines, _extends27({}, propsIncludingDefaults, {
+    })), /* @__PURE__ */ import_react41.default.createElement(VerticalGridLines, _extends28({}, propsIncludingDefaults, {
       offset: offset4,
       verticalPoints,
       xAxis,
       yAxis
-    })), /* @__PURE__ */ import_react40.default.createElement(HorizontalStripes, _extends27({}, propsIncludingDefaults, {
+    })), /* @__PURE__ */ import_react41.default.createElement(HorizontalStripes, _extends28({}, propsIncludingDefaults, {
       horizontalPoints
-    })), /* @__PURE__ */ import_react40.default.createElement(VerticalStripes, _extends27({}, propsIncludingDefaults, {
+    })), /* @__PURE__ */ import_react41.default.createElement(VerticalStripes, _extends28({}, propsIncludingDefaults, {
       verticalPoints
     })));
   }
   CartesianGrid.displayName = "CartesianGrid";
 
   // node_modules/recharts/es6/cartesian/Area.js
-  var import_react41 = __toESM(require_react());
+  var import_react42 = __toESM(require_react());
   var import_isFunction20 = __toESM(require_isFunction());
   var import_max3 = __toESM(require_max());
   var import_isNil11 = __toESM(require_isNil());
@@ -66627,8 +67193,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return target;
   }
-  function _extends28() {
-    _extends28 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends29() {
+    _extends29 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -66639,7 +67205,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends28.apply(this, arguments);
+    return _extends29.apply(this, arguments);
   }
   function ownKeys37(e, r3) {
     var t = Object.keys(e);
@@ -66821,7 +67387,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var dotsProps = {
           clipPath: needClip ? "url(#clipPath-".concat(clipDot ? "" : "dots-").concat(clipPathId, ")") : null
         };
-        return /* @__PURE__ */ import_react41.default.createElement(Layer, _extends28({
+        return /* @__PURE__ */ import_react42.default.createElement(Layer, _extends29({
           className: "recharts-area-dots"
         }, dotsProps), dots);
       }
@@ -66843,7 +67409,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           })), maxY);
         }
         if (isNumber2(maxY)) {
-          return /* @__PURE__ */ import_react41.default.createElement("rect", {
+          return /* @__PURE__ */ import_react42.default.createElement("rect", {
             x: startX < endX ? startX : startX - width,
             y: 0,
             width,
@@ -66870,7 +67436,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           })), maxX);
         }
         if (isNumber2(maxX)) {
-          return /* @__PURE__ */ import_react41.default.createElement("rect", {
+          return /* @__PURE__ */ import_react42.default.createElement("rect", {
             x: 0,
             y: startY < endY ? startY : startY - height,
             width: maxX + (strokeWidth ? parseInt("".concat(strokeWidth), 10) : 1),
@@ -66892,9 +67458,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       key: "renderAreaStatically",
       value: function renderAreaStatically(points, baseLine, needClip, clipPathId) {
         var _this$props4 = this.props, layout = _this$props4.layout, type = _this$props4.type, stroke = _this$props4.stroke, connectNulls = _this$props4.connectNulls, isRange = _this$props4.isRange, ref = _this$props4.ref, others = _objectWithoutProperties19(_this$props4, _excluded20);
-        return /* @__PURE__ */ import_react41.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react42.default.createElement(Layer, {
           clipPath: needClip ? "url(#clipPath-".concat(clipPathId, ")") : null
-        }, /* @__PURE__ */ import_react41.default.createElement(Curve, _extends28({}, filterProps(others, true), {
+        }, /* @__PURE__ */ import_react42.default.createElement(Curve, _extends29({}, filterProps(others, true), {
           points,
           connectNulls,
           type,
@@ -66902,14 +67468,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           layout,
           stroke: "none",
           className: "recharts-area-area"
-        })), stroke !== "none" && /* @__PURE__ */ import_react41.default.createElement(Curve, _extends28({}, filterProps(this.props, false), {
+        })), stroke !== "none" && /* @__PURE__ */ import_react42.default.createElement(Curve, _extends29({}, filterProps(this.props, false), {
           className: "recharts-area-curve",
           layout,
           type,
           connectNulls,
           fill: "none",
           points
-        })), stroke !== "none" && isRange && /* @__PURE__ */ import_react41.default.createElement(Curve, _extends28({}, filterProps(this.props, false), {
+        })), stroke !== "none" && isRange && /* @__PURE__ */ import_react42.default.createElement(Curve, _extends29({}, filterProps(this.props, false), {
           className: "recharts-area-curve",
           layout,
           type,
@@ -66924,7 +67490,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         var _this2 = this;
         var _this$props5 = this.props, points = _this$props5.points, baseLine = _this$props5.baseLine, isAnimationActive = _this$props5.isAnimationActive, animationBegin = _this$props5.animationBegin, animationDuration = _this$props5.animationDuration, animationEasing = _this$props5.animationEasing, animationId = _this$props5.animationId;
         var _this$state = this.state, prevPoints = _this$state.prevPoints, prevBaseLine = _this$state.prevBaseLine;
-        return /* @__PURE__ */ import_react41.default.createElement(es6_default, {
+        return /* @__PURE__ */ import_react42.default.createElement(es6_default, {
           begin: animationBegin,
           duration: animationDuration,
           isActive: isAnimationActive,
@@ -66979,9 +67545,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             }
             return _this2.renderAreaStatically(stepPoints, stepBaseLine, needClip, clipPathId);
           }
-          return /* @__PURE__ */ import_react41.default.createElement(Layer, null, /* @__PURE__ */ import_react41.default.createElement("defs", null, /* @__PURE__ */ import_react41.default.createElement("clipPath", {
+          return /* @__PURE__ */ import_react42.default.createElement(Layer, null, /* @__PURE__ */ import_react42.default.createElement("defs", null, /* @__PURE__ */ import_react42.default.createElement("clipPath", {
             id: "animationClipPath-".concat(clipPathId)
-          }, _this2.renderClipRect(t))), /* @__PURE__ */ import_react41.default.createElement(Layer, {
+          }, _this2.renderClipRect(t))), /* @__PURE__ */ import_react42.default.createElement(Layer, {
             clipPath: "url(#animationClipPath-".concat(clipPathId, ")")
           }, _this2.renderAreaStatically(points, baseLine, needClip, clipPathId)));
         });
@@ -67017,18 +67583,18 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         }, _ref2$r = _ref2.r, r3 = _ref2$r === void 0 ? 3 : _ref2$r, _ref2$strokeWidth = _ref2.strokeWidth, strokeWidth = _ref2$strokeWidth === void 0 ? 2 : _ref2$strokeWidth;
         var _ref3 = hasClipDot(dot) ? dot : {}, _ref3$clipDot = _ref3.clipDot, clipDot = _ref3$clipDot === void 0 ? true : _ref3$clipDot;
         var dotSize = r3 * 2 + strokeWidth;
-        return /* @__PURE__ */ import_react41.default.createElement(Layer, {
+        return /* @__PURE__ */ import_react42.default.createElement(Layer, {
           className: layerClass
-        }, needClipX || needClipY ? /* @__PURE__ */ import_react41.default.createElement("defs", null, /* @__PURE__ */ import_react41.default.createElement("clipPath", {
+        }, needClipX || needClipY ? /* @__PURE__ */ import_react42.default.createElement("defs", null, /* @__PURE__ */ import_react42.default.createElement("clipPath", {
           id: "clipPath-".concat(clipPathId)
-        }, /* @__PURE__ */ import_react41.default.createElement("rect", {
+        }, /* @__PURE__ */ import_react42.default.createElement("rect", {
           x: needClipX ? left : left - width / 2,
           y: needClipY ? top2 : top2 - height / 2,
           width: needClipX ? width : width * 2,
           height: needClipY ? height : height * 2
-        })), !clipDot && /* @__PURE__ */ import_react41.default.createElement("clipPath", {
+        })), !clipDot && /* @__PURE__ */ import_react42.default.createElement("clipPath", {
           id: "clipPath-dots-".concat(clipPathId)
-        }, /* @__PURE__ */ import_react41.default.createElement("rect", {
+        }, /* @__PURE__ */ import_react42.default.createElement("rect", {
           x: left - dotSize / 2,
           y: top2 - dotSize / 2,
           width: width + dotSize,
@@ -67056,7 +67622,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         return null;
       }
     }]);
-  }(import_react41.PureComponent);
+  }(import_react42.PureComponent);
   _Area = Area;
   _defineProperty39(Area, "displayName", "Area");
   _defineProperty39(Area, "defaultProps", {
@@ -67179,14 +67745,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
   _defineProperty39(Area, "renderDotItem", function(option, props) {
     var dotItem;
-    if (/* @__PURE__ */ import_react41.default.isValidElement(option)) {
-      dotItem = /* @__PURE__ */ import_react41.default.cloneElement(option, props);
+    if (/* @__PURE__ */ import_react42.default.isValidElement(option)) {
+      dotItem = /* @__PURE__ */ import_react42.default.cloneElement(option, props);
     } else if ((0, import_isFunction20.default)(option)) {
       dotItem = option(props);
     } else {
       var className = clsx_default("recharts-area-dot", typeof option !== "boolean" ? option.className : "");
       var key = props.key, rest = _objectWithoutProperties19(props, _excluded27);
-      dotItem = /* @__PURE__ */ import_react41.default.createElement(Dot, _extends28({}, rest, {
+      dotItem = /* @__PURE__ */ import_react42.default.createElement(Dot, _extends29({}, rest, {
         key,
         className
       }));
@@ -67195,7 +67761,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/XAxis.js
-  var React74 = __toESM(require_react());
+  var React75 = __toESM(require_react());
   function _typeof45(o) {
     "@babel/helpers - typeof";
     return _typeof45 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -67301,8 +67867,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return ("string" === r3 ? String : Number)(t);
   }
-  function _extends29() {
-    _extends29 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends30() {
+    _extends30 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -67313,7 +67879,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends29.apply(this, arguments);
+    return _extends30.apply(this, arguments);
   }
   function XAxisImpl(_ref) {
     var xAxisId = _ref.xAxisId;
@@ -67325,7 +67891,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return (
       // @ts-expect-error the axisOptions type is not exactly what CartesianAxis is expecting.
-      /* @__PURE__ */ React74.createElement(CartesianAxis, _extends29({}, axisOptions, {
+      /* @__PURE__ */ React75.createElement(CartesianAxis, _extends30({}, axisOptions, {
         className: clsx_default("recharts-".concat(axisOptions.axisType, " ").concat(axisOptions.axisType), axisOptions.className),
         viewBox: {
           x: 0,
@@ -67348,10 +67914,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return _createClass19(XAxis2, [{
       key: "render",
       value: function render() {
-        return /* @__PURE__ */ React74.createElement(XAxisImpl, this.props);
+        return /* @__PURE__ */ React75.createElement(XAxisImpl, this.props);
       }
     }]);
-  }(React74.Component);
+  }(React75.Component);
   _defineProperty40(XAxis, "displayName", "XAxis");
   _defineProperty40(XAxis, "defaultProps", {
     allowDecimals: true,
@@ -67374,7 +67940,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/cartesian/YAxis.js
-  var React75 = __toESM(require_react());
+  var React76 = __toESM(require_react());
   function _typeof46(o) {
     "@babel/helpers - typeof";
     return _typeof46 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -67480,8 +68046,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return ("string" === r3 ? String : Number)(t);
   }
-  function _extends30() {
-    _extends30 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends31() {
+    _extends31 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -67492,7 +68058,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends30.apply(this, arguments);
+    return _extends31.apply(this, arguments);
   }
   var YAxisImpl = function YAxisImpl2(_ref) {
     var yAxisId = _ref.yAxisId;
@@ -67504,7 +68070,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     }
     return (
       // @ts-expect-error the axisOptions type is not exactly what CartesianAxis is expecting.
-      /* @__PURE__ */ React75.createElement(CartesianAxis, _extends30({}, axisOptions, {
+      /* @__PURE__ */ React76.createElement(CartesianAxis, _extends31({}, axisOptions, {
         className: clsx_default("recharts-".concat(axisOptions.axisType, " ").concat(axisOptions.axisType), axisOptions.className),
         viewBox: {
           x: 0,
@@ -67527,10 +68093,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     return _createClass20(YAxis2, [{
       key: "render",
       value: function render() {
-        return /* @__PURE__ */ React75.createElement(YAxisImpl, this.props);
+        return /* @__PURE__ */ React76.createElement(YAxisImpl, this.props);
       }
     }]);
-  }(React75.Component);
+  }(React76.Component);
   _defineProperty41(YAxis, "displayName", "YAxis");
   _defineProperty41(YAxis, "defaultProps", {
     allowDuplicatedCategory: true,
@@ -67553,7 +68119,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // node_modules/recharts/es6/chart/generateCategoricalChart.js
-  var import_react43 = __toESM(require_react());
+  var import_react44 = __toESM(require_react());
   var import_isNil12 = __toESM(require_isNil());
   var import_isFunction21 = __toESM(require_isFunction());
   var import_range3 = __toESM(require_range());
@@ -67792,7 +68358,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   }
 
   // node_modules/recharts/es6/component/Cursor.js
-  var import_react42 = __toESM(require_react());
+  var import_react43 = __toESM(require_react());
 
   // node_modules/recharts/es6/util/cursor/getCursorRectangle.js
   function getCursorRectangle(layout, activeCoordinate, offset4, tooltipAxisBandSize) {
@@ -67952,7 +68518,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       payloadIndex: activeTooltipIndex,
       className: clsx_default("recharts-tooltip-cursor", elementPropsCursor.className)
     });
-    return /* @__PURE__ */ (0, import_react42.isValidElement)(elementPropsCursor) ? /* @__PURE__ */ (0, import_react42.cloneElement)(elementPropsCursor, cursorProps) : /* @__PURE__ */ (0, import_react42.createElement)(cursorComp, cursorProps);
+    return /* @__PURE__ */ (0, import_react43.isValidElement)(elementPropsCursor) ? /* @__PURE__ */ (0, import_react43.cloneElement)(elementPropsCursor, cursorProps) : /* @__PURE__ */ (0, import_react43.createElement)(cursorComp, cursorProps);
   }
 
   // node_modules/recharts/es6/chart/generateCategoricalChart.js
@@ -67966,8 +68532,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
     }, _typeof49(o);
   }
-  function _extends31() {
-    _extends31 = Object.assign ? Object.assign.bind() : function(target) {
+  function _extends32() {
+    _extends32 = Object.assign ? Object.assign.bind() : function(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
         for (var key in source) {
@@ -67978,7 +68544,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
       }
       return target;
     };
-    return _extends31.apply(this, arguments);
+    return _extends32.apply(this, arguments);
   }
   function _slicedToArray13(arr, i) {
     return _arrayWithHoles14(arr) || _iterableToArrayLimit13(arr, i) || _unsupportedIterableToArray21(arr, i) || _nonIterableRest14();
@@ -69020,7 +69586,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           var isActive = (_element$props$active = element.props.active) !== null && _element$props$active !== void 0 ? _element$props$active : isTooltipActive;
           var layout = _this.props.layout;
           var key = element.key || "_recharts-cursor";
-          return /* @__PURE__ */ import_react43.default.createElement(Cursor, {
+          return /* @__PURE__ */ import_react44.default.createElement(Cursor, {
             key,
             activeCoordinate,
             activePayload,
@@ -69040,7 +69606,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           var elementDefaultProps = element.type.defaultProps;
           var elementProps = elementDefaultProps !== void 0 ? _objectSpread39(_objectSpread39({}, elementDefaultProps), element.props) : element.props;
           var axisOption = axisMap && axisMap[elementProps["".concat(axisType, "Id")]];
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(element, _objectSpread39(_objectSpread39({}, axisOption), {}, {
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(element, _objectSpread39(_objectSpread39({}, axisOption), {}, {
             className: clsx_default(axisType, axisOption.className),
             key: element.key || "".concat(displayName, "-").concat(index2),
             ticks: getTicksOfAxis(axisOption, true)
@@ -69052,7 +69618,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           var radiusAxis = getAnyElementOfObject(radiusAxisMap);
           var angleAxis = getAnyElementOfObject(angleAxisMap);
           var cx2 = angleAxis.cx, cy = angleAxis.cy, innerRadius = angleAxis.innerRadius, outerRadius = angleAxis.outerRadius;
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(element, {
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(element, {
             polarAngles: Array.isArray(polarAngles) ? polarAngles : getTicksOfAxis(angleAxis, true).map(function(entry) {
               return entry.coordinate;
             }),
@@ -69082,7 +69648,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             return null;
           }
           var item = props.item, otherProps = _objectWithoutProperties20(props, _excluded21);
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(item, _objectSpread39(_objectSpread39({}, otherProps), {}, {
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(item, _objectSpread39(_objectSpread39({}, otherProps), {}, {
             chartWidth: width,
             chartHeight: height,
             margin,
@@ -69098,7 +69664,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }
           var _this$state5 = _this.state, isTooltipActive = _this$state5.isTooltipActive, activeCoordinate = _this$state5.activeCoordinate, activePayload = _this$state5.activePayload, activeLabel = _this$state5.activeLabel, offset4 = _this$state5.offset;
           var isActive = (_tooltipItem$props$ac = tooltipItem.props.active) !== null && _tooltipItem$props$ac !== void 0 ? _tooltipItem$props$ac : isTooltipActive;
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(tooltipItem, {
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(tooltipItem, {
             viewBox: _objectSpread39(_objectSpread39({}, offset4), {}, {
               x: offset4.left,
               y: offset4.top
@@ -69113,7 +69679,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         _defineProperty44(_this, "renderBrush", function(element) {
           var _this$props4 = _this.props, margin = _this$props4.margin, data = _this$props4.data;
           var _this$state6 = _this.state, offset4 = _this$state6.offset, dataStartIndex = _this$state6.dataStartIndex, dataEndIndex = _this$state6.dataEndIndex, updateId = _this$state6.updateId;
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(element, {
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(element, {
             key: element.key || "_recharts-brush",
             onChange: combineEventHandlers(_this.handleBrushChange, element.props.onChange),
             data,
@@ -69133,7 +69699,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           var _this$state7 = _this.state, xAxisMap = _this$state7.xAxisMap, yAxisMap = _this$state7.yAxisMap, offset4 = _this$state7.offset;
           var elementDefaultProps = element.type.defaultProps || {};
           var _element$props2 = element.props, _element$props2$xAxis = _element$props2.xAxisId, xAxisId = _element$props2$xAxis === void 0 ? elementDefaultProps.xAxisId : _element$props2$xAxis, _element$props2$yAxis = _element$props2.yAxisId, yAxisId = _element$props2$yAxis === void 0 ? elementDefaultProps.yAxisId : _element$props2$yAxis;
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(element, {
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(element, {
             key: element.key || "".concat(displayName, "-").concat(index2),
             xAxis: xAxisMap[xAxisId],
             yAxis: yAxisMap[yAxisId],
@@ -69199,7 +69765,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               onMouseEnter: combineEventHandlers(_this.handleItemMouseEnter, element.props.onMouseEnter)
             };
           }
-          var graphicalItem = /* @__PURE__ */ (0, import_react43.cloneElement)(element, _objectSpread39(_objectSpread39({}, item.props), itemEvents));
+          var graphicalItem = /* @__PURE__ */ (0, import_react44.cloneElement)(element, _objectSpread39(_objectSpread39({}, item.props), itemEvents));
           function findWithPayload(entry) {
             return typeof tooltipAxis.dataKey === "function" ? tooltipAxis.dataKey(entry.payload) : null;
           }
@@ -69216,7 +69782,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               }
               if (activeShape || activeBar) {
                 var activeIndex = element.props.activeIndex !== void 0 ? element.props.activeIndex : activeTooltipIndex;
-                return [/* @__PURE__ */ (0, import_react43.cloneElement)(element, _objectSpread39(_objectSpread39(_objectSpread39({}, item.props), itemEvents), {}, {
+                return [/* @__PURE__ */ (0, import_react44.cloneElement)(element, _objectSpread39(_objectSpread39(_objectSpread39({}, item.props), itemEvents), {}, {
                   activeIndex
                 })), null, null];
               }
@@ -69237,7 +69803,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
               var elementProps = _objectSpread39(_objectSpread39(_objectSpread39({}, item.props), itemEvents), {}, {
                 activeIndex: childIndex
               });
-              return [/* @__PURE__ */ (0, import_react43.cloneElement)(xyItem, elementProps), null, null];
+              return [/* @__PURE__ */ (0, import_react44.cloneElement)(xyItem, elementProps), null, null];
             }
           }
           if (isRange) {
@@ -69246,7 +69812,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           return [graphicalItem, null];
         });
         _defineProperty44(_this, "renderCustomized", function(element, displayName, index2) {
-          return /* @__PURE__ */ (0, import_react43.cloneElement)(element, _objectSpread39(_objectSpread39({
+          return /* @__PURE__ */ (0, import_react44.cloneElement)(element, _objectSpread39(_objectSpread39({
             key: "recharts-customized-".concat(index2)
           }, _this.props), _this.state));
         });
@@ -69552,9 +70118,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
         value: function renderClipPath() {
           var clipPathId = this.clipPathId;
           var _this$state$offset = this.state.offset, left = _this$state$offset.left, top2 = _this$state$offset.top, height = _this$state$offset.height, width = _this$state$offset.width;
-          return /* @__PURE__ */ import_react43.default.createElement("defs", null, /* @__PURE__ */ import_react43.default.createElement("clipPath", {
+          return /* @__PURE__ */ import_react44.default.createElement("defs", null, /* @__PURE__ */ import_react44.default.createElement("clipPath", {
             id: clipPathId
-          }, /* @__PURE__ */ import_react43.default.createElement("rect", {
+          }, /* @__PURE__ */ import_react44.default.createElement("rect", {
             x: left,
             y: top2,
             height,
@@ -69649,12 +70215,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           var _this$props6 = this.props, children = _this$props6.children, className = _this$props6.className, width = _this$props6.width, height = _this$props6.height, style = _this$props6.style, compact = _this$props6.compact, title = _this$props6.title, desc = _this$props6.desc, others = _objectWithoutProperties20(_this$props6, _excluded28);
           var attrs = filterProps(others, false);
           if (compact) {
-            return /* @__PURE__ */ import_react43.default.createElement(ChartLayoutContextProvider, {
+            return /* @__PURE__ */ import_react44.default.createElement(ChartLayoutContextProvider, {
               state: this.state,
               width: this.props.width,
               height: this.props.height,
               clipPathId: this.clipPathId
-            }, /* @__PURE__ */ import_react43.default.createElement(Surface, _extends31({}, attrs, {
+            }, /* @__PURE__ */ import_react44.default.createElement(Surface, _extends32({}, attrs, {
               width,
               height,
               title,
@@ -69673,12 +70239,12 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             };
           }
           var events = this.parseEventsOfWrapper();
-          return /* @__PURE__ */ import_react43.default.createElement(ChartLayoutContextProvider, {
+          return /* @__PURE__ */ import_react44.default.createElement(ChartLayoutContextProvider, {
             state: this.state,
             width: this.props.width,
             height: this.props.height,
             clipPathId: this.clipPathId
-          }, /* @__PURE__ */ import_react43.default.createElement("div", _extends31({
+          }, /* @__PURE__ */ import_react44.default.createElement("div", _extends32({
             className: clsx_default("recharts-wrapper", className),
             style: _objectSpread39({
               position: "relative",
@@ -69690,7 +70256,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
             ref: function ref(node) {
               _this3.container = node;
             }
-          }), /* @__PURE__ */ import_react43.default.createElement(Surface, _extends31({}, attrs, {
+          }), /* @__PURE__ */ import_react44.default.createElement(Surface, _extends32({}, attrs, {
             width,
             height,
             title,
@@ -69699,7 +70265,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           }), this.renderClipPath(), renderByOrder(children, this.renderMap)), this.renderLegend(), this.renderTooltip()));
         }
       }]);
-    }(import_react43.Component);
+    }(import_react44.Component);
     _defineProperty44(CategoricalChartWrapper, "displayName", chartName);
     _defineProperty44(CategoricalChartWrapper, "defaultProps", _objectSpread39({
       layout: "horizontal",
@@ -69791,20 +70357,20 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     });
     _defineProperty44(CategoricalChartWrapper, "renderActiveDot", function(option, props, key) {
       var dot;
-      if (/* @__PURE__ */ (0, import_react43.isValidElement)(option)) {
-        dot = /* @__PURE__ */ (0, import_react43.cloneElement)(option, props);
+      if (/* @__PURE__ */ (0, import_react44.isValidElement)(option)) {
+        dot = /* @__PURE__ */ (0, import_react44.cloneElement)(option, props);
       } else if ((0, import_isFunction21.default)(option)) {
         dot = option(props);
       } else {
-        dot = /* @__PURE__ */ import_react43.default.createElement(Dot, props);
+        dot = /* @__PURE__ */ import_react44.default.createElement(Dot, props);
       }
-      return /* @__PURE__ */ import_react43.default.createElement(Layer, {
+      return /* @__PURE__ */ import_react44.default.createElement(Layer, {
         className: "recharts-active-dot",
         key
       }, dot);
     });
-    var CategoricalChart = /* @__PURE__ */ (0, import_react43.forwardRef)(function CategoricalChart2(props, ref) {
-      return /* @__PURE__ */ import_react43.default.createElement(CategoricalChartWrapper, _extends31({}, props, {
+    var CategoricalChart = /* @__PURE__ */ (0, import_react44.forwardRef)(function CategoricalChart2(props, ref) {
+      return /* @__PURE__ */ import_react44.default.createElement(CategoricalChartWrapper, _extends32({}, props, {
         ref
       }));
     });
@@ -69869,10 +70435,10 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   });
 
   // react/components/ui/card.tsx
-  var React77 = __toESM(require_react());
-  var Card = React77.forwardRef((_a, ref) => {
+  var React78 = __toESM(require_react());
+  var Card = React78.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React77.createElement(
+    return /* @__PURE__ */ React78.createElement(
       "div",
       __spreadValues({
         ref,
@@ -69884,9 +70450,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     );
   });
   Card.displayName = "Card";
-  var CardHeader = React77.forwardRef((_a, ref) => {
+  var CardHeader = React78.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React77.createElement(
+    return /* @__PURE__ */ React78.createElement(
       "div",
       __spreadValues({
         ref,
@@ -69895,9 +70461,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     );
   });
   CardHeader.displayName = "CardHeader";
-  var CardTitle = React77.forwardRef((_a, ref) => {
+  var CardTitle = React78.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React77.createElement(
+    return /* @__PURE__ */ React78.createElement(
       "h3",
       __spreadValues({
         ref,
@@ -69909,9 +70475,9 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     );
   });
   CardTitle.displayName = "CardTitle";
-  var CardDescription = React77.forwardRef((_a, ref) => {
+  var CardDescription = React78.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React77.createElement(
+    return /* @__PURE__ */ React78.createElement(
       "p",
       __spreadValues({
         ref,
@@ -69920,14 +70486,14 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     );
   });
   CardDescription.displayName = "CardDescription";
-  var CardContent = React77.forwardRef((_a, ref) => {
+  var CardContent = React78.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React77.createElement("div", __spreadValues({ ref, className: cn("p-6 pt-0", className) }, props));
+    return /* @__PURE__ */ React78.createElement("div", __spreadValues({ ref, className: cn("p-6 pt-0", className) }, props));
   });
   CardContent.displayName = "CardContent";
-  var CardFooter = React77.forwardRef((_a, ref) => {
+  var CardFooter = React78.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React77.createElement(
+    return /* @__PURE__ */ React78.createElement(
       "div",
       __spreadValues({
         ref,
@@ -69938,21 +70504,21 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   CardFooter.displayName = "CardFooter";
 
   // react/components/ui/chart.tsx
-  var React78 = __toESM(require_react());
+  var React79 = __toESM(require_react());
   var THEMES = { light: "", dark: ".dark" };
-  var ChartContext = React78.createContext(null);
+  var ChartContext = React79.createContext(null);
   function useChart() {
-    const context = React78.useContext(ChartContext);
+    const context = React79.useContext(ChartContext);
     if (!context) {
       throw new Error("useChart must be used within a <ChartContainer />");
     }
     return context;
   }
-  var ChartContainer = React78.forwardRef((_a, ref) => {
+  var ChartContainer = React79.forwardRef((_a, ref) => {
     var _b = _a, { id: id2, className, children, config } = _b, props = __objRest(_b, ["id", "className", "children", "config"]);
-    const uniqueId3 = React78.useId();
+    const uniqueId3 = React79.useId();
     const chartId = `chart-${id2 || uniqueId3.replace(/:/g, "")}`;
-    return /* @__PURE__ */ React78.createElement(ChartContext.Provider, { value: { config } }, /* @__PURE__ */ React78.createElement(
+    return /* @__PURE__ */ React79.createElement(ChartContext.Provider, { value: { config } }, /* @__PURE__ */ React79.createElement(
       "div",
       __spreadValues({
         "data-chart": chartId,
@@ -69962,8 +70528,8 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
           className
         )
       }, props),
-      /* @__PURE__ */ React78.createElement(ChartStyle, { id: chartId, config }),
-      /* @__PURE__ */ React78.createElement(ResponsiveContainer, null, children)
+      /* @__PURE__ */ React79.createElement(ChartStyle, { id: chartId, config }),
+      /* @__PURE__ */ React79.createElement(ResponsiveContainer, null, children)
     ));
   });
   ChartContainer.displayName = "Chart";
@@ -69974,7 +70540,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
     if (!colorConfig.length) {
       return null;
     }
-    return /* @__PURE__ */ React78.createElement(
+    return /* @__PURE__ */ React79.createElement(
       "style",
       {
         dangerouslySetInnerHTML: {
@@ -69994,7 +70560,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     );
   };
   var ChartTooltip = Tooltip;
-  var ChartTooltipContent = React78.forwardRef(
+  var ChartTooltipContent = React79.forwardRef(
     ({
       active,
       payload,
@@ -70011,7 +70577,7 @@ ${colorConfig.map(([key, itemConfig]) => {
       labelKey
     }, ref) => {
       const { config } = useChart();
-      const tooltipLabel = React78.useMemo(() => {
+      const tooltipLabel = React79.useMemo(() => {
         var _a;
         if (hideLabel || !(payload == null ? void 0 : payload.length)) {
           return null;
@@ -70021,12 +70587,12 @@ ${colorConfig.map(([key, itemConfig]) => {
         const itemConfig = getPayloadConfigFromPayload(config, item, key);
         const value = !labelKey && typeof label === "string" ? ((_a = config[label]) == null ? void 0 : _a.label) || label : itemConfig == null ? void 0 : itemConfig.label;
         if (labelFormatter) {
-          return /* @__PURE__ */ React78.createElement("div", { className: cn("font-medium", labelClassName) }, labelFormatter(value, payload));
+          return /* @__PURE__ */ React79.createElement("div", { className: cn("font-medium", labelClassName) }, labelFormatter(value, payload));
         }
         if (!value) {
           return null;
         }
-        return /* @__PURE__ */ React78.createElement("div", { className: cn("font-medium", labelClassName) }, value);
+        return /* @__PURE__ */ React79.createElement("div", { className: cn("font-medium", labelClassName) }, value);
       }, [
         label,
         labelFormatter,
@@ -70040,7 +70606,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         return null;
       }
       const nestLabel = payload.length === 1 && indicator !== "dot";
-      return /* @__PURE__ */ React78.createElement(
+      return /* @__PURE__ */ React79.createElement(
         "div",
         {
           ref,
@@ -70050,11 +70616,11 @@ ${colorConfig.map(([key, itemConfig]) => {
           )
         },
         !nestLabel ? tooltipLabel : null,
-        /* @__PURE__ */ React78.createElement("div", { className: "grid gap-1.5" }, payload.map((item, index2) => {
+        /* @__PURE__ */ React79.createElement("div", { className: "grid gap-1.5" }, payload.map((item, index2) => {
           const key = `${nameKey || item.name || item.dataKey || "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
           const indicatorColor = color2 || item.payload.fill || item.color;
-          return /* @__PURE__ */ React78.createElement(
+          return /* @__PURE__ */ React79.createElement(
             "div",
             {
               key: item.dataKey,
@@ -70063,7 +70629,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                 indicator === "dot" && "items-center"
               )
             },
-            formatter && (item == null ? void 0 : item.value) !== void 0 && item.name ? formatter(item.value, item.name, item, index2, item.payload) : /* @__PURE__ */ React78.createElement(React78.Fragment, null, (itemConfig == null ? void 0 : itemConfig.icon) ? /* @__PURE__ */ React78.createElement(itemConfig.icon, null) : !hideIndicator && /* @__PURE__ */ React78.createElement(
+            formatter && (item == null ? void 0 : item.value) !== void 0 && item.name ? formatter(item.value, item.name, item, index2, item.payload) : /* @__PURE__ */ React79.createElement(React79.Fragment, null, (itemConfig == null ? void 0 : itemConfig.icon) ? /* @__PURE__ */ React79.createElement(itemConfig.icon, null) : !hideIndicator && /* @__PURE__ */ React79.createElement(
               "div",
               {
                 className: cn(
@@ -70080,7 +70646,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                   "--color-border": indicatorColor
                 }
               }
-            ), /* @__PURE__ */ React78.createElement(
+            ), /* @__PURE__ */ React79.createElement(
               "div",
               {
                 className: cn(
@@ -70088,8 +70654,8 @@ ${colorConfig.map(([key, itemConfig]) => {
                   nestLabel ? "items-end" : "items-center"
                 )
               },
-              /* @__PURE__ */ React78.createElement("div", { className: "grid gap-1.5" }, nestLabel ? tooltipLabel : null, /* @__PURE__ */ React78.createElement("span", { className: "text-muted-foreground" }, (itemConfig == null ? void 0 : itemConfig.label) || item.name)),
-              item.value && /* @__PURE__ */ React78.createElement("span", { className: "font-mono font-medium tabular-nums text-foreground" }, item.value.toLocaleString())
+              /* @__PURE__ */ React79.createElement("div", { className: "grid gap-1.5" }, nestLabel ? tooltipLabel : null, /* @__PURE__ */ React79.createElement("span", { className: "text-muted-foreground" }, (itemConfig == null ? void 0 : itemConfig.label) || item.name)),
+              item.value && /* @__PURE__ */ React79.createElement("span", { className: "font-mono font-medium tabular-nums text-foreground" }, item.value.toLocaleString())
             ))
           );
         }))
@@ -70098,13 +70664,13 @@ ${colorConfig.map(([key, itemConfig]) => {
   );
   ChartTooltipContent.displayName = "ChartTooltip";
   var ChartLegend = Legend;
-  var ChartLegendContent = React78.forwardRef(
+  var ChartLegendContent = React79.forwardRef(
     ({ className, hideIcon = false, payload, verticalAlign = "bottom", nameKey }, ref) => {
       const { config } = useChart();
       if (!(payload == null ? void 0 : payload.length)) {
         return null;
       }
-      return /* @__PURE__ */ React78.createElement(
+      return /* @__PURE__ */ React79.createElement(
         "div",
         {
           ref,
@@ -70117,7 +70683,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         payload.map((item) => {
           const key = `${nameKey || item.dataKey || "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          return /* @__PURE__ */ React78.createElement(
+          return /* @__PURE__ */ React79.createElement(
             "div",
             {
               key: item.value,
@@ -70125,7 +70691,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
               )
             },
-            (itemConfig == null ? void 0 : itemConfig.icon) && !hideIcon ? /* @__PURE__ */ React78.createElement(itemConfig.icon, null) : /* @__PURE__ */ React78.createElement(
+            (itemConfig == null ? void 0 : itemConfig.icon) && !hideIcon ? /* @__PURE__ */ React79.createElement(itemConfig.icon, null) : /* @__PURE__ */ React79.createElement(
               "div",
               {
                 className: "h-2 w-2 shrink-0 rounded-[2px]",
@@ -70156,10 +70722,10 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // react/components/ui/select.tsx
-  var React83 = __toESM(require_react());
+  var React84 = __toESM(require_react());
 
   // node_modules/@radix-ui/react-select/dist/index.mjs
-  var React82 = __toESM(require_react(), 1);
+  var React83 = __toESM(require_react(), 1);
   var ReactDOM5 = __toESM(require_react_dom(), 1);
 
   // node_modules/@radix-ui/number/dist/index.mjs
@@ -70168,46 +70734,46 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // node_modules/@radix-ui/react-select/node_modules/@radix-ui/react-slot/dist/index.mjs
-  var React79 = __toESM(require_react(), 1);
-  var import_jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
-  var Slot5 = React79.forwardRef((props, forwardedRef) => {
+  var React80 = __toESM(require_react(), 1);
+  var import_jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
+  var Slot5 = React80.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React79.Children.toArray(children);
+    const childrenArray = React80.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable5);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React79.Children.count(newElement) > 1)
-            return React79.Children.only(null);
-          return React79.isValidElement(newElement) ? newElement.props.children : null;
+          if (React80.Children.count(newElement) > 1)
+            return React80.Children.only(null);
+          return React80.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(SlotClone4, { ...slotProps, ref: forwardedRef, children: React79.isValidElement(newElement) ? React79.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(SlotClone4, { ...slotProps, ref: forwardedRef, children: React80.isValidElement(newElement) ? React80.cloneElement(newElement, void 0, newChildren) : null });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(SlotClone4, { ...slotProps, ref: forwardedRef, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(SlotClone4, { ...slotProps, ref: forwardedRef, children });
   });
   Slot5.displayName = "Slot";
-  var SlotClone4 = React79.forwardRef((props, forwardedRef) => {
+  var SlotClone4 = React80.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React79.isValidElement(children)) {
+    if (React80.isValidElement(children)) {
       const childrenRef = getElementRef6(children);
-      return React79.cloneElement(children, {
+      return React80.cloneElement(children, {
         ...mergeProps5(slotProps, children.props),
         // @ts-ignore
         ref: forwardedRef ? composeRefs2(forwardedRef, childrenRef) : childrenRef
       });
     }
-    return React79.Children.count(children) > 1 ? React79.Children.only(null) : null;
+    return React80.Children.count(children) > 1 ? React80.Children.only(null) : null;
   });
   SlotClone4.displayName = "SlotClone";
   var Slottable4 = ({ children }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(import_jsx_runtime17.Fragment, { children });
+    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_jsx_runtime18.Fragment, { children });
   };
   function isSlottable5(child) {
-    return React79.isValidElement(child) && child.type === Slottable4;
+    return React80.isValidElement(child) && child.type === Slottable4;
   }
   function mergeProps5(slotProps, childProps) {
     const overrideProps = { ...childProps };
@@ -70247,10 +70813,10 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // node_modules/@radix-ui/react-use-previous/dist/index.mjs
-  var React80 = __toESM(require_react(), 1);
+  var React81 = __toESM(require_react(), 1);
   function usePrevious(value) {
-    const ref = React80.useRef({ value, previous: value });
-    return React80.useMemo(() => {
+    const ref = React81.useRef({ value, previous: value });
+    return React81.useMemo(() => {
       if (ref.current.value !== value) {
         ref.current.previous = ref.current.value;
         ref.current.value = value;
@@ -70260,12 +70826,12 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // node_modules/@radix-ui/react-visually-hidden/dist/index.mjs
-  var React81 = __toESM(require_react(), 1);
-  var import_jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
+  var React82 = __toESM(require_react(), 1);
+  var import_jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
   var NAME2 = "VisuallyHidden";
-  var VisuallyHidden = React81.forwardRef(
+  var VisuallyHidden = React82.forwardRef(
     (props, forwardedRef) => {
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
         Primitive.span,
         {
           ...props,
@@ -70291,7 +70857,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   VisuallyHidden.displayName = NAME2;
 
   // node_modules/@radix-ui/react-select/dist/index.mjs
-  var import_jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
+  var import_jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
   "use client";
   var OPEN_KEYS = [" ", "Enter", "ArrowUp", "ArrowDown"];
   var SELECTION_KEYS2 = [" ", "Enter"];
@@ -70321,9 +70887,9 @@ ${colorConfig.map(([key, itemConfig]) => {
       required
     } = props;
     const popperScope = usePopperScope2(__scopeSelect);
-    const [trigger, setTrigger] = React82.useState(null);
-    const [valueNode, setValueNode] = React82.useState(null);
-    const [valueNodeHasChildren, setValueNodeHasChildren] = React82.useState(false);
+    const [trigger, setTrigger] = React83.useState(null);
+    const [valueNode, setValueNode] = React83.useState(null);
+    const [valueNodeHasChildren, setValueNodeHasChildren] = React83.useState(false);
     const direction = useDirection(dir);
     const [open = false, setOpen] = useControllableState({
       prop: openProp,
@@ -70335,11 +70901,11 @@ ${colorConfig.map(([key, itemConfig]) => {
       defaultProp: defaultValue,
       onChange: onValueChange
     });
-    const triggerPointerDownPosRef = React82.useRef(null);
+    const triggerPointerDownPosRef = React83.useRef(null);
     const isFormControl = trigger ? Boolean(trigger.closest("form")) : true;
-    const [nativeOptionsSet, setNativeOptionsSet] = React82.useState(/* @__PURE__ */ new Set());
+    const [nativeOptionsSet, setNativeOptionsSet] = React83.useState(/* @__PURE__ */ new Set());
     const nativeSelectKey = Array.from(nativeOptionsSet).map((option) => option.props.value).join(";");
-    return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Root2, { ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Root2, { ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
       SelectProvider,
       {
         required,
@@ -70359,14 +70925,14 @@ ${colorConfig.map(([key, itemConfig]) => {
         triggerPointerDownPosRef,
         disabled,
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Collection3.Provider, { scope: __scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Collection3.Provider, { scope: __scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
             SelectNativeOptionsProvider,
             {
               scope: props.__scopeSelect,
-              onNativeOptionAdd: React82.useCallback((option) => {
+              onNativeOptionAdd: React83.useCallback((option) => {
                 setNativeOptionsSet((prev) => new Set(prev).add(option));
               }, []),
-              onNativeOptionRemove: React82.useCallback((option) => {
+              onNativeOptionRemove: React83.useCallback((option) => {
                 setNativeOptionsSet((prev) => {
                   const optionsSet = new Set(prev);
                   optionsSet.delete(option);
@@ -70376,7 +70942,7 @@ ${colorConfig.map(([key, itemConfig]) => {
               children
             }
           ) }),
-          isFormControl ? /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+          isFormControl ? /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
             BubbleSelect,
             {
               "aria-hidden": true,
@@ -70388,7 +70954,7 @@ ${colorConfig.map(([key, itemConfig]) => {
               onChange: (event) => setValue(event.target.value),
               disabled,
               children: [
-                value === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("option", { value: "" }) : null,
+                value === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("option", { value: "" }) : null,
                 Array.from(nativeOptionsSet)
               ]
             },
@@ -70400,7 +70966,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   };
   Select.displayName = SELECT_NAME;
   var TRIGGER_NAME2 = "SelectTrigger";
-  var SelectTrigger = React82.forwardRef(
+  var SelectTrigger = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, disabled = false, ...triggerProps } = props;
       const popperScope = usePopperScope2(__scopeSelect);
@@ -70422,7 +70988,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           resetTypeahead();
         }
       };
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Anchor, { asChild: true, ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Anchor, { asChild: true, ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
         Primitive.button,
         {
           type: "button",
@@ -70473,7 +71039,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   );
   SelectTrigger.displayName = TRIGGER_NAME2;
   var VALUE_NAME = "SelectValue";
-  var SelectValue = React82.forwardRef(
+  var SelectValue = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, className, style, children, placeholder = "", ...valueProps } = props;
       const context = useSelectContext(VALUE_NAME, __scopeSelect);
@@ -70483,54 +71049,54 @@ ${colorConfig.map(([key, itemConfig]) => {
       useLayoutEffect2(() => {
         onValueNodeHasChildrenChange(hasChildren);
       }, [onValueNodeHasChildrenChange, hasChildren]);
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
         Primitive.span,
         {
           ...valueProps,
           ref: composedRefs,
           style: { pointerEvents: "none" },
-          children: shouldShowPlaceholder(context.value) ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_jsx_runtime19.Fragment, { children: placeholder }) : children
+          children: shouldShowPlaceholder(context.value) ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, { children: placeholder }) : children
         }
       );
     }
   );
   SelectValue.displayName = VALUE_NAME;
   var ICON_NAME = "SelectIcon";
-  var SelectIcon = React82.forwardRef(
+  var SelectIcon = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, children, ...iconProps } = props;
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.span, { "aria-hidden": true, ...iconProps, ref: forwardedRef, children: children || "\u25BC" });
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Primitive.span, { "aria-hidden": true, ...iconProps, ref: forwardedRef, children: children || "\u25BC" });
     }
   );
   SelectIcon.displayName = ICON_NAME;
   var PORTAL_NAME4 = "SelectPortal";
   var SelectPortal = (props) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Portal, { asChild: true, ...props });
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Portal, { asChild: true, ...props });
   };
   SelectPortal.displayName = PORTAL_NAME4;
   var CONTENT_NAME4 = "SelectContent";
-  var SelectContent = React82.forwardRef(
+  var SelectContent = React83.forwardRef(
     (props, forwardedRef) => {
       const context = useSelectContext(CONTENT_NAME4, props.__scopeSelect);
-      const [fragment, setFragment] = React82.useState();
+      const [fragment, setFragment] = React83.useState();
       useLayoutEffect2(() => {
         setFragment(new DocumentFragment());
       }, []);
       if (!context.open) {
         const frag = fragment;
         return frag ? ReactDOM5.createPortal(
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(SelectContentProvider, { scope: props.__scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Collection3.Slot, { scope: props.__scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { children: props.children }) }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(SelectContentProvider, { scope: props.__scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Collection3.Slot, { scope: props.__scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { children: props.children }) }) }),
           frag
         ) : null;
       }
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(SelectContentImpl, { ...props, ref: forwardedRef });
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(SelectContentImpl, { ...props, ref: forwardedRef });
     }
   );
   SelectContent.displayName = CONTENT_NAME4;
   var CONTENT_MARGIN = 10;
   var [SelectContentProvider, useSelectContentContext] = createSelectContext(CONTENT_NAME4);
   var CONTENT_IMPL_NAME = "SelectContentImpl";
-  var SelectContentImpl = React82.forwardRef(
+  var SelectContentImpl = React83.forwardRef(
     (props, forwardedRef) => {
       const {
         __scopeSelect,
@@ -70554,22 +71120,22 @@ ${colorConfig.map(([key, itemConfig]) => {
         ...contentProps
       } = props;
       const context = useSelectContext(CONTENT_NAME4, __scopeSelect);
-      const [content, setContent] = React82.useState(null);
-      const [viewport, setViewport] = React82.useState(null);
+      const [content, setContent] = React83.useState(null);
+      const [viewport, setViewport] = React83.useState(null);
       const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-      const [selectedItem, setSelectedItem] = React82.useState(null);
-      const [selectedItemText, setSelectedItemText] = React82.useState(
+      const [selectedItem, setSelectedItem] = React83.useState(null);
+      const [selectedItemText, setSelectedItemText] = React83.useState(
         null
       );
       const getItems = useCollection3(__scopeSelect);
-      const [isPositioned, setIsPositioned] = React82.useState(false);
-      const firstValidItemFoundRef = React82.useRef(false);
-      React82.useEffect(() => {
+      const [isPositioned, setIsPositioned] = React83.useState(false);
+      const firstValidItemFoundRef = React83.useRef(false);
+      React83.useEffect(() => {
         if (content)
           return hideOthers(content);
       }, [content]);
       useFocusGuards();
-      const focusFirst4 = React82.useCallback(
+      const focusFirst4 = React83.useCallback(
         (candidates) => {
           const [firstItem, ...restItems] = getItems().map((item) => item.ref.current);
           const [lastItem] = restItems.slice(-1);
@@ -70589,17 +71155,17 @@ ${colorConfig.map(([key, itemConfig]) => {
         },
         [getItems, viewport]
       );
-      const focusSelectedItem = React82.useCallback(
+      const focusSelectedItem = React83.useCallback(
         () => focusFirst4([selectedItem, content]),
         [focusFirst4, selectedItem, content]
       );
-      React82.useEffect(() => {
+      React83.useEffect(() => {
         if (isPositioned) {
           focusSelectedItem();
         }
       }, [isPositioned, focusSelectedItem]);
       const { onOpenChange, triggerPointerDownPosRef } = context;
-      React82.useEffect(() => {
+      React83.useEffect(() => {
         if (content) {
           let pointerMoveDelta = { x: 0, y: 0 };
           const handlePointerMove = (event) => {
@@ -70629,7 +71195,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           };
         }
       }, [content, onOpenChange, triggerPointerDownPosRef]);
-      React82.useEffect(() => {
+      React83.useEffect(() => {
         const close = () => onOpenChange(false);
         window.addEventListener("blur", close);
         window.addEventListener("resize", close);
@@ -70646,7 +71212,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           setTimeout(() => nextItem.ref.current.focus());
         }
       });
-      const itemRefCallback = React82.useCallback(
+      const itemRefCallback = React83.useCallback(
         (node, value, disabled) => {
           const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
           const isSelectedItem = context.value !== void 0 && context.value === value;
@@ -70658,8 +71224,8 @@ ${colorConfig.map(([key, itemConfig]) => {
         },
         [context.value]
       );
-      const handleItemLeave = React82.useCallback(() => content?.focus(), [content]);
-      const itemTextRefCallback = React82.useCallback(
+      const handleItemLeave = React83.useCallback(() => content?.focus(), [content]);
+      const itemTextRefCallback = React83.useCallback(
         (node, value, disabled) => {
           const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
           const isSelectedItem = context.value !== void 0 && context.value === value;
@@ -70682,7 +71248,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         hideWhenDetached,
         avoidCollisions
       } : {};
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
         SelectContentProvider,
         {
           scope: __scopeSelect,
@@ -70698,7 +71264,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           position,
           isPositioned,
           searchRef,
-          children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Combination_default, { as: Slot5, allowPinchZoom: true, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+          children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Combination_default, { as: Slot5, allowPinchZoom: true, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
             FocusScope,
             {
               asChild: true,
@@ -70710,7 +71276,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                 context.trigger?.focus({ preventScroll: true });
                 event.preventDefault();
               }),
-              children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+              children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
                 DismissableLayer,
                 {
                   asChild: true,
@@ -70719,7 +71285,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                   onPointerDownOutside,
                   onFocusOutside: (event) => event.preventDefault(),
                   onDismiss: () => context.onOpenChange(false),
-                  children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+                  children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
                     SelectPosition,
                     {
                       role: "listbox",
@@ -70772,18 +71338,18 @@ ${colorConfig.map(([key, itemConfig]) => {
   );
   SelectContentImpl.displayName = CONTENT_IMPL_NAME;
   var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition";
-  var SelectItemAlignedPosition = React82.forwardRef((props, forwardedRef) => {
+  var SelectItemAlignedPosition = React83.forwardRef((props, forwardedRef) => {
     const { __scopeSelect, onPlaced, ...popperProps } = props;
     const context = useSelectContext(CONTENT_NAME4, __scopeSelect);
     const contentContext = useSelectContentContext(CONTENT_NAME4, __scopeSelect);
-    const [contentWrapper, setContentWrapper] = React82.useState(null);
-    const [content, setContent] = React82.useState(null);
+    const [contentWrapper, setContentWrapper] = React83.useState(null);
+    const [content, setContent] = React83.useState(null);
     const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
     const getItems = useCollection3(__scopeSelect);
-    const shouldExpandOnScrollRef = React82.useRef(false);
-    const shouldRepositionRef = React82.useRef(true);
+    const shouldExpandOnScrollRef = React83.useRef(false);
+    const shouldRepositionRef = React83.useRef(true);
     const { viewport, selectedItem, selectedItemText, focusSelectedItem } = contentContext;
-    const position = React82.useCallback(() => {
+    const position = React83.useCallback(() => {
       if (context.trigger && context.valueNode && contentWrapper && content && viewport && selectedItem && selectedItemText) {
         const triggerRect = context.trigger.getBoundingClientRect();
         const contentRect = content.getBoundingClientRect();
@@ -70872,12 +71438,12 @@ ${colorConfig.map(([key, itemConfig]) => {
       onPlaced
     ]);
     useLayoutEffect2(() => position(), [position]);
-    const [contentZIndex, setContentZIndex] = React82.useState();
+    const [contentZIndex, setContentZIndex] = React83.useState();
     useLayoutEffect2(() => {
       if (content)
         setContentZIndex(window.getComputedStyle(content).zIndex);
     }, [content]);
-    const handleScrollButtonChange = React82.useCallback(
+    const handleScrollButtonChange = React83.useCallback(
       (node) => {
         if (node && shouldRepositionRef.current === true) {
           position();
@@ -70887,14 +71453,14 @@ ${colorConfig.map(([key, itemConfig]) => {
       },
       [position, focusSelectedItem]
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
       SelectViewportProvider,
       {
         scope: __scopeSelect,
         contentWrapper,
         shouldExpandOnScrollRef,
         onScrollButtonChange: handleScrollButtonChange,
-        children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
           "div",
           {
             ref: setContentWrapper,
@@ -70904,7 +71470,7 @@ ${colorConfig.map(([key, itemConfig]) => {
               position: "fixed",
               zIndex: contentZIndex
             },
-            children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+            children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
               Primitive.div,
               {
                 ...popperProps,
@@ -70926,7 +71492,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   });
   SelectItemAlignedPosition.displayName = ITEM_ALIGNED_POSITION_NAME;
   var POPPER_POSITION_NAME = "SelectPopperPosition";
-  var SelectPopperPosition = React82.forwardRef((props, forwardedRef) => {
+  var SelectPopperPosition = React83.forwardRef((props, forwardedRef) => {
     const {
       __scopeSelect,
       align = "start",
@@ -70934,7 +71500,7 @@ ${colorConfig.map(([key, itemConfig]) => {
       ...popperProps
     } = props;
     const popperScope = usePopperScope2(__scopeSelect);
-    return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
       Content,
       {
         ...popperScope,
@@ -70961,15 +71527,15 @@ ${colorConfig.map(([key, itemConfig]) => {
   SelectPopperPosition.displayName = POPPER_POSITION_NAME;
   var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CONTENT_NAME4, {});
   var VIEWPORT_NAME = "SelectViewport";
-  var SelectViewport = React82.forwardRef(
+  var SelectViewport = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, nonce, ...viewportProps } = props;
       const contentContext = useSelectContentContext(VIEWPORT_NAME, __scopeSelect);
       const viewportContext = useSelectViewportContext(VIEWPORT_NAME, __scopeSelect);
       const composedRefs = useComposedRefs(forwardedRef, contentContext.onViewportChange);
-      const prevScrollTopRef = React82.useRef(0);
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(import_jsx_runtime19.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      const prevScrollTopRef = React83.useRef(0);
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(import_jsx_runtime20.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
           "style",
           {
             dangerouslySetInnerHTML: {
@@ -70978,7 +71544,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             nonce
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Collection3.Slot, { scope: __scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Collection3.Slot, { scope: __scopeSelect, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
           Primitive.div,
           {
             "data-radix-select-viewport": "",
@@ -71026,26 +71592,26 @@ ${colorConfig.map(([key, itemConfig]) => {
   SelectViewport.displayName = VIEWPORT_NAME;
   var GROUP_NAME4 = "SelectGroup";
   var [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME4);
-  var SelectGroup = React82.forwardRef(
+  var SelectGroup = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, ...groupProps } = props;
       const groupId = useId();
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(SelectGroupContextProvider, { scope: __scopeSelect, id: groupId, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.div, { role: "group", "aria-labelledby": groupId, ...groupProps, ref: forwardedRef }) });
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(SelectGroupContextProvider, { scope: __scopeSelect, id: groupId, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Primitive.div, { role: "group", "aria-labelledby": groupId, ...groupProps, ref: forwardedRef }) });
     }
   );
   SelectGroup.displayName = GROUP_NAME4;
   var LABEL_NAME3 = "SelectLabel";
-  var SelectLabel = React82.forwardRef(
+  var SelectLabel = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, ...labelProps } = props;
       const groupContext = useSelectGroupContext(LABEL_NAME3, __scopeSelect);
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.div, { id: groupContext.id, ...labelProps, ref: forwardedRef });
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Primitive.div, { id: groupContext.id, ...labelProps, ref: forwardedRef });
     }
   );
   SelectLabel.displayName = LABEL_NAME3;
   var ITEM_NAME4 = "SelectItem";
   var [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME4);
-  var SelectItem = React82.forwardRef(
+  var SelectItem = React83.forwardRef(
     (props, forwardedRef) => {
       const {
         __scopeSelect,
@@ -71057,8 +71623,8 @@ ${colorConfig.map(([key, itemConfig]) => {
       const context = useSelectContext(ITEM_NAME4, __scopeSelect);
       const contentContext = useSelectContentContext(ITEM_NAME4, __scopeSelect);
       const isSelected = context.value === value;
-      const [textValue, setTextValue] = React82.useState(textValueProp ?? "");
-      const [isFocused, setIsFocused] = React82.useState(false);
+      const [textValue, setTextValue] = React83.useState(textValueProp ?? "");
+      const [isFocused, setIsFocused] = React83.useState(false);
       const composedRefs = useComposedRefs(
         forwardedRef,
         (node) => contentContext.itemRefCallback?.(node, value, disabled)
@@ -71075,7 +71641,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           "A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder."
         );
       }
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
         SelectItemContextProvider,
         {
           scope: __scopeSelect,
@@ -71083,17 +71649,17 @@ ${colorConfig.map(([key, itemConfig]) => {
           disabled,
           textId,
           isSelected,
-          onItemTextChange: React82.useCallback((node) => {
+          onItemTextChange: React83.useCallback((node) => {
             setTextValue((prevTextValue) => prevTextValue || (node?.textContent ?? "").trim());
           }, []),
-          children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+          children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
             Collection3.ItemSlot,
             {
               scope: __scopeSelect,
               value,
               disabled,
               textValue,
-              children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+              children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
                 Primitive.div,
                 {
                   role: "option",
@@ -71140,14 +71706,14 @@ ${colorConfig.map(([key, itemConfig]) => {
   );
   SelectItem.displayName = ITEM_NAME4;
   var ITEM_TEXT_NAME = "SelectItemText";
-  var SelectItemText = React82.forwardRef(
+  var SelectItemText = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, className, style, ...itemTextProps } = props;
       const context = useSelectContext(ITEM_TEXT_NAME, __scopeSelect);
       const contentContext = useSelectContentContext(ITEM_TEXT_NAME, __scopeSelect);
       const itemContext = useSelectItemContext(ITEM_TEXT_NAME, __scopeSelect);
       const nativeOptionsContext = useSelectNativeOptionsContext(ITEM_TEXT_NAME, __scopeSelect);
-      const [itemTextNode, setItemTextNode] = React82.useState(null);
+      const [itemTextNode, setItemTextNode] = React83.useState(null);
       const composedRefs = useComposedRefs(
         forwardedRef,
         (node) => setItemTextNode(node),
@@ -71155,8 +71721,8 @@ ${colorConfig.map(([key, itemConfig]) => {
         (node) => contentContext.itemTextRefCallback?.(node, itemContext.value, itemContext.disabled)
       );
       const textContent = itemTextNode?.textContent;
-      const nativeOption = React82.useMemo(
-        () => /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("option", { value: itemContext.value, disabled: itemContext.disabled, children: textContent }, itemContext.value),
+      const nativeOption = React83.useMemo(
+        () => /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("option", { value: itemContext.value, disabled: itemContext.disabled, children: textContent }, itemContext.value),
         [itemContext.disabled, itemContext.value, textContent]
       );
       const { onNativeOptionAdd, onNativeOptionRemove } = nativeOptionsContext;
@@ -71164,27 +71730,27 @@ ${colorConfig.map(([key, itemConfig]) => {
         onNativeOptionAdd(nativeOption);
         return () => onNativeOptionRemove(nativeOption);
       }, [onNativeOptionAdd, onNativeOptionRemove, nativeOption]);
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(import_jsx_runtime19.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.span, { id: itemContext.textId, ...itemTextProps, ref: composedRefs }),
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(import_jsx_runtime20.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Primitive.span, { id: itemContext.textId, ...itemTextProps, ref: composedRefs }),
         itemContext.isSelected && context.valueNode && !context.valueNodeHasChildren ? ReactDOM5.createPortal(itemTextProps.children, context.valueNode) : null
       ] });
     }
   );
   SelectItemText.displayName = ITEM_TEXT_NAME;
   var ITEM_INDICATOR_NAME2 = "SelectItemIndicator";
-  var SelectItemIndicator = React82.forwardRef(
+  var SelectItemIndicator = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, ...itemIndicatorProps } = props;
       const itemContext = useSelectItemContext(ITEM_INDICATOR_NAME2, __scopeSelect);
-      return itemContext.isSelected ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.span, { "aria-hidden": true, ...itemIndicatorProps, ref: forwardedRef }) : null;
+      return itemContext.isSelected ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Primitive.span, { "aria-hidden": true, ...itemIndicatorProps, ref: forwardedRef }) : null;
     }
   );
   SelectItemIndicator.displayName = ITEM_INDICATOR_NAME2;
   var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton";
-  var SelectScrollUpButton = React82.forwardRef((props, forwardedRef) => {
+  var SelectScrollUpButton = React83.forwardRef((props, forwardedRef) => {
     const contentContext = useSelectContentContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
     const viewportContext = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
-    const [canScrollUp, setCanScrollUp] = React82.useState(false);
+    const [canScrollUp, setCanScrollUp] = React83.useState(false);
     const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
     useLayoutEffect2(() => {
       if (contentContext.viewport && contentContext.isPositioned) {
@@ -71199,7 +71765,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         return () => viewport.removeEventListener("scroll", handleScroll22);
       }
     }, [contentContext.viewport, contentContext.isPositioned]);
-    return canScrollUp ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    return canScrollUp ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
       SelectScrollButtonImpl,
       {
         ...props,
@@ -71215,10 +71781,10 @@ ${colorConfig.map(([key, itemConfig]) => {
   });
   SelectScrollUpButton.displayName = SCROLL_UP_BUTTON_NAME;
   var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton";
-  var SelectScrollDownButton = React82.forwardRef((props, forwardedRef) => {
+  var SelectScrollDownButton = React83.forwardRef((props, forwardedRef) => {
     const contentContext = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
     const viewportContext = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
-    const [canScrollDown, setCanScrollDown] = React82.useState(false);
+    const [canScrollDown, setCanScrollDown] = React83.useState(false);
     const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
     useLayoutEffect2(() => {
       if (contentContext.viewport && contentContext.isPositioned) {
@@ -71234,7 +71800,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         return () => viewport.removeEventListener("scroll", handleScroll22);
       }
     }, [contentContext.viewport, contentContext.isPositioned]);
-    return canScrollDown ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    return canScrollDown ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
       SelectScrollButtonImpl,
       {
         ...props,
@@ -71249,25 +71815,25 @@ ${colorConfig.map(([key, itemConfig]) => {
     ) : null;
   });
   SelectScrollDownButton.displayName = SCROLL_DOWN_BUTTON_NAME;
-  var SelectScrollButtonImpl = React82.forwardRef((props, forwardedRef) => {
+  var SelectScrollButtonImpl = React83.forwardRef((props, forwardedRef) => {
     const { __scopeSelect, onAutoScroll, ...scrollIndicatorProps } = props;
     const contentContext = useSelectContentContext("SelectScrollButton", __scopeSelect);
-    const autoScrollTimerRef = React82.useRef(null);
+    const autoScrollTimerRef = React83.useRef(null);
     const getItems = useCollection3(__scopeSelect);
-    const clearAutoScrollTimer = React82.useCallback(() => {
+    const clearAutoScrollTimer = React83.useCallback(() => {
       if (autoScrollTimerRef.current !== null) {
         window.clearInterval(autoScrollTimerRef.current);
         autoScrollTimerRef.current = null;
       }
     }, []);
-    React82.useEffect(() => {
+    React83.useEffect(() => {
       return () => clearAutoScrollTimer();
     }, [clearAutoScrollTimer]);
     useLayoutEffect2(() => {
       const activeItem = getItems().find((item) => item.ref.current === document.activeElement);
       activeItem?.ref.current?.scrollIntoView({ block: "nearest" });
     }, [getItems]);
-    return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
       Primitive.div,
       {
         "aria-hidden": true,
@@ -71292,34 +71858,34 @@ ${colorConfig.map(([key, itemConfig]) => {
     );
   });
   var SEPARATOR_NAME3 = "SelectSeparator";
-  var SelectSeparator = React82.forwardRef(
+  var SelectSeparator = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, ...separatorProps } = props;
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.div, { "aria-hidden": true, ...separatorProps, ref: forwardedRef });
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Primitive.div, { "aria-hidden": true, ...separatorProps, ref: forwardedRef });
     }
   );
   SelectSeparator.displayName = SEPARATOR_NAME3;
   var ARROW_NAME4 = "SelectArrow";
-  var SelectArrow = React82.forwardRef(
+  var SelectArrow = React83.forwardRef(
     (props, forwardedRef) => {
       const { __scopeSelect, ...arrowProps } = props;
       const popperScope = usePopperScope2(__scopeSelect);
       const context = useSelectContext(ARROW_NAME4, __scopeSelect);
       const contentContext = useSelectContentContext(ARROW_NAME4, __scopeSelect);
-      return context.open && contentContext.position === "popper" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Arrow2, { ...popperScope, ...arrowProps, ref: forwardedRef }) : null;
+      return context.open && contentContext.position === "popper" ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Arrow2, { ...popperScope, ...arrowProps, ref: forwardedRef }) : null;
     }
   );
   SelectArrow.displayName = ARROW_NAME4;
   function shouldShowPlaceholder(value) {
     return value === "" || value === void 0;
   }
-  var BubbleSelect = React82.forwardRef(
+  var BubbleSelect = React83.forwardRef(
     (props, forwardedRef) => {
       const { value, ...selectProps } = props;
-      const ref = React82.useRef(null);
+      const ref = React83.useRef(null);
       const composedRefs = useComposedRefs(forwardedRef, ref);
       const prevValue = usePrevious(value);
-      React82.useEffect(() => {
+      React83.useEffect(() => {
         const select = ref.current;
         const selectProto = window.HTMLSelectElement.prototype;
         const descriptor = Object.getOwnPropertyDescriptor(
@@ -71333,15 +71899,15 @@ ${colorConfig.map(([key, itemConfig]) => {
           select.dispatchEvent(event);
         }
       }, [prevValue, value]);
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(VisuallyHidden, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("select", { ...selectProps, ref: composedRefs, defaultValue: value }) });
+      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(VisuallyHidden, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("select", { ...selectProps, ref: composedRefs, defaultValue: value }) });
     }
   );
   BubbleSelect.displayName = "BubbleSelect";
   function useTypeaheadSearch(onSearchChange) {
     const handleSearchChange = useCallbackRef(onSearchChange);
-    const searchRef = React82.useRef("");
-    const timerRef = React82.useRef(0);
-    const handleTypeaheadSearch = React82.useCallback(
+    const searchRef = React83.useRef("");
+    const timerRef = React83.useRef(0);
+    const handleTypeaheadSearch = React83.useCallback(
       (key) => {
         const search = searchRef.current + key;
         handleSearchChange(search);
@@ -71354,11 +71920,11 @@ ${colorConfig.map(([key, itemConfig]) => {
       },
       [handleSearchChange]
     );
-    const resetTypeahead = React82.useCallback(() => {
+    const resetTypeahead = React83.useCallback(() => {
       searchRef.current = "";
       window.clearTimeout(timerRef.current);
     }, []);
-    React82.useEffect(() => {
+    React83.useEffect(() => {
       return () => window.clearTimeout(timerRef.current);
     }, []);
     return [searchRef, handleTypeaheadSearch, resetTypeahead];
@@ -71397,9 +71963,9 @@ ${colorConfig.map(([key, itemConfig]) => {
   // react/components/ui/select.tsx
   var Select2 = Root23;
   var SelectValue2 = Value;
-  var SelectTrigger2 = React83.forwardRef((_a, ref) => {
+  var SelectTrigger2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className, children } = _b, props = __objRest(_b, ["className", "children"]);
-    return /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(
       Trigger2,
       __spreadValues({
         ref,
@@ -71409,13 +71975,13 @@ ${colorConfig.map(([key, itemConfig]) => {
         )
       }, props),
       children,
-      /* @__PURE__ */ React83.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React83.createElement(ChevronDown, { className: "h-4 w-4 opacity-50" }))
+      /* @__PURE__ */ React84.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React84.createElement(ChevronDown, { className: "h-4 w-4 opacity-50" }))
     );
   });
   SelectTrigger2.displayName = Trigger2.displayName;
-  var SelectScrollUpButton2 = React83.forwardRef((_a, ref) => {
+  var SelectScrollUpButton2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(
       ScrollUpButton,
       __spreadValues({
         ref,
@@ -71424,13 +71990,13 @@ ${colorConfig.map(([key, itemConfig]) => {
           className
         )
       }, props),
-      /* @__PURE__ */ React83.createElement(ChevronUp, { className: "h-4 w-4" })
+      /* @__PURE__ */ React84.createElement(ChevronUp, { className: "h-4 w-4" })
     );
   });
   SelectScrollUpButton2.displayName = ScrollUpButton.displayName;
-  var SelectScrollDownButton2 = React83.forwardRef((_a, ref) => {
+  var SelectScrollDownButton2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(
       ScrollDownButton,
       __spreadValues({
         ref,
@@ -71439,13 +72005,13 @@ ${colorConfig.map(([key, itemConfig]) => {
           className
         )
       }, props),
-      /* @__PURE__ */ React83.createElement(ChevronDown, { className: "h-4 w-4" })
+      /* @__PURE__ */ React84.createElement(ChevronDown, { className: "h-4 w-4" })
     );
   });
   SelectScrollDownButton2.displayName = ScrollDownButton.displayName;
-  var SelectContent2 = React83.forwardRef((_a, ref) => {
+  var SelectContent2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className, children, position = "popper" } = _b, props = __objRest(_b, ["className", "children", "position"]);
-    return /* @__PURE__ */ React83.createElement(Portal3, null, /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(Portal3, null, /* @__PURE__ */ React84.createElement(
       Content23,
       __spreadValues({
         ref,
@@ -71456,8 +72022,8 @@ ${colorConfig.map(([key, itemConfig]) => {
         ),
         position
       }, props),
-      /* @__PURE__ */ React83.createElement(SelectScrollUpButton2, null),
-      /* @__PURE__ */ React83.createElement(
+      /* @__PURE__ */ React84.createElement(SelectScrollUpButton2, null),
+      /* @__PURE__ */ React84.createElement(
         Viewport,
         {
           className: cn(
@@ -71467,13 +72033,13 @@ ${colorConfig.map(([key, itemConfig]) => {
         },
         children
       ),
-      /* @__PURE__ */ React83.createElement(SelectScrollDownButton2, null)
+      /* @__PURE__ */ React84.createElement(SelectScrollDownButton2, null)
     ));
   });
   SelectContent2.displayName = Content23.displayName;
-  var SelectLabel2 = React83.forwardRef((_a, ref) => {
+  var SelectLabel2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(
       Label4,
       __spreadValues({
         ref,
@@ -71482,9 +72048,9 @@ ${colorConfig.map(([key, itemConfig]) => {
     );
   });
   SelectLabel2.displayName = Label4.displayName;
-  var SelectItem2 = React83.forwardRef((_a, ref) => {
+  var SelectItem2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className, children } = _b, props = __objRest(_b, ["className", "children"]);
-    return /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(
       Item3,
       __spreadValues({
         ref,
@@ -71493,14 +72059,14 @@ ${colorConfig.map(([key, itemConfig]) => {
           className
         )
       }, props),
-      /* @__PURE__ */ React83.createElement("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center" }, /* @__PURE__ */ React83.createElement(ItemIndicator3, null, /* @__PURE__ */ React83.createElement(Check, { className: "h-4 w-4" }))),
-      /* @__PURE__ */ React83.createElement(ItemText, null, children)
+      /* @__PURE__ */ React84.createElement("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center" }, /* @__PURE__ */ React84.createElement(ItemIndicator3, null, /* @__PURE__ */ React84.createElement(Check, { className: "h-4 w-4" }))),
+      /* @__PURE__ */ React84.createElement(ItemText, null, children)
     );
   });
   SelectItem2.displayName = Item3.displayName;
-  var SelectSeparator2 = React83.forwardRef((_a, ref) => {
+  var SelectSeparator2 = React84.forwardRef((_a, ref) => {
     var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
-    return /* @__PURE__ */ React83.createElement(
+    return /* @__PURE__ */ React84.createElement(
       Separator3,
       __spreadValues({
         ref,
@@ -71511,14 +72077,14 @@ ${colorConfig.map(([key, itemConfig]) => {
   SelectSeparator2.displayName = Separator3.displayName;
 
   // react/components/IntervalHook.ts
-  var import_react45 = __toESM(require_react());
+  var import_react46 = __toESM(require_react());
 
   // node_modules/use-between/release/index.esm.js
-  var React84 = __toESM(require_react());
-  var import_react44 = __toESM(require_react());
-  var ReactSharedInternals = React84.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+  var React85 = __toESM(require_react());
+  var import_react45 = __toESM(require_react());
+  var ReactSharedInternals = React85.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
   var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
-  var useForceUpdate = () => (0, import_react44.useReducer)(() => ({}))[1];
+  var useForceUpdate = () => (0, import_react45.useReducer)(() => ({}))[1];
   var notImplemented = (name) => () => {
     const msg = `Hook "${name}" no possible to using inside useBetween scope.`;
     console.error(msg);
@@ -71768,13 +72334,13 @@ ${colorConfig.map(([key, itemConfig]) => {
     const forceUpdate = useForceUpdate();
     let inst = getInstance(hook);
     inst.sub(forceUpdate);
-    (0, import_react44.useEffect)(() => (inst.sub(forceUpdate), () => inst.unsub(forceUpdate)), [inst, forceUpdate]);
+    (0, import_react45.useEffect)(() => (inst.sub(forceUpdate), () => inst.unsub(forceUpdate)), [inst, forceUpdate]);
     return inst.get();
   };
 
   // react/components/IntervalHook.ts
   var useIntervalState = () => {
-    const [interval, setInterval] = (0, import_react45.useState)("day");
+    const [interval, setInterval] = (0, import_react46.useState)("day");
     return {
       interval,
       setInterval
@@ -71811,48 +72377,48 @@ ${colorConfig.map(([key, itemConfig]) => {
         }
       });
     };
-    return /* @__PURE__ */ React85.createElement(Card, null, /* @__PURE__ */ React85.createElement(CardHeader, { className: "flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row" }, /* @__PURE__ */ React85.createElement("div", { className: "grid flex-1 gap-1 text-center sm:text-left" }, /* @__PURE__ */ React85.createElement(CardTitle, null, "Total visits"), /* @__PURE__ */ React85.createElement(CardDescription, null, "Showing total visits for ", format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React85.createElement(Select2, { value: interval, onValueChange: updateInterval }, /* @__PURE__ */ React85.createElement(
+    return /* @__PURE__ */ React86.createElement(Card, null, /* @__PURE__ */ React86.createElement(CardHeader, { className: "flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row" }, /* @__PURE__ */ React86.createElement("div", { className: "grid flex-1 gap-1 text-center sm:text-left" }, /* @__PURE__ */ React86.createElement(CardTitle, null, "Total visits"), /* @__PURE__ */ React86.createElement(CardDescription, null, "Showing total visits for ", format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React86.createElement(Select2, { value: interval, onValueChange: updateInterval }, /* @__PURE__ */ React86.createElement(
       SelectTrigger2,
       {
         className: "w-[160px] rounded-lg sm:ml-auto",
         "aria-label": "Select a value"
       },
-      /* @__PURE__ */ React85.createElement(SelectValue2, { placeholder: "Interval" })
-    ), /* @__PURE__ */ React85.createElement(SelectContent2, { className: "rounded-xl" }, /* @__PURE__ */ React85.createElement(SelectItem2, { value: "hour", className: "rounded-lg" }, "Per hour"), /* @__PURE__ */ React85.createElement(SelectItem2, { value: "day", className: "rounded-lg" }, "Per day"), /* @__PURE__ */ React85.createElement(SelectItem2, { value: "month", className: "rounded-lg" }, "Per month")))), /* @__PURE__ */ React85.createElement(CardContent, { className: "px-2 pt-4 sm:px-6 sm:pt-6" }, /* @__PURE__ */ React85.createElement(
+      /* @__PURE__ */ React86.createElement(SelectValue2, { placeholder: "Interval" })
+    ), /* @__PURE__ */ React86.createElement(SelectContent2, { className: "rounded-xl" }, /* @__PURE__ */ React86.createElement(SelectItem2, { value: "hour", className: "rounded-lg" }, "Per hour"), /* @__PURE__ */ React86.createElement(SelectItem2, { value: "day", className: "rounded-lg" }, "Per day"), /* @__PURE__ */ React86.createElement(SelectItem2, { value: "month", className: "rounded-lg" }, "Per month")))), /* @__PURE__ */ React86.createElement(CardContent, { className: "px-2 pt-4 sm:px-6 sm:pt-6" }, /* @__PURE__ */ React86.createElement(
       ChartContainer,
       {
         config: chartConfig,
         className: "aspect-auto h-[250px] w-full"
       },
-      /* @__PURE__ */ React85.createElement(AreaChart, { data: chartData }, /* @__PURE__ */ React85.createElement("defs", null, /* @__PURE__ */ React85.createElement("linearGradient", { id: "fillTotal", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React85.createElement(
+      /* @__PURE__ */ React86.createElement(AreaChart, { data: chartData }, /* @__PURE__ */ React86.createElement("defs", null, /* @__PURE__ */ React86.createElement("linearGradient", { id: "fillTotal", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React86.createElement(
         "stop",
         {
           offset: "5%",
           stopColor: "var(--color-total_visits)",
           stopOpacity: 0.8
         }
-      ), /* @__PURE__ */ React85.createElement(
+      ), /* @__PURE__ */ React86.createElement(
         "stop",
         {
           offset: "95%",
           stopColor: "var(--color-total_visits)",
           stopOpacity: 0.1
         }
-      )), /* @__PURE__ */ React85.createElement("linearGradient", { id: "fillUnique", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React85.createElement(
+      )), /* @__PURE__ */ React86.createElement("linearGradient", { id: "fillUnique", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React86.createElement(
         "stop",
         {
           offset: "5%",
           stopColor: "var(--color-unique_visits)",
           stopOpacity: 0.8
         }
-      ), /* @__PURE__ */ React85.createElement(
+      ), /* @__PURE__ */ React86.createElement(
         "stop",
         {
           offset: "95%",
           stopColor: "var(--color-unique_visits)",
           stopOpacity: 0.1
         }
-      ))), /* @__PURE__ */ React85.createElement(CartesianGrid, { vertical: false }), /* @__PURE__ */ React85.createElement(
+      ))), /* @__PURE__ */ React86.createElement(CartesianGrid, { vertical: false }), /* @__PURE__ */ React86.createElement(
         XAxis,
         {
           dataKey: "date",
@@ -71867,11 +72433,11 @@ ${colorConfig.map(([key, itemConfig]) => {
             }, interval !== "month" && { day: "numeric" }), interval === "month" && { year: "numeric" }));
           }
         }
-      ), /* @__PURE__ */ React85.createElement(
+      ), /* @__PURE__ */ React86.createElement(
         ChartTooltip,
         {
           cursor: false,
-          content: /* @__PURE__ */ React85.createElement(
+          content: /* @__PURE__ */ React86.createElement(
             ChartTooltipContent,
             {
               labelFormatter: (value) => {
@@ -71884,7 +72450,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             }
           )
         }
-      ), /* @__PURE__ */ React85.createElement(
+      ), /* @__PURE__ */ React86.createElement(
         Area,
         {
           dataKey: "total_visits",
@@ -71893,7 +72459,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           stroke: "var(--color-total_visits)",
           stackId: "a"
         }
-      ), /* @__PURE__ */ React85.createElement(
+      ), /* @__PURE__ */ React86.createElement(
         Area,
         {
           dataKey: "unique_visits",
@@ -71902,12 +72468,12 @@ ${colorConfig.map(([key, itemConfig]) => {
           stroke: "var(--color-unique_visits)",
           stackId: "b"
         }
-      ), /* @__PURE__ */ React85.createElement(ChartLegend, { content: /* @__PURE__ */ React85.createElement(ChartLegendContent, null) }))
+      ), /* @__PURE__ */ React86.createElement(ChartLegend, { content: /* @__PURE__ */ React86.createElement(ChartLegendContent, null) }))
     )));
   }
 
   // react/components/ResChart.tsx
-  var React86 = __toESM(require_react());
+  var React87 = __toESM(require_react());
   "use client";
   var chartConfig2 = {
     duration: {
@@ -71923,13 +72489,13 @@ ${colorConfig.map(([key, itemConfig]) => {
     chartTitle,
     dateRange
   }) {
-    return /* @__PURE__ */ React86.createElement(Card, null, /* @__PURE__ */ React86.createElement(CardHeader, null, /* @__PURE__ */ React86.createElement(CardTitle, null, chartTitle), /* @__PURE__ */ React86.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React86.createElement(CardContent, { className: "flex-1 pb-0" }, /* @__PURE__ */ React86.createElement(
+    return /* @__PURE__ */ React87.createElement(Card, null, /* @__PURE__ */ React87.createElement(CardHeader, null, /* @__PURE__ */ React87.createElement(CardTitle, null, chartTitle), /* @__PURE__ */ React87.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React87.createElement(CardContent, { className: "flex-1 pb-0" }, /* @__PURE__ */ React87.createElement(
       ChartContainer,
       {
         config: chartConfig2,
         className: "mx-auto aspect-square max-h-[250px]"
       },
-      /* @__PURE__ */ React86.createElement(
+      /* @__PURE__ */ React87.createElement(
         BarChart,
         {
           accessibilityLayer: true,
@@ -71939,8 +72505,8 @@ ${colorConfig.map(([key, itemConfig]) => {
             right: 16
           }
         },
-        /* @__PURE__ */ React86.createElement(CartesianGrid, { horizontal: false }),
-        /* @__PURE__ */ React86.createElement(
+        /* @__PURE__ */ React87.createElement(CartesianGrid, { horizontal: false }),
+        /* @__PURE__ */ React87.createElement(
           YAxis,
           {
             dataKey: "path",
@@ -71952,15 +72518,15 @@ ${colorConfig.map(([key, itemConfig]) => {
             hide: true
           }
         ),
-        /* @__PURE__ */ React86.createElement(XAxis, { dataKey: "duration", type: "number", hide: true }),
-        /* @__PURE__ */ React86.createElement(
+        /* @__PURE__ */ React87.createElement(XAxis, { dataKey: "duration", type: "number", hide: true }),
+        /* @__PURE__ */ React87.createElement(
           ChartTooltip,
           {
             cursor: false,
-            content: /* @__PURE__ */ React86.createElement(ChartTooltipContent, { className: "w-[175px]", indicator: "dot" })
+            content: /* @__PURE__ */ React87.createElement(ChartTooltipContent, { className: "w-[175px]", indicator: "dot" })
           }
         ),
-        /* @__PURE__ */ React86.createElement(
+        /* @__PURE__ */ React87.createElement(
           Bar,
           {
             dataKey: "duration",
@@ -71968,7 +72534,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             fill: "var(--color-duration)",
             radius: 4
           },
-          /* @__PURE__ */ React86.createElement(
+          /* @__PURE__ */ React87.createElement(
             LabelList,
             {
               dataKey: "path",
@@ -71980,11 +72546,11 @@ ${colorConfig.map(([key, itemConfig]) => {
           )
         )
       )
-    )), /* @__PURE__ */ React86.createElement(CardFooter, { className: "flex-col items-start gap-2 text-sm mt-2" }, /* @__PURE__ */ React86.createElement("div", { className: "leading-none text-muted-foreground" }, "Request duration for ", chartTitle.toLowerCase())));
+    )), /* @__PURE__ */ React87.createElement(CardFooter, { className: "flex-col items-start gap-2 text-sm mt-2" }, /* @__PURE__ */ React87.createElement("div", { className: "leading-none text-muted-foreground" }, "Request duration for ", chartTitle.toLowerCase())));
   }
 
   // react/components/DeviceChart.tsx
-  var React87 = __toESM(require_react());
+  var React88 = __toESM(require_react());
   "use client";
   var chartConfig3 = {
     visits: {
@@ -72010,17 +72576,17 @@ ${colorConfig.map(([key, itemConfig]) => {
     chartData.forEach((item) => {
       item.fill = `var(--color-${item.device})`;
     });
-    return /* @__PURE__ */ React87.createElement(Card, { className: "flex flex-col" }, /* @__PURE__ */ React87.createElement(CardHeader, null, /* @__PURE__ */ React87.createElement(CardTitle, null, "Device Usage"), /* @__PURE__ */ React87.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React87.createElement(CardContent, { className: "flex-1 pb-0" }, /* @__PURE__ */ React87.createElement(
+    return /* @__PURE__ */ React88.createElement(Card, { className: "flex flex-col" }, /* @__PURE__ */ React88.createElement(CardHeader, null, /* @__PURE__ */ React88.createElement(CardTitle, null, "Device Usage"), /* @__PURE__ */ React88.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React88.createElement(CardContent, { className: "flex-1 pb-0" }, /* @__PURE__ */ React88.createElement(
       ChartContainer,
       {
         config: chartConfig3,
         className: "mx-auto aspect-square max-h-[250px]"
       },
-      /* @__PURE__ */ React87.createElement(PieChart, null, /* @__PURE__ */ React87.createElement(
+      /* @__PURE__ */ React88.createElement(PieChart, null, /* @__PURE__ */ React88.createElement(
         ChartTooltip,
         {
           cursor: false,
-          content: /* @__PURE__ */ React87.createElement(
+          content: /* @__PURE__ */ React88.createElement(
             ChartTooltipContent,
             {
               className: "w-[150px]",
@@ -72029,7 +72595,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             }
           )
         }
-      ), /* @__PURE__ */ React87.createElement(
+      ), /* @__PURE__ */ React88.createElement(
         Pie,
         {
           data: chartData,
@@ -72038,12 +72604,12 @@ ${colorConfig.map(([key, itemConfig]) => {
           innerRadius: 60,
           strokeWidth: 5
         },
-        /* @__PURE__ */ React87.createElement(
+        /* @__PURE__ */ React88.createElement(
           Label3,
           {
             content: ({ viewBox }) => {
               if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                return /* @__PURE__ */ React87.createElement(
+                return /* @__PURE__ */ React88.createElement(
                   "text",
                   {
                     x: viewBox.cx,
@@ -72051,7 +72617,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                     textAnchor: "middle",
                     dominantBaseline: "middle"
                   },
-                  /* @__PURE__ */ React87.createElement(
+                  /* @__PURE__ */ React88.createElement(
                     "tspan",
                     {
                       x: viewBox.cx,
@@ -72066,7 +72632,7 @@ ${colorConfig.map(([key, itemConfig]) => {
                       1
                     )
                   ),
-                  /* @__PURE__ */ React87.createElement(
+                  /* @__PURE__ */ React88.createElement(
                     "tspan",
                     {
                       x: viewBox.cx,
@@ -72081,11 +72647,11 @@ ${colorConfig.map(([key, itemConfig]) => {
           }
         )
       ))
-    )), /* @__PURE__ */ React87.createElement(CardFooter, { className: "flex-col items-start gap-2 text-sm mt-2" }, /* @__PURE__ */ React87.createElement("div", { className: "leading-none text-muted-foreground" }, "Showing total visits split by device type")));
+    )), /* @__PURE__ */ React88.createElement(CardFooter, { className: "flex-col items-start gap-2 text-sm mt-2" }, /* @__PURE__ */ React88.createElement("div", { className: "leading-none text-muted-foreground" }, "Showing total visits split by device type")));
   }
 
   // react/components/StatusChart.tsx
-  var React88 = __toESM(require_react());
+  var React89 = __toESM(require_react());
   "use client";
   var chartConfig4 = {
     oks: {
@@ -72119,76 +72685,76 @@ ${colorConfig.map(([key, itemConfig]) => {
         }
       });
     };
-    return /* @__PURE__ */ React88.createElement(Card, null, /* @__PURE__ */ React88.createElement(CardHeader, { className: "flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row" }, /* @__PURE__ */ React88.createElement("div", { className: "grid flex-1 gap-1 text-center sm:text-left" }, /* @__PURE__ */ React88.createElement(CardTitle, null, "HTTP Statuses"), /* @__PURE__ */ React88.createElement(CardDescription, null, "Showing HTTP statuses for the ", format(dateRange.from, "dd LLL, y"), " ", "- ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React88.createElement(Select2, { value: interval, onValueChange: updateInterval }, /* @__PURE__ */ React88.createElement(
+    return /* @__PURE__ */ React89.createElement(Card, null, /* @__PURE__ */ React89.createElement(CardHeader, { className: "flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row" }, /* @__PURE__ */ React89.createElement("div", { className: "grid flex-1 gap-1 text-center sm:text-left" }, /* @__PURE__ */ React89.createElement(CardTitle, null, "HTTP Statuses"), /* @__PURE__ */ React89.createElement(CardDescription, null, "Showing HTTP statuses for the ", format(dateRange.from, "dd LLL, y"), " ", "- ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React89.createElement(Select2, { value: interval, onValueChange: updateInterval }, /* @__PURE__ */ React89.createElement(
       SelectTrigger2,
       {
         className: "w-[160px] rounded-lg sm:ml-auto",
         "aria-label": "Select a value"
       },
-      /* @__PURE__ */ React88.createElement(SelectValue2, { placeholder: "Interval" })
-    ), /* @__PURE__ */ React88.createElement(SelectContent2, { className: "rounded-xl" }, /* @__PURE__ */ React88.createElement(SelectItem2, { value: "hour", className: "rounded-lg" }, "Per hour"), /* @__PURE__ */ React88.createElement(SelectItem2, { value: "day", className: "rounded-lg" }, "Per day"), /* @__PURE__ */ React88.createElement(SelectItem2, { value: "month", className: "rounded-lg" }, "Per month")))), /* @__PURE__ */ React88.createElement(CardContent, { className: "px-2 pt-4 sm:px-6 sm:pt-6" }, /* @__PURE__ */ React88.createElement(
+      /* @__PURE__ */ React89.createElement(SelectValue2, { placeholder: "Interval" })
+    ), /* @__PURE__ */ React89.createElement(SelectContent2, { className: "rounded-xl" }, /* @__PURE__ */ React89.createElement(SelectItem2, { value: "hour", className: "rounded-lg" }, "Per hour"), /* @__PURE__ */ React89.createElement(SelectItem2, { value: "day", className: "rounded-lg" }, "Per day"), /* @__PURE__ */ React89.createElement(SelectItem2, { value: "month", className: "rounded-lg" }, "Per month")))), /* @__PURE__ */ React89.createElement(CardContent, { className: "px-2 pt-4 sm:px-6 sm:pt-6" }, /* @__PURE__ */ React89.createElement(
       ChartContainer,
       {
         config: chartConfig4,
         className: "aspect-auto h-[250px] w-full"
       },
-      /* @__PURE__ */ React88.createElement(AreaChart, { data: chartData }, /* @__PURE__ */ React88.createElement("defs", null, /* @__PURE__ */ React88.createElement("linearGradient", { id: "fillOks", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React88.createElement(
+      /* @__PURE__ */ React89.createElement(AreaChart, { data: chartData }, /* @__PURE__ */ React89.createElement("defs", null, /* @__PURE__ */ React89.createElement("linearGradient", { id: "fillOks", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "5%",
           stopColor: "var(--color-oks)",
           stopOpacity: 0.8
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "95%",
           stopColor: "var(--color-oks)",
           stopOpacity: 0.1
         }
-      )), /* @__PURE__ */ React88.createElement("linearGradient", { id: "fillRedirs", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React88.createElement(
+      )), /* @__PURE__ */ React89.createElement("linearGradient", { id: "fillRedirs", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "5%",
           stopColor: "var(--color-redirs)",
           stopOpacity: 0.8
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "95%",
           stopColor: "var(--color-redirs)",
           stopOpacity: 0.1
         }
-      )), /* @__PURE__ */ React88.createElement("linearGradient", { id: "fillErrors", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React88.createElement(
+      )), /* @__PURE__ */ React89.createElement("linearGradient", { id: "fillErrors", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "5%",
           stopColor: "var(--color-errors)",
           stopOpacity: 0.8
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "95%",
           stopColor: "var(--color-errors)",
           stopOpacity: 0.1
         }
-      )), /* @__PURE__ */ React88.createElement("linearGradient", { id: "fillFails", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React88.createElement(
+      )), /* @__PURE__ */ React89.createElement("linearGradient", { id: "fillFails", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "5%",
           stopColor: "var(--color-fails)",
           stopOpacity: 0.8
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         "stop",
         {
           offset: "95%",
           stopColor: "var(--color-fails)",
           stopOpacity: 0.1
         }
-      ))), /* @__PURE__ */ React88.createElement(CartesianGrid, { vertical: false }), /* @__PURE__ */ React88.createElement(
+      ))), /* @__PURE__ */ React89.createElement(CartesianGrid, { vertical: false }), /* @__PURE__ */ React89.createElement(
         XAxis,
         {
           dataKey: "date",
@@ -72203,11 +72769,11 @@ ${colorConfig.map(([key, itemConfig]) => {
             }, interval !== "month" && { day: "numeric" }), interval === "month" && { year: "numeric" }));
           }
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         ChartTooltip,
         {
           cursor: false,
-          content: /* @__PURE__ */ React88.createElement(
+          content: /* @__PURE__ */ React89.createElement(
             ChartTooltipContent,
             {
               labelFormatter: (value) => {
@@ -72220,7 +72786,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             }
           )
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         Area,
         {
           dataKey: "oks",
@@ -72229,7 +72795,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           stroke: "var(--color-oks)",
           stackId: "a"
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         Area,
         {
           dataKey: "redirs",
@@ -72238,7 +72804,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           stroke: "var(--color-redirs)",
           stackId: "b"
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         Area,
         {
           dataKey: "errors",
@@ -72247,7 +72813,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           stroke: "var(--color-errors)",
           stackId: "c"
         }
-      ), /* @__PURE__ */ React88.createElement(
+      ), /* @__PURE__ */ React89.createElement(
         Area,
         {
           dataKey: "fails",
@@ -72256,12 +72822,12 @@ ${colorConfig.map(([key, itemConfig]) => {
           stroke: "var(--color-fails)",
           stackId: "d"
         }
-      ), /* @__PURE__ */ React88.createElement(ChartLegend, { content: /* @__PURE__ */ React88.createElement(ChartLegendContent, null) }))
+      ), /* @__PURE__ */ React89.createElement(ChartLegend, { content: /* @__PURE__ */ React89.createElement(ChartLegendContent, null) }))
     )));
   }
 
   // react/components/PopularChart.tsx
-  var React89 = __toESM(require_react());
+  var React90 = __toESM(require_react());
   "use client";
   var chartConfig5 = {
     visits: {
@@ -72277,13 +72843,13 @@ ${colorConfig.map(([key, itemConfig]) => {
     chartTitle,
     dateRange
   }) {
-    return /* @__PURE__ */ React89.createElement(Card, null, /* @__PURE__ */ React89.createElement(CardHeader, null, /* @__PURE__ */ React89.createElement(CardTitle, null, chartTitle), /* @__PURE__ */ React89.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React89.createElement(CardContent, { className: "flex-1 pb-0" }, /* @__PURE__ */ React89.createElement(
+    return /* @__PURE__ */ React90.createElement(Card, null, /* @__PURE__ */ React90.createElement(CardHeader, null, /* @__PURE__ */ React90.createElement(CardTitle, null, chartTitle), /* @__PURE__ */ React90.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React90.createElement(CardContent, { className: "flex-1 pb-0" }, /* @__PURE__ */ React90.createElement(
       ChartContainer,
       {
         config: chartConfig5,
         className: "mx-auto aspect-square max-h-[250px]"
       },
-      /* @__PURE__ */ React89.createElement(
+      /* @__PURE__ */ React90.createElement(
         BarChart,
         {
           accessibilityLayer: true,
@@ -72293,8 +72859,8 @@ ${colorConfig.map(([key, itemConfig]) => {
             right: 16
           }
         },
-        /* @__PURE__ */ React89.createElement(CartesianGrid, { horizontal: false }),
-        /* @__PURE__ */ React89.createElement(
+        /* @__PURE__ */ React90.createElement(CartesianGrid, { horizontal: false }),
+        /* @__PURE__ */ React90.createElement(
           YAxis,
           {
             dataKey: "source",
@@ -72306,15 +72872,15 @@ ${colorConfig.map(([key, itemConfig]) => {
             hide: true
           }
         ),
-        /* @__PURE__ */ React89.createElement(XAxis, { dataKey: "visits", type: "number", hide: true }),
-        /* @__PURE__ */ React89.createElement(
+        /* @__PURE__ */ React90.createElement(XAxis, { dataKey: "visits", type: "number", hide: true }),
+        /* @__PURE__ */ React90.createElement(
           ChartTooltip,
           {
             cursor: false,
-            content: /* @__PURE__ */ React89.createElement(ChartTooltipContent, { className: "w-[200px]", indicator: "dot" })
+            content: /* @__PURE__ */ React90.createElement(ChartTooltipContent, { className: "w-[200px]", indicator: "dot" })
           }
         ),
-        /* @__PURE__ */ React89.createElement(
+        /* @__PURE__ */ React90.createElement(
           Bar,
           {
             dataKey: "visits",
@@ -72322,7 +72888,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             fill: "var(--color-visits)",
             radius: 4
           },
-          /* @__PURE__ */ React89.createElement(
+          /* @__PURE__ */ React90.createElement(
             LabelList,
             {
               dataKey: "source",
@@ -72334,18 +72900,18 @@ ${colorConfig.map(([key, itemConfig]) => {
           )
         )
       )
-    )), /* @__PURE__ */ React89.createElement(CardFooter, { className: "flex-col items-start gap-2 text-sm mt-2" }, /* @__PURE__ */ React89.createElement("div", { className: "leading-none text-muted-foreground" }, "Showing total visits for ", chartTitle.toLowerCase())));
+    )), /* @__PURE__ */ React90.createElement(CardFooter, { className: "flex-col items-start gap-2 text-sm mt-2" }, /* @__PURE__ */ React90.createElement("div", { className: "leading-none text-muted-foreground" }, "Showing total visits for ", chartTitle.toLowerCase())));
   }
 
   // react/components/DateRangePicker.tsx
-  var React94 = __toESM(require_react());
+  var React95 = __toESM(require_react());
 
   // react/components/ui/calendar.tsx
-  var React90 = __toESM(require_react());
+  var React91 = __toESM(require_react());
 
   // node_modules/react-day-picker/dist/index.esm.js
-  var import_jsx_runtime20 = __toESM(require_jsx_runtime());
-  var import_react46 = __toESM(require_react());
+  var import_jsx_runtime21 = __toESM(require_jsx_runtime());
+  var import_react47 = __toESM(require_react());
   var __assign2 = function() {
     __assign2 = Object.assign || function __assign3(t) {
       for (var s2, i = 1, n = arguments.length; i < n; i++) {
@@ -72532,7 +73098,7 @@ ${colorConfig.map(([key, itemConfig]) => {
       toDate: toDate2 ? startOfDay(toDate2) : void 0
     };
   }
-  var DayPickerContext = (0, import_react46.createContext)(void 0);
+  var DayPickerContext = (0, import_react47.createContext)(void 0);
   function DayPickerProvider(props) {
     var _a;
     var initialProps = props.initialProps;
@@ -72547,10 +73113,10 @@ ${colorConfig.map(([key, itemConfig]) => {
       onSelect = initialProps.onSelect;
     }
     var value = __assign2(__assign2(__assign2({}, defaultContextValues), initialProps), { captionLayout, classNames: __assign2(__assign2({}, defaultContextValues.classNames), initialProps.classNames), components: __assign2({}, initialProps.components), formatters: __assign2(__assign2({}, defaultContextValues.formatters), initialProps.formatters), fromDate, labels: __assign2(__assign2({}, defaultContextValues.labels), initialProps.labels), mode: initialProps.mode || defaultContextValues.mode, modifiers: __assign2(__assign2({}, defaultContextValues.modifiers), initialProps.modifiers), modifiersClassNames: __assign2(__assign2({}, defaultContextValues.modifiersClassNames), initialProps.modifiersClassNames), onSelect, styles: __assign2(__assign2({}, defaultContextValues.styles), initialProps.styles), toDate: toDate2 });
-    return (0, import_jsx_runtime20.jsx)(DayPickerContext.Provider, { value, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(DayPickerContext.Provider, { value, children: props.children });
   }
   function useDayPicker() {
-    var context = (0, import_react46.useContext)(DayPickerContext);
+    var context = (0, import_react47.useContext)(DayPickerContext);
     if (!context) {
       throw new Error("useDayPicker must be used within a DayPickerProvider.");
     }
@@ -72558,25 +73124,25 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
   function CaptionLabel(props) {
     var _a = useDayPicker(), locale3 = _a.locale, classNames = _a.classNames, styles = _a.styles, formatCaption2 = _a.formatters.formatCaption;
-    return (0, import_jsx_runtime20.jsx)("div", { className: classNames.caption_label, style: styles.caption_label, "aria-live": "polite", role: "presentation", id: props.id, children: formatCaption2(props.displayMonth, { locale: locale3 }) });
+    return (0, import_jsx_runtime21.jsx)("div", { className: classNames.caption_label, style: styles.caption_label, "aria-live": "polite", role: "presentation", id: props.id, children: formatCaption2(props.displayMonth, { locale: locale3 }) });
   }
   function IconDropdown(props) {
-    return (0, import_jsx_runtime20.jsx)("svg", __assign2({ width: "8px", height: "8px", viewBox: "0 0 120 120", "data-testid": "iconDropdown" }, props, { children: (0, import_jsx_runtime20.jsx)("path", { d: "M4.22182541,48.2218254 C8.44222828,44.0014225 15.2388494,43.9273804 19.5496459,47.9996989 L19.7781746,48.2218254 L60,88.443 L100.221825,48.2218254 C104.442228,44.0014225 111.238849,43.9273804 115.549646,47.9996989 L115.778175,48.2218254 C119.998577,52.4422283 120.07262,59.2388494 116.000301,63.5496459 L115.778175,63.7781746 L67.7781746,111.778175 C63.5577717,115.998577 56.7611506,116.07262 52.4503541,112.000301 L52.2218254,111.778175 L4.22182541,63.7781746 C-0.0739418023,59.4824074 -0.0739418023,52.5175926 4.22182541,48.2218254 Z", fill: "currentColor", fillRule: "nonzero" }) }));
+    return (0, import_jsx_runtime21.jsx)("svg", __assign2({ width: "8px", height: "8px", viewBox: "0 0 120 120", "data-testid": "iconDropdown" }, props, { children: (0, import_jsx_runtime21.jsx)("path", { d: "M4.22182541,48.2218254 C8.44222828,44.0014225 15.2388494,43.9273804 19.5496459,47.9996989 L19.7781746,48.2218254 L60,88.443 L100.221825,48.2218254 C104.442228,44.0014225 111.238849,43.9273804 115.549646,47.9996989 L115.778175,48.2218254 C119.998577,52.4422283 120.07262,59.2388494 116.000301,63.5496459 L115.778175,63.7781746 L67.7781746,111.778175 C63.5577717,115.998577 56.7611506,116.07262 52.4503541,112.000301 L52.2218254,111.778175 L4.22182541,63.7781746 C-0.0739418023,59.4824074 -0.0739418023,52.5175926 4.22182541,48.2218254 Z", fill: "currentColor", fillRule: "nonzero" }) }));
   }
   function Dropdown(props) {
     var _a, _b;
     var onChange = props.onChange, value = props.value, children = props.children, caption = props.caption, className = props.className, style = props.style;
     var dayPicker = useDayPicker();
     var IconDropdownComponent = (_b = (_a = dayPicker.components) === null || _a === void 0 ? void 0 : _a.IconDropdown) !== null && _b !== void 0 ? _b : IconDropdown;
-    return (0, import_jsx_runtime20.jsxs)("div", { className, style, children: [(0, import_jsx_runtime20.jsx)("span", { className: dayPicker.classNames.vhidden, children: props["aria-label"] }), (0, import_jsx_runtime20.jsx)("select", { name: props.name, "aria-label": props["aria-label"], className: dayPicker.classNames.dropdown, style: dayPicker.styles.dropdown, value, onChange, children }), (0, import_jsx_runtime20.jsxs)("div", { className: dayPicker.classNames.caption_label, style: dayPicker.styles.caption_label, "aria-hidden": "true", children: [caption, (0, import_jsx_runtime20.jsx)(IconDropdownComponent, { className: dayPicker.classNames.dropdown_icon, style: dayPicker.styles.dropdown_icon })] })] });
+    return (0, import_jsx_runtime21.jsxs)("div", { className, style, children: [(0, import_jsx_runtime21.jsx)("span", { className: dayPicker.classNames.vhidden, children: props["aria-label"] }), (0, import_jsx_runtime21.jsx)("select", { name: props.name, "aria-label": props["aria-label"], className: dayPicker.classNames.dropdown, style: dayPicker.styles.dropdown, value, onChange, children }), (0, import_jsx_runtime21.jsxs)("div", { className: dayPicker.classNames.caption_label, style: dayPicker.styles.caption_label, "aria-hidden": "true", children: [caption, (0, import_jsx_runtime21.jsx)(IconDropdownComponent, { className: dayPicker.classNames.dropdown_icon, style: dayPicker.styles.dropdown_icon })] })] });
   }
   function MonthsDropdown(props) {
     var _a;
     var _b = useDayPicker(), fromDate = _b.fromDate, toDate2 = _b.toDate, styles = _b.styles, locale3 = _b.locale, formatMonthCaption2 = _b.formatters.formatMonthCaption, classNames = _b.classNames, components = _b.components, labelMonthDropdown2 = _b.labels.labelMonthDropdown;
     if (!fromDate)
-      return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, {});
+      return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, {});
     if (!toDate2)
-      return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, {});
+      return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, {});
     var dropdownMonths = [];
     if (isSameYear(fromDate, toDate2)) {
       var date2 = startOfMonth(fromDate);
@@ -72595,8 +73161,8 @@ ${colorConfig.map(([key, itemConfig]) => {
       props.onChange(newMonth);
     };
     var DropdownComponent = (_a = components === null || components === void 0 ? void 0 : components.Dropdown) !== null && _a !== void 0 ? _a : Dropdown;
-    return (0, import_jsx_runtime20.jsx)(DropdownComponent, { name: "months", "aria-label": labelMonthDropdown2(), className: classNames.dropdown_month, style: styles.dropdown_month, onChange: handleChange, value: props.displayMonth.getMonth(), caption: formatMonthCaption2(props.displayMonth, { locale: locale3 }), children: dropdownMonths.map(function(m) {
-      return (0, import_jsx_runtime20.jsx)("option", { value: m.getMonth(), children: formatMonthCaption2(m, { locale: locale3 }) }, m.getMonth());
+    return (0, import_jsx_runtime21.jsx)(DropdownComponent, { name: "months", "aria-label": labelMonthDropdown2(), className: classNames.dropdown_month, style: styles.dropdown_month, onChange: handleChange, value: props.displayMonth.getMonth(), caption: formatMonthCaption2(props.displayMonth, { locale: locale3 }), children: dropdownMonths.map(function(m) {
+      return (0, import_jsx_runtime21.jsx)("option", { value: m.getMonth(), children: formatMonthCaption2(m, { locale: locale3 }) }, m.getMonth());
     }) });
   }
   function YearsDropdown(props) {
@@ -72605,9 +73171,9 @@ ${colorConfig.map(([key, itemConfig]) => {
     var _b = useDayPicker(), fromDate = _b.fromDate, toDate2 = _b.toDate, locale3 = _b.locale, styles = _b.styles, classNames = _b.classNames, components = _b.components, formatYearCaption2 = _b.formatters.formatYearCaption, labelYearDropdown2 = _b.labels.labelYearDropdown;
     var years = [];
     if (!fromDate)
-      return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, {});
+      return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, {});
     if (!toDate2)
-      return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, {});
+      return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, {});
     var fromYear = fromDate.getFullYear();
     var toYear = toDate2.getFullYear();
     for (var year = fromYear; year <= toYear; year++) {
@@ -72618,12 +73184,12 @@ ${colorConfig.map(([key, itemConfig]) => {
       props.onChange(newMonth);
     };
     var DropdownComponent = (_a = components === null || components === void 0 ? void 0 : components.Dropdown) !== null && _a !== void 0 ? _a : Dropdown;
-    return (0, import_jsx_runtime20.jsx)(DropdownComponent, { name: "years", "aria-label": labelYearDropdown2(), className: classNames.dropdown_year, style: styles.dropdown_year, onChange: handleChange, value: displayMonth.getFullYear(), caption: formatYearCaption2(displayMonth, { locale: locale3 }), children: years.map(function(year2) {
-      return (0, import_jsx_runtime20.jsx)("option", { value: year2.getFullYear(), children: formatYearCaption2(year2, { locale: locale3 }) }, year2.getFullYear());
+    return (0, import_jsx_runtime21.jsx)(DropdownComponent, { name: "years", "aria-label": labelYearDropdown2(), className: classNames.dropdown_year, style: styles.dropdown_year, onChange: handleChange, value: displayMonth.getFullYear(), caption: formatYearCaption2(displayMonth, { locale: locale3 }), children: years.map(function(year2) {
+      return (0, import_jsx_runtime21.jsx)("option", { value: year2.getFullYear(), children: formatYearCaption2(year2, { locale: locale3 }) }, year2.getFullYear());
     }) });
   }
   function useControlledValue(defaultValue, controlledValue) {
-    var _a = (0, import_react46.useState)(defaultValue), uncontrolledValue = _a[0], setValue = _a[1];
+    var _a = (0, import_react47.useState)(defaultValue), uncontrolledValue = _a[0], setValue = _a[1];
     var value = controlledValue === void 0 ? uncontrolledValue : controlledValue;
     return [value, setValue];
   }
@@ -72700,7 +73266,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     }
     return addMonths(month, -offset4);
   }
-  var NavigationContext = (0, import_react46.createContext)(void 0);
+  var NavigationContext = (0, import_react47.createContext)(void 0);
   function NavigationProvider(props) {
     var dayPicker = useDayPicker();
     var _a = useNavigationState(), currentMonth = _a[0], goToMonth = _a[1];
@@ -72731,10 +73297,10 @@ ${colorConfig.map(([key, itemConfig]) => {
       nextMonth,
       isDateDisplayed
     };
-    return (0, import_jsx_runtime20.jsx)(NavigationContext.Provider, { value, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(NavigationContext.Provider, { value, children: props.children });
   }
   function useNavigation() {
-    var context = (0, import_react46.useContext)(NavigationContext);
+    var context = (0, import_react47.useContext)(NavigationContext);
     if (!context) {
       throw new Error("useNavigation must be used within a NavigationProvider");
     }
@@ -72748,16 +73314,16 @@ ${colorConfig.map(([key, itemConfig]) => {
       goToMonth(addMonths(newMonth, props.displayIndex ? -props.displayIndex : 0));
     };
     var CaptionLabelComponent = (_a = components === null || components === void 0 ? void 0 : components.CaptionLabel) !== null && _a !== void 0 ? _a : CaptionLabel;
-    var captionLabel = (0, import_jsx_runtime20.jsx)(CaptionLabelComponent, { id: props.id, displayMonth: props.displayMonth });
-    return (0, import_jsx_runtime20.jsxs)("div", { className: classNames.caption_dropdowns, style: styles.caption_dropdowns, children: [(0, import_jsx_runtime20.jsx)("div", { className: classNames.vhidden, children: captionLabel }), (0, import_jsx_runtime20.jsx)(MonthsDropdown, { onChange: handleMonthChange, displayMonth: props.displayMonth }), (0, import_jsx_runtime20.jsx)(YearsDropdown, { onChange: handleMonthChange, displayMonth: props.displayMonth })] });
+    var captionLabel = (0, import_jsx_runtime21.jsx)(CaptionLabelComponent, { id: props.id, displayMonth: props.displayMonth });
+    return (0, import_jsx_runtime21.jsxs)("div", { className: classNames.caption_dropdowns, style: styles.caption_dropdowns, children: [(0, import_jsx_runtime21.jsx)("div", { className: classNames.vhidden, children: captionLabel }), (0, import_jsx_runtime21.jsx)(MonthsDropdown, { onChange: handleMonthChange, displayMonth: props.displayMonth }), (0, import_jsx_runtime21.jsx)(YearsDropdown, { onChange: handleMonthChange, displayMonth: props.displayMonth })] });
   }
   function IconLeft(props) {
-    return (0, import_jsx_runtime20.jsx)("svg", __assign2({ width: "16px", height: "16px", viewBox: "0 0 120 120" }, props, { children: (0, import_jsx_runtime20.jsx)("path", { d: "M69.490332,3.34314575 C72.6145263,0.218951416 77.6798462,0.218951416 80.8040405,3.34314575 C83.8617626,6.40086786 83.9268205,11.3179931 80.9992143,14.4548388 L80.8040405,14.6568542 L35.461,60 L80.8040405,105.343146 C83.8617626,108.400868 83.9268205,113.317993 80.9992143,116.454839 L80.8040405,116.656854 C77.7463184,119.714576 72.8291931,119.779634 69.6923475,116.852028 L69.490332,116.656854 L18.490332,65.6568542 C15.4326099,62.5991321 15.367552,57.6820069 18.2951583,54.5451612 L18.490332,54.3431458 L69.490332,3.34314575 Z", fill: "currentColor", fillRule: "nonzero" }) }));
+    return (0, import_jsx_runtime21.jsx)("svg", __assign2({ width: "16px", height: "16px", viewBox: "0 0 120 120" }, props, { children: (0, import_jsx_runtime21.jsx)("path", { d: "M69.490332,3.34314575 C72.6145263,0.218951416 77.6798462,0.218951416 80.8040405,3.34314575 C83.8617626,6.40086786 83.9268205,11.3179931 80.9992143,14.4548388 L80.8040405,14.6568542 L35.461,60 L80.8040405,105.343146 C83.8617626,108.400868 83.9268205,113.317993 80.9992143,116.454839 L80.8040405,116.656854 C77.7463184,119.714576 72.8291931,119.779634 69.6923475,116.852028 L69.490332,116.656854 L18.490332,65.6568542 C15.4326099,62.5991321 15.367552,57.6820069 18.2951583,54.5451612 L18.490332,54.3431458 L69.490332,3.34314575 Z", fill: "currentColor", fillRule: "nonzero" }) }));
   }
   function IconRight(props) {
-    return (0, import_jsx_runtime20.jsx)("svg", __assign2({ width: "16px", height: "16px", viewBox: "0 0 120 120" }, props, { children: (0, import_jsx_runtime20.jsx)("path", { d: "M49.8040405,3.34314575 C46.6798462,0.218951416 41.6145263,0.218951416 38.490332,3.34314575 C35.4326099,6.40086786 35.367552,11.3179931 38.2951583,14.4548388 L38.490332,14.6568542 L83.8333725,60 L38.490332,105.343146 C35.4326099,108.400868 35.367552,113.317993 38.2951583,116.454839 L38.490332,116.656854 C41.5480541,119.714576 46.4651794,119.779634 49.602025,116.852028 L49.8040405,116.656854 L100.804041,65.6568542 C103.861763,62.5991321 103.926821,57.6820069 100.999214,54.5451612 L100.804041,54.3431458 L49.8040405,3.34314575 Z", fill: "currentColor" }) }));
+    return (0, import_jsx_runtime21.jsx)("svg", __assign2({ width: "16px", height: "16px", viewBox: "0 0 120 120" }, props, { children: (0, import_jsx_runtime21.jsx)("path", { d: "M49.8040405,3.34314575 C46.6798462,0.218951416 41.6145263,0.218951416 38.490332,3.34314575 C35.4326099,6.40086786 35.367552,11.3179931 38.2951583,14.4548388 L38.490332,14.6568542 L83.8333725,60 L38.490332,105.343146 C35.4326099,108.400868 35.367552,113.317993 38.2951583,116.454839 L38.490332,116.656854 C41.5480541,119.714576 46.4651794,119.779634 49.602025,116.852028 L49.8040405,116.656854 L100.804041,65.6568542 C103.861763,62.5991321 103.926821,57.6820069 100.999214,54.5451612 L100.804041,54.3431458 L49.8040405,3.34314575 Z", fill: "currentColor" }) }));
   }
-  var Button2 = (0, import_react46.forwardRef)(function(props, ref) {
+  var Button2 = (0, import_react47.forwardRef)(function(props, ref) {
     var _a = useDayPicker(), classNames = _a.classNames, styles = _a.styles;
     var classNamesArr = [classNames.button_reset, classNames.button];
     if (props.className) {
@@ -72768,13 +73334,13 @@ ${colorConfig.map(([key, itemConfig]) => {
     if (props.style) {
       Object.assign(style, props.style);
     }
-    return (0, import_jsx_runtime20.jsx)("button", __assign2({}, props, { ref, type: "button", className, style }));
+    return (0, import_jsx_runtime21.jsx)("button", __assign2({}, props, { ref, type: "button", className, style }));
   });
   function Navigation(props) {
     var _a, _b;
     var _c = useDayPicker(), dir = _c.dir, locale3 = _c.locale, classNames = _c.classNames, styles = _c.styles, _d = _c.labels, labelPrevious2 = _d.labelPrevious, labelNext2 = _d.labelNext, components = _c.components;
     if (!props.nextMonth && !props.previousMonth) {
-      return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, {});
+      return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, {});
     }
     var previousLabel = labelPrevious2(props.previousMonth, { locale: locale3 });
     var previousClassName = [
@@ -72788,7 +73354,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     ].join(" ");
     var IconRightComponent = (_a = components === null || components === void 0 ? void 0 : components.IconRight) !== null && _a !== void 0 ? _a : IconRight;
     var IconLeftComponent = (_b = components === null || components === void 0 ? void 0 : components.IconLeft) !== null && _b !== void 0 ? _b : IconLeft;
-    return (0, import_jsx_runtime20.jsxs)("div", { className: classNames.nav, style: styles.nav, children: [!props.hidePrevious && (0, import_jsx_runtime20.jsx)(Button2, { name: "previous-month", "aria-label": previousLabel, className: previousClassName, style: styles.nav_button_previous, disabled: !props.previousMonth, onClick: props.onPreviousClick, children: dir === "rtl" ? (0, import_jsx_runtime20.jsx)(IconRightComponent, { className: classNames.nav_icon, style: styles.nav_icon }) : (0, import_jsx_runtime20.jsx)(IconLeftComponent, { className: classNames.nav_icon, style: styles.nav_icon }) }), !props.hideNext && (0, import_jsx_runtime20.jsx)(Button2, { name: "next-month", "aria-label": nextLabel, className: nextClassName, style: styles.nav_button_next, disabled: !props.nextMonth, onClick: props.onNextClick, children: dir === "rtl" ? (0, import_jsx_runtime20.jsx)(IconLeftComponent, { className: classNames.nav_icon, style: styles.nav_icon }) : (0, import_jsx_runtime20.jsx)(IconRightComponent, { className: classNames.nav_icon, style: styles.nav_icon }) })] });
+    return (0, import_jsx_runtime21.jsxs)("div", { className: classNames.nav, style: styles.nav, children: [!props.hidePrevious && (0, import_jsx_runtime21.jsx)(Button2, { name: "previous-month", "aria-label": previousLabel, className: previousClassName, style: styles.nav_button_previous, disabled: !props.previousMonth, onClick: props.onPreviousClick, children: dir === "rtl" ? (0, import_jsx_runtime21.jsx)(IconRightComponent, { className: classNames.nav_icon, style: styles.nav_icon }) : (0, import_jsx_runtime21.jsx)(IconLeftComponent, { className: classNames.nav_icon, style: styles.nav_icon }) }), !props.hideNext && (0, import_jsx_runtime21.jsx)(Button2, { name: "next-month", "aria-label": nextLabel, className: nextClassName, style: styles.nav_button_next, disabled: !props.nextMonth, onClick: props.onNextClick, children: dir === "rtl" ? (0, import_jsx_runtime21.jsx)(IconLeftComponent, { className: classNames.nav_icon, style: styles.nav_icon }) : (0, import_jsx_runtime21.jsx)(IconRightComponent, { className: classNames.nav_icon, style: styles.nav_icon }) })] });
   }
   function CaptionNavigation(props) {
     var numberOfMonths = useDayPicker().numberOfMonths;
@@ -72810,7 +73376,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         return;
       goToMonth(nextMonth);
     };
-    return (0, import_jsx_runtime20.jsx)(Navigation, { displayMonth: props.displayMonth, hideNext, hidePrevious, nextMonth, previousMonth, onPreviousClick: handlePreviousClick, onNextClick: handleNextClick });
+    return (0, import_jsx_runtime21.jsx)(Navigation, { displayMonth: props.displayMonth, hideNext, hidePrevious, nextMonth, previousMonth, onPreviousClick: handlePreviousClick, onNextClick: handleNextClick });
   }
   function Caption(props) {
     var _a;
@@ -72818,21 +73384,21 @@ ${colorConfig.map(([key, itemConfig]) => {
     var CaptionLabelComponent = (_a = components === null || components === void 0 ? void 0 : components.CaptionLabel) !== null && _a !== void 0 ? _a : CaptionLabel;
     var caption;
     if (disableNavigation) {
-      caption = (0, import_jsx_runtime20.jsx)(CaptionLabelComponent, { id: props.id, displayMonth: props.displayMonth });
+      caption = (0, import_jsx_runtime21.jsx)(CaptionLabelComponent, { id: props.id, displayMonth: props.displayMonth });
     } else if (captionLayout === "dropdown") {
-      caption = (0, import_jsx_runtime20.jsx)(CaptionDropdowns, { displayMonth: props.displayMonth, id: props.id });
+      caption = (0, import_jsx_runtime21.jsx)(CaptionDropdowns, { displayMonth: props.displayMonth, id: props.id });
     } else if (captionLayout === "dropdown-buttons") {
-      caption = (0, import_jsx_runtime20.jsxs)(import_jsx_runtime20.Fragment, { children: [(0, import_jsx_runtime20.jsx)(CaptionDropdowns, { displayMonth: props.displayMonth, displayIndex: props.displayIndex, id: props.id }), (0, import_jsx_runtime20.jsx)(CaptionNavigation, { displayMonth: props.displayMonth, displayIndex: props.displayIndex, id: props.id })] });
+      caption = (0, import_jsx_runtime21.jsxs)(import_jsx_runtime21.Fragment, { children: [(0, import_jsx_runtime21.jsx)(CaptionDropdowns, { displayMonth: props.displayMonth, displayIndex: props.displayIndex, id: props.id }), (0, import_jsx_runtime21.jsx)(CaptionNavigation, { displayMonth: props.displayMonth, displayIndex: props.displayIndex, id: props.id })] });
     } else {
-      caption = (0, import_jsx_runtime20.jsxs)(import_jsx_runtime20.Fragment, { children: [(0, import_jsx_runtime20.jsx)(CaptionLabelComponent, { id: props.id, displayMonth: props.displayMonth, displayIndex: props.displayIndex }), (0, import_jsx_runtime20.jsx)(CaptionNavigation, { displayMonth: props.displayMonth, id: props.id })] });
+      caption = (0, import_jsx_runtime21.jsxs)(import_jsx_runtime21.Fragment, { children: [(0, import_jsx_runtime21.jsx)(CaptionLabelComponent, { id: props.id, displayMonth: props.displayMonth, displayIndex: props.displayIndex }), (0, import_jsx_runtime21.jsx)(CaptionNavigation, { displayMonth: props.displayMonth, id: props.id })] });
     }
-    return (0, import_jsx_runtime20.jsx)("div", { className: classNames.caption, style: styles.caption, children: caption });
+    return (0, import_jsx_runtime21.jsx)("div", { className: classNames.caption, style: styles.caption, children: caption });
   }
   function Footer(props) {
     var _a = useDayPicker(), footer = _a.footer, styles = _a.styles, tfoot = _a.classNames.tfoot;
     if (!footer)
-      return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, {});
-    return (0, import_jsx_runtime20.jsx)("tfoot", { className: tfoot, style: styles.tfoot, children: (0, import_jsx_runtime20.jsx)("tr", { children: (0, import_jsx_runtime20.jsx)("td", { colSpan: 8, children: footer }) }) });
+      return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, {});
+    return (0, import_jsx_runtime21.jsx)("tfoot", { className: tfoot, style: styles.tfoot, children: (0, import_jsx_runtime21.jsx)("tr", { children: (0, import_jsx_runtime21.jsx)("td", { colSpan: 8, children: footer }) }) });
   }
   function getWeekdays(locale3, weekStartsOn, ISOWeek) {
     var start = ISOWeek ? startOfISOWeek(/* @__PURE__ */ new Date()) : startOfWeek(/* @__PURE__ */ new Date(), { locale: locale3, weekStartsOn });
@@ -72846,21 +73412,21 @@ ${colorConfig.map(([key, itemConfig]) => {
   function HeadRow() {
     var _a = useDayPicker(), classNames = _a.classNames, styles = _a.styles, showWeekNumber = _a.showWeekNumber, locale3 = _a.locale, weekStartsOn = _a.weekStartsOn, ISOWeek = _a.ISOWeek, formatWeekdayName2 = _a.formatters.formatWeekdayName, labelWeekday2 = _a.labels.labelWeekday;
     var weekdays = getWeekdays(locale3, weekStartsOn, ISOWeek);
-    return (0, import_jsx_runtime20.jsxs)("tr", { style: styles.head_row, className: classNames.head_row, children: [showWeekNumber && (0, import_jsx_runtime20.jsx)("td", { style: styles.head_cell, className: classNames.head_cell }), weekdays.map(function(weekday, i) {
-      return (0, import_jsx_runtime20.jsx)("th", { scope: "col", className: classNames.head_cell, style: styles.head_cell, "aria-label": labelWeekday2(weekday, { locale: locale3 }), children: formatWeekdayName2(weekday, { locale: locale3 }) }, i);
+    return (0, import_jsx_runtime21.jsxs)("tr", { style: styles.head_row, className: classNames.head_row, children: [showWeekNumber && (0, import_jsx_runtime21.jsx)("td", { style: styles.head_cell, className: classNames.head_cell }), weekdays.map(function(weekday, i) {
+      return (0, import_jsx_runtime21.jsx)("th", { scope: "col", className: classNames.head_cell, style: styles.head_cell, "aria-label": labelWeekday2(weekday, { locale: locale3 }), children: formatWeekdayName2(weekday, { locale: locale3 }) }, i);
     })] });
   }
   function Head() {
     var _a;
     var _b = useDayPicker(), classNames = _b.classNames, styles = _b.styles, components = _b.components;
     var HeadRowComponent = (_a = components === null || components === void 0 ? void 0 : components.HeadRow) !== null && _a !== void 0 ? _a : HeadRow;
-    return (0, import_jsx_runtime20.jsx)("thead", { style: styles.head, className: classNames.head, children: (0, import_jsx_runtime20.jsx)(HeadRowComponent, {}) });
+    return (0, import_jsx_runtime21.jsx)("thead", { style: styles.head, className: classNames.head, children: (0, import_jsx_runtime21.jsx)(HeadRowComponent, {}) });
   }
   function DayContent(props) {
     var _a = useDayPicker(), locale3 = _a.locale, formatDay2 = _a.formatters.formatDay;
-    return (0, import_jsx_runtime20.jsx)(import_jsx_runtime20.Fragment, { children: formatDay2(props.date, { locale: locale3 }) });
+    return (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, { children: formatDay2(props.date, { locale: locale3 }) });
   }
-  var SelectMultipleContext = (0, import_react46.createContext)(void 0);
+  var SelectMultipleContext = (0, import_react47.createContext)(void 0);
   function SelectMultipleProvider(props) {
     if (!isDayPickerMultiple(props.initialProps)) {
       var emptyContextValue = {
@@ -72869,9 +73435,9 @@ ${colorConfig.map(([key, itemConfig]) => {
           disabled: []
         }
       };
-      return (0, import_jsx_runtime20.jsx)(SelectMultipleContext.Provider, { value: emptyContextValue, children: props.children });
+      return (0, import_jsx_runtime21.jsx)(SelectMultipleContext.Provider, { value: emptyContextValue, children: props.children });
     }
-    return (0, import_jsx_runtime20.jsx)(SelectMultipleProviderInternal, { initialProps: props.initialProps, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(SelectMultipleProviderInternal, { initialProps: props.initialProps, children: props.children });
   }
   function SelectMultipleProviderInternal(_a) {
     var initialProps = _a.initialProps, children = _a.children;
@@ -72915,10 +73481,10 @@ ${colorConfig.map(([key, itemConfig]) => {
       onDayClick,
       modifiers
     };
-    return (0, import_jsx_runtime20.jsx)(SelectMultipleContext.Provider, { value: contextValue, children });
+    return (0, import_jsx_runtime21.jsx)(SelectMultipleContext.Provider, { value: contextValue, children });
   }
   function useSelectMultiple() {
-    var context = (0, import_react46.useContext)(SelectMultipleContext);
+    var context = (0, import_react47.useContext)(SelectMultipleContext);
     if (!context) {
       throw new Error("useSelectMultiple must be used within a SelectMultipleProvider");
     }
@@ -72955,7 +73521,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     }
     return { from: day, to: void 0 };
   }
-  var SelectRangeContext = (0, import_react46.createContext)(void 0);
+  var SelectRangeContext = (0, import_react47.createContext)(void 0);
   function SelectRangeProvider(props) {
     if (!isDayPickerRange(props.initialProps)) {
       var emptyContextValue = {
@@ -72967,9 +73533,9 @@ ${colorConfig.map(([key, itemConfig]) => {
           disabled: []
         }
       };
-      return (0, import_jsx_runtime20.jsx)(SelectRangeContext.Provider, { value: emptyContextValue, children: props.children });
+      return (0, import_jsx_runtime21.jsx)(SelectRangeContext.Provider, { value: emptyContextValue, children: props.children });
     }
-    return (0, import_jsx_runtime20.jsx)(SelectRangeProviderInternal, { initialProps: props.initialProps, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(SelectRangeProviderInternal, { initialProps: props.initialProps, children: props.children });
   }
   function SelectRangeProviderInternal(_a) {
     var initialProps = _a.initialProps, children = _a.children;
@@ -73056,10 +73622,10 @@ ${colorConfig.map(([key, itemConfig]) => {
         });
       }
     }
-    return (0, import_jsx_runtime20.jsx)(SelectRangeContext.Provider, { value: { selected, onDayClick, modifiers }, children });
+    return (0, import_jsx_runtime21.jsx)(SelectRangeContext.Provider, { value: { selected, onDayClick, modifiers }, children });
   }
   function useSelectRange() {
-    var context = (0, import_react46.useContext)(SelectRangeContext);
+    var context = (0, import_react47.useContext)(SelectRangeContext);
     if (!context) {
       throw new Error("useSelectRange must be used within a SelectRangeProvider");
     }
@@ -73120,7 +73686,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     }
     return internalModifiers;
   }
-  var ModifiersContext = (0, import_react46.createContext)(void 0);
+  var ModifiersContext = (0, import_react47.createContext)(void 0);
   function ModifiersProvider(props) {
     var dayPicker = useDayPicker();
     var selectMultiple = useSelectMultiple();
@@ -73128,10 +73694,10 @@ ${colorConfig.map(([key, itemConfig]) => {
     var internalModifiers = getInternalModifiers(dayPicker, selectMultiple, selectRange);
     var customModifiers = getCustomModifiers(dayPicker.modifiers);
     var modifiers = __assign2(__assign2({}, internalModifiers), customModifiers);
-    return (0, import_jsx_runtime20.jsx)(ModifiersContext.Provider, { value: modifiers, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(ModifiersContext.Provider, { value: modifiers, children: props.children });
   }
   function useModifiers() {
-    var context = (0, import_react46.useContext)(ModifiersContext);
+    var context = (0, import_react47.useContext)(ModifiersContext);
     if (!context) {
       throw new Error("useModifiers must be used within a ModifiersProvider");
     }
@@ -73307,12 +73873,12 @@ ${colorConfig.map(([key, itemConfig]) => {
       });
     }
   }
-  var FocusContext = (0, import_react46.createContext)(void 0);
+  var FocusContext = (0, import_react47.createContext)(void 0);
   function FocusProvider(props) {
     var navigation = useNavigation();
     var modifiers = useModifiers();
-    var _a = (0, import_react46.useState)(), focusedDay = _a[0], setFocusedDay = _a[1];
-    var _b = (0, import_react46.useState)(), lastFocused = _b[0], setLastFocused = _b[1];
+    var _a = (0, import_react47.useState)(), focusedDay = _a[0], setFocusedDay = _a[1];
+    var _b = (0, import_react47.useState)(), lastFocused = _b[0], setLastFocused = _b[1];
     var initialFocusTarget = getInitialFocusTarget(navigation.displayMonths, modifiers);
     var focusTarget = (focusedDay !== null && focusedDay !== void 0 ? focusedDay : lastFocused && navigation.isDateDisplayed(lastFocused)) ? lastFocused : initialFocusTarget;
     var blur = function() {
@@ -73373,10 +73939,10 @@ ${colorConfig.map(([key, itemConfig]) => {
         return moveFocus("endOfWeek", "after");
       }
     };
-    return (0, import_jsx_runtime20.jsx)(FocusContext.Provider, { value, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(FocusContext.Provider, { value, children: props.children });
   }
   function useFocusContext() {
-    var context = (0, import_react46.useContext)(FocusContext);
+    var context = (0, import_react47.useContext)(FocusContext);
     if (!context) {
       throw new Error("useFocusContext must be used within a FocusProvider");
     }
@@ -73387,15 +73953,15 @@ ${colorConfig.map(([key, itemConfig]) => {
     var activeModifiers = getActiveModifiers(day, modifiers, displayMonth);
     return activeModifiers;
   }
-  var SelectSingleContext = (0, import_react46.createContext)(void 0);
+  var SelectSingleContext = (0, import_react47.createContext)(void 0);
   function SelectSingleProvider(props) {
     if (!isDayPickerSingle(props.initialProps)) {
       var emptyContextValue = {
         selected: void 0
       };
-      return (0, import_jsx_runtime20.jsx)(SelectSingleContext.Provider, { value: emptyContextValue, children: props.children });
+      return (0, import_jsx_runtime21.jsx)(SelectSingleContext.Provider, { value: emptyContextValue, children: props.children });
     }
-    return (0, import_jsx_runtime20.jsx)(SelectSingleProviderInternal, { initialProps: props.initialProps, children: props.children });
+    return (0, import_jsx_runtime21.jsx)(SelectSingleProviderInternal, { initialProps: props.initialProps, children: props.children });
   }
   function SelectSingleProviderInternal(_a) {
     var initialProps = _a.initialProps, children = _a.children;
@@ -73412,10 +73978,10 @@ ${colorConfig.map(([key, itemConfig]) => {
       selected: initialProps.selected,
       onDayClick
     };
-    return (0, import_jsx_runtime20.jsx)(SelectSingleContext.Provider, { value: contextValue, children });
+    return (0, import_jsx_runtime21.jsx)(SelectSingleContext.Provider, { value: contextValue, children });
   }
   function useSelectSingle() {
-    var context = (0, import_react46.useContext)(SelectSingleContext);
+    var context = (0, import_react47.useContext)(SelectSingleContext);
     if (!context) {
       throw new Error("useSelectSingle must be used within a SelectSingleProvider");
     }
@@ -73591,7 +74157,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     var eventHandlers = useDayEventHandlers(day, activeModifiers);
     var selectedDays = useSelectedDays();
     var isButton = Boolean(dayPicker.onDayClick || dayPicker.mode !== "default");
-    (0, import_react46.useEffect)(function() {
+    (0, import_react47.useEffect)(function() {
       var _a2;
       if (activeModifiers.outside)
         return;
@@ -73613,7 +74179,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     var style = getDayStyle(dayPicker, activeModifiers);
     var isHidden2 = Boolean(activeModifiers.outside && !dayPicker.showOutsideDays || activeModifiers.hidden);
     var DayContentComponent = (_c = (_b = dayPicker.components) === null || _b === void 0 ? void 0 : _b.DayContent) !== null && _c !== void 0 ? _c : DayContent;
-    var children = (0, import_jsx_runtime20.jsx)(DayContentComponent, { date: day, displayMonth, activeModifiers });
+    var children = (0, import_jsx_runtime21.jsx)(DayContentComponent, { date: day, displayMonth, activeModifiers });
     var divProps = {
       style,
       className,
@@ -73634,28 +74200,28 @@ ${colorConfig.map(([key, itemConfig]) => {
     return dayRender;
   }
   function Day(props) {
-    var buttonRef = (0, import_react46.useRef)(null);
+    var buttonRef = (0, import_react47.useRef)(null);
     var dayRender = useDayRender(props.date, props.displayMonth, buttonRef);
     if (dayRender.isHidden) {
-      return (0, import_jsx_runtime20.jsx)("div", { role: "gridcell" });
+      return (0, import_jsx_runtime21.jsx)("div", { role: "gridcell" });
     }
     if (!dayRender.isButton) {
-      return (0, import_jsx_runtime20.jsx)("div", __assign2({}, dayRender.divProps));
+      return (0, import_jsx_runtime21.jsx)("div", __assign2({}, dayRender.divProps));
     }
-    return (0, import_jsx_runtime20.jsx)(Button2, __assign2({ name: "day", ref: buttonRef }, dayRender.buttonProps));
+    return (0, import_jsx_runtime21.jsx)(Button2, __assign2({ name: "day", ref: buttonRef }, dayRender.buttonProps));
   }
   function WeekNumber(props) {
     var weekNumber = props.number, dates = props.dates;
     var _a = useDayPicker(), onWeekNumberClick = _a.onWeekNumberClick, styles = _a.styles, classNames = _a.classNames, locale3 = _a.locale, labelWeekNumber2 = _a.labels.labelWeekNumber, formatWeekNumber2 = _a.formatters.formatWeekNumber;
     var content = formatWeekNumber2(Number(weekNumber), { locale: locale3 });
     if (!onWeekNumberClick) {
-      return (0, import_jsx_runtime20.jsx)("span", { className: classNames.weeknumber, style: styles.weeknumber, children: content });
+      return (0, import_jsx_runtime21.jsx)("span", { className: classNames.weeknumber, style: styles.weeknumber, children: content });
     }
     var label = labelWeekNumber2(Number(weekNumber), { locale: locale3 });
     var handleClick = function(e) {
       onWeekNumberClick(weekNumber, dates, e);
     };
-    return (0, import_jsx_runtime20.jsx)(Button2, { name: "week-number", "aria-label": label, className: classNames.weeknumber, style: styles.weeknumber, onClick: handleClick, children: content });
+    return (0, import_jsx_runtime21.jsx)(Button2, { name: "week-number", "aria-label": label, className: classNames.weeknumber, style: styles.weeknumber, onClick: handleClick, children: content });
   }
   function Row(props) {
     var _a, _b;
@@ -73664,10 +74230,10 @@ ${colorConfig.map(([key, itemConfig]) => {
     var WeeknumberComponent = (_b = components === null || components === void 0 ? void 0 : components.WeekNumber) !== null && _b !== void 0 ? _b : WeekNumber;
     var weekNumberCell;
     if (showWeekNumber) {
-      weekNumberCell = (0, import_jsx_runtime20.jsx)("td", { className: classNames.cell, style: styles.cell, children: (0, import_jsx_runtime20.jsx)(WeeknumberComponent, { number: props.weekNumber, dates: props.dates }) });
+      weekNumberCell = (0, import_jsx_runtime21.jsx)("td", { className: classNames.cell, style: styles.cell, children: (0, import_jsx_runtime21.jsx)(WeeknumberComponent, { number: props.weekNumber, dates: props.dates }) });
     }
-    return (0, import_jsx_runtime20.jsxs)("tr", { className: classNames.row, style: styles.row, children: [weekNumberCell, props.dates.map(function(date2) {
-      return (0, import_jsx_runtime20.jsx)("td", { className: classNames.cell, style: styles.cell, role: "presentation", children: (0, import_jsx_runtime20.jsx)(DayComponent, { displayMonth: props.displayMonth, date: date2 }) }, getUnixTime(date2));
+    return (0, import_jsx_runtime21.jsxs)("tr", { className: classNames.row, style: styles.row, children: [weekNumberCell, props.dates.map(function(date2) {
+      return (0, import_jsx_runtime21.jsx)("td", { className: classNames.cell, style: styles.cell, role: "presentation", children: (0, import_jsx_runtime21.jsx)(DayComponent, { displayMonth: props.displayMonth, date: date2 }) }, getUnixTime(date2));
     })] });
   }
   function daysToMonthWeeks(fromDate, toDate2, options) {
@@ -73722,14 +74288,14 @@ ${colorConfig.map(([key, itemConfig]) => {
     var HeadComponent = (_a = components === null || components === void 0 ? void 0 : components.Head) !== null && _a !== void 0 ? _a : Head;
     var RowComponent = (_b = components === null || components === void 0 ? void 0 : components.Row) !== null && _b !== void 0 ? _b : Row;
     var FooterComponent = (_c = components === null || components === void 0 ? void 0 : components.Footer) !== null && _c !== void 0 ? _c : Footer;
-    return (0, import_jsx_runtime20.jsxs)("table", { id: props.id, className: classNames.table, style: styles.table, role: "grid", "aria-labelledby": props["aria-labelledby"], children: [!hideHead && (0, import_jsx_runtime20.jsx)(HeadComponent, {}), (0, import_jsx_runtime20.jsx)("tbody", { className: classNames.tbody, style: styles.tbody, children: weeks.map(function(week) {
-      return (0, import_jsx_runtime20.jsx)(RowComponent, { displayMonth: props.displayMonth, dates: week.dates, weekNumber: week.weekNumber }, week.weekNumber);
-    }) }), (0, import_jsx_runtime20.jsx)(FooterComponent, { displayMonth: props.displayMonth })] });
+    return (0, import_jsx_runtime21.jsxs)("table", { id: props.id, className: classNames.table, style: styles.table, role: "grid", "aria-labelledby": props["aria-labelledby"], children: [!hideHead && (0, import_jsx_runtime21.jsx)(HeadComponent, {}), (0, import_jsx_runtime21.jsx)("tbody", { className: classNames.tbody, style: styles.tbody, children: weeks.map(function(week) {
+      return (0, import_jsx_runtime21.jsx)(RowComponent, { displayMonth: props.displayMonth, dates: week.dates, weekNumber: week.weekNumber }, week.weekNumber);
+    }) }), (0, import_jsx_runtime21.jsx)(FooterComponent, { displayMonth: props.displayMonth })] });
   }
   function canUseDOM() {
     return !!(typeof window !== "undefined" && window.document && window.document.createElement);
   }
-  var useIsomorphicLayoutEffect2 = canUseDOM() ? import_react46.useLayoutEffect : import_react46.useEffect;
+  var useIsomorphicLayoutEffect2 = canUseDOM() ? import_react47.useLayoutEffect : import_react47.useEffect;
   var serverHandoffComplete = false;
   var id = 0;
   function genId() {
@@ -73738,13 +74304,13 @@ ${colorConfig.map(([key, itemConfig]) => {
   function useId3(providedId) {
     var _a;
     var initialId = providedId !== null && providedId !== void 0 ? providedId : serverHandoffComplete ? genId() : null;
-    var _b = (0, import_react46.useState)(initialId), id2 = _b[0], setId = _b[1];
+    var _b = (0, import_react47.useState)(initialId), id2 = _b[0], setId = _b[1];
     useIsomorphicLayoutEffect2(function() {
       if (id2 === null) {
         setId(genId());
       }
     }, []);
-    (0, import_react46.useEffect)(function() {
+    (0, import_react47.useEffect)(function() {
       if (serverHandoffComplete === false) {
         serverHandoffComplete = true;
       }
@@ -73780,11 +74346,11 @@ ${colorConfig.map(([key, itemConfig]) => {
       style = __assign2(__assign2({}, style), styles.caption_between);
     }
     var CaptionComponent = (_b = components === null || components === void 0 ? void 0 : components.Caption) !== null && _b !== void 0 ? _b : Caption;
-    return (0, import_jsx_runtime20.jsxs)("div", { className: className.join(" "), style, children: [(0, import_jsx_runtime20.jsx)(CaptionComponent, { id: captionId, displayMonth: props.displayMonth, displayIndex: props.displayIndex }), (0, import_jsx_runtime20.jsx)(Table, { id: tableId, "aria-labelledby": captionId, displayMonth: props.displayMonth })] }, props.displayIndex);
+    return (0, import_jsx_runtime21.jsxs)("div", { className: className.join(" "), style, children: [(0, import_jsx_runtime21.jsx)(CaptionComponent, { id: captionId, displayMonth: props.displayMonth, displayIndex: props.displayIndex }), (0, import_jsx_runtime21.jsx)(Table, { id: tableId, "aria-labelledby": captionId, displayMonth: props.displayMonth })] }, props.displayIndex);
   }
   function Months(props) {
     var _a = useDayPicker(), classNames = _a.classNames, styles = _a.styles;
-    return (0, import_jsx_runtime20.jsx)("div", { className: classNames.months, style: styles.months, children: props.children });
+    return (0, import_jsx_runtime21.jsx)("div", { className: classNames.months, style: styles.months, children: props.children });
   }
   function Root4(_a) {
     var _b, _c;
@@ -73792,8 +74358,8 @@ ${colorConfig.map(([key, itemConfig]) => {
     var dayPicker = useDayPicker();
     var focusContext = useFocusContext();
     var navigation = useNavigation();
-    var _d = (0, import_react46.useState)(false), hasInitialFocus = _d[0], setHasInitialFocus = _d[1];
-    (0, import_react46.useEffect)(function() {
+    var _d = (0, import_react47.useState)(false), hasInitialFocus = _d[0], setHasInitialFocus = _d[1];
+    (0, import_react47.useEffect)(function() {
       if (!dayPicker.initialFocus)
         return;
       if (!focusContext.focusTarget)
@@ -73824,16 +74390,16 @@ ${colorConfig.map(([key, itemConfig]) => {
       return __assign2(__assign2({}, attrs), (_a2 = {}, _a2[key] = initialProps[key], _a2));
     }, {});
     var MonthsComponent = (_c = (_b = initialProps.components) === null || _b === void 0 ? void 0 : _b.Months) !== null && _c !== void 0 ? _c : Months;
-    return (0, import_jsx_runtime20.jsx)("div", __assign2({ className: classNames.join(" "), style, dir: dayPicker.dir, id: dayPicker.id, nonce: initialProps.nonce, title: initialProps.title, lang: initialProps.lang }, dataAttributes, { children: (0, import_jsx_runtime20.jsx)(MonthsComponent, { children: navigation.displayMonths.map(function(month, i) {
-      return (0, import_jsx_runtime20.jsx)(Month, { displayIndex: i, displayMonth: month }, i);
+    return (0, import_jsx_runtime21.jsx)("div", __assign2({ className: classNames.join(" "), style, dir: dayPicker.dir, id: dayPicker.id, nonce: initialProps.nonce, title: initialProps.title, lang: initialProps.lang }, dataAttributes, { children: (0, import_jsx_runtime21.jsx)(MonthsComponent, { children: navigation.displayMonths.map(function(month, i) {
+      return (0, import_jsx_runtime21.jsx)(Month, { displayIndex: i, displayMonth: month }, i);
     }) }) }));
   }
   function RootProvider(props) {
     var children = props.children, initialProps = __rest2(props, ["children"]);
-    return (0, import_jsx_runtime20.jsx)(DayPickerProvider, { initialProps, children: (0, import_jsx_runtime20.jsx)(NavigationProvider, { children: (0, import_jsx_runtime20.jsx)(SelectSingleProvider, { initialProps, children: (0, import_jsx_runtime20.jsx)(SelectMultipleProvider, { initialProps, children: (0, import_jsx_runtime20.jsx)(SelectRangeProvider, { initialProps, children: (0, import_jsx_runtime20.jsx)(ModifiersProvider, { children: (0, import_jsx_runtime20.jsx)(FocusProvider, { children }) }) }) }) }) }) });
+    return (0, import_jsx_runtime21.jsx)(DayPickerProvider, { initialProps, children: (0, import_jsx_runtime21.jsx)(NavigationProvider, { children: (0, import_jsx_runtime21.jsx)(SelectSingleProvider, { initialProps, children: (0, import_jsx_runtime21.jsx)(SelectMultipleProvider, { initialProps, children: (0, import_jsx_runtime21.jsx)(SelectRangeProvider, { initialProps, children: (0, import_jsx_runtime21.jsx)(ModifiersProvider, { children: (0, import_jsx_runtime21.jsx)(FocusProvider, { children }) }) }) }) }) }) });
   }
   function DayPicker(props) {
-    return (0, import_jsx_runtime20.jsx)(RootProvider, __assign2({}, props, { children: (0, import_jsx_runtime20.jsx)(Root4, { initialProps: props }) }));
+    return (0, import_jsx_runtime21.jsx)(RootProvider, __assign2({}, props, { children: (0, import_jsx_runtime21.jsx)(Root4, { initialProps: props }) }));
   }
 
   // react/components/ui/calendar.tsx
@@ -73847,7 +74413,7 @@ ${colorConfig.map(([key, itemConfig]) => {
       "classNames",
       "showOutsideDays"
     ]);
-    return /* @__PURE__ */ React90.createElement(
+    return /* @__PURE__ */ React91.createElement(
       DayPicker,
       __spreadValues({
         showOutsideDays,
@@ -73884,11 +74450,11 @@ ${colorConfig.map(([key, itemConfig]) => {
         components: {
           IconLeft: (_a2) => {
             var props2 = __objRest(_a2, []);
-            return /* @__PURE__ */ React90.createElement(ChevronLeft, { className: "h-4 w-4" });
+            return /* @__PURE__ */ React91.createElement(ChevronLeft, { className: "h-4 w-4" });
           },
           IconRight: (_b2) => {
             var props2 = __objRest(_b2, []);
-            return /* @__PURE__ */ React90.createElement(ChevronRight, { className: "h-4 w-4" });
+            return /* @__PURE__ */ React91.createElement(ChevronRight, { className: "h-4 w-4" });
           }
         }
       }, props)
@@ -73897,52 +74463,52 @@ ${colorConfig.map(([key, itemConfig]) => {
   Calendar2.displayName = "Calendar";
 
   // react/components/ui/popover.tsx
-  var React93 = __toESM(require_react());
+  var React94 = __toESM(require_react());
 
   // node_modules/@radix-ui/react-popover/dist/index.mjs
-  var React92 = __toESM(require_react(), 1);
+  var React93 = __toESM(require_react(), 1);
 
   // node_modules/@radix-ui/react-popover/node_modules/@radix-ui/react-slot/dist/index.mjs
-  var React91 = __toESM(require_react(), 1);
-  var import_jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
-  var Slot6 = React91.forwardRef((props, forwardedRef) => {
+  var React92 = __toESM(require_react(), 1);
+  var import_jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+  var Slot6 = React92.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React91.Children.toArray(children);
+    const childrenArray = React92.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable6);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React91.Children.count(newElement) > 1)
-            return React91.Children.only(null);
-          return React91.isValidElement(newElement) ? newElement.props.children : null;
+          if (React92.Children.count(newElement) > 1)
+            return React92.Children.only(null);
+          return React92.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(SlotClone5, { ...slotProps, ref: forwardedRef, children: React91.isValidElement(newElement) ? React91.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SlotClone5, { ...slotProps, ref: forwardedRef, children: React92.isValidElement(newElement) ? React92.cloneElement(newElement, void 0, newChildren) : null });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(SlotClone5, { ...slotProps, ref: forwardedRef, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SlotClone5, { ...slotProps, ref: forwardedRef, children });
   });
   Slot6.displayName = "Slot";
-  var SlotClone5 = React91.forwardRef((props, forwardedRef) => {
+  var SlotClone5 = React92.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React91.isValidElement(children)) {
+    if (React92.isValidElement(children)) {
       const childrenRef = getElementRef7(children);
-      return React91.cloneElement(children, {
+      return React92.cloneElement(children, {
         ...mergeProps6(slotProps, children.props),
         // @ts-ignore
         ref: forwardedRef ? composeRefs2(forwardedRef, childrenRef) : childrenRef
       });
     }
-    return React91.Children.count(children) > 1 ? React91.Children.only(null) : null;
+    return React92.Children.count(children) > 1 ? React92.Children.only(null) : null;
   });
   SlotClone5.displayName = "SlotClone";
   var Slottable5 = ({ children }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_jsx_runtime21.Fragment, { children });
+    return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_jsx_runtime22.Fragment, { children });
   };
   function isSlottable6(child) {
-    return React91.isValidElement(child) && child.type === Slottable5;
+    return React92.isValidElement(child) && child.type === Slottable5;
   }
   function mergeProps6(slotProps, childProps) {
     const overrideProps = { ...childProps };
@@ -73982,7 +74548,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // node_modules/@radix-ui/react-popover/dist/index.mjs
-  var import_jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+  var import_jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
   "use client";
   var POPOVER_NAME = "Popover";
   var [createPopoverContext, createPopoverScope] = createContextScope(POPOVER_NAME, [
@@ -74000,14 +74566,14 @@ ${colorConfig.map(([key, itemConfig]) => {
       modal = false
     } = props;
     const popperScope = usePopperScope3(__scopePopover);
-    const triggerRef = React92.useRef(null);
-    const [hasCustomAnchor, setHasCustomAnchor] = React92.useState(false);
+    const triggerRef = React93.useRef(null);
+    const [hasCustomAnchor, setHasCustomAnchor] = React93.useState(false);
     const [open = false, setOpen] = useControllableState({
       prop: openProp,
       defaultProp: defaultOpen,
       onChange: onOpenChange
     });
-    return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Root2, { ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Root2, { ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
       PopoverProvider,
       {
         scope: __scopePopover,
@@ -74015,10 +74581,10 @@ ${colorConfig.map(([key, itemConfig]) => {
         triggerRef,
         open,
         onOpenChange: setOpen,
-        onOpenToggle: React92.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+        onOpenToggle: React93.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
         hasCustomAnchor,
-        onCustomAnchorAdd: React92.useCallback(() => setHasCustomAnchor(true), []),
-        onCustomAnchorRemove: React92.useCallback(() => setHasCustomAnchor(false), []),
+        onCustomAnchorAdd: React93.useCallback(() => setHasCustomAnchor(true), []),
+        onCustomAnchorRemove: React93.useCallback(() => setHasCustomAnchor(false), []),
         modal,
         children
       }
@@ -74026,28 +74592,28 @@ ${colorConfig.map(([key, itemConfig]) => {
   };
   Popover.displayName = POPOVER_NAME;
   var ANCHOR_NAME3 = "PopoverAnchor";
-  var PopoverAnchor = React92.forwardRef(
+  var PopoverAnchor = React93.forwardRef(
     (props, forwardedRef) => {
       const { __scopePopover, ...anchorProps } = props;
       const context = usePopoverContext(ANCHOR_NAME3, __scopePopover);
       const popperScope = usePopperScope3(__scopePopover);
       const { onCustomAnchorAdd, onCustomAnchorRemove } = context;
-      React92.useEffect(() => {
+      React93.useEffect(() => {
         onCustomAnchorAdd();
         return () => onCustomAnchorRemove();
       }, [onCustomAnchorAdd, onCustomAnchorRemove]);
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Anchor, { ...popperScope, ...anchorProps, ref: forwardedRef });
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Anchor, { ...popperScope, ...anchorProps, ref: forwardedRef });
     }
   );
   PopoverAnchor.displayName = ANCHOR_NAME3;
   var TRIGGER_NAME3 = "PopoverTrigger";
-  var PopoverTrigger = React92.forwardRef(
+  var PopoverTrigger = React93.forwardRef(
     (props, forwardedRef) => {
       const { __scopePopover, ...triggerProps } = props;
       const context = usePopoverContext(TRIGGER_NAME3, __scopePopover);
       const popperScope = usePopperScope3(__scopePopover);
       const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
-      const trigger = /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+      const trigger = /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
         Primitive.button,
         {
           type: "button",
@@ -74060,7 +74626,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
         }
       );
-      return context.hasCustomAnchor ? trigger : /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Anchor, { asChild: true, ...popperScope, children: trigger });
+      return context.hasCustomAnchor ? trigger : /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Anchor, { asChild: true, ...popperScope, children: trigger });
     }
   );
   PopoverTrigger.displayName = TRIGGER_NAME3;
@@ -74071,31 +74637,31 @@ ${colorConfig.map(([key, itemConfig]) => {
   var PopoverPortal = (props) => {
     const { __scopePopover, forceMount, children, container } = props;
     const context = usePopoverContext(PORTAL_NAME5, __scopePopover);
-    return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(PortalProvider2, { scope: __scopePopover, forceMount, children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Portal, { asChild: true, container, children }) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(PortalProvider2, { scope: __scopePopover, forceMount, children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Portal, { asChild: true, container, children }) }) });
   };
   PopoverPortal.displayName = PORTAL_NAME5;
   var CONTENT_NAME5 = "PopoverContent";
-  var PopoverContent = React92.forwardRef(
+  var PopoverContent = React93.forwardRef(
     (props, forwardedRef) => {
       const portalContext = usePortalContext2(CONTENT_NAME5, props.__scopePopover);
       const { forceMount = portalContext.forceMount, ...contentProps } = props;
       const context = usePopoverContext(CONTENT_NAME5, props.__scopePopover);
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Presence, { present: forceMount || context.open, children: context.modal ? /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(PopoverContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(PopoverContentNonModal, { ...contentProps, ref: forwardedRef }) });
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Presence, { present: forceMount || context.open, children: context.modal ? /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(PopoverContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(PopoverContentNonModal, { ...contentProps, ref: forwardedRef }) });
     }
   );
   PopoverContent.displayName = CONTENT_NAME5;
-  var PopoverContentModal = React92.forwardRef(
+  var PopoverContentModal = React93.forwardRef(
     (props, forwardedRef) => {
       const context = usePopoverContext(CONTENT_NAME5, props.__scopePopover);
-      const contentRef = React92.useRef(null);
+      const contentRef = React93.useRef(null);
       const composedRefs = useComposedRefs(forwardedRef, contentRef);
-      const isRightClickOutsideRef = React92.useRef(false);
-      React92.useEffect(() => {
+      const isRightClickOutsideRef = React93.useRef(false);
+      React93.useEffect(() => {
         const content = contentRef.current;
         if (content)
           return hideOthers(content);
       }, []);
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Combination_default, { as: Slot6, allowPinchZoom: true, children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Combination_default, { as: Slot6, allowPinchZoom: true, children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
         PopoverContentImpl,
         {
           ...props,
@@ -74126,12 +74692,12 @@ ${colorConfig.map(([key, itemConfig]) => {
       ) });
     }
   );
-  var PopoverContentNonModal = React92.forwardRef(
+  var PopoverContentNonModal = React93.forwardRef(
     (props, forwardedRef) => {
       const context = usePopoverContext(CONTENT_NAME5, props.__scopePopover);
-      const hasInteractedOutsideRef = React92.useRef(false);
-      const hasPointerDownOutsideRef = React92.useRef(false);
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+      const hasInteractedOutsideRef = React93.useRef(false);
+      const hasPointerDownOutsideRef = React93.useRef(false);
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
         PopoverContentImpl,
         {
           ...props,
@@ -74168,7 +74734,7 @@ ${colorConfig.map(([key, itemConfig]) => {
       );
     }
   );
-  var PopoverContentImpl = React92.forwardRef(
+  var PopoverContentImpl = React93.forwardRef(
     (props, forwardedRef) => {
       const {
         __scopePopover,
@@ -74185,7 +74751,7 @@ ${colorConfig.map(([key, itemConfig]) => {
       const context = usePopoverContext(CONTENT_NAME5, __scopePopover);
       const popperScope = usePopperScope3(__scopePopover);
       useFocusGuards();
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
         FocusScope,
         {
           asChild: true,
@@ -74193,7 +74759,7 @@ ${colorConfig.map(([key, itemConfig]) => {
           trapped: trapFocus,
           onMountAutoFocus: onOpenAutoFocus,
           onUnmountAutoFocus: onCloseAutoFocus,
-          children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+          children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
             DismissableLayer,
             {
               asChild: true,
@@ -74203,7 +74769,7 @@ ${colorConfig.map(([key, itemConfig]) => {
               onPointerDownOutside,
               onFocusOutside,
               onDismiss: () => context.onOpenChange(false),
-              children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+              children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
                 Content,
                 {
                   "data-state": getState(context.open),
@@ -74232,11 +74798,11 @@ ${colorConfig.map(([key, itemConfig]) => {
     }
   );
   var CLOSE_NAME = "PopoverClose";
-  var PopoverClose = React92.forwardRef(
+  var PopoverClose = React93.forwardRef(
     (props, forwardedRef) => {
       const { __scopePopover, ...closeProps } = props;
       const context = usePopoverContext(CLOSE_NAME, __scopePopover);
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
         Primitive.button,
         {
           type: "button",
@@ -74249,11 +74815,11 @@ ${colorConfig.map(([key, itemConfig]) => {
   );
   PopoverClose.displayName = CLOSE_NAME;
   var ARROW_NAME5 = "PopoverArrow";
-  var PopoverArrow = React92.forwardRef(
+  var PopoverArrow = React93.forwardRef(
     (props, forwardedRef) => {
       const { __scopePopover, ...arrowProps } = props;
       const popperScope = usePopperScope3(__scopePopover);
-      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Arrow2, { ...popperScope, ...arrowProps, ref: forwardedRef });
+      return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Arrow2, { ...popperScope, ...arrowProps, ref: forwardedRef });
     }
   );
   PopoverArrow.displayName = ARROW_NAME5;
@@ -74268,9 +74834,9 @@ ${colorConfig.map(([key, itemConfig]) => {
   // react/components/ui/popover.tsx
   var Popover2 = Root24;
   var PopoverTrigger2 = Trigger3;
-  var PopoverContent2 = React93.forwardRef((_a, ref) => {
+  var PopoverContent2 = React94.forwardRef((_a, ref) => {
     var _b = _a, { className, align = "center", sideOffset = 4 } = _b, props = __objRest(_b, ["className", "align", "sideOffset"]);
-    return /* @__PURE__ */ React93.createElement(Portal4, null, /* @__PURE__ */ React93.createElement(
+    return /* @__PURE__ */ React94.createElement(Portal4, null, /* @__PURE__ */ React94.createElement(
       Content24,
       __spreadValues({
         ref,
@@ -74284,349 +74850,6 @@ ${colorConfig.map(([key, itemConfig]) => {
     ));
   });
   PopoverContent2.displayName = Content24.displayName;
-
-  // node_modules/react-hotkeys-hook/dist/react-hotkeys-hook.esm.js
-  var import_react47 = __toESM(require_react());
-  var import_jsx_runtime23 = __toESM(require_jsx_runtime());
-  function _extends32() {
-    _extends32 = Object.assign ? Object.assign.bind() : function(target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
-        }
-      }
-      return target;
-    };
-    return _extends32.apply(this, arguments);
-  }
-  var reservedModifierKeywords = ["shift", "alt", "meta", "mod", "ctrl"];
-  var mappedKeys = {
-    esc: "escape",
-    "return": "enter",
-    ".": "period",
-    ",": "comma",
-    "-": "slash",
-    " ": "space",
-    "`": "backquote",
-    "#": "backslash",
-    "+": "bracketright",
-    ShiftLeft: "shift",
-    ShiftRight: "shift",
-    AltLeft: "alt",
-    AltRight: "alt",
-    MetaLeft: "meta",
-    MetaRight: "meta",
-    OSLeft: "meta",
-    OSRight: "meta",
-    ControlLeft: "ctrl",
-    ControlRight: "ctrl"
-  };
-  function mapKey(key) {
-    return (mappedKeys[key] || key).trim().toLowerCase().replace(/key|digit|numpad|arrow/, "");
-  }
-  function isHotkeyModifier(key) {
-    return reservedModifierKeywords.includes(key);
-  }
-  function parseKeysHookInput(keys2, splitKey) {
-    if (splitKey === void 0) {
-      splitKey = ",";
-    }
-    return keys2.split(splitKey);
-  }
-  function parseHotkey(hotkey, combinationKey, description) {
-    if (combinationKey === void 0) {
-      combinationKey = "+";
-    }
-    var keys2 = hotkey.toLocaleLowerCase().split(combinationKey).map(function(k2) {
-      return mapKey(k2);
-    });
-    var modifiers = {
-      alt: keys2.includes("alt"),
-      ctrl: keys2.includes("ctrl") || keys2.includes("control"),
-      shift: keys2.includes("shift"),
-      meta: keys2.includes("meta"),
-      mod: keys2.includes("mod")
-    };
-    var singleCharKeys = keys2.filter(function(k2) {
-      return !reservedModifierKeywords.includes(k2);
-    });
-    return _extends32({}, modifiers, {
-      keys: singleCharKeys,
-      description
-    });
-  }
-  (function() {
-    if (typeof document !== "undefined") {
-      document.addEventListener("keydown", function(e) {
-        if (e.key === void 0) {
-          return;
-        }
-        pushToCurrentlyPressedKeys([mapKey(e.key), mapKey(e.code)]);
-      });
-      document.addEventListener("keyup", function(e) {
-        if (e.key === void 0) {
-          return;
-        }
-        removeFromCurrentlyPressedKeys([mapKey(e.key), mapKey(e.code)]);
-      });
-    }
-    if (typeof window !== "undefined") {
-      window.addEventListener("blur", function() {
-        currentlyPressedKeys.clear();
-      });
-    }
-  })();
-  var currentlyPressedKeys = /* @__PURE__ */ new Set();
-  function isReadonlyArray(value) {
-    return Array.isArray(value);
-  }
-  function isHotkeyPressed(key, splitKey) {
-    if (splitKey === void 0) {
-      splitKey = ",";
-    }
-    var hotkeyArray = isReadonlyArray(key) ? key : key.split(splitKey);
-    return hotkeyArray.every(function(hotkey) {
-      return currentlyPressedKeys.has(hotkey.trim().toLowerCase());
-    });
-  }
-  function pushToCurrentlyPressedKeys(key) {
-    var hotkeyArray = Array.isArray(key) ? key : [key];
-    if (currentlyPressedKeys.has("meta")) {
-      currentlyPressedKeys.forEach(function(key2) {
-        return !isHotkeyModifier(key2) && currentlyPressedKeys["delete"](key2.toLowerCase());
-      });
-    }
-    hotkeyArray.forEach(function(hotkey) {
-      return currentlyPressedKeys.add(hotkey.toLowerCase());
-    });
-  }
-  function removeFromCurrentlyPressedKeys(key) {
-    var hotkeyArray = Array.isArray(key) ? key : [key];
-    if (key === "meta") {
-      currentlyPressedKeys.clear();
-    } else {
-      hotkeyArray.forEach(function(hotkey) {
-        return currentlyPressedKeys["delete"](hotkey.toLowerCase());
-      });
-    }
-  }
-  function maybePreventDefault(e, hotkey, preventDefault) {
-    if (typeof preventDefault === "function" && preventDefault(e, hotkey) || preventDefault === true) {
-      e.preventDefault();
-    }
-  }
-  function isHotkeyEnabled(e, hotkey, enabled) {
-    if (typeof enabled === "function") {
-      return enabled(e, hotkey);
-    }
-    return enabled === true || enabled === void 0;
-  }
-  function isKeyboardEventTriggeredByInput(ev) {
-    return isHotkeyEnabledOnTag(ev, ["input", "textarea", "select"]);
-  }
-  function isHotkeyEnabledOnTag(_ref, enabledOnTags) {
-    var target = _ref.target;
-    if (enabledOnTags === void 0) {
-      enabledOnTags = false;
-    }
-    var targetTagName = target && target.tagName;
-    if (isReadonlyArray(enabledOnTags)) {
-      return Boolean(targetTagName && enabledOnTags && enabledOnTags.some(function(tag) {
-        return tag.toLowerCase() === targetTagName.toLowerCase();
-      }));
-    }
-    return Boolean(targetTagName && enabledOnTags && enabledOnTags === true);
-  }
-  function isScopeActive(activeScopes, scopes) {
-    if (activeScopes.length === 0 && scopes) {
-      console.warn('A hotkey has the "scopes" option set, however no active scopes were found. If you want to use the global scopes feature, you need to wrap your app in a <HotkeysProvider>');
-      return true;
-    }
-    if (!scopes) {
-      return true;
-    }
-    return activeScopes.some(function(scope) {
-      return scopes.includes(scope);
-    }) || activeScopes.includes("*");
-  }
-  var isHotkeyMatchingKeyboardEvent = function isHotkeyMatchingKeyboardEvent2(e, hotkey, ignoreModifiers) {
-    if (ignoreModifiers === void 0) {
-      ignoreModifiers = false;
-    }
-    var alt = hotkey.alt, meta = hotkey.meta, mod = hotkey.mod, shift4 = hotkey.shift, ctrl = hotkey.ctrl, keys2 = hotkey.keys;
-    var pressedKeyUppercase = e.key, code = e.code, ctrlKey = e.ctrlKey, metaKey = e.metaKey, shiftKey = e.shiftKey, altKey = e.altKey;
-    var keyCode = mapKey(code);
-    var pressedKey = pressedKeyUppercase.toLowerCase();
-    if (!(keys2 != null && keys2.includes(keyCode)) && !(keys2 != null && keys2.includes(pressedKey)) && !["ctrl", "control", "unknown", "meta", "alt", "shift", "os"].includes(keyCode)) {
-      return false;
-    }
-    if (!ignoreModifiers) {
-      if (alt === !altKey && pressedKey !== "alt") {
-        return false;
-      }
-      if (shift4 === !shiftKey && pressedKey !== "shift") {
-        return false;
-      }
-      if (mod) {
-        if (!metaKey && !ctrlKey) {
-          return false;
-        }
-      } else {
-        if (meta === !metaKey && pressedKey !== "meta" && pressedKey !== "os") {
-          return false;
-        }
-        if (ctrl === !ctrlKey && pressedKey !== "ctrl" && pressedKey !== "control") {
-          return false;
-        }
-      }
-    }
-    if (keys2 && keys2.length === 1 && (keys2.includes(pressedKey) || keys2.includes(keyCode))) {
-      return true;
-    } else if (keys2) {
-      return isHotkeyPressed(keys2);
-    } else if (!keys2) {
-      return true;
-    }
-    return false;
-  };
-  var BoundHotkeysProxyProvider = /* @__PURE__ */ (0, import_react47.createContext)(void 0);
-  var useBoundHotkeysProxy = function useBoundHotkeysProxy2() {
-    return (0, import_react47.useContext)(BoundHotkeysProxyProvider);
-  };
-  function deepEqual3(x2, y2) {
-    return x2 && y2 && typeof x2 === "object" && typeof y2 === "object" ? Object.keys(x2).length === Object.keys(y2).length && //@ts-ignore
-    Object.keys(x2).reduce(function(isEqual6, key) {
-      return isEqual6 && deepEqual3(x2[key], y2[key]);
-    }, true) : x2 === y2;
-  }
-  var HotkeysContext = /* @__PURE__ */ (0, import_react47.createContext)({
-    hotkeys: [],
-    enabledScopes: [],
-    toggleScope: function toggleScope() {
-    },
-    enableScope: function enableScope() {
-    },
-    disableScope: function disableScope() {
-    }
-  });
-  var useHotkeysContext = function useHotkeysContext2() {
-    return (0, import_react47.useContext)(HotkeysContext);
-  };
-  function useDeepEqualMemo(value) {
-    var ref = (0, import_react47.useRef)(void 0);
-    if (!deepEqual3(ref.current, value)) {
-      ref.current = value;
-    }
-    return ref.current;
-  }
-  var stopPropagation = function stopPropagation2(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  };
-  var useSafeLayoutEffect = typeof window !== "undefined" ? import_react47.useLayoutEffect : import_react47.useEffect;
-  function useHotkeys(keys2, callback, options, dependencies) {
-    var ref = (0, import_react47.useRef)(null);
-    var hasTriggeredRef = (0, import_react47.useRef)(false);
-    var _options = !(options instanceof Array) ? options : !(dependencies instanceof Array) ? dependencies : void 0;
-    var _keys = isReadonlyArray(keys2) ? keys2.join(_options == null ? void 0 : _options.splitKey) : keys2;
-    var _deps = options instanceof Array ? options : dependencies instanceof Array ? dependencies : void 0;
-    var memoisedCB = (0, import_react47.useCallback)(callback, _deps != null ? _deps : []);
-    var cbRef = (0, import_react47.useRef)(memoisedCB);
-    if (_deps) {
-      cbRef.current = memoisedCB;
-    } else {
-      cbRef.current = callback;
-    }
-    var memoisedOptions = useDeepEqualMemo(_options);
-    var _useHotkeysContext = useHotkeysContext(), enabledScopes = _useHotkeysContext.enabledScopes;
-    var proxy = useBoundHotkeysProxy();
-    useSafeLayoutEffect(function() {
-      if ((memoisedOptions == null ? void 0 : memoisedOptions.enabled) === false || !isScopeActive(enabledScopes, memoisedOptions == null ? void 0 : memoisedOptions.scopes)) {
-        return;
-      }
-      var listener = function listener2(e, isKeyUp) {
-        var _e$target;
-        if (isKeyUp === void 0) {
-          isKeyUp = false;
-        }
-        if (isKeyboardEventTriggeredByInput(e) && !isHotkeyEnabledOnTag(e, memoisedOptions == null ? void 0 : memoisedOptions.enableOnFormTags)) {
-          return;
-        }
-        if (ref.current !== null) {
-          var rootNode = ref.current.getRootNode();
-          if ((rootNode instanceof Document || rootNode instanceof ShadowRoot) && rootNode.activeElement !== ref.current && !ref.current.contains(rootNode.activeElement)) {
-            stopPropagation(e);
-            return;
-          }
-        }
-        if ((_e$target = e.target) != null && _e$target.isContentEditable && !(memoisedOptions != null && memoisedOptions.enableOnContentEditable)) {
-          return;
-        }
-        parseKeysHookInput(_keys, memoisedOptions == null ? void 0 : memoisedOptions.splitKey).forEach(function(key) {
-          var _hotkey$keys;
-          var hotkey = parseHotkey(key, memoisedOptions == null ? void 0 : memoisedOptions.combinationKey);
-          if (isHotkeyMatchingKeyboardEvent(e, hotkey, memoisedOptions == null ? void 0 : memoisedOptions.ignoreModifiers) || (_hotkey$keys = hotkey.keys) != null && _hotkey$keys.includes("*")) {
-            if (memoisedOptions != null && memoisedOptions.ignoreEventWhen != null && memoisedOptions.ignoreEventWhen(e)) {
-              return;
-            }
-            if (isKeyUp && hasTriggeredRef.current) {
-              return;
-            }
-            maybePreventDefault(e, hotkey, memoisedOptions == null ? void 0 : memoisedOptions.preventDefault);
-            if (!isHotkeyEnabled(e, hotkey, memoisedOptions == null ? void 0 : memoisedOptions.enabled)) {
-              stopPropagation(e);
-              return;
-            }
-            cbRef.current(e, hotkey);
-            if (!isKeyUp) {
-              hasTriggeredRef.current = true;
-            }
-          }
-        });
-      };
-      var handleKeyDown = function handleKeyDown2(event) {
-        if (event.key === void 0) {
-          return;
-        }
-        pushToCurrentlyPressedKeys(mapKey(event.code));
-        if ((memoisedOptions == null ? void 0 : memoisedOptions.keydown) === void 0 && (memoisedOptions == null ? void 0 : memoisedOptions.keyup) !== true || memoisedOptions != null && memoisedOptions.keydown) {
-          listener(event);
-        }
-      };
-      var handleKeyUp = function handleKeyUp2(event) {
-        if (event.key === void 0) {
-          return;
-        }
-        removeFromCurrentlyPressedKeys(mapKey(event.code));
-        hasTriggeredRef.current = false;
-        if (memoisedOptions != null && memoisedOptions.keyup) {
-          listener(event, true);
-        }
-      };
-      var domNode = ref.current || (_options == null ? void 0 : _options.document) || document;
-      domNode.addEventListener("keyup", handleKeyUp);
-      domNode.addEventListener("keydown", handleKeyDown);
-      if (proxy) {
-        parseKeysHookInput(_keys, memoisedOptions == null ? void 0 : memoisedOptions.splitKey).forEach(function(key) {
-          return proxy.addHotkey(parseHotkey(key, memoisedOptions == null ? void 0 : memoisedOptions.combinationKey, memoisedOptions == null ? void 0 : memoisedOptions.description));
-        });
-      }
-      return function() {
-        domNode.removeEventListener("keyup", handleKeyUp);
-        domNode.removeEventListener("keydown", handleKeyDown);
-        if (proxy) {
-          parseKeysHookInput(_keys, memoisedOptions == null ? void 0 : memoisedOptions.splitKey).forEach(function(key) {
-            return proxy.removeHotkey(parseHotkey(key, memoisedOptions == null ? void 0 : memoisedOptions.combinationKey, memoisedOptions == null ? void 0 : memoisedOptions.description));
-          });
-        }
-      };
-    }, [_keys, memoisedOptions, enabledScopes]);
-    return ref;
-  }
 
   // react/components/DateRangePicker.tsx
   "use client";
@@ -74688,7 +74911,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     dateRange,
     pushEvent
   }) {
-    const [date2, setDate] = React94.useState({
+    const [date2, setDate] = React95.useState({
       from: dateRange.from,
       to: dateRange.to
     });
@@ -74713,7 +74936,7 @@ ${colorConfig.map(([key, itemConfig]) => {
     useHotkeys("ctrl+q", () => set_selected("previous_quarter"), []);
     useHotkeys("ctrl+y", () => set_selected("previous_year"), []);
     useHotkeys("a", () => set_selected("all_time"), []);
-    return /* @__PURE__ */ React94.createElement("div", { className: cn("grid gap-2") }, /* @__PURE__ */ React94.createElement(Popover2, null, /* @__PURE__ */ React94.createElement(PopoverTrigger2, { asChild: true }, /* @__PURE__ */ React94.createElement(
+    return /* @__PURE__ */ React95.createElement("div", { className: cn("grid gap-2") }, /* @__PURE__ */ React95.createElement(Popover2, null, /* @__PURE__ */ React95.createElement(PopoverTrigger2, { asChild: true }, /* @__PURE__ */ React95.createElement(
       Button,
       {
         id: "date",
@@ -74723,18 +74946,18 @@ ${colorConfig.map(([key, itemConfig]) => {
           !date2 && "text-muted-foreground"
         )
       },
-      /* @__PURE__ */ React94.createElement(Calendar, { className: "mr-2 h-4 w-4" }),
-      (date2 == null ? void 0 : date2.from) ? date2.to ? /* @__PURE__ */ React94.createElement(React94.Fragment, null, format(date2.from, "dd LLL, y"), " -", " ", format(date2.to, "dd LLL, y")) : format(date2.from, "dd LLL, y") : /* @__PURE__ */ React94.createElement("span", null, "Pick a date")
-    )), /* @__PURE__ */ React94.createElement(PopoverContent2, { className: "w-auto p-0", align: "end" }, /* @__PURE__ */ React94.createElement(
+      /* @__PURE__ */ React95.createElement(Calendar, { className: "mr-2 h-4 w-4" }),
+      (date2 == null ? void 0 : date2.from) ? date2.to ? /* @__PURE__ */ React95.createElement(React95.Fragment, null, format(date2.from, "dd LLL, y"), " -", " ", format(date2.to, "dd LLL, y")) : format(date2.from, "dd LLL, y") : /* @__PURE__ */ React95.createElement("span", null, "Pick a date")
+    )), /* @__PURE__ */ React95.createElement(PopoverContent2, { className: "w-auto p-0", align: "end" }, /* @__PURE__ */ React95.createElement(
       Select2,
       {
         onValueChange: (value) => {
           set_selected(value);
         }
       },
-      /* @__PURE__ */ React94.createElement(SelectTrigger2, null, /* @__PURE__ */ React94.createElement(SelectValue2, { placeholder: "Select" })),
-      /* @__PURE__ */ React94.createElement(SelectContent2, { position: "popper" }, /* @__PURE__ */ React94.createElement(SelectItem2, { value: "today" }, "Today"), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "yesterday" }, "Yesterday"), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "last_week" }, "Last week"), /* @__PURE__ */ React94.createElement(SelectSeparator2, { className: "my-2" }), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "last_30_days" }, "Last 30 days"), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "last_90_days" }, "Last 90 days"), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "last_12_month" }, "Last 12 month"), /* @__PURE__ */ React94.createElement(SelectSeparator2, { className: "my-2" }), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "previous_month" }, "Previous month"), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "previous_quarter" }, "Previous quarter"), /* @__PURE__ */ React94.createElement(SelectSeparator2, { className: "my-2" }), /* @__PURE__ */ React94.createElement(SelectItem2, { value: "all_time" }, "All time"))
-    ), /* @__PURE__ */ React94.createElement(
+      /* @__PURE__ */ React95.createElement(SelectTrigger2, null, /* @__PURE__ */ React95.createElement(SelectValue2, { placeholder: "Select" })),
+      /* @__PURE__ */ React95.createElement(SelectContent2, { position: "popper" }, /* @__PURE__ */ React95.createElement(SelectItem2, { value: "today" }, "Today"), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "yesterday" }, "Yesterday"), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "last_week" }, "Last week"), /* @__PURE__ */ React95.createElement(SelectSeparator2, { className: "my-2" }), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "last_30_days" }, "Last 30 days"), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "last_90_days" }, "Last 90 days"), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "last_12_month" }, "Last 12 month"), /* @__PURE__ */ React95.createElement(SelectSeparator2, { className: "my-2" }), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "previous_month" }, "Previous month"), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "previous_quarter" }, "Previous quarter"), /* @__PURE__ */ React95.createElement(SelectSeparator2, { className: "my-2" }), /* @__PURE__ */ React95.createElement(SelectItem2, { value: "all_time" }, "All time"))
+    ), /* @__PURE__ */ React95.createElement(
       Calendar2,
       {
         initialFocus: true,
@@ -74760,7 +74983,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // react/components/SingleStat.tsx
-  var React95 = __toESM(require_react());
+  var React96 = __toESM(require_react());
   "use client";
   var ChartConfig6 = {
     hits: {
@@ -74775,7 +74998,13 @@ ${colorConfig.map(([key, itemConfig]) => {
     chartData,
     dateRange
   }) {
-    return /* @__PURE__ */ React95.createElement(Card, null, /* @__PURE__ */ React95.createElement(CardHeader, { className: "p-4 pb-0" }, /* @__PURE__ */ React95.createElement(CardTitle, null, statTitle), /* @__PURE__ */ React95.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React95.createElement(CardContent, { className: "flex flex-row items-baseline gap-4 p-4 pt-0" }, /* @__PURE__ */ React95.createElement("div", { className: "flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none" }, statUnit === "time" ? statData < 6e4 ? `${(statData / 1e3).toFixed(2)}s` : `${(statData / 6e4).toFixed(2)}m` : nFormatter(statData, 2), /* @__PURE__ */ React95.createElement("span", { className: "text-sm font-normal text-muted-foreground" }, statUnit, "/period")), /* @__PURE__ */ React95.createElement(ChartContainer, { config: ChartConfig6, className: "ml-auto w-[72px]" }, /* @__PURE__ */ React95.createElement(
+    return /* @__PURE__ */ React96.createElement(Card, { className: "relative overflow-hidden" }, /* @__PURE__ */ React96.createElement(
+      "div",
+      {
+        className: "absolute left-0 top-0 h-full w-0.5 opacity-40",
+        style: { backgroundColor: "hsl(var(--chart-1))" }
+      }
+    ), /* @__PURE__ */ React96.createElement(CardHeader, { className: "p-4 pb-0" }, /* @__PURE__ */ React96.createElement(CardTitle, null, statTitle), /* @__PURE__ */ React96.createElement(CardDescription, null, format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React96.createElement(CardContent, { className: "flex flex-row items-baseline gap-4 p-4 pt-0" }, /* @__PURE__ */ React96.createElement("div", { className: "flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none" }, statUnit === "time" ? statData < 6e4 ? `${(statData / 1e3).toFixed(2)}s` : `${(statData / 6e4).toFixed(2)}m` : nFormatter(statData, 2), /* @__PURE__ */ React96.createElement("span", { className: "text-sm font-normal text-muted-foreground" }, statUnit, "/period")), /* @__PURE__ */ React96.createElement(ChartContainer, { config: ChartConfig6, className: "ml-auto w-[72px]" }, /* @__PURE__ */ React96.createElement(
       BarChart,
       {
         accessibilityLayer: true,
@@ -74787,7 +75016,7 @@ ${colorConfig.map(([key, itemConfig]) => {
         },
         data: chartData
       },
-      /* @__PURE__ */ React95.createElement(
+      /* @__PURE__ */ React96.createElement(
         Bar,
         {
           dataKey: "hits",
@@ -74795,10 +75024,10 @@ ${colorConfig.map(([key, itemConfig]) => {
           radius: 2,
           fillOpacity: 0.2,
           activeIndex: chartData.length - 1,
-          activeBar: /* @__PURE__ */ React95.createElement(Rectangle, { fillOpacity: 0.8 })
+          activeBar: /* @__PURE__ */ React96.createElement(Rectangle, { fillOpacity: 0.8 })
         }
       ),
-      /* @__PURE__ */ React95.createElement(
+      /* @__PURE__ */ React96.createElement(
         XAxis,
         {
           dataKey: "date",
@@ -74812,7 +75041,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   }
 
   // react/components/RequestsChart.tsx
-  var React96 = __toESM(require_react());
+  var React97 = __toESM(require_react());
   "use client";
   var chartConfig6 = {
     views: {
@@ -74837,20 +75066,20 @@ ${colorConfig.map(([key, itemConfig]) => {
         }
       });
     };
-    return /* @__PURE__ */ React96.createElement(Card, null, /* @__PURE__ */ React96.createElement(CardHeader, { className: "flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row" }, /* @__PURE__ */ React96.createElement("div", { className: "grid flex-1 gap-1 text-center sm:text-left" }, /* @__PURE__ */ React96.createElement(CardTitle, null, "Total requests"), /* @__PURE__ */ React96.createElement(CardDescription, null, "Showing total requests for ", format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React96.createElement(Select2, { value: interval, onValueChange: updateInterval }, /* @__PURE__ */ React96.createElement(
+    return /* @__PURE__ */ React97.createElement(Card, null, /* @__PURE__ */ React97.createElement(CardHeader, { className: "flex items-center gap-2 py-5 space-y-0 border-b sm:flex-row" }, /* @__PURE__ */ React97.createElement("div", { className: "grid flex-1 gap-1 text-center sm:text-left" }, /* @__PURE__ */ React97.createElement(CardTitle, null, "Total requests"), /* @__PURE__ */ React97.createElement(CardDescription, null, "Showing total requests for ", format(dateRange.from, "dd LLL, y"), " -", " ", format(dateRange.to, "dd LLL, y"))), /* @__PURE__ */ React97.createElement(Select2, { value: interval, onValueChange: updateInterval }, /* @__PURE__ */ React97.createElement(
       SelectTrigger2,
       {
         className: "w-[160px] rounded-lg sm:ml-auto",
         "aria-label": "Select a value"
       },
-      /* @__PURE__ */ React96.createElement(SelectValue2, { placeholder: "Interval" })
-    ), /* @__PURE__ */ React96.createElement(SelectContent2, { className: "rounded-xl" }, /* @__PURE__ */ React96.createElement(SelectItem2, { value: "hour", className: "rounded-lg" }, "Per hour"), /* @__PURE__ */ React96.createElement(SelectItem2, { value: "day", className: "rounded-lg" }, "Per day"), /* @__PURE__ */ React96.createElement(SelectItem2, { value: "month", className: "rounded-lg" }, "Per month")))), /* @__PURE__ */ React96.createElement(CardContent, { className: "px-2 sm:p-6" }, /* @__PURE__ */ React96.createElement(
+      /* @__PURE__ */ React97.createElement(SelectValue2, { placeholder: "Interval" })
+    ), /* @__PURE__ */ React97.createElement(SelectContent2, { className: "rounded-xl" }, /* @__PURE__ */ React97.createElement(SelectItem2, { value: "hour", className: "rounded-lg" }, "Per hour"), /* @__PURE__ */ React97.createElement(SelectItem2, { value: "day", className: "rounded-lg" }, "Per day"), /* @__PURE__ */ React97.createElement(SelectItem2, { value: "month", className: "rounded-lg" }, "Per month")))), /* @__PURE__ */ React97.createElement(CardContent, { className: "px-2 sm:p-6" }, /* @__PURE__ */ React97.createElement(
       ChartContainer,
       {
         config: chartConfig6,
         className: "aspect-auto h-[250px] w-full"
       },
-      /* @__PURE__ */ React96.createElement(
+      /* @__PURE__ */ React97.createElement(
         BarChart,
         {
           accessibilityLayer: true,
@@ -74860,8 +75089,8 @@ ${colorConfig.map(([key, itemConfig]) => {
             right: 12
           }
         },
-        /* @__PURE__ */ React96.createElement(CartesianGrid, { vertical: false }),
-        /* @__PURE__ */ React96.createElement(
+        /* @__PURE__ */ React97.createElement(CartesianGrid, { vertical: false }),
+        /* @__PURE__ */ React97.createElement(
           XAxis,
           {
             dataKey: "date",
@@ -74877,10 +75106,10 @@ ${colorConfig.map(([key, itemConfig]) => {
             }
           }
         ),
-        /* @__PURE__ */ React96.createElement(
+        /* @__PURE__ */ React97.createElement(
           ChartTooltip,
           {
-            content: /* @__PURE__ */ React96.createElement(
+            content: /* @__PURE__ */ React97.createElement(
               ChartTooltipContent,
               {
                 className: "w-[170px]",
@@ -74896,7 +75125,7 @@ ${colorConfig.map(([key, itemConfig]) => {
             )
           }
         ),
-        /* @__PURE__ */ React96.createElement(Bar, { dataKey: "hits", fill: `var(--color-hits)` })
+        /* @__PURE__ */ React97.createElement(Bar, { dataKey: "hits", fill: `var(--color-hits)` })
       )
     )));
   }
@@ -74904,6 +75133,7 @@ ${colorConfig.map(([key, itemConfig]) => {
   // react/index.js
   var react_default = {
     ThemeToggle,
+    ColorSelector,
     VisitsChart,
     ResChart,
     DeviceChart,
@@ -75183,6 +75413,14 @@ lucide-react/dist/esm/icons/circle.js:
    *)
 
 lucide-react/dist/esm/icons/moon.js:
+  (**
+   * @license lucide-react v0.428.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/palette.js:
   (**
    * @license lucide-react v0.428.0 - ISC
    *
