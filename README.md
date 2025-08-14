@@ -6,6 +6,9 @@
   <a title="View documentation" href="https://hexdocs.pm/phoenix_analytics"><img src="https://img.shields.io/badge/hex.pm-docs-blue.svg" alt="View documentation" /></a>
 </p>
 
+> [!IMPORTANT]
+> **Version 0.4.0 Breaking Changes**: The 🦆 duck has been removed. Users who prefer the duckdb version should use the maintained fork: [**PhoenixAnalyticsDuck**](https://github.com/lalabuy948/PhoenixAnalyticsDuck)
+
 ![](https://raw.githubusercontent.com/lalabuy948/PhoenixAnalytics/master/github/hero.png)
 
 ![](https://raw.githubusercontent.com/lalabuy948/PhoenixAnalytics/master/github/screenshot.png)
@@ -17,6 +20,8 @@ Key features:
 - 🗄️ Flexible database support (PostgreSQL, SQLite3, MySQL)
 - 🔌 Easy integration with Phoenix applications
 - 📊 Minimalistic dashboard for data visualization
+- 🎨 12 customizable color themes
+- 🌙 Full dark mode support across all themes
 
 > Phoenix Analytics now supports multiple database backends using Ecto, allowing you to choose the database that best fits your deployment environment and requirements. Whether you're using PostgreSQL in production, SQLite3 for development, or MySQL in your infrastructure, Phoenix Analytics will work seamlessly.
 
