@@ -60,6 +60,13 @@ defmodule MyApp.Repo.Migrations.AddPhoenixAnalytics do
   def up, do: PhoenixAnalytics.Migration.up()
   def down, do: PhoenixAnalytics.Migration.down()
 end
+
+# indexes, no sqlite support
+defmodule MyApp.Repo.Migrations.AddPhoenixAnalyticsIndexes do
+  def change do
+    PhoenixAnalytics.Migration.add_indexes()
+  end
+end
 ```
 
 ```sh
