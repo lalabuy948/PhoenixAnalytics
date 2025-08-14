@@ -2,16 +2,15 @@ defmodule PhoenixAnalytics.Services.Cache do
   @moduledoc """
     This module provides caching functionality for PhoenixAnalytics.
 
-    The main purpose of this cache is to reduce the number of read calls to DuckDB.
-    DuckDB is designed for running large queries infrequently, rather than small
-    queries often. By caching results, we can improve performance and reduce the
-    load on the database for frequently accessed data.
+    The main purpose of this cache is to reduce the number of read calls to the database.
+    By caching results, we can improve performance and reduce the load on the database
+    for frequently accessed data.
 
-    The cache uses Cachex with a default TTL (Time To Live) of 2 minutes.
+    The cache uses Cachex with a configurable TTL (Time To Live).
   """
 
   @cache :pa_cache
-  @ttl Application.compile_env(:phoenix_analytics, :cache_ttl, 0)
+  @ttl Application.compile_env(:phoenix_analytics, :cache_ttl, 120)
 
   @doc false
   def name() do

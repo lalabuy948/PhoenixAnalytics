@@ -5,7 +5,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
 
   alias PhoenixAnalytics.Services.Cache
   alias PhoenixAnalytics.Services.Telemetry
-  alias PhoenixAnalytics.Repo
+
   alias PhoenixAnalytics.Queries.Analytics
 
   @impl true
@@ -28,11 +28,19 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
     data_source = assigns.source
     date_range = assigns.date_range
 
-    {:ok,
-     assign(socket, assigns)
-     |> assign_async(:chart_data, fn ->
-       {:ok, %{chart_data: chart_data(data_source, date_range)}}
-     end)}
+    # Check if date_range has changed
+    should_refresh = socket.assigns[:date_range] != date_range
+
+    socket = assign(socket, assigns)
+
+    if should_refresh do
+      {:ok,
+       assign_async(socket, :chart_data, fn ->
+         {:ok, %{chart_data: chart_data(data_source, date_range)}}
+       end)}
+    else
+      {:ok, socket}
+    end
   end
 
   defp chart_data(source, %{from: from, to: to} = _date_range) do
@@ -40,7 +48,14 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
 
     {_, value} = Cache.fetch(cache_key, fn -> fetch_data(source, from, to) end)
 
-    value
+    # Handle Cachex.Error structs that can't be JSON encoded
+    case value do
+      %Cachex.Error{} ->
+        []
+
+      _ ->
+        value
+    end
   end
 
   defp fetch_data(source, from, to) do
@@ -50,7 +65,8 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
         :resources -> Analytics.slowest_resources(from, to)
       end
 
-    result = Repo.execute_fetch({query, []})
+    repo = PhoenixAnalytics.Config.get_repo()
+    result = repo.all(query)
 
     case result do
       [] ->
@@ -61,7 +77,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
         []
 
       _ ->
-        for [%{"path" => path, "duration" => duration}] <- result do
+        for %{path: path, duration: duration} <- result do
           %{"path" => path, "duration" => duration}
         end
     end

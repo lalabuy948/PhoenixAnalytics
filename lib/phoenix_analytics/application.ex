@@ -11,7 +11,6 @@ defmodule PhoenixAnalytics.Application do
     children = [
       {Phoenix.PubSub, name: @pubsub_name},
       {Cachex, name: @cache_name},
-      PhoenixAnalytics.Repo,
       PhoenixAnalytics.Services.Batcher
     ]
 

@@ -1,26 +1,28 @@
 defmodule PhoenixAnalytics.Queries.Analytics.Charts.Device do
-  @moduledoc false
+  @moduledoc """
+  Ecto-based queries for device analytics.
 
-  defmacro __using__(_opts) do
-    quote do
-      import PhoenixAnalytics.Queries.Helpers
+  This module provides functions to generate Ecto queries for
+  analyzing device usage patterns.
+  """
 
-      @table PhoenixAnalytics.Queries.Table.name()
+  import Ecto.Query
+  alias PhoenixAnalytics.Entities.RequestLog
+  alias PhoenixAnalytics.Queries.Helpers
 
-      def devices_usage(from, to) do
-        query =
-          """
-          SELECT DISTINCT device, count(*) FROM #{@table}
-          WHERE 1=1
-          """ <>
-            exclude_non_page() <>
-            exlude_dev() <>
-            date_filter(from, to)
-
-        tail = "\n GROUP BY device;"
-
-        query <> tail
-      end
-    end
+  @doc """
+  Gets device usage statistics for a given date range.
+  """
+  def devices_usage(from_date, to_date) do
+    RequestLog
+    |> Helpers.exclude_non_page()
+    |> Helpers.exclude_dev()
+    |> Helpers.filter_by_date(from_date, to_date)
+    |> group_by([r], r.device_type)
+    |> select([r], %{
+      device: r.device_type,
+      count: count(r.request_id)
+    })
+    |> order_by([r], desc: count(r.request_id))
   end
 end

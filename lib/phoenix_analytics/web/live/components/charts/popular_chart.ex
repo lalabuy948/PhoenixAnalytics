@@ -5,7 +5,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.PopularChart do
 
   alias PhoenixAnalytics.Services.Cache
   alias PhoenixAnalytics.Services.Telemetry
-  alias PhoenixAnalytics.Repo
+
   alias PhoenixAnalytics.Queries.Analytics
 
   @impl true
@@ -28,11 +28,19 @@ defmodule PhoenixAnalytics.Web.Live.Components.PopularChart do
     data_source = assigns.source
     date_range = assigns.date_range
 
-    {:ok,
-     assign(socket, assigns)
-     |> assign_async(:chart_data, fn ->
-       {:ok, %{chart_data: chart_data(data_source, date_range)}}
-     end)}
+    # Check if date_range has changed
+    should_refresh = socket.assigns[:date_range] != date_range
+
+    socket = assign(socket, assigns)
+
+    if should_refresh do
+      {:ok,
+       assign_async(socket, :chart_data, fn ->
+         {:ok, %{chart_data: chart_data(data_source, date_range)}}
+       end)}
+    else
+      {:ok, socket}
+    end
   end
 
   defp chart_data(source, %{from: from, to: to} = _date_range) do
@@ -51,20 +59,13 @@ defmodule PhoenixAnalytics.Web.Live.Components.PopularChart do
         :not_founds -> Analytics.popular_not_found(from, to)
       end
 
-    result = Repo.execute_fetch({query, []})
-
-    case result do
-      [] ->
+    try do
+      repo = PhoenixAnalytics.Config.get_repo()
+      repo.all(query)
+    rescue
+      error ->
+        Telemetry.log_error(:fetch_data, error)
         []
-
-      {:error, reason} ->
-        Telemetry.log_error(:fetch_data, reason)
-        []
-
-      _ ->
-        for [%{"source" => source, "visits" => visits}] <- result do
-          %{"source" => source, "visits" => visits}
-        end
     end
   end
 end

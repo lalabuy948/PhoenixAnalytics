@@ -35,17 +35,12 @@ npm-debug.log
 
 /assets/meta.json
 
-analytics.duckdb
-analytics.duckdb.wal
-
-test_analytics.duckdb
-test_analytics.duckdb.wal
-
-*.duckdb
-*.duckdb.wal
+*.db
+*.db-*
 
 .DS_Store
 **/*.DS_Store
 
 test/vegeta/*
 !test/vegeta/vegeta.sh
+

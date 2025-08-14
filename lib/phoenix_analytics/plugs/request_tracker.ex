@@ -6,12 +6,14 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
   - Measure the duration of each request
   - Collect relevant request data (method, path, status code, etc.)
   - Track session information
+  - Validate data using Ecto changesets
   - Asynchronously broadcast the collected data using PubSub
 
   Key components:
 
   - `call/2`: The main plug function that wraps the request, measures its duration, and manages session tracking
-  - `prepare_request_data/4`: Prepares a `RequestLog` struct with relevant request and session information
+  - `prepare_request_data/4`: Prepares request data for changeset validation
+  - `create_request_log/1`: Creates a validated RequestLog using changesets
   - `format_ip/1`: Formats IP addresses to string representation
   - `remote_ip/1`: Extracts the remote IP address from the connection, considering X-Forwarded-For headers
   - `get_header/3`: Safely retrieves a header value from the connection
@@ -31,6 +33,7 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
 
   Note: This module uses the `PhoenixAnalytics.Services.PubSub` module to broadcast
   request data, allowing for distributed apps share requests and analysis.
+  All data is validated using Ecto changesets before broadcasting.
   """
 
   import Plug.Conn
@@ -52,11 +55,12 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
   2. Manages session tracking by creating or retrieving a session ID and start time.
   3. Registers a before_send callback to:
      - Calculate the request duration and session duration.
-     - Prepare request and session data.
-     - Asynchronously broadcast the data using PubSub.
+     - Prepare request data and validate it using changesets.
+     - Asynchronously broadcast the validated data using PubSub.
 
-  The function catches any errors during data preparation or broadcasting to ensure
-  the request processing continues even if tracking fails.
+  The function silently catches and ignores any errors during data preparation,
+  validation, or broadcasting to ensure the request processing continues unaffected
+  and user applications are never impacted by tracking failures.
 
   ## Parameters
 
@@ -81,30 +85,57 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
       same_site: "Lax"
     )
     |> Plug.Conn.register_before_send(fn conn ->
-      end_time = System.monotonic_time(:millisecond)
-      page_views = String.to_integer(conn.cookies["pa_page_views"] || "0")
-      request_duration = end_time - start_time
+      try do
+        end_time = System.monotonic_time(:millisecond)
+        page_views = String.to_integer(conn.cookies["pa_page_views"] || "0")
+        request_duration = end_time - start_time
 
-      user_agent = get_header(conn, "user-agent", "unknown")
+        user_agent = get_header(conn, "user-agent", "unknown")
 
-      %RequestLog{
-        request_id: generate_uuid(),
-        method: Map.get(conn, :method, "unknown"),
-        path: Map.get(conn, :request_path, "unknown"),
-        status_code: Map.get(conn, :status, 500),
-        duration_ms: request_duration,
-        user_agent: user_agent,
-        remote_ip: format_ip(remote_ip(conn)),
-        referer: get_header(conn, "referer", "Direct"),
-        device_type: Utility.get_device_type(user_agent),
-        session_id: conn.cookies["pa_session_id"] || nil,
-        session_page_views: page_views,
-        inserted_at: Utility.inserted_at()
-      }
-      |> PubSub.broadcast()
+        request_data = %{
+          request_id: generate_uuid(),
+          method: Map.get(conn, :method, "unknown"),
+          path: Map.get(conn, :request_path, "unknown"),
+          status_code: Map.get(conn, :status, 500),
+          duration_ms: request_duration,
+          user_agent: user_agent,
+          remote_ip: format_ip(remote_ip(conn)),
+          referer: get_header(conn, "referer", "Direct"),
+          device_type: Utility.get_device_type(user_agent),
+          session_id: conn.cookies["pa_session_id"],
+          session_page_views: page_views,
+          inserted_at: Utility.inserted_at()
+        }
+
+        case create_request_log(request_data) do
+          {:ok, request_log} ->
+            PubSub.broadcast(request_log)
+
+          {:error, _changeset} ->
+            # Silently ignore validation errors to not affect user applications
+            :ok
+        end
+      rescue
+        _error ->
+          # Silently ignore all errors to ensure user applications are never affected
+          :ok
+      end
 
       conn
     end)
+  end
+
+  # Creates a validated RequestLog struct using Ecto changesets.
+  # Takes raw request data and validates it using the RequestLog changeset.
+  # Returns {:ok, request_log} on success, {:error, changeset} on failure.
+  defp create_request_log(attrs) do
+    changeset = RequestLog.changeset(%RequestLog{}, attrs)
+
+    if changeset.valid? do
+      {:ok, Ecto.Changeset.apply_changes(changeset)}
+    else
+      {:error, changeset}
+    end
   end
 
   defp generate_uuid, do: Utility.uuid()

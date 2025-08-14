@@ -8,10 +8,10 @@ defmodule PhoenixAnalytics.Services.Utility do
   """
 
   @doc """
-  Returns the current UTC timestamp in DuckDB format.
+  Returns the current UTC timestamp in database-compatible format.
 
-  This function generates a timestamp string that is compatible with DuckDB's
-  TIMESTAMP data type. The timestamp is in UTC and includes millisecond precision.
+  This function generates a timestamp string that is compatible with standard
+  database TIMESTAMP data types. The timestamp is in UTC and includes millisecond precision.
 
   ## Examples
 
@@ -84,34 +84,90 @@ defmodule PhoenixAnalytics.Services.Utility do
   def uuid, do: UUID.uuid4()
 
   @doc """
-  Determines the current mode of operation based on database configurations.
+  Determines the current database type based on configuration.
 
-  This function checks the application environment for DuckDB and PostgreSQL
-  configurations to determine the current mode of operation.
+  This function checks the application environment for database configurations
+  to determine the current database type being used.
 
   ## Returns
 
-  An atom indicating the mode:
-    * `:duck_only` if only DuckDB is configured
-    * `:duck_postgres` if both DuckDB and PostgreSQL are configured
-    * `:duck_only` as a fallback if no valid configuration is found
+  An atom indicating the database type:
+    * `:postgres` if PostgreSQL is configured
+    * `:sqlite` if SQLite is configured
+    * `:mysql` if MySQL is configured
+    * `:postgres` as a fallback if no valid configuration is found
 
   ## Examples
 
-      iex> PhoenixAnalytics.Services.Utility.mode()
-      :duck_only
+      iex> PhoenixAnalytics.Services.Utility.database_type()
+      :postgres
 
   """
-  def mode() do
-    duckdb_path = Application.fetch_env(:phoenix_analytics, :duckdb_path)
-    duckdb_in_memory = Application.fetch_env(:phoenix_analytics, :in_memory)
-    postgre_repo = Application.fetch_env(:phoenix_analytics, :postgres_conn)
+  def database_type() do
+    # Get the repo from config and check its adapter
+    repo = PhoenixAnalytics.Config.get_repo()
 
     cond do
-      duckdb_path != :error and postgre_repo == :error -> :duck_only
-      duckdb_path != :error and postgre_repo != :error -> :duck_postgres
-      duckdb_in_memory != :error and postgre_repo != :error -> :duck_postgres
-      true -> :duck_only
+      repo && repo.__adapter__() == Ecto.Adapters.SQLite3 -> :sqlite
+      repo && repo.__adapter__() == Ecto.Adapters.Postgres -> :postgres
+      repo && repo.__adapter__() == Ecto.Adapters.MyXQL -> :mysql
+      has_config?(:postgres_conn) -> :postgres
+      has_config?(:sqlite_path) -> :sqlite
+      has_config?(:mysql_conn) -> :mysql
+      true -> :postgres
     end
   end
+
+  @doc """
+  Checks if a specific configuration key exists and has a value.
+
+  ## Parameters
+
+    * key - The configuration key to check
+
+  ## Returns
+
+  A boolean indicating whether the configuration exists and has a value.
+
+  ## Examples
+
+      iex> PhoenixAnalytics.Services.Utility.has_config?(:postgres_conn)
+      true
+
+  """
+  def has_config?(key) do
+    case get_config(key) do
+      :error -> false
+      nil -> false
+      _ -> true
+    end
+  end
+
+  @doc """
+  Gets a configuration value with an optional default.
+
+  ## Parameters
+
+    * key - The configuration key to retrieve
+    * default - The default value if the key is not found
+
+  ## Returns
+
+  The configuration value or the default value.
+
+  ## Examples
+
+      iex> PhoenixAnalytics.Services.Utility.get_config(:pool_size, 10)
+      10
+
+  """
+  def get_config(key, default \\ nil) do
+    case Application.fetch_env(:phoenix_analytics, key) do
+      {:ok, value} -> value
+      :error -> default
+    end
+  end
+
+  # Legacy function for backward compatibility
+  def mode(), do: database_type()
 end

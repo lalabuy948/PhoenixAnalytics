@@ -43,7 +43,13 @@ export function SingleStat({
   dateRange: DateRange;
 }) {
   return (
-    <Card>
+    <Card className="relative overflow-hidden">
+      {/* Subtle accent bar */}
+      <div 
+        className="absolute left-0 top-0 h-full w-0.5 opacity-40"
+        style={{ backgroundColor: 'hsl(var(--chart-1))' }}
+      />
+      
       <CardHeader className="p-4 pb-0">
         <CardTitle>{statTitle}</CardTitle>
         <CardDescription>
@@ -51,6 +57,7 @@ export function SingleStat({
           {format(dateRange.to, "dd LLL, y")}
         </CardDescription>
       </CardHeader>
+      
       <CardContent className="flex flex-row items-baseline gap-4 p-4 pt-0">
         <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
           {statUnit === "time"
@@ -62,6 +69,7 @@ export function SingleStat({
             {statUnit}/period
           </span>
         </div>
+        
         <ChartContainer config={ChartConfig} className="ml-auto w-[72px]">
           <BarChart
             accessibilityLayer

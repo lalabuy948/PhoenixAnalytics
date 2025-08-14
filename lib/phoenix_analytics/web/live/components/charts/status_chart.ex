@@ -5,7 +5,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.StatusChart do
 
   alias PhoenixAnalytics.Services.Cache
   alias PhoenixAnalytics.Services.Telemetry
-  alias PhoenixAnalytics.Repo
+
   alias PhoenixAnalytics.Queries.Analytics
 
   @impl true
@@ -27,9 +27,19 @@ defmodule PhoenixAnalytics.Web.Live.Components.StatusChart do
     date_range = assigns.date_range
     interval = assigns.interval
 
-    {:ok,
-     assign(socket, assigns)
-     |> assign_async(:chart_data, fn -> {:ok, %{chart_data: chart_data(date_range, interval)}} end)}
+    # Check if date_range or interval has changed
+    should_refresh = 
+      socket.assigns[:date_range] != date_range || 
+      socket.assigns[:interval] != interval
+
+    socket = assign(socket, assigns)
+
+    if should_refresh do
+      {:ok,
+       assign_async(socket, :chart_data, fn -> {:ok, %{chart_data: chart_data(date_range, interval)}} end)}
+    else
+      {:ok, socket}
+    end
   end
 
   defp chart_data(%{from: from, to: to} = _date_range, interval) do
@@ -37,12 +47,20 @@ defmodule PhoenixAnalytics.Web.Live.Components.StatusChart do
 
     {_, value} = Cache.fetch(cache_key, fn -> fetch_data(from, to, interval) end)
 
-    value
+    # Handle Cachex.Error structs that can't be JSON encoded
+    case value do
+      %Cachex.Error{} ->
+        []
+
+      _ ->
+        value
+    end
   end
 
   defp fetch_data(from, to, interval) do
     query = Analytics.statuses_per_period(from, to, interval)
-    result = Repo.execute_fetch({query, []})
+    repo = PhoenixAnalytics.Config.get_repo()
+    result = repo.all(query)
 
     case result do
       [] ->
@@ -53,15 +71,29 @@ defmodule PhoenixAnalytics.Web.Live.Components.StatusChart do
         []
 
       _ ->
-        for [date | [{_, oks}, {_, redirects}, {_, errors}, {_, fails} | _]] <- result do
+        for %{
+              date: date,
+              ok_200s: oks,
+              redirects_300s: redirects,
+              errors_400s: errors,
+              fails_500s: fails
+            } <- result do
           %{
             "date" => date,
-            "oks" => oks,
-            "redirs" => redirects,
-            "errors" => errors,
-            "fails" => fails
+            "oks" => convert_decimal(oks),
+            "redirs" => convert_decimal(redirects),
+            "errors" => convert_decimal(errors),
+            "fails" => convert_decimal(fails)
           }
         end
+    end
+  end
+
+  defp convert_decimal(decimal) do
+    case decimal do
+      %Decimal{} -> Decimal.to_float(decimal)
+      value when is_number(value) -> value
+      _ -> 0
     end
   end
 end

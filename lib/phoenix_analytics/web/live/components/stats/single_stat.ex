@@ -5,7 +5,6 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
 
   alias PhoenixAnalytics.Services.Cache
   alias PhoenixAnalytics.Services.Telemetry
-  alias PhoenixAnalytics.Repo
   alias PhoenixAnalytics.Queries.Analytics
 
   def render(assigns) do
@@ -38,15 +37,22 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         :bounce_rate -> "Bounce Rate"
       end
 
-    {:ok,
-     assign(socket, assigns)
-     |> assign(:stat_title, stat_title)
-     |> assign_async(:stat_data, fn ->
-       {:ok, %{stat_data: stat_data(source, date_range)}}
-     end)
-     |> assign_async(:chart_data, fn ->
-       {:ok, %{chart_data: chart_data(source, date_range)}}
-     end)}
+    # Check if date_range has changed
+    should_refresh = socket.assigns[:date_range] != date_range
+
+    socket = assign(socket, assigns) |> assign(:stat_title, stat_title)
+
+    if should_refresh do
+      {:ok,
+       assign_async(socket, :stat_data, fn ->
+         {:ok, %{stat_data: stat_data(source, date_range)}}
+       end)
+       |> assign_async(:chart_data, fn ->
+         {:ok, %{chart_data: chart_data(source, date_range)}}
+       end)}
+    else
+      {:ok, socket}
+    end
   end
 
   defp stat_data(source, %{from: from, to: to} = _date_range) do
@@ -54,7 +60,14 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
 
     {_, value} = Cache.fetch(cache_key, fn -> fetch_stat_data(source, from, to) end)
 
-    value
+    # Handle Cachex.Error structs that can't be JSON encoded
+    case value do
+      %Cachex.Error{} ->
+        0
+
+      _ ->
+        value
+    end
   end
 
   defp fetch_stat_data(source, from, to) do
@@ -68,9 +81,13 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         :bounce_rate -> Analytics.bounce_rate(from, to)
       end
 
-    result = Repo.execute_fetch({query, []})
+    repo = PhoenixAnalytics.Config.get_repo()
+    result = repo.one(query)
 
     case result do
+      nil ->
+        0
+
       [] ->
         0
 
@@ -80,6 +97,18 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
 
       [[formatted | _] | _] ->
         formatted
+
+      # Handle simple numeric results (integers and floats)
+      value when is_number(value) ->
+        value
+
+      # Handle map results (like bounce_rate query)
+      %{bounce_rate: value} when is_number(value) ->
+        value
+
+      # Handle other potential result formats
+      _ ->
+        0
     end
   end
 
@@ -88,7 +117,14 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
 
     {_, value} = Cache.fetch(cache_key, fn -> fetch_chart_data(source, from, to) end)
 
-    value
+    # Handle Cachex.Error structs that can't be JSON encoded
+    case value do
+      %Cachex.Error{} ->
+        []
+
+      _ ->
+        value
+    end
   end
 
   defp fetch_chart_data(source, from, to) do
@@ -102,7 +138,8 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         :bounce_rate -> Analytics.bounce_rate_per_period_limited(from, to)
       end
 
-    result = Repo.execute_fetch({query, []})
+    repo = PhoenixAnalytics.Config.get_repo()
+    result = repo.all(query)
 
     case result do
       [] ->
