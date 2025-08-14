@@ -34,11 +34,12 @@ const getDateRange = (value: string): { from: Date; to: Date } => {
 
   switch (value) {
     case "today":
-      from = to = today;
+      from = new Date(today);
+      to = new Date(today);
       break;
     case "yesterday":
-      to = today;
       from = addDays(today, -1);
+      to = addDays(today, -1);
       break;
     case "last_week":
       to = today;

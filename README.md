@@ -14,15 +14,11 @@ Phoenix Analytics is embedded plug and play tool designed for Phoenix applicatio
 
 Key features:
 - ⚡️ Lightweight and fast analytics tracking
-- ⛓️‍💥 Separate storage using DuckDB to avoid affecting your main database
+- 🗄️ Flexible database support (PostgreSQL, SQLite3, MySQL)
 - 🔌 Easy integration with Phoenix applications
 - 📊 Minimalistic dashboard for data visualization
 
-> The decision to use [DuckDB](https://duckdb.org) as the storage was made to ensure that the analytics data collection process does not interfere with or degrade the performance of your application's primary transactional database. This separation allows for efficient data storage and querying specifically optimized for analytics purposes, while keeping your main database focused on serving your application's core functionality.
-
-
-https://github.com/user-attachments/assets/66ee00d4-3928-46ec-bfca-c03e2569bc0a
-
+> Phoenix Analytics now supports multiple database backends using Ecto, allowing you to choose the database that best fits your deployment environment and requirements. Whether you're using PostgreSQL in production, SQLite3 for development, or MySQL in your infrastructure, Phoenix Analytics will work seamlessly.
 
 ## Installation
 
@@ -32,66 +28,30 @@ by adding `phoenix_analytics` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_analytics, "~> 0.3"}
+    {:phoenix_analytics, "~> 0.4"}
   ]
 end
 ```
 
-Update `config/config.exs`
+### Configuration
+
+Phoenix Analytics uses your existing Ecto repository, making setup incredibly simple:
 
 ```elixir
+# config/dev.exs
 config :phoenix_analytics,
-  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
-  app_domain: System.get_env("PHX_HOST") || "example.com"
-```
-
-> [!IMPORTANT]
-> In case you have dynamic cluster, you can use your PostgresDB as backend.
-
-```elixir
-config :phoenix_analytics,
-  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
+  repo: MyApp.Repo,
   app_domain: System.get_env("PHX_HOST") || "example.com",
-  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost"
+  cache_ttl: System.get_env("CACHE_TTL") || 60
 ```
 
-> [!IMPORTANT]
-> In case you would like to proceed with Postgres option, consider enabling caching.
+### Migration
 
-```elixir
-config :phoenix_analytics,
-  duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb",
-  app_domain: System.get_env("PHX_HOST") || "example.com",
-  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost",
-  cache_ttl: System.get_env("CACHE_TTL") || 120 # seconds
-```
-
-> [!IMPORTANT]
-> In case you are hosting your app on fly.io or heroku which doesn't let to persist data on the disk,
-> you can add `in_memory: true` into :phoenix_analytics config.
-> And don't forget to remove `duckdb_path` from the config, otherwise PA will try to create duckdb on the disk.
-
-```elixir
-config :phoenix_analytics,
-  app_domain: System.get_env("PHX_HOST") || "example.com",
-  postgres_conn: System.get_env("POSTGRES_CONN") || "dbname=postgres user=phoenix password=analytics host=localhost",
-  in_memory: true
-```
-
-Add migration file
-
-> In case you have ecto less / no migrations project you can do the following:
-
-> `iex -S mix` `PhoenixAnalytics.Migration.up()`
+Create the analytics table in your existing database:
 
 ```sh
 mix ecto.gen.migration add_phoenix_analytics
 ```
-
-> [!TIP]
-> Based on your configuration migration will be run in appropriate database.
-> If only `duckdb_path` then in duckdb file.
-> If `duckdb_path` and `postgres_conn` provided then in your Postgres database.
 
 ```elixir
 defmodule MyApp.Repo.Migrations.AddPhoenixAnalytics do
@@ -105,6 +65,13 @@ end
 ```sh
 mix ecto.migrate
 ```
+
+> **Alternative**: If you don't use migrations, you can run the migration directly:
+> 
+> ```elixir
+> iex -S mix
+> PhoenixAnalytics.Migration.up()
+> ```
 
 Add plug to enable tracking to `endpoint.ex`, ‼️ add it straight after your `Plug.Static`
 
@@ -120,67 +87,8 @@ use PhoenixAnalytics.Web, :router
 phoenix_analytics_dashboard "/analytics"
 ```
 
-Update your `.gitignore`
-
-```.gitignore
-*.duckdb
-*.duckdb.*
-```
-
 > [!WARNING]
 > ‼️ Please test thoroughly before proceeding to production!
-
-
-### Deploying
-
-#### Self-host with Coolify
-If you're self-hosting with Coolify and you want to use DuckDB, you will have to make a few changes to the Dockerfile.
-Coolify creates container volumes with `nobody:root` and without write permissions. We have to add that.
-
-1. Create a storage in your project
-    - choose Volume Mount
-    - you only need to give it a destination, I use `/app/data`  
-
-
-2. Add the path in your env variables and make it available at build time.
-For example
-    - `DUCKDB_PATH`
-    - `/app/data/analytics.duckdb`
-    - - [x] Build variable?
-
- 
-3. Update the Dockerfile
- 
-```Dockerfile
-# in builder phase add
-ARG DUCKDB_PATH
-ENV DUCKDB_PATH=${DUCKDB_PATH}
-
-...
-...
-
-# in runner phase, add after these lines
-WORKDIR "/app"
-RUN chown nobody /app
-
-#
-# add the following
-#
-WORKDIR /app/data # replace `/app/data` by whichever path you choose 
-RUN chown nobody:root /app/data
-RUN chmod -R g+w /app/data
-WORKDIR "/app"
-
-...
-
-# set runner ENV
-ENV MIX_ENV="prod"
-...
-```
-
-
-
-
 
 ## Documentation
 
@@ -214,18 +122,14 @@ mix setup
 Then you would need some database with seeds. Here is command for this:
 
 ```sh
-DUCKDB_PATH="analytics.duckdb" mix run priv/repo/seeds.exs
-```
+# For SQLite3
+mix run priv/repo/seeds.exs sqlite 10000
 
-or if you would like to test with Postgres backend:
+# For PostgreSQL
+mix run priv/repo/seeds.exs postgres
 
-```sh
-cd examples/duck_postgres/
-
-docker compose -f postgres-compose.yml up
-
-# from project root
-mix run priv/repo/seeds_postgres.exs
+# For MySQL
+mix run priv/repo/seeds.exs mysql 10000
 ```
 
 > [!NOTE]
@@ -234,7 +138,7 @@ mix run priv/repo/seeds_postgres.exs
 Lastly you can use one of example applications to start server.
 
 ```sh
-cd examples/duck_only/
+cd examples/sqlite/
 
 mix deps.get
 
@@ -254,9 +158,9 @@ Script can be found here: `vegeta/vegeta.sh`
 
 ## For whom this library
 
-- [x] Single instance Phoenix app (duckdb only recommended)
-- [x] Multiple instances of Phoenix app **without** auto scaling group (duckdb or postgres option can be used)
-- [x] Multiple instances of Phoenix app **with** auto scaling group (only postgres powered apps supported at the moment)
+- [x] Single instance Phoenix app (any supported database)
+- [x] Multiple instances of Phoenix app **without** auto scaling group (any supported database)
+- [x] Multiple instances of Phoenix app **with** auto scaling group (PostgreSQL or MySQL)
 
 ### Heavily inspired by
 

@@ -26,9 +26,8 @@ defmodule PhoenixAnalytics.Services.Batcher do
   use GenServer
 
   alias PhoenixAnalytics.Services.PubSub
-  alias PhoenixAnalytics.Repo
 
-  @batch_size 1_000
+  @batch_size 100
   @timeout 1_000
 
   # --- client callbacks ---
@@ -118,5 +117,21 @@ defmodule PhoenixAnalytics.Services.Batcher do
 
   """
   def send_batch([]), do: []
-  def send_batch(batch), do: Repo.insert_many(batch)
+
+  def send_batch(batch) do
+    repo = PhoenixAnalytics.Config.get_repo()
+
+    # Convert structs to maps for insert_all
+    data =
+      Enum.map(batch, fn request_log ->
+        request_log
+        |> Map.from_struct()
+        # Remove Ecto metadata
+        |> Map.drop([:__meta__])
+        # Set inserted_at timestamp (truncate to seconds precision)
+        |> Map.put(:inserted_at, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
+      end)
+
+    repo.insert_all(PhoenixAnalytics.Entities.RequestLog, data, returning: false)
+  end
 end

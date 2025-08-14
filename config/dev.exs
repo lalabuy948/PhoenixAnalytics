@@ -1,6 +1,13 @@
 import Config
 
-config :phoenix_analytics, duckdb_path: System.get_env("DUCKDB_PATH") || "analytics.duckdb"
+# Example configuration for Phoenix Analytics in development
+# Replace MyApp.Repo with your actual repository module
+
+# Basic configuration (using your existing repo)
+config :phoenix_analytics,
+  repo: MyApp.Repo,
+  app_domain: "localhost",
+  cache_ttl: 60
 
 config :esbuild, :version, "0.17.11"
 config :tailwind, :version, "3.4.13"

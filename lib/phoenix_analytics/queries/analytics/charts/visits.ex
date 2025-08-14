@@ -1,38 +1,163 @@
 defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
-  @moduledoc false
+  @moduledoc """
+  Ecto-based queries for visit analytics per period.
 
-  defmacro __using__(_opts) do
-    quote do
-      import PhoenixAnalytics.Queries.Helpers
+  This module provides functions to generate Ecto queries for
+  analyzing visit patterns over time periods.
+  """
 
-      @table PhoenixAnalytics.Queries.Table.name()
-      @valid_intervals ~w(hour day month)s
+  import Ecto.Query
+  alias PhoenixAnalytics.Entities.RequestLog
+  alias PhoenixAnalytics.Queries.Helpers
 
-      def visits_per_period(from, to, interval \\ "day") when interval in @valid_intervals do
-        query =
-          """
-          WITH date_series AS (
-              SELECT unnest(range(
-                      (SELECT GREATEST(MIN(date_trunc('day', inserted_at)), TIMESTAMP '#{from}') FROM #{@table})::TIMESTAMP,
-                      TIMESTAMP '#{to}',
-                      INTERVAL 1 #{interval}
-                  )) AS period
-          )
-          SELECT
-            date_trunc('#{interval}', ds.period)::VARCHAR,
-            count(remote_ip),
-            count(DISTINCT remote_ip)
+  @valid_intervals ~w(hour day month year)
 
-          FROM date_series ds
+  @doc """
+  Gets visits per period for a given date range and interval.
+  """
+  def visits_per_period(from_date, to_date, interval \\ "day")
+      when interval in @valid_intervals do
+    # Build query with database-specific logic
+    database_type = PhoenixAnalytics.Services.Utility.database_type()
 
-          LEFT JOIN #{@table} ON datetrunc('#{interval}', inserted_at) = datetrunc('#{interval}', ds.period)
-          """ <>
-            exclude_non_page()
+    RequestLog
+    |> Helpers.exclude_non_page()
+    |> Helpers.filter_by_date(from_date, to_date)
+    |> apply_grouping_and_selection(database_type, interval)
+  end
 
-        tail = "GROUP BY ds.period ORDER BY ds.period;"
+  # Helper function to apply database-specific grouping and selection
+  defp apply_grouping_and_selection(query, :sqlite, interval) do
+    case interval do
+      "hour" ->
+        query
+        |> group_by([r], fragment("strftime('%Y-%m-%d %H:00:00', ?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("strftime('%Y-%m-%d %H:00:00', ?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("strftime('%Y-%m-%d %H:00:00', ?)", r.inserted_at))
 
-        query <> tail
-      end
+      "day" ->
+        query
+        |> group_by([r], fragment("DATE(?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE(?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE(?)", r.inserted_at))
+
+      "month" ->
+        query
+        |> group_by([r], fragment("strftime('%Y-%m', ?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("strftime('%Y-%m', ?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("strftime('%Y-%m', ?)", r.inserted_at))
+
+      "year" ->
+        query
+        |> group_by([r], fragment("strftime('%Y', ?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("strftime('%Y', ?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("strftime('%Y', ?)", r.inserted_at))
+    end
+  end
+
+  defp apply_grouping_and_selection(query, :mysql, interval) do
+    # MySQL version using DATE_FORMAT
+    case interval do
+      "hour" ->
+        query
+        |> group_by([r], fragment("DATE_FORMAT(?, '%Y-%m-%d %H:00:00')", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE_FORMAT(?, '%Y-%m-%d %H:00:00')", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE_FORMAT(?, '%Y-%m-%d %H:00:00')", r.inserted_at))
+
+      "day" ->
+        query
+        |> group_by([r], fragment("DATE(?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE(?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE(?)", r.inserted_at))
+
+      "month" ->
+        query
+        |> group_by([r], fragment("DATE_FORMAT(?, '%Y-%m')", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE_FORMAT(?, '%Y-%m')", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE_FORMAT(?, '%Y-%m')", r.inserted_at))
+
+      "year" ->
+        query
+        |> group_by([r], fragment("DATE_FORMAT(?, '%Y')", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE_FORMAT(?, '%Y')", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE_FORMAT(?, '%Y')", r.inserted_at))
+    end
+  end
+
+  defp apply_grouping_and_selection(query, _, interval) do
+    # PostgreSQL version using DATE_TRUNC
+    case interval do
+      "hour" ->
+        query
+        |> group_by([r], fragment("DATE_TRUNC('hour', ?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE_TRUNC('hour', ?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE_TRUNC('hour', ?)", r.inserted_at))
+
+      "day" ->
+        query
+        |> group_by([r], fragment("DATE(?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE(?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE(?)", r.inserted_at))
+
+      "month" ->
+        query
+        |> group_by([r], fragment("DATE_TRUNC('month', ?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE_TRUNC('month', ?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE_TRUNC('month', ?)", r.inserted_at))
+
+      "year" ->
+        query
+        |> group_by([r], fragment("DATE_TRUNC('year', ?)", r.inserted_at))
+        |> select([r], %{
+          date: fragment("DATE_TRUNC('year', ?)", r.inserted_at),
+          visits: count(r.request_id),
+          unique_visitors: count(r.remote_ip, :distinct)
+        })
+        |> order_by([r], fragment("DATE_TRUNC('year', ?)", r.inserted_at))
     end
   end
 end

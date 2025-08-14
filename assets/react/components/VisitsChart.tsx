@@ -35,11 +35,11 @@ const chartConfig = {
   visitors: {
     label: "Visitors",
   },
-  total: {
+  total_visits: {
     label: "Total",
     color: "hsl(var(--chart-1))",
   },
-  unique: {
+  unique_visits: {
     label: "Unique",
     color: "hsl(var(--chart-2))",
   },
@@ -117,24 +117,24 @@ export function VisitsChart({
               <linearGradient id="fillTotal" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-total)"
+                  stopColor="var(--color-total_visits)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-total)"
+                  stopColor="var(--color-total_visits)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
               <linearGradient id="fillUnique" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-unique)"
+                  stopColor="var(--color-unique_visits)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-unique)"
+                  stopColor="var(--color-unique_visits)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -172,17 +172,17 @@ export function VisitsChart({
               }
             />
             <Area
-              dataKey="total"
+              dataKey="total_visits"
               type="natural"
               fill="url(#fillTotal)"
-              stroke="var(--color-total)"
+              stroke="var(--color-total_visits)"
               stackId="a"
             />
             <Area
-              dataKey="unique"
+              dataKey="unique_visits"
               type="natural"
               fill="url(#fillUnique)"
-              stroke="var(--color-unique)"
+              stroke="var(--color-unique_visits)"
               stackId="b"
             />
             <ChartLegend content={<ChartLegendContent />} />

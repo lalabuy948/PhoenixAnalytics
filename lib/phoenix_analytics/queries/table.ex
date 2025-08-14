@@ -1,43 +1,55 @@
 defmodule PhoenixAnalytics.Queries.Table do
-  @moduledoc false
-  alias PhoenixAnalytics.Services.Utility
+  @moduledoc """
+  Ecto-based table operations for PhoenixAnalytics.
 
-  @db_alias "postgres_db"
-  @requests if Utility.mode() == :duck_postgres, do: "#{@db_alias}.requests", else: "requests"
+  This module provides functions for creating and managing database tables
+  using Ecto schemas and migrations instead of raw SQL.
+  """
 
-  def name() do
-    @requests
+  @doc """
+  Gets the table name for requests.
+  """
+  def name do
+    "requests"
   end
 
+  @doc """
+  Creates the requests table using Ecto schema.
+  This function is primarily for development/testing.
+  For production, use proper Ecto migrations.
+  """
   def create_requests do
-    query = """
-    CREATE TABLE IF NOT EXISTS #{@requests} (
-      request_id UUID PRIMARY KEY,
-      method VARCHAR NOT NULL,
-      path VARCHAR NOT NULL,
-      status_code SMALLINT NOT NULL,
+    # Use Ecto's schema to create the table
+    # For simplicity, always use PostgreSQL-compatible table creation
+    # The actual adapter will handle database-specific SQL translation
+    create_table_postgres()
+  end
+
+  @doc """
+  Drops the requests table.
+  """
+  def drop_requests do
+    "DROP TABLE IF EXISTS #{name()}"
+  end
+
+  # Private functions for database-specific table creation
+
+  defp create_table_postgres do
+    """
+    CREATE TABLE IF NOT EXISTS #{name()} (
+      request_id VARCHAR(255) PRIMARY KEY,
+      method VARCHAR(10) NOT NULL,
+      path TEXT NOT NULL,
+      status_code INTEGER NOT NULL,
       duration_ms INTEGER NOT NULL,
-      user_agent VARCHAR,
-      remote_ip VARCHAR,
-      referer VARCHAR,
-      device VARCHAR,
-      session_id UUID,
+      user_agent TEXT,
+      remote_ip VARCHAR(45),
+      referer TEXT,
+      device_type VARCHAR(20),
+      session_id VARCHAR(255),
       session_page_views INTEGER,
       inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """
-
-    query
-  end
-
-  def drop_requests do
-    query = "DROP TABLE IF EXISTS #{@requests};"
-
-    query
-  end
-
-  def attach_postgres do
-    postgres_conn = Application.fetch_env!(:phoenix_analytics, :postgres_conn)
-    "ATTACH '#{postgres_conn}' AS #{@db_alias} (TYPE POSTGRES);"
   end
 end

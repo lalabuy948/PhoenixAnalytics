@@ -61,15 +61,20 @@ defmodule PhoenixAnalytics.MixProject do
     [
       {:plug, "~> 1.16"},
       {:cachex, "~> 4.0"},
-      {:duckdbex, "0.3.7"},
+      {:ecto, "~> 3.10"},
+      {:ecto_sql, "~> 3.10"},
       {:telemetry, "~> 1.2"},
-      {:live_react, "~> 0.1"},
+      {:live_react, "~> 1.1"},
       {:elixir_uuid, "~> 1.2"},
-      {:phoenix_live_view, "~> 1.0.0-rc.1 or ~> 1.0"},
+      {:phoenix_live_view, "~> 1.1"},
       # --- dev deps ---
       {:ex_doc, "~> 0.33", only: :dev},
       {:esbuild, "~> 0.8", only: :dev, runtime: false},
-      {:tailwind, "~> 0.1", only: :dev, runtime: false}
+      {:tailwind, "~> 0.1", only: :dev, runtime: false},
+      # Database adapters for development and testing (optional)
+      {:postgrex, "~> 0.17", only: [:dev, :test], optional: true},
+      {:ecto_sqlite3, "~> 0.12", only: [:dev, :test], optional: true},
+      {:myxql, "~> 0.6", only: [:dev, :test], optional: true}
     ]
   end
 

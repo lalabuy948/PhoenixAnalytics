@@ -1,26 +1,33 @@
 defmodule PhoenixAnalytics.Migration do
   @moduledoc false
 
-  alias PhoenixAnalytics.Queries
-  alias PhoenixAnalytics.Services.Bridge
-
-  @db_path Application.compile_env(:phoenix_analytics, :duckdb_path) ||
-             System.get_env("DUCKDB_PATH")
-  @in_memory Application.compile_env(:phoenix_analytics, :in_memory) ||
-               System.get_env("DUCKDB_IN_MEMORY")
-
+  @doc """
+  Creates the requests table using Ecto migrations.
+  """
   def up do
-    {:ok, db} = open_duckdb()
-    {:ok, conn} = Duckdbex.connection(db)
+    # Create the table using Ecto
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS requests (
+      request_id VARCHAR(255) PRIMARY KEY,
+      method VARCHAR(10) NOT NULL,
+      path TEXT NOT NULL,
+      status_code INTEGER NOT NULL,
+      duration_ms INTEGER NOT NULL,
+      user_agent TEXT,
+      remote_ip VARCHAR(45),
+      referer TEXT,
+      device_type VARCHAR(20),
+      session_id VARCHAR(255),
+      session_page_views INTEGER,
+      inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    """
 
-    Bridge.attach_postgres(db, conn)
-
-    query = Queries.Table.create_requests()
-
-    case Duckdbex.query(conn, query) do
-      {:ok, result} ->
+    repo = PhoenixAnalytics.Config.get_repo()
+    case repo.query(create_table_query) do
+      {:ok, _result} ->
         IO.puts("Migration applied: requests table created")
-        {:ok, result}
+        {:ok, "Table created successfully"}
 
       {:error, reason} ->
         IO.puts("Failed to apply migration: #{reason}")
@@ -28,18 +35,17 @@ defmodule PhoenixAnalytics.Migration do
     end
   end
 
+  @doc """
+  Drops the requests table.
+  """
   def down do
-    {:ok, db} = open_duckdb()
-    {:ok, conn} = Duckdbex.connection(db)
+    drop_table_query = "DROP TABLE IF EXISTS requests;"
 
-    Bridge.attach_postgres(db, conn)
-
-    query = Queries.Table.drop_requests()
-
-    case Duckdbex.query(conn, query) do
-      {:ok, result} ->
+    repo = PhoenixAnalytics.Config.get_repo()
+    case repo.query(drop_table_query) do
+      {:ok, _result} ->
         IO.puts("Migration rolled back: requests table dropped")
-        {:ok, result}
+        {:ok, "Table dropped successfully"}
 
       {:error, reason} ->
         IO.puts("Failed to roll back migration: #{reason}")
@@ -47,10 +53,12 @@ defmodule PhoenixAnalytics.Migration do
     end
   end
 
-  defp open_duckdb() do
-    case @in_memory do
-      true -> Duckdbex.open()
-      _ -> Duckdbex.open(@db_path)
-    end
+  @doc """
+  Creates the requests table using Ecto schema.
+  """
+  def create_table_ecto do
+    # This would be used if you want to use Ecto's create table functionality
+    # For now, we'll use raw SQL for better database compatibility
+    up()
   end
 end

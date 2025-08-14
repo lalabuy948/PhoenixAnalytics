@@ -82,13 +82,20 @@ defmodule SeedData do
   end
 
   defp random_inserted_at do
-    random_seconds = :rand.uniform(360 * 24 * 60 * 60)
+    current_year = Date.utc_today().year
+    year_start = Date.new!(current_year, 1, 1)
+    year_end = Date.new!(current_year, 12, 31)
+    days_in_year = Date.diff(year_end, year_start) + 1
 
-    NaiveDateTime.utc_now()
-    |> NaiveDateTime.add(-random_seconds, :second)
-    |> NaiveDateTime.truncate(:millisecond)
-    |> NaiveDateTime.to_string()
-    |> String.replace("T", " ")
+    # Generate random date within current year
+    random_day_offset = :rand.uniform(days_in_year) - 1
+    random_date = Date.add(year_start, random_day_offset)
+
+    random_hour = :rand.uniform(24) - 1
+    random_minute = :rand.uniform(60) - 1
+    random_second = :rand.uniform(60) - 1
+
+    NaiveDateTime.new!(random_date, Time.new!(random_hour, random_minute, random_second))
   end
 
   def prepare_values(request_data) do
