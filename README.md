@@ -178,3 +178,7 @@ Script can be found here: `vegeta/vegeta.sh`
 
 - [error-tracker](https://github.com/elixir-error-tracker/error-tracker)
 - [plausible.io](https://plausible.io)
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lalabuy948/PhoenixAnalytics&type=Timeline)](https://www.star-history.com/#lalabuy948/PhoenixAnalytics&Timeline)
