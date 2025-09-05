@@ -138,7 +138,7 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
     end
   end
 
-  defp generate_uuid, do: "2e91daa7-e9cd-454c-8111-97e8f16ff857"
+  defp generate_uuid, do: Utility.uuid()
 
   defp hash_ip(ip), do: :erlang.phash2(ip, 1_000_000) |> Integer.to_string()
 
