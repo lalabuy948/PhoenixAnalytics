@@ -63,8 +63,6 @@ defmodule PhoenixAnalytics.Services.Batcher do
   @doc false
   @impl true
   def init(_state) do
-    require Logger
-    Logger.info("Batcher GenServer starting/restarting")
     PubSub.subscribe()
 
     :timer.send_interval(@timeout, :check_batch)
@@ -74,13 +72,9 @@ defmodule PhoenixAnalytics.Services.Batcher do
   @doc false
   @impl true
   def handle_cast({:insert, request_log}, state) do
-    require Logger
-    Logger.info("Batcher adding to batch: #{request_log.request_id}, current batch size: #{length(state.batch)}")
-
     new_batch = [request_log | state.batch]
 
     if length(new_batch) >= @batch_size do
-      Logger.info("Batcher sending batch of #{length(new_batch)} items")
       send_batch(new_batch)
 
       {:noreply, %{state | batch: [], last_insert_time: :os.system_time(:millisecond)}}
@@ -92,8 +86,6 @@ defmodule PhoenixAnalytics.Services.Batcher do
   @doc false
   @impl true
   def handle_info({:request_sent, request_log}, state) do
-    require Logger
-    Logger.info("Batcher received PubSub message for request_id: #{request_log.request_id}")
     GenServer.cast(__MODULE__, {:insert, request_log})
     {:noreply, state}
   end
@@ -127,7 +119,6 @@ defmodule PhoenixAnalytics.Services.Batcher do
   def send_batch([]), do: []
 
   def send_batch(batch) do
-    require Logger
     repo = PhoenixAnalytics.Config.get_repo()
 
     # Convert structs to maps for insert_all
@@ -141,18 +132,6 @@ defmodule PhoenixAnalytics.Services.Batcher do
         |> Map.put(:inserted_at, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
       end)
 
-    request_ids = Enum.map(data, & &1.request_id)
-    Logger.info("Attempting to insert batch with request_ids: #{inspect(request_ids)}")
-
-    try do
-      result = repo.insert_all(PhoenixAnalytics.Entities.RequestLog, data, returning: false)
-      Logger.info("Batch insert successful: #{inspect(result)}")
-      result
-    rescue
-      error ->
-        Logger.error("Batch insert failed: #{inspect(error)}")
-        Logger.error("Failed request_ids: #{inspect(request_ids)}")
-        reraise error, __STACKTRACE__
-    end
+    repo.insert_all(PhoenixAnalytics.Entities.RequestLog, data, returning: false)
   end
 end
