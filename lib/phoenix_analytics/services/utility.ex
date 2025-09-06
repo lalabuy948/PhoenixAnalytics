@@ -81,7 +81,7 @@ defmodule PhoenixAnalytics.Services.Utility do
 
   Returns a string representation of the UUID.
   """
-  def uuid, do: UUID.uuid4()
+  def uuid, do: UUIDv7.generate()
 
   @doc """
   Determines the current database type based on configuration.

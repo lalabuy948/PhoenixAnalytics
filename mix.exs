@@ -65,7 +65,7 @@ defmodule PhoenixAnalytics.MixProject do
       {:ecto_sql, "~> 3.10"},
       {:telemetry, "~> 1.2"},
       {:live_react, "~> 1.1"},
-      {:elixir_uuid, "~> 1.2"},
+      {:uuidv7, "~> 1.0"},
       {:phoenix_live_view, "~> 1.1"},
       # --- dev deps ---
       {:ex_doc, "~> 0.33", only: :dev},

@@ -52,7 +52,7 @@ defmodule SeedData do
 
   def generate_request_data do
     %PhoenixAnalytics.Entities.RequestLog{
-      request_id: UUID.uuid4(),
+      request_id: Utility.uuid(),
       method: Enum.random(@methods),
       path: Enum.random(@paths),
       status_code: Enum.random([200, 201, 400, 401, 403, 404, 500, 301, 302]),
@@ -61,7 +61,7 @@ defmodule SeedData do
       remote_ip: Enum.random(generate_random_ips()),
       referer: Enum.random(@referers),
       device_type: Utility.get_device_type(Enum.random(@user_agents)),
-      session_id: UUID.uuid4(),
+      session_id: Utility.uuid(),
       session_page_views: if(:rand.uniform() < 0.9, do: 1, else: :rand.uniform(5) + 1),
       inserted_at: random_inserted_at()
     }
@@ -100,7 +100,7 @@ defmodule SeedData do
 
   def prepare_values(request_data) do
     values = [
-      UUID.uuid4(),
+      Utility.uuid(),
       request_data.method,
       request_data.path,
       request_data.status_code,
