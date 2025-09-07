@@ -65,8 +65,6 @@ defmodule PhoenixAnalytics.Services.PubSub do
   This function sends the provided event to all processes that have subscribed to the request topic.
   It's typically used to distribute information about new requests.
 
-  In case of Postgres backend local broadcast is used to avoid any data duplication across nodes.
-
   ## Parameters
 
     - event: A `PhoenixAnalytics.Entities.RequestLog` struct representing the event to be broadcasted.
@@ -87,7 +85,7 @@ defmodule PhoenixAnalytics.Services.PubSub do
   """
   @spec broadcast(PhoenixAnalytics.Entities.RequestLog.t()) :: :ok | {:error, term()}
   def broadcast(event) do
-    # Always use distributed broadcast for consistency
-    PubSub.broadcast(@pubsub, @topic, {:request_sent, event})
+    # Use local broadcast to avoid data duplication across nodes
+    PubSub.local_broadcast(@pubsub, @topic, {:request_sent, event})
   end
 end
