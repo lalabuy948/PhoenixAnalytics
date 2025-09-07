@@ -88,6 +88,6 @@ defmodule PhoenixAnalytics.Services.PubSub do
   @spec broadcast(PhoenixAnalytics.Entities.RequestLog.t()) :: :ok | {:error, term()}
   def broadcast(event) do
     # Always use distributed broadcast for consistency
-    PubSub.broadcast(@pubsub, @topic, {:request_sent, event})
+    PubSub.local_broadcast(@pubsub, @topic, {:request_sent, event})
   end
 end
