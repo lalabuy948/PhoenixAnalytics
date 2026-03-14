@@ -54,6 +54,12 @@ defmodule PhoenixPostgresWeb.Layouts do
             <.theme_toggle />
           </li>
           <li>
+            <a href="/dev/analytics" class="btn btn-ghost">Analytics</a>
+          </li>
+          <li>
+            <a href="/dev/analytics-embedded" class="btn btn-ghost">Analytics (embedded)</a>
+          </li>
+          <li>
             <a href="https://hexdocs.pm/phoenix/overview.html" class="btn btn-primary">
               Get Started <span aria-hidden="true">&rarr;</span>
             </a>

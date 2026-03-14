@@ -19,6 +19,7 @@ defmodule PhoenixAnalytics.Web.Router do
   ### Options:
     - :as - The name for the live session (default: :phoenix_analytics_dashboard)
     - :on_mount - Additional mount hooks to be executed (default: [])
+    - :root_layout - Custom root layout tuple (default: {PhoenixAnalytics.Web.Layouts, :root})
 
   ### Usage:
   ```elixir
@@ -51,9 +52,12 @@ defmodule PhoenixAnalytics.Web.Router do
 
       session_name = Keyword.get(opts, :as, :phoenix_analytics_dashboard)
 
+      root_layout =
+        Keyword.get(opts, :root_layout, {PhoenixAnalytics.Web.Layouts, :root})
+
       session_opts = [
         on_mount: on_mount,
-        root_layout: {PhoenixAnalytics.Web.Layouts, :root}
+        root_layout: root_layout
       ]
 
       scope path, alias: false, as: false do
