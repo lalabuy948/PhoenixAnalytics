@@ -41,7 +41,13 @@ defmodule PhoenixSqliteWeb.Router do
 
       live_dashboard "/dashboard", metrics: PhoenixSqliteWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
+      # Default standalone layout
       phoenix_analytics_dashboard "/analytics"
+
+      # Custom layout example: wraps the dashboard in the host app's layout
+      phoenix_analytics_dashboard "/analytics-embedded",
+        as: :phoenix_analytics_embedded,
+        root_layout: {PhoenixSqliteWeb.Layouts, :analytics_root}
     end
   end
 end

@@ -42,7 +42,13 @@ defmodule PhoenixPostgresWeb.Router do
       live_dashboard "/dashboard", metrics: PhoenixPostgresWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
 
+      # Default standalone layout
       phoenix_analytics_dashboard "/analytics"
+
+      # Custom layout example: wraps the dashboard in the host app's layout
+      phoenix_analytics_dashboard "/analytics-embedded",
+        as: :phoenix_analytics_embedded,
+        root_layout: {PhoenixPostgresWeb.Layouts, :analytics_root}
     end
   end
 end
