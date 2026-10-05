@@ -1,6 +1,3 @@
-/* ponytail: theme(inline) bakes theme values into utilities instead of
-   declaring them on :root, so the inlined CSS can't override a host app's
-   own Tailwind theme (analytics_head/1). */
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme) theme(inline);
 @import "tailwindcss/preflight.css" layer(base);
@@ -22,9 +19,7 @@
 }
 
 /* Scoped to the dashboard wrapper (data-theme in app.html.heex) so it never
-   touches a host app's own daisyUI theme when inlined via analytics_head/1.
-   ponytail: single daisyUI theme that reads the shadcn tokens below, so
-   daisyUI components follow dark mode and the ColorSelector themes for free. */
+   touches a host app's own daisyUI theme when inlined via analytics_head/1. */
 @plugin "../vendor/daisyui-theme" {
   name: "phoenix-analytics";
   default: false;
