@@ -40,7 +40,6 @@ defmodule PhoenixAnalytics.Web do
       use Phoenix.Component
 
       import Phoenix.HTML
-      import Phoenix.LiveView.Helpers
       import PhoenixAnalytics.Web.CoreComponents
 
       import LiveReact
