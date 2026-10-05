@@ -35,7 +35,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Popular do
   """
   def popular_referer(from_date, to_date) do
     app_domain = PhoenixAnalytics.Config.get_app_domain()
-    
+
     RequestLog
     |> Helpers.filter_external_referrers(app_domain)
     |> Helpers.filter_by_date(from_date, to_date)

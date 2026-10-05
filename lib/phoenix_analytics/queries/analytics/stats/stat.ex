@@ -68,14 +68,14 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
           |> Helpers.filter_by_date(from_date, to_date)
           |> group_by([r], r.session_id)
           |> select([r], %{
-              session_id: r.session_id,
-              duration:
-                fragment(
-                  "(julianday(MAX(?)) - julianday(MIN(?))) * 24 * 60 * 60 * 1000",
-                  r.inserted_at,
-                  r.inserted_at
-                )
-            })
+            session_id: r.session_id,
+            duration:
+              fragment(
+                "(julianday(MAX(?)) - julianday(MIN(?))) * 24 * 60 * 60 * 1000",
+                r.inserted_at,
+                r.inserted_at
+              )
+          })
 
         :mysql ->
           # MySQL version using TIMESTAMPDIFF
@@ -83,14 +83,14 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
           |> Helpers.filter_by_date(from_date, to_date)
           |> group_by([r], r.session_id)
           |> select([r], %{
-              session_id: r.session_id,
-              duration:
-                fragment(
-                  "TIMESTAMPDIFF(MICROSECOND, MIN(?), MAX(?)) / 1000",
-                  r.inserted_at,
-                  r.inserted_at
-                )
-            })
+            session_id: r.session_id,
+            duration:
+              fragment(
+                "TIMESTAMPDIFF(MICROSECOND, MIN(?), MAX(?)) / 1000",
+                r.inserted_at,
+                r.inserted_at
+              )
+          })
 
         _ ->
           # PostgreSQL version using EXTRACT
@@ -98,14 +98,14 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
           |> Helpers.filter_by_date(from_date, to_date)
           |> group_by([r], r.session_id)
           |> select([r], %{
-              session_id: r.session_id,
-              duration:
-                fragment(
-                  "EXTRACT(EPOCH FROM (MAX(?) - MIN(?))) * 1000",
-                  r.inserted_at,
-                  r.inserted_at
-                )
-            })
+            session_id: r.session_id,
+            duration:
+              fragment(
+                "EXTRACT(EPOCH FROM (MAX(?) - MIN(?))) * 1000",
+                r.inserted_at,
+                r.inserted_at
+              )
+          })
       end
 
     from(sd in subquery(session_durations),
@@ -123,9 +123,9 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
       |> Helpers.filter_by_date(from_date, to_date)
       |> group_by([r], r.session_id)
       |> select([r], %{
-          session_id: r.session_id,
-          page_views: max(r.session_page_views)
-        })
+        session_id: r.session_id,
+        page_views: max(r.session_page_views)
+      })
 
     from(ss in subquery(session_stats),
       select: %{

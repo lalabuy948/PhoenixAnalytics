@@ -96,11 +96,17 @@ defmodule PhoenixAnalytics.Queries.Helpers do
     # Convert Date to NaiveDateTime if needed
     naive_from_date =
       case from_date do
-        %Date{} -> NaiveDateTime.new!(from_date, ~T[00:00:00])
-        %NaiveDateTime{} -> from_date
+        %Date{} ->
+          NaiveDateTime.new!(from_date, ~T[00:00:00])
+
+        %NaiveDateTime{} ->
+          from_date
+
         date_string when is_binary(date_string) ->
           case NaiveDateTime.from_iso8601(date_string) do
-            {:ok, naive_dt} -> naive_dt
+            {:ok, naive_dt} ->
+              naive_dt
+
             {:error, _} ->
               # Try parsing as date only first, then add time
               case Date.from_iso8601(String.slice(date_string, 0, 10)) do
@@ -108,7 +114,9 @@ defmodule PhoenixAnalytics.Queries.Helpers do
                 {:error, _} -> from_date
               end
           end
-        _ -> from_date
+
+        _ ->
+          from_date
       end
 
     from(r in query, where: r.inserted_at >= ^naive_from_date)
@@ -120,11 +128,17 @@ defmodule PhoenixAnalytics.Queries.Helpers do
     # Convert Date to NaiveDateTime if needed
     naive_to_date =
       case to_date do
-        %Date{} -> NaiveDateTime.new!(to_date, ~T[23:59:59])
-        %NaiveDateTime{} -> to_date
+        %Date{} ->
+          NaiveDateTime.new!(to_date, ~T[23:59:59])
+
+        %NaiveDateTime{} ->
+          to_date
+
         date_string when is_binary(date_string) ->
           case NaiveDateTime.from_iso8601(date_string) do
-            {:ok, naive_dt} -> naive_dt
+            {:ok, naive_dt} ->
+              naive_dt
+
             {:error, _} ->
               # Try parsing as date only first, then add time
               case Date.from_iso8601(String.slice(date_string, 0, 10)) do
@@ -132,11 +146,11 @@ defmodule PhoenixAnalytics.Queries.Helpers do
                 {:error, _} -> to_date
               end
           end
-        _ -> to_date
+
+        _ ->
+          to_date
       end
 
     from(r in query, where: r.inserted_at <= ^naive_to_date)
   end
-
-
 end
