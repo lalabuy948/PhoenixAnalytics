@@ -6,8 +6,8 @@ defmodule PhoenixAnalytics.Web.Live.Components.Header do
   @impl true
   def render(assigns) do
     ~H"""
-    <header class="mx-auto py-20 max-w-screen-lg">
-      <div class="flex items-center justify-between border-b border-zinc-100 gap-2 px-4 py-2 sm:px-6 lg:px-2 text-sm">
+    <header class="mx-auto py-20 max-w-5xl">
+      <div class="flex items-center justify-between border-b border-border gap-2 px-4 py-2 sm:px-6 lg:px-2 text-sm">
         <%!-- Left side of navbar --%>
         <div class="flex items-center gap-2">
           <a href="https://github.com/lalabuy948/PhoenixAnalytics">
@@ -28,7 +28,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.Header do
             </svg>
           </a>
           <a href="https://github.com/lalabuy948/PhoenixAnalytics" class="hidden sm:block">
-            <p class="bg-brand/5 text-brand rounded-full font-medium">
+            <p class="font-medium">
               phoenix analytics
             </p>
           </a>

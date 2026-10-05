@@ -38,6 +38,8 @@ def deps do
 end
 ```
 
+The dashboard is styled with Tailwind CSS v4 and daisyUI 5, so it needs a modern browser (Safari 16.4+, Chrome 111+, Firefox 128+).
+
 ### Configuration
 
 Phoenix Analytics uses your existing Ecto repository, making setup incredibly simple:

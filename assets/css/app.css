@@ -1,6 +1,127 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ponytail: theme(inline) bakes theme values into utilities instead of
+   declaring them on :root, so the inlined CSS can't override a host app's
+   own Tailwind theme (analytics_head/1). */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme) theme(inline);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "../js";
+@source "../react";
+@source "../../lib/phoenix_analytics/web";
+
+@plugin "tailwindcss-animate";
+
+/* daisyUI Tailwind Plugin. Update with:
+   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.js
+   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js */
+@plugin "../vendor/daisyui" {
+  themes: false;
+  include: alert, toast, loading;
+  /* keep daisyUI off the host page's :root when inlined via analytics_head/1 */
+  exclude: rootcolor, rootscrollgutter, rootscrolllock, scrollbar;
+}
+
+/* Scoped to the dashboard wrapper (data-theme in app.html.heex) so it never
+   touches a host app's own daisyUI theme when inlined via analytics_head/1.
+   ponytail: single daisyUI theme that reads the shadcn tokens below, so
+   daisyUI components follow dark mode and the ColorSelector themes for free. */
+@plugin "../vendor/daisyui-theme" {
+  name: "phoenix-analytics";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+  --color-base-100: hsl(var(--background));
+  --color-base-200: hsl(var(--muted));
+  --color-base-300: hsl(var(--border-hsl));
+  --color-base-content: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-content: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-content: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-content: hsl(var(--accent-foreground));
+  --color-neutral: hsl(var(--foreground));
+  --color-neutral-content: hsl(var(--background));
+  --color-info: hsl(var(--primary));
+  --color-info-content: hsl(var(--primary-foreground));
+  --color-success: oklch(70% 0.14 182.503);
+  --color-success-content: oklch(98% 0.014 180.72);
+  --color-warning: oklch(66% 0.179 58.318);
+  --color-warning-content: oklch(98% 0.022 95.277);
+  --color-error: hsl(var(--destructive));
+  --color-error-content: hsl(var(--destructive-foreground));
+  --radius-selector: calc(var(--radius) - 4px);
+  --radius-field: calc(var(--radius) - 2px);
+  --radius-box: var(--radius);
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Add variants based on LiveView classes */
+@custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
+@custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
+@custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
+
+.dark [data-theme="phoenix-analytics"] { color-scheme: dark; }
+
+/* Dark mode is toggled by the `dark` class on <html> (see ThemeToggle) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-border: hsl(var(--border-hsl));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
 
 @layer base {
     :root {
@@ -20,7 +141,7 @@
         --accent-foreground: 222.2 47.4% 11.2%;
         --destructive: 0 72% 51%;
         --destructive-foreground: 210 40% 98%;
-        --border: 214.3 31.8% 91.4%;
+        --border-hsl: 214.3 31.8% 91.4%;
         --input: 214.3 31.8% 91.4%;
         --ring: 221.2 83.2% 53.3%;
         --radius: 0.5rem;
@@ -49,7 +170,7 @@
         --accent-foreground: 0 0% 98%;
         --destructive: 0 72% 51%;
         --destructive-foreground: 210 40% 98%;
-        --border: 240 3.7% 15.9%;
+        --border-hsl: 240 3.7% 15.9%;
         --input: 240 3.7% 15.9%;
         --ring: 221.2 83.2% 53.3%;
 
