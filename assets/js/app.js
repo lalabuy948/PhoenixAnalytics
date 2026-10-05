@@ -29,28 +29,50 @@ const hooks = {
   ...getHooks(components),
 };
 
-let csrfToken = document
-  .querySelector("meta[name='csrf-token']")
-  .getAttribute("content");
-let liveSocket = new LiveSocket("/live", Socket, {
-  longPollFallbackMs: 2500,
-  params: { _csrf_token: csrfToken },
-  hooks: hooks,
-});
+// When the dashboard is rendered inside a host app's root layout (the
+// `:root_layout` option + `analytics_head/1`), the host's own app.js usually
+// starts a LiveSocket too. Two sockets can't bind the same LiveView, so in that
+// case we register our hooks on the host's socket instead of starting our own.
+// LiveView looks hooks up when they mount (after the join reply), so adding
+// them once the host socket exists is early enough.
+const startLiveSocket = () => {
+  const hostSocket = window.liveSocket;
+  if (hostSocket && hostSocket.hooks) {
+    Object.assign(hostSocket.hooks, hooks);
+    return;
+  }
 
-// Show progress bar on live navigation and form submits
-topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
-window.addEventListener("phx:page-loading-start", (_info) => topbar.show(300));
-window.addEventListener("phx:page-loading-stop", (_info) => topbar.hide());
+  let csrfToken = document
+    .querySelector("meta[name='csrf-token']")
+    .getAttribute("content");
+  let liveSocket = new LiveSocket("/live", Socket, {
+    longPollFallbackMs: 2500,
+    params: { _csrf_token: csrfToken },
+    hooks: hooks,
+  });
 
-// connect if there are any LiveViews on the page
-liveSocket.connect();
+  // Show progress bar on live navigation and form submits
+  topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
+  window.addEventListener("phx:page-loading-start", (_info) => topbar.show(300));
+  window.addEventListener("phx:page-loading-stop", (_info) => topbar.hide());
 
-// expose liveSocket on window for web console debug logs and latency simulation:
-// >> liveSocket.enableDebug()
-// >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
-// >> liveSocket.disableLatencySim()
-window.liveSocket = liveSocket;
+  // connect if there are any LiveViews on the page
+  liveSocket.connect();
+
+  // expose liveSocket on window for web console debug logs and latency simulation:
+  // >> liveSocket.enableDebug()
+  // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
+  // >> liveSocket.disableLatencySim()
+  window.liveSocket = liveSocket;
+};
+
+// Host scripts placed after analytics_head/1 (plain or `defer`) run before
+// DOMContentLoaded, so waiting for it lets a host socket show up first.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startLiveSocket);
+} else {
+  startLiveSocket();
+}
 
 const getThemePreference = () => {
   if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {

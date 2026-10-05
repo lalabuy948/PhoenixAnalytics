@@ -1,7 +1,7 @@
 defmodule PhoenixAnalyticsTest do
   use ExUnit.Case
   doctest PhoenixAnalytics
-  
+
   alias PhoenixAnalytics.Entities.RequestLog
   alias PhoenixAnalytics.Queries.Analytics
 
@@ -19,9 +19,9 @@ defmodule PhoenixAnalyticsTest do
       pool_size: 1,
       log: false
     ]
-    
+
     {:ok, _} = TestRepo.start_link(config)
-    
+
     # Configure the application to use our test repo
     Application.put_all_env(
       phoenix_analytics: [
@@ -62,10 +62,10 @@ defmodule PhoenixAnalyticsTest do
   defp create_test_fixtures do
     # Define specific test dates for predictable results
     today = ~N[2025-01-15 12:00:00]
-    yesterday = ~N[2025-01-14 12:00:00] 
+    yesterday = ~N[2025-01-14 12:00:00]
     last_month = ~N[2024-12-15 12:00:00]
     last_year = ~N[2024-01-15 12:00:00]
-    
+
     fixtures = [
       # Today: 3 records, 2 unique visitors, 2 sessions
       %{
@@ -83,14 +83,14 @@ defmodule PhoenixAnalyticsTest do
         inserted_at: today
       },
       %{
-        request_id: "req_today_2", 
+        request_id: "req_today_2",
         method: "GET",
         path: "/about",
         status_code: 200,
         duration_ms: 150,
         user_agent: "Mozilla/5.0",
         remote_ip: "192.168.1.1",
-        referer: "https://google.com", 
+        referer: "https://google.com",
         device_type: "desktop",
         session_id: "session_1",
         session_page_views: 2,
@@ -98,7 +98,7 @@ defmodule PhoenixAnalyticsTest do
       },
       %{
         request_id: "req_today_3",
-        method: "GET", 
+        method: "GET",
         path: "/contact",
         status_code: 200,
         duration_ms: 120,
@@ -106,11 +106,11 @@ defmodule PhoenixAnalyticsTest do
         remote_ip: "192.168.1.2",
         referer: "https://facebook.com",
         device_type: "mobile",
-        session_id: "session_2", 
+        session_id: "session_2",
         session_page_views: 1,
         inserted_at: today
       },
-      
+
       # Yesterday: 2 records, 1 unique visitor, 1 session
       %{
         request_id: "req_yesterday_1",
@@ -129,18 +129,18 @@ defmodule PhoenixAnalyticsTest do
       %{
         request_id: "req_yesterday_2",
         method: "GET",
-        path: "/services", 
+        path: "/services",
         status_code: 404,
         duration_ms: 50,
         user_agent: "Chrome/91.0",
         remote_ip: "192.168.1.3",
         referer: "https://twitter.com",
-        device_type: "desktop", 
+        device_type: "desktop",
         session_id: "session_3",
         session_page_views: 2,
         inserted_at: yesterday
       },
-      
+
       # Last month: 1 record, 1 unique visitor, 1 session
       %{
         request_id: "req_last_month_1",
@@ -149,14 +149,14 @@ defmodule PhoenixAnalyticsTest do
         status_code: 201,
         duration_ms: 300,
         user_agent: "curl/7.68.0",
-        remote_ip: "192.168.1.4", 
+        remote_ip: "192.168.1.4",
         referer: nil,
         device_type: "unknown",
         session_id: "session_4",
         session_page_views: 1,
         inserted_at: last_month
       },
-      
+
       # Last year: 1 record, 1 unique visitor, 1 session
       %{
         request_id: "req_last_year_1",
@@ -168,23 +168,25 @@ defmodule PhoenixAnalyticsTest do
         remote_ip: "192.168.1.5",
         referer: "https://github.com",
         device_type: "desktop",
-        session_id: "session_5", 
+        session_id: "session_5",
         session_page_views: 1,
         inserted_at: last_year
       }
     ]
 
     TestRepo.insert_all(RequestLog, fixtures)
-    
+
     %{
       today: today,
-      yesterday: yesterday, 
+      yesterday: yesterday,
       last_month: last_month,
       last_year: last_year,
       expected: %{
         today: %{requests: 3, unique_visitors: 2, sessions: 2, pageviews: 3, visits: 3},
-        yesterday: %{requests: 2, unique_visitors: 1, sessions: 1, pageviews: 1, visits: 2}, # visits count all requests
-        last_month: %{requests: 1, unique_visitors: 1, sessions: 1, pageviews: 0, visits: 1}, # 1 visit (POST included in visits)
+        # visits count all requests
+        yesterday: %{requests: 2, unique_visitors: 1, sessions: 1, pageviews: 1, visits: 2},
+        # 1 visit (POST included in visits)
+        last_month: %{requests: 1, unique_visitors: 1, sessions: 1, pageviews: 0, visits: 1},
         last_year: %{requests: 1, unique_visitors: 1, sessions: 1, pageviews: 1, visits: 1}
       }
     }
@@ -193,21 +195,21 @@ defmodule PhoenixAnalyticsTest do
   describe "Daily Analytics Queries" do
     test "unique visitors - today vs yesterday" do
       fixtures = create_test_fixtures()
-      
+
       # Test today
       today_start = NaiveDateTime.to_date(fixtures.today)
       today_end = today_start
       query = Analytics.unique_visitors(today_start, today_end)
       result = TestRepo.one(query)
       assert result == fixtures.expected.today.unique_visitors
-      
+
       # Test yesterday  
       yesterday_start = NaiveDateTime.to_date(fixtures.yesterday)
       yesterday_end = yesterday_start
       query = Analytics.unique_visitors(yesterday_start, yesterday_end)
       result = TestRepo.one(query)
       assert result == fixtures.expected.yesterday.unique_visitors
-      
+
       # Test empty day (should return 0)
       empty_day = ~D[2025-01-01]
       query = Analytics.unique_visitors(empty_day, empty_day)
@@ -217,21 +219,21 @@ defmodule PhoenixAnalyticsTest do
 
     test "total requests - today vs yesterday" do
       fixtures = create_test_fixtures()
-      
+
       # Test today
       today_start = NaiveDateTime.to_date(fixtures.today)
-      today_end = today_start  
+      today_end = today_start
       query = Analytics.total_requests(today_start, today_end)
       result = TestRepo.one(query)
       assert result == fixtures.expected.today.requests
-      
+
       # Test yesterday
-      yesterday_start = NaiveDateTime.to_date(fixtures.yesterday) 
+      yesterday_start = NaiveDateTime.to_date(fixtures.yesterday)
       yesterday_end = yesterday_start
       query = Analytics.total_requests(yesterday_start, yesterday_end)
       result = TestRepo.one(query)
       assert result == fixtures.expected.yesterday.requests
-      
+
       # Test empty day (should return 0)
       empty_day = ~D[2025-01-01]
       query = Analytics.total_requests(empty_day, empty_day)
@@ -241,23 +243,23 @@ defmodule PhoenixAnalyticsTest do
 
     test "total pageviews - today vs yesterday" do
       fixtures = create_test_fixtures()
-      
+
       # Test today (3 GET requests, all successful)
       today_start = NaiveDateTime.to_date(fixtures.today)
       today_end = today_start
       query = Analytics.total_pageviews(today_start, today_end)
       result = TestRepo.one(query)
       assert result == fixtures.expected.today.pageviews
-      
+
       # Test yesterday (1 successful GET, 1 404 GET - only count successful)
       yesterday_start = NaiveDateTime.to_date(fixtures.yesterday)
       yesterday_end = yesterday_start
       query = Analytics.total_pageviews(yesterday_start, yesterday_end)
       result = TestRepo.one(query)
       assert result == fixtures.expected.yesterday.pageviews
-      
+
       # Test empty day (should return 0)
-      empty_day = ~D[2025-01-01] 
+      empty_day = ~D[2025-01-01]
       query = Analytics.total_pageviews(empty_day, empty_day)
       result = TestRepo.one(query)
       assert result == 0
@@ -267,108 +269,118 @@ defmodule PhoenixAnalyticsTest do
   describe "Time Period Analytics Queries" do
     test "visits per period - day interval" do
       fixtures = create_test_fixtures()
-      
+
       # Test week range that includes our test days
       week_start = ~D[2025-01-14]
-      week_end = ~D[2025-01-15] 
+      week_end = ~D[2025-01-15]
       query = Analytics.visits_per_period(week_start, week_end, "day")
       results = TestRepo.all(query)
-      
+
       # Should return data for both days
       assert length(results) == 2
-      
+
       # Find results by date
       today_result = Enum.find(results, &(&1.date == "2025-01-15"))
       yesterday_result = Enum.find(results, &(&1.date == "2025-01-14"))
-      
+
       assert today_result != nil
       assert today_result.visits == fixtures.expected.today.visits
       assert today_result.unique_visitors == fixtures.expected.today.unique_visitors
-      
+
       assert yesterday_result != nil
-      assert yesterday_result.visits == fixtures.expected.yesterday.visits  
+      assert yesterday_result.visits == fixtures.expected.yesterday.visits
       assert yesterday_result.unique_visitors == fixtures.expected.yesterday.unique_visitors
     end
 
     test "visits per period - month interval" do
       fixtures = create_test_fixtures()
-      
+
       # Test range that spans multiple months
       start_date = ~D[2024-12-01]
       end_date = ~D[2025-01-31]
-      query = Analytics.visits_per_period(start_date, end_date, "month") 
+      query = Analytics.visits_per_period(start_date, end_date, "month")
       results = TestRepo.all(query)
-      
+
       # Should return data for months that have data
       assert length(results) == 2
-      
+
       # Find results by month
       current_month = Enum.find(results, &(&1.date == "2025-01"))
       last_month = Enum.find(results, &(&1.date == "2024-12"))
-      
+
       assert current_month != nil
-      assert current_month.visits == fixtures.expected.today.visits + fixtures.expected.yesterday.visits
-      
-      assert last_month != nil 
+
+      assert current_month.visits ==
+               fixtures.expected.today.visits + fixtures.expected.yesterday.visits
+
+      assert last_month != nil
       assert last_month.visits == fixtures.expected.last_month.visits
     end
 
     test "visits per period - year interval" do
       fixtures = create_test_fixtures()
-      
+
       # Test range that spans multiple years
       start_date = ~D[2024-01-01]
       end_date = ~D[2025-12-31]
       query = Analytics.visits_per_period(start_date, end_date, "year")
       results = TestRepo.all(query)
-      
+
       # Should return data for both years
       assert length(results) == 2
-      
+
       # Find results by year
       current_year = Enum.find(results, &(&1.date == "2025"))
       last_year = Enum.find(results, &(&1.date == "2024"))
-      
+
       assert current_year != nil
-      assert current_year.visits == fixtures.expected.today.visits + fixtures.expected.yesterday.visits
-      
+
+      assert current_year.visits ==
+               fixtures.expected.today.visits + fixtures.expected.yesterday.visits
+
       assert last_year != nil
-      assert last_year.visits == fixtures.expected.last_month.visits + fixtures.expected.last_year.visits
+
+      assert last_year.visits ==
+               fixtures.expected.last_month.visits + fixtures.expected.last_year.visits
     end
   end
 
-  describe "Analytics with Zero Data" do 
+  describe "Analytics with Zero Data" do
     test "queries return 0 for periods with no data" do
       create_test_fixtures()
-      
+
       # Test completely empty date range
-      empty_start = ~D[2020-01-01] 
+      empty_start = ~D[2020-01-01]
       empty_end = ~D[2020-01-31]
-      
+
       # Basic stats should return 0
       assert TestRepo.one(Analytics.unique_visitors(empty_start, empty_end)) == 0
       assert TestRepo.one(Analytics.total_requests(empty_start, empty_end)) == 0
       assert TestRepo.one(Analytics.total_pageviews(empty_start, empty_end)) == 0
-      
+
       # Time-based queries should return empty list (not 0 values)
       assert TestRepo.all(Analytics.visits_per_period(empty_start, empty_end, "day")) == []
-      assert TestRepo.all(Analytics.total_requests_per_period(empty_start, empty_end, "day")) == []
+
+      assert TestRepo.all(Analytics.total_requests_per_period(empty_start, empty_end, "day")) ==
+               []
     end
-    
+
     test "partial data queries handle missing periods correctly" do
-      _fixtures = create_test_fixtures() 
-      
+      _fixtures = create_test_fixtures()
+
       # Test range that includes days with and without data
-      start_date = ~D[2025-01-13] # Day before yesterday (no data)
-      end_date = ~D[2025-01-15]   # Today (has data)
-      
+      # Day before yesterday (no data)
+      start_date = ~D[2025-01-13]
+      # Today (has data)
+      end_date = ~D[2025-01-15]
+
       query = Analytics.visits_per_period(start_date, end_date, "day")
       results = TestRepo.all(query)
-      
+
       # Should only return days that have data, not zero entries
       dates = Enum.map(results, & &1.date) |> Enum.sort()
       assert dates == ["2025-01-14", "2025-01-15"]
-      
+
       # Verify counts are correct
       assert length(results) == 2
     end
@@ -377,20 +389,20 @@ defmodule PhoenixAnalyticsTest do
   describe "Popular Content Analytics" do
     test "popular pages returns correct data" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.popular_pages(start_date, end_date)
       results = TestRepo.all(query)
-      
+
       # Should return pages ordered by visit count 
       assert length(results) > 0
-      
+
       # All results should have path and visits count
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :source)
-        assert Map.has_key?(result, :visits) 
+        assert Map.has_key?(result, :visits)
         assert is_binary(result.source)
         assert is_integer(result.visits)
         assert result.visits > 0
@@ -399,16 +411,16 @@ defmodule PhoenixAnalyticsTest do
 
     test "status code distribution" do
       create_test_fixtures()
-      
-      start_date = ~D[2025-01-14] 
+
+      start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.status_code_distribution(start_date, end_date)
       results = TestRepo.all(query)
-      
+
       # Should include both 200 and 404 status codes from our fixtures
       assert length(results) >= 2
-      
+
       status_codes = Enum.map(results, & &1.status_code) |> Enum.sort()
       assert 200 in status_codes
       assert 404 in status_codes
@@ -418,13 +430,13 @@ defmodule PhoenixAnalyticsTest do
   describe "Performance Analytics" do
     test "average response time" do
       fixtures = create_test_fixtures()
-      
+
       today_start = NaiveDateTime.to_date(fixtures.today)
       today_end = today_start
-      
+
       query = Analytics.average_response_time(today_start, today_end)
       result = TestRepo.one(query)
-      
+
       # Today has 3 requests: 100ms, 150ms, 120ms = avg 123.33ms
       expected_avg = (100 + 150 + 120) / 3
       assert_in_delta result, expected_avg, 0.1
@@ -432,13 +444,13 @@ defmodule PhoenixAnalyticsTest do
 
     test "bounce rate calculation" do
       fixtures = create_test_fixtures()
-      
+
       start_date = NaiveDateTime.to_date(fixtures.today)
       end_date = start_date
-      
+
       query = Analytics.bounce_rate(start_date, end_date)
       result = TestRepo.one(query)
-      
+
       # Today has 2 sessions: session_1 (2 pages), session_2 (1 page)
       # Bounce rate = 1 session with 1 page / 2 total sessions = 50%
       assert Map.has_key?(result, :bounce_rate)
@@ -449,16 +461,16 @@ defmodule PhoenixAnalyticsTest do
   describe "Chart Data Analytics" do
     test "device usage analytics" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.devices_usage(start_date, end_date)
       results = TestRepo.all(query)
-      
+
       # Should return device types from successful non-page requests
       assert length(results) > 0
-      
+
       # Verify structure and find desktop/mobile devices
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :device)
@@ -467,7 +479,7 @@ defmodule PhoenixAnalyticsTest do
         assert is_integer(result.count)
         assert result.count > 0
       end)
-      
+
       # Should include devices from our fixtures
       device_types = Enum.map(results, & &1.device)
       assert "desktop" in device_types
@@ -476,35 +488,36 @@ defmodule PhoenixAnalyticsTest do
 
     test "status code distribution per period" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       # Test daily status breakdown
       query = Analytics.statuses_per_period(start_date, end_date, "day")
       results = TestRepo.all(query)
-      
-      assert length(results) == 2 # Two days with data
-      
+
+      # Two days with data
+      assert length(results) == 2
+
       # Verify structure for status code breakdown
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
         assert Map.has_key?(result, :ok_200s)
-        assert Map.has_key?(result, :redirects_300s) 
+        assert Map.has_key?(result, :redirects_300s)
         assert Map.has_key?(result, :errors_400s)
         assert Map.has_key?(result, :fails_500s)
-        
+
         # All should be integers
         assert is_integer(result.ok_200s)
         assert is_integer(result.errors_400s)
       end)
-      
+
       # Find today's results - should have 3 successful requests
       today_result = Enum.find(results, &(&1.date == "2025-01-15"))
       assert today_result != nil
       assert today_result.ok_200s == 3
       assert today_result.errors_400s == 0
-      
+
       # Find yesterday's results - should have 1 successful, 1 error
       yesterday_result = Enum.find(results, &(&1.date == "2025-01-14"))
       assert yesterday_result != nil
@@ -514,16 +527,16 @@ defmodule PhoenixAnalyticsTest do
 
     test "total requests per period" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       # Test daily requests
       query = Analytics.total_requests_per_period(start_date, end_date, "day")
       results = TestRepo.all(query)
-      
+
       assert length(results) == 2
-      
+
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
@@ -531,12 +544,12 @@ defmodule PhoenixAnalyticsTest do
         assert is_integer(result.hits)
         assert result.hits > 0
       end)
-      
+
       # Verify specific counts
       today_result = Enum.find(results, &(&1.date == "2025-01-15"))
       assert today_result != nil
       assert today_result.hits == 3
-      
+
       yesterday_result = Enum.find(results, &(&1.date == "2025-01-14"))
       assert yesterday_result != nil
       assert yesterday_result.hits == 2
@@ -544,16 +557,16 @@ defmodule PhoenixAnalyticsTest do
 
     test "slowest pages analytics" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.slowest_pages(start_date, end_date)
       results = TestRepo.all(query)
-      
+
       # Should return pages ordered by average duration
       assert length(results) > 0
-      
+
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :path)
@@ -562,7 +575,7 @@ defmodule PhoenixAnalyticsTest do
         assert is_float(result.duration)
         assert result.duration > 0
       end)
-      
+
       # Results should be ordered by duration (descending)
       durations = Enum.map(results, & &1.duration)
       sorted_durations = Enum.sort(durations, :desc)
@@ -571,13 +584,13 @@ defmodule PhoenixAnalyticsTest do
 
     test "slowest resources analytics" do
       create_test_fixtures()
-      
-      start_date = ~D[2025-01-14] 
+
+      start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.slowest_resources(start_date, end_date)
       results = TestRepo.all(query)
-      
+
       # May be empty since our fixtures are all page requests
       # But should return proper structure if any resources exist
       Enum.each(results, fn result ->
@@ -590,16 +603,17 @@ defmodule PhoenixAnalyticsTest do
 
     test "visits per period with different intervals" do
       create_test_fixtures()
-      
+
       # Test monthly interval
       start_date = ~D[2024-12-01]
       end_date = ~D[2025-01-31]
-      
+
       query = Analytics.visits_per_period(start_date, end_date, "month")
       results = TestRepo.all(query)
-      
-      assert length(results) == 2 # Two months with data
-      
+
+      # Two months with data
+      assert length(results) == 2
+
       # Verify structure 
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
@@ -608,22 +622,24 @@ defmodule PhoenixAnalyticsTest do
         assert is_integer(result.visits)
         assert is_integer(result.unique_visitors)
       end)
-      
+
       # Test yearly interval
       query = Analytics.visits_per_period(start_date, end_date, "year")
       results = TestRepo.all(query)
-      
-      assert length(results) == 2 # Two years with data
-      
+
+      # Two years with data
+      assert length(results) == 2
+
       # Verify yearly aggregation
       current_year = Enum.find(results, &(&1.date == "2025"))
       last_year = Enum.find(results, &(&1.date == "2024"))
-      
+
       assert current_year != nil
       assert last_year != nil
-      
+
       # Current year should have data from today + yesterday
-      assert current_year.visits == 5 # 3 + 2 requests (all requests for visits)
+      # 3 + 2 requests (all requests for visits)
+      assert current_year.visits == 5
       assert current_year.unique_visitors >= 2
     end
   end
@@ -631,16 +647,18 @@ defmodule PhoenixAnalyticsTest do
   describe "Period-based Limited Analytics" do
     test "unique visitors per period limited" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.unique_visitors_per_period_limited(start_date, end_date)
       results = TestRepo.all(query)
-      
-      assert length(results) <= 30 # Limited to 30 results
-      assert length(results) == 2 # Two days with data
-      
+
+      # Limited to 30 results
+      assert length(results) <= 30
+      # Two days with data
+      assert length(results) == 2
+
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
@@ -652,46 +670,52 @@ defmodule PhoenixAnalyticsTest do
 
     test "total pageviews per period limited" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.total_pageviews_per_period_limited(start_date, end_date)
       results = TestRepo.all(query)
-      
-      assert length(results) <= 30 # Limited to 30 results
-      
+
+      # Limited to 30 results
+      assert length(results) <= 30
+
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
         assert Map.has_key?(result, :pageviews)
         assert is_integer(result.pageviews)
-        assert result.pageviews >= 0 # Could be 0 for periods with no successful page views
+        # Could be 0 for periods with no successful page views
+        assert result.pageviews >= 0
       end)
-      
+
       # Find results and verify pageview counts (only successful GET requests count)
       today_result = Enum.find(results, &(&1.date == "2025-01-15"))
       yesterday_result = Enum.find(results, &(&1.date == "2025-01-14"))
-      
+
       assert today_result != nil
-      assert today_result.pageviews == 3 # All 3 today requests are successful GET
-      
-      assert yesterday_result != nil  
-      assert yesterday_result.pageviews == 1 # Only 1 successful GET yesterday (1 is 404)
+      # All 3 today requests are successful GET
+      assert today_result.pageviews == 3
+
+      assert yesterday_result != nil
+      # Only 1 successful GET yesterday (1 is 404)
+      assert yesterday_result.pageviews == 1
     end
 
     test "total requests per period limited" do
       create_test_fixtures()
-      
+
       start_date = ~D[2025-01-14]
       end_date = ~D[2025-01-15]
-      
+
       query = Analytics.total_requests_per_period_limited(start_date, end_date)
       results = TestRepo.all(query)
-      
-      assert length(results) <= 30 # Limited to 30 results
-      assert length(results) == 2 # Two days with data
-      
+
+      # Limited to 30 results
+      assert length(results) <= 30
+      # Two days with data
+      assert length(results) == 2
+
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)

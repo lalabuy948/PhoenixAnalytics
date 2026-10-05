@@ -28,15 +28,17 @@ defmodule PhoenixAnalytics.Web.Live.Components.StatusChart do
     interval = assigns.interval
 
     # Check if date_range or interval has changed
-    should_refresh = 
-      socket.assigns[:date_range] != date_range || 
-      socket.assigns[:interval] != interval
+    should_refresh =
+      socket.assigns[:date_range] != date_range ||
+        socket.assigns[:interval] != interval
 
     socket = assign(socket, assigns)
 
     if should_refresh do
       {:ok,
-       assign_async(socket, :chart_data, fn -> {:ok, %{chart_data: chart_data(date_range, interval)}} end)}
+       assign_async(socket, :chart_data, fn ->
+         {:ok, %{chart_data: chart_data(date_range, interval)}}
+       end)}
     else
       {:ok, socket}
     end

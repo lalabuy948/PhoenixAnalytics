@@ -28,9 +28,9 @@ defmodule PhoenixAnalytics.Web.Live.Components.RequestsChart do
     date_range = assigns.date_range
 
     # Check if date_range or interval has changed
-    should_refresh = 
-      socket.assigns[:date_range] != date_range || 
-      socket.assigns[:interval] != interval
+    should_refresh =
+      socket.assigns[:date_range] != date_range ||
+        socket.assigns[:interval] != interval
 
     socket = assign(socket, assigns)
 

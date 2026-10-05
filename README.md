@@ -33,10 +33,12 @@ by adding `phoenix_analytics` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_analytics, "~> 0.4"}
+    {:phoenix_analytics, "~> 0.5"}
   ]
 end
 ```
+
+The dashboard is styled with Tailwind CSS v4 and daisyUI 5, so it needs a modern browser (Safari 16.4+, Chrome 111+, Firefox 128+).
 
 ### Configuration
 

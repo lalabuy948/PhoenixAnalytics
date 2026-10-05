@@ -25,10 +25,10 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
       |> where([r], not is_nil(r.session_id))
       |> group_by([r], [fragment("DATE(?)", r.inserted_at), r.session_id])
       |> select([r], %{
-          period: fragment("DATE(?)", r.inserted_at),
-          session_id: r.session_id,
-          page_views: max(r.session_page_views)
-        })
+        period: fragment("DATE(?)", r.inserted_at),
+        session_id: r.session_id,
+        page_views: max(r.session_page_views)
+      })
 
     from(ss in subquery(session_stats),
       group_by: ss.period,
@@ -60,15 +60,15 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
           |> where([r], not is_nil(r.session_id))
           |> group_by([r], [fragment("DATE(?)", r.inserted_at), r.session_id])
           |> select([r], %{
-              period: fragment("DATE(?)", r.inserted_at),
-              session_id: r.session_id,
-              duration:
-                fragment(
-                  "(julianday(MAX(?)) - julianday(MIN(?))) * 24 * 60 * 60 * 1000",
-                  r.inserted_at,
-                  r.inserted_at
-                )
-            })
+            period: fragment("DATE(?)", r.inserted_at),
+            session_id: r.session_id,
+            duration:
+              fragment(
+                "(julianday(MAX(?)) - julianday(MIN(?))) * 24 * 60 * 60 * 1000",
+                r.inserted_at,
+                r.inserted_at
+              )
+          })
 
         :mysql ->
           # MySQL version using TIMESTAMPDIFF
@@ -77,15 +77,15 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
           |> where([r], not is_nil(r.session_id))
           |> group_by([r], [fragment("DATE(?)", r.inserted_at), r.session_id])
           |> select([r], %{
-              period: fragment("DATE(?)", r.inserted_at),
-              session_id: r.session_id,
-              duration:
-                fragment(
-                  "TIMESTAMPDIFF(MICROSECOND, MIN(?), MAX(?)) / 1000",
-                  r.inserted_at,
-                  r.inserted_at
-                )
-            })
+            period: fragment("DATE(?)", r.inserted_at),
+            session_id: r.session_id,
+            duration:
+              fragment(
+                "TIMESTAMPDIFF(MICROSECOND, MIN(?), MAX(?)) / 1000",
+                r.inserted_at,
+                r.inserted_at
+              )
+          })
 
         _ ->
           # PostgreSQL version using EXTRACT
@@ -94,15 +94,15 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
           |> where([r], not is_nil(r.session_id))
           |> group_by([r], [fragment("DATE(?)", r.inserted_at), r.session_id])
           |> select([r], %{
-              period: fragment("DATE(?)", r.inserted_at),
-              session_id: r.session_id,
-              duration:
-                fragment(
-                  "EXTRACT(EPOCH FROM (MAX(?) - MIN(?))) * 1000",
-                  r.inserted_at,
-                  r.inserted_at
-                )
-            })
+            period: fragment("DATE(?)", r.inserted_at),
+            session_id: r.session_id,
+            duration:
+              fragment(
+                "EXTRACT(EPOCH FROM (MAX(?) - MIN(?))) * 1000",
+                r.inserted_at,
+                r.inserted_at
+              )
+          })
       end
 
     from(sd in subquery(session_durations),
@@ -129,10 +129,10 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.PerPeriod do
       |> where([r], not is_nil(r.session_id))
       |> group_by([r], [fragment("DATE(?)", r.inserted_at), r.session_id])
       |> select([r], %{
-          period: fragment("DATE(?)", r.inserted_at),
-          session_id: r.session_id,
-          page_views: max(r.session_page_views)
-        })
+        period: fragment("DATE(?)", r.inserted_at),
+        session_id: r.session_id,
+        page_views: max(r.session_page_views)
+      })
 
     from(ss in subquery(session_stats),
       group_by: ss.period,
