@@ -33,7 +33,7 @@ by adding `phoenix_analytics` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_analytics, "~> 0.4"}
+    {:phoenix_analytics, "~> 0.5"}
   ]
 end
 ```
