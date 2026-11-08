@@ -56,10 +56,4 @@ defmodule PhoenixAnalytics.Web.Live.Components.Header do
   def update(assigns, socket) do
     {:ok, assign(socket, :date_range, assigns.date_range)}
   end
-
-  @impl true
-  def handle_event("set_date", %{"value" => %{"from" => from, "to" => to}}, socket) do
-    send(self(), {:set_date, %{from: from, to: to}})
-    {:noreply, socket}
-  end
 end
