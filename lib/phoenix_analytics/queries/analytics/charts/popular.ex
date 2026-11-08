@@ -9,6 +9,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Popular do
   import Ecto.Query
   alias PhoenixAnalytics.Entities.RequestLog
   alias PhoenixAnalytics.Queries.Helpers
+  alias PhoenixAnalytics.Services.Utility
 
   # App domain will be retrieved at runtime from config
 
@@ -138,6 +139,73 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Popular do
       limit
     )
   end
+
+  @second_page_buckets ["under 10s", "10-30s", "30-60s", "1-2 min", "2 min+"]
+
+  @doc """
+  Counts visits by the time between their first and second page view, as bucket
+  numbers 1..5 (see `second_page_buckets/1` for labels). Single-page visits are not counted.
+
+  Sessions are clipped to the range like `entry_pages/2`: a session straddling the
+  range start is measured from its first in-range page view. JSON GETs count as
+  page views (see `Helpers.page_views/1`), so an API call right after load can
+  land in "under 10s".
+  """
+  def time_to_second_page(from_date, to_date) do
+    gaps =
+      from(p in session_boundaries(from_date, to_date, :asc),
+        where: not is_nil(p.next_at),
+        select: ^%{gap: gap_seconds(Utility.database_type())}
+      )
+
+    buckets =
+      from(g in subquery(gaps),
+        select: %{
+          bucket:
+            fragment(
+              "CASE WHEN ? < 10 THEN 1 WHEN ? < 30 THEN 2 WHEN ? < 60 THEN 3 WHEN ? < 120 THEN 4 ELSE 5 END",
+              g.gap,
+              g.gap,
+              g.gap,
+              g.gap
+            )
+        }
+      )
+
+    from(b in subquery(buckets),
+      group_by: b.bucket,
+      select: %{bucket: b.bucket, visits: count()},
+      order_by: b.bucket
+    )
+  end
+
+  @doc """
+  Labels `time_to_second_page/2` rows, filling empty buckets with 0 visits so the
+  distribution keeps its shape. Returns `[]` when there are no multi-page visits.
+  """
+  def second_page_buckets([]), do: []
+
+  def second_page_buckets(rows) do
+    visits = Map.new(rows, &{&1.bucket, &1.visits})
+
+    for {label, bucket} <- Enum.with_index(@second_page_buckets, 1) do
+      %{source: label, visits: Map.get(visits, bucket, 0)}
+    end
+  end
+
+  # Whole seconds between a session's first page view and the next one
+  defp gap_seconds(:sqlite),
+    do:
+      dynamic(
+        [p],
+        fragment("CAST(ROUND((julianday(?) - julianday(?)) * 86400) AS INTEGER)", p.next_at, p.at)
+      )
+
+  defp gap_seconds(:mysql),
+    do: dynamic([p], fragment("TIMESTAMPDIFF(SECOND, ?, ?)", p.at, p.next_at))
+
+  defp gap_seconds(_postgres),
+    do: dynamic([p], fragment("EXTRACT(EPOCH FROM (? - ?))", p.next_at, p.at))
 
   @doc """
   Returns the referer's host without "www.", or the raw referer when it has none

@@ -155,6 +155,15 @@
     date_range={@date_range}
     module={PhoenixAnalytics.Web.Live.Components.PopularChart}
   />
+
+  <.live_component
+    id="time-to-second-page-chart"
+    source={:time_to_second_page}
+    chart_title="Time to Second Page"
+    footer="Visits with 2+ pages, by time between the first two"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
 </div>
 
 <div class="mt-16">

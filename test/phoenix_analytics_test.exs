@@ -1639,4 +1639,140 @@ defmodule PhoenixAnalyticsTest do
              ]
     end
   end
+
+  describe "Time to second page" do
+    alias PhoenixAnalytics.Queries.Analytics.Charts.Popular
+
+    defp second_page do
+      ~D[2025-01-15]
+      |> Analytics.time_to_second_page(~D[2025-01-15])
+      |> TestRepo.all()
+      |> Popular.second_page_buckets()
+      |> Enum.map(&{&1.source, &1.visits})
+    end
+
+    defp visit(session, gap, start \\ ~N[2025-01-15 10:00:00]) do
+      [
+        {session, "/", start, []},
+        {session, "/next", NaiveDateTime.add(start, gap), []}
+      ]
+    end
+
+    test "buckets visits by the gap between their first two page views, in order" do
+      insert_page_views(
+        Enum.concat([
+          visit("slow", 300),
+          visit("a", 0),
+          visit("b", 9),
+          visit("c", 10),
+          visit("d", 29),
+          visit("e", 30),
+          visit("f", 59),
+          visit("g", 60),
+          visit("h", 119),
+          visit("i", 120)
+        ])
+      )
+
+      assert second_page() == [
+               {"under 10s", 2},
+               {"10-30s", 2},
+               {"30-60s", 2},
+               {"1-2 min", 2},
+               {"2 min+", 2}
+             ]
+    end
+
+    test "empty buckets are zero-filled" do
+      insert_page_views(visit("a", 45))
+
+      assert second_page() == [
+               {"under 10s", 0},
+               {"10-30s", 0},
+               {"30-60s", 1},
+               {"1-2 min", 0},
+               {"2 min+", 0}
+             ]
+    end
+
+    test "only the first two page views count, single-page visits are skipped" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-15 10:00:00], []},
+        {"a", "/2", ~N[2025-01-15 10:00:05], []},
+        {"a", "/3", ~N[2025-01-15 10:04:00], []},
+        {"single", "/", ~N[2025-01-15 11:00:00], []}
+      ])
+
+      assert {"under 10s", 1} in second_page()
+      assert Enum.sum(Enum.map(second_page(), &elem(&1, 1))) == 1
+    end
+
+    test "interleaved sessions are measured separately" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-15 10:00:00], []},
+        {"b", "/", ~N[2025-01-15 10:00:01], []},
+        {"b", "/next", ~N[2025-01-15 10:00:03], []},
+        {"a", "/next", ~N[2025-01-15 10:01:30], []}
+      ])
+
+      assert {"under 10s", 1} in second_page()
+      assert {"1-2 min", 1} in second_page()
+    end
+
+    test "assets, POSTs and bot rows between pages don't count as the second page" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-15 10:00:00], []},
+        {"a", "/app.js", ~N[2025-01-15 10:00:01], []},
+        {"a", "/form", ~N[2025-01-15 10:00:02], [method: "POST"]},
+        {"a", "/next", ~N[2025-01-15 10:00:45], []}
+      ])
+
+      TestRepo.insert_all(RequestLog, [
+        %{
+          request_id: "bot_between",
+          method: "GET",
+          path: "/crawl",
+          status_code: 200,
+          duration_ms: 1,
+          session_id: "a",
+          device_type: "bot",
+          inserted_at: ~N[2025-01-15 10:00:03]
+        }
+      ])
+
+      assert {"30-60s", 1} in second_page()
+    end
+
+    test "JSON GETs count as page views (known limitation)" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-15 10:00:00], []},
+        {"a", "/api/feed", ~N[2025-01-15 10:00:01], []}
+      ])
+
+      assert {"under 10s", 1} in second_page()
+    end
+
+    test "sessions are clipped to the range" do
+      insert_page_views(
+        visit("straddles_start", 120, ~N[2025-01-14 23:59:00]) ++
+          [{"straddles_start", "/third", ~N[2025-01-15 00:01:30], []}] ++
+          visit("straddles_end", 120, ~N[2025-01-15 23:59:00])
+      )
+
+      # measured from its first in-range view (00:01:00 -> 00:01:30); the other
+      # session's second view falls after the range
+      assert second_page() == [
+               {"under 10s", 0},
+               {"10-30s", 0},
+               {"30-60s", 1},
+               {"1-2 min", 0},
+               {"2 min+", 0}
+             ]
+    end
+
+    test "is empty without multi-page visits" do
+      insert_page_views([{"a", "/", ~N[2025-01-15 10:00:00], []}])
+      assert second_page() == []
+    end
+  end
 end

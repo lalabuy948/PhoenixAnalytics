@@ -29,6 +29,8 @@ defmodule PhoenixAnalytics.Queries.Analytics do
   defdelegate exit_pages(from_date, to_date), to: Popular
   defdelegate referer_landing_pages(from_date, to_date), to: Popular
   defdelegate top_referer_landings(rows), to: Popular
+  defdelegate time_to_second_page(from_date, to_date), to: Popular
+  defdelegate second_page_buckets(rows), to: Popular
 
   # Stats functions
   defdelegate unique_visitors(from_date, to_date), to: Stat

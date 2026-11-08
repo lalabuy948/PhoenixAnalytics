@@ -49,6 +49,13 @@ defmodule PhoenixAnalytics.Web.Live.Components.PopularChart do
     Cache.fetch(cache_key, fn -> fetch_data(source, from, to) end)
   end
 
+  defp fetch_data(:time_to_second_page, from, to) do
+    from
+    |> Analytics.time_to_second_page(to)
+    |> PhoenixAnalytics.Config.get_repo().all()
+    |> Analytics.second_page_buckets()
+  end
+
   defp fetch_data(:referers, from, to) do
     from
     |> Analytics.popular_referer(to)
