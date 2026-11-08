@@ -65,6 +65,7 @@ defmodule PhoenixAnalytics.Migration do
   - device_type for analytics aggregations
   - method for request type filtering
   - path for popular pages analysis
+  - (remote_ip, inserted_at) for new vs returning visitors
 
   Automatically detects database type and adjusts queries accordingly:
   - PostgreSQL/SQLite: Uses IF NOT EXISTS clause
@@ -91,7 +92,9 @@ defmodule PhoenixAnalytics.Migration do
       "CREATE INDEX #{if_not_exists}idx_requests_method ON requests (method);",
       "CREATE INDEX #{if_not_exists}idx_requests_path ON requests (#{path_column});",
       "CREATE INDEX #{if_not_exists}idx_requests_date_status ON requests (inserted_at, status_code);",
-      "CREATE INDEX #{if_not_exists}idx_requests_date_method ON requests (inserted_at, method);"
+      "CREATE INDEX #{if_not_exists}idx_requests_date_method ON requests (inserted_at, method);",
+      # covering index for new vs returning visitors (first-seen lookup over all history)
+      "CREATE INDEX #{if_not_exists}idx_requests_remote_ip_inserted_at ON requests (remote_ip, inserted_at);"
     ]
 
     results =

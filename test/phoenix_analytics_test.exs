@@ -1085,6 +1085,85 @@ defmodule PhoenixAnalyticsTest do
     end
   end
 
+  describe "Visitor types" do
+    defp insert_visits(visits) do
+      rows =
+        for {{ip, at}, i} <- Enum.with_index(visits) do
+          %{
+            request_id: "vt_#{i}",
+            method: "GET",
+            path: "/",
+            status_code: 200,
+            duration_ms: 1,
+            remote_ip: ip,
+            inserted_at: at
+          }
+        end
+
+      TestRepo.insert_all(RequestLog, rows)
+    end
+
+    defp visitor_types,
+      do: TestRepo.all(Analytics.visitor_types(~D[2025-01-14], ~D[2025-01-15]))
+
+    test "visitors seen before the range are returning" do
+      insert_visits([{"a", ~N[2025-01-01 10:00:00]}, {"a", ~N[2025-01-15 10:00:00]}])
+      assert visitor_types() == [%{type: "returning", count: 1}]
+    end
+
+    test "visitors first seen in the range are new, counted once" do
+      insert_visits([
+        {"a", ~N[2025-01-15 09:00:00]},
+        {"a", ~N[2025-01-15 11:00:00]},
+        {"b", ~N[2025-01-14 11:00:00]}
+      ])
+
+      assert visitor_types() == [%{type: "new", count: 2}]
+    end
+
+    test "returns both types sorted" do
+      insert_visits([
+        {"old", ~N[2025-01-01 10:00:00]},
+        {"old", ~N[2025-01-15 10:00:00]},
+        {"fresh", ~N[2025-01-15 10:00:00]}
+      ])
+
+      assert visitor_types() == [%{type: "new", count: 1}, %{type: "returning", count: 1}]
+    end
+
+    test "range start is the boundary between new and returning" do
+      insert_visits([
+        {"edge", ~N[2025-01-14 00:00:00]},
+        {"edge", ~N[2025-01-15 10:00:00]},
+        {"before", ~N[2025-01-13 23:59:59]},
+        {"before", ~N[2025-01-15 10:00:00]}
+      ])
+
+      assert visitor_types() == [%{type: "new", count: 1}, %{type: "returning", count: 1}]
+    end
+
+    test "activity after the range neither excludes nor changes a visitor" do
+      insert_visits([{"a", ~N[2025-01-15 10:00:00]}, {"a", ~N[2025-01-20 10:00:00]}])
+      assert visitor_types() == [%{type: "new", count: 1}]
+    end
+
+    test "visitors with no activity inside the range are excluded" do
+      insert_visits([
+        {"gone", ~N[2025-01-01 10:00:00]},
+        {"later", ~N[2025-01-20 10:00:00]},
+        {"both_sides", ~N[2025-01-01 10:00:00]},
+        {"both_sides", ~N[2025-01-20 10:00:00]}
+      ])
+
+      assert visitor_types() == []
+    end
+
+    test "rows without an IP are excluded" do
+      insert_visits([{nil, ~N[2025-01-15 10:00:00]}])
+      assert visitor_types() == []
+    end
+  end
+
   describe "Helpers date bounds" do
     alias PhoenixAnalytics.Queries.Helpers
 

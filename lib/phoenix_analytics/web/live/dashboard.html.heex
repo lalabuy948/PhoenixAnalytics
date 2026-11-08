@@ -125,6 +125,16 @@
     date_range={@date_range}
     module={PhoenixAnalytics.Web.Live.Components.PopularChart}
   />
+
+  <.live_component
+    id="visitor-types-chart"
+    source={:visitor_types}
+    chart_title="New vs Returning"
+    footer="Visitors seen before the selected range count as returning"
+    unit="Visitors"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.DeviceChart}
+  />
 </div>
 
 <div class="mt-16">

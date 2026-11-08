@@ -197,6 +197,39 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   end
 
   @doc """
+  Splits visitors active in the date range into "new" (first ever request falls
+  in the range) and "returning" (seen before the range started).
+
+  Visitors are hashed IPs, like `unique_visitors/2`, so this is approximate:
+  NAT, mobile and rotating IPs blur the split. Looks back over all stored
+  history up to `to_date`, so cost grows with table size, not range size.
+  """
+  def visitor_types(from_date, to_date) when not is_nil(from_date) and not is_nil(to_date) do
+    range_start = Helpers.start_of(from_date)
+
+    visitors =
+      from(r in Helpers.exclude_bots(RequestLog),
+        where: not is_nil(r.remote_ip) and r.inserted_at <= ^Helpers.end_of(to_date),
+        group_by: r.remote_ip,
+        having: max(r.inserted_at) >= ^range_start,
+        select: %{
+          type:
+            fragment(
+              "CASE WHEN MIN(?) < ? THEN 'returning' ELSE 'new' END",
+              r.inserted_at,
+              ^range_start
+            )
+        }
+      )
+
+    from(v in subquery(visitors),
+      group_by: v.type,
+      select: %{type: v.type, count: count()},
+      order_by: v.type
+    )
+  end
+
+  @doc """
   Gets average response time for a given date range.
   """
   def average_response_time(from_date, to_date) do

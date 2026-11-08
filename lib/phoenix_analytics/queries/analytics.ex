@@ -36,6 +36,7 @@ defmodule PhoenixAnalytics.Queries.Analytics do
   defdelegate average_visit_duration(from_date, to_date, interval \\ "day"), to: Stat
   defdelegate bounce_rate(from_date, to_date), to: Stat
   defdelegate error_rate(from_date, to_date), to: Stat
+  defdelegate visitor_types(from_date, to_date), to: Stat
   defdelegate response_time_percentile(from_date, to_date, pct), to: Stat
   defdelegate average_response_time(from_date, to_date), to: Stat
   defdelegate status_code_distribution(from_date, to_date), to: Stat

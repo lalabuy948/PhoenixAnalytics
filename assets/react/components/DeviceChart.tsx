@@ -39,10 +39,26 @@ const chartConfig = {
     label: "Mobile",
     color: "hsl(var(--chart-3))",
   },
+  bot: {
+    label: "Bot",
+    color: "hsl(var(--chart-4))",
+  },
+  unknown: {
+    label: "Unknown",
+    color: "hsl(var(--chart-5))",
+  },
+  new: {
+    label: "New",
+    color: "hsl(var(--chart-1))",
+  },
+  returning: {
+    label: "Returning",
+    color: "hsl(var(--chart-2))",
+  },
 } satisfies ChartConfig;
 
 type ChartData = {
-  device: string;
+  name: string;
   visits: number;
   fill: string;
 };
@@ -50,18 +66,24 @@ type ChartData = {
 export function DeviceChart({
   chartData,
   dateRange,
+  chartTitle,
+  footer,
+  unit,
 }: {
   chartData: ChartData[];
   dateRange: DateRange;
+  chartTitle: string;
+  footer: string;
+  unit: string;
 }) {
   chartData.forEach((item) => {
-    item.fill = `var(--color-${item.device})`;
+    item.fill = `var(--color-${item.name})`;
   });
 
   return (
     <Card className="flex flex-col">
       <CardHeader>
-        <CardTitle>Device Usage</CardTitle>
+        <CardTitle>{chartTitle}</CardTitle>
         <CardDescription>
           {format(dateRange.from, "dd LLL, y")} -{" "}
           {format(dateRange.to, "dd LLL, y")}
@@ -86,7 +108,7 @@ export function DeviceChart({
             <Pie
               data={chartData}
               dataKey="visits"
-              nameKey="device"
+              nameKey="name"
               innerRadius={60}
               strokeWidth={5}
             >
@@ -118,7 +140,7 @@ export function DeviceChart({
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visits
+                          {unit}
                         </tspan>
                       </text>
                     );
@@ -131,7 +153,7 @@ export function DeviceChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm mt-2">
         <div className="leading-none text-muted-foreground">
-          Showing total visits split by device type
+          {footer}
         </div>
       </CardFooter>
     </Card>
