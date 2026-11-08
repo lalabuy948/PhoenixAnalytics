@@ -126,18 +126,8 @@ defmodule PhoenixAnalytics.Services.Utility do
   def uuid, do: Ecto.UUID.generate()
 
   @doc """
-  Determines the current database type based on configuration.
-
-  This function checks the application environment for database configurations
-  to determine the current database type being used.
-
-  ## Returns
-
-  An atom indicating the database type:
-    * `:postgres` if PostgreSQL is configured
-    * `:sqlite` if SQLite is configured
-    * `:mysql` if MySQL is configured
-    * `:postgres` as a fallback if no valid configuration is found
+  Returns the database type of the configured repo's adapter:
+  `:sqlite`, `:mysql`, or `:postgres` for anything else.
 
   ## Examples
 
@@ -145,68 +135,11 @@ defmodule PhoenixAnalytics.Services.Utility do
       :postgres
 
   """
-  def database_type() do
-    # Get the repo from config and check its adapter
-    repo = PhoenixAnalytics.Config.get_repo()
-
-    cond do
-      repo && repo.__adapter__() == Ecto.Adapters.SQLite3 -> :sqlite
-      repo && repo.__adapter__() == Ecto.Adapters.Postgres -> :postgres
-      repo && repo.__adapter__() == Ecto.Adapters.MyXQL -> :mysql
-      has_config?(:postgres_conn) -> :postgres
-      has_config?(:sqlite_path) -> :sqlite
-      has_config?(:mysql_conn) -> :mysql
-      true -> :postgres
-    end
-  end
-
-  @doc """
-  Checks if a specific configuration key exists and has a value.
-
-  ## Parameters
-
-    * key - The configuration key to check
-
-  ## Returns
-
-  A boolean indicating whether the configuration exists and has a value.
-
-  ## Examples
-
-      iex> PhoenixAnalytics.Services.Utility.has_config?(:postgres_conn)
-      true
-
-  """
-  def has_config?(key) do
-    case get_config(key) do
-      :error -> false
-      nil -> false
-      _ -> true
-    end
-  end
-
-  @doc """
-  Gets a configuration value with an optional default.
-
-  ## Parameters
-
-    * key - The configuration key to retrieve
-    * default - The default value if the key is not found
-
-  ## Returns
-
-  The configuration value or the default value.
-
-  ## Examples
-
-      iex> PhoenixAnalytics.Services.Utility.get_config(:pool_size, 10)
-      10
-
-  """
-  def get_config(key, default \\ nil) do
-    case Application.fetch_env(:phoenix_analytics, key) do
-      {:ok, value} -> value
-      :error -> default
+  def database_type do
+    case PhoenixAnalytics.Config.get_repo().__adapter__() do
+      Ecto.Adapters.SQLite3 -> :sqlite
+      Ecto.Adapters.MyXQL -> :mysql
+      _ -> :postgres
     end
   end
 
