@@ -47,10 +47,12 @@ export function PopularChart({
   chartData,
   chartTitle,
   dateRange,
+  footer,
 }: {
   chartData: ChartData[];
   chartTitle: string;
   dateRange: DateRange;
+  footer?: string;
 }) {
   return (
     <Card>
@@ -99,6 +101,9 @@ export function PopularChart({
             >
               <LabelList
                 dataKey="source"
+                formatter={(value: string) =>
+                  value.length > 32 ? `${value.slice(0, 31)}…` : value
+                }
                 position="insideLeft"
                 fill="var(--color-label)"
                 offset={8}
@@ -110,7 +115,7 @@ export function PopularChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm mt-2">
         <div className="leading-none text-muted-foreground">
-          Showing total visits for {chartTitle.toLowerCase()}
+          {footer ?? `Showing total visits for ${chartTitle.toLowerCase()}`}
         </div>
       </CardFooter>
     </Card>

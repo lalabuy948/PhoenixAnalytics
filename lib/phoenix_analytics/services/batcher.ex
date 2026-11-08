@@ -25,7 +25,7 @@ defmodule PhoenixAnalytics.Services.Batcher do
 
   use GenServer
 
-  alias PhoenixAnalytics.Services.PubSub
+  alias PhoenixAnalytics.Services.{PubSub, Telemetry}
 
   @batch_size 100
   @timeout 1_000
@@ -120,18 +120,11 @@ defmodule PhoenixAnalytics.Services.Batcher do
 
   def send_batch(batch) do
     repo = PhoenixAnalytics.Config.get_repo()
-
-    # Convert structs to maps for insert_all
-    data =
-      Enum.map(batch, fn request_log ->
-        request_log
-        |> Map.from_struct()
-        # Remove Ecto metadata
-        |> Map.drop([:__meta__])
-        # Set inserted_at timestamp (truncate to seconds precision)
-        |> Map.put(:inserted_at, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
-      end)
+    data = Enum.map(batch, &(&1 |> Map.from_struct() |> Map.delete(:__meta__)))
 
     repo.insert_all(PhoenixAnalytics.Entities.RequestLog, data, returning: false)
+  rescue
+    # A DB outage must never crash-loop this process and take the host app down with it
+    error -> Telemetry.log_error(:send_batch, error)
   end
 end

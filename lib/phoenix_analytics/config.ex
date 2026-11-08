@@ -10,15 +10,16 @@ defmodule PhoenixAnalytics.Config do
   Gets the user's configured Ecto repository.
   """
   def get_repo do
-    get_config(:repo) || raise """
-    Phoenix Analytics requires a repository to be configured.
-    
-    Please add the following to your config:
-    
-    config :phoenix_analytics,
-      repo: MyApp.Repo,
-      app_domain: "example.com"
-    """
+    get_config(:repo) ||
+      raise """
+      Phoenix Analytics requires a repository to be configured.
+
+      Please add the following to your config:
+
+      config :phoenix_analytics,
+        repo: MyApp.Repo,
+        app_domain: "example.com"
+      """
   end
 
   @doc """

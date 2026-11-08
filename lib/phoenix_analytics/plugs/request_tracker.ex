@@ -52,9 +52,9 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
 
   This function:
   1. Records the start time of the request.
-  2. Manages session tracking by creating or retrieving a session ID and start time.
-  3. Registers a before_send callback to:
-     - Calculate the request duration and session duration.
+  2. Registers a before_send callback to:
+     - Create or refresh the session cookie and bump the page view counter for HTML responses.
+     - Calculate the request duration.
      - Prepare request data and validate it using changesets.
      - Asynchronously broadcast the validated data using PubSub.
 
@@ -74,55 +74,59 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
   def call(conn, _opts) do
     start_time = System.monotonic_time(:millisecond)
 
+    Plug.Conn.register_before_send(conn, fn conn ->
+      try do
+        track(conn, start_time)
+      rescue
+        # Silently ignore all errors to ensure user applications are never affected
+        _error -> conn
+      end
+    end)
+  end
+
+  defp track(conn, start_time) do
     conn = fetch_cookies(conn)
     session_id = conn.cookies["pa_session_id"] || generate_uuid()
     page_views = String.to_integer(conn.cookies["pa_page_views"] || "0")
+    # Only HTML responses count as page views; assets, API calls etc. still belong to the session
+    page_views = if html_response?(conn), do: page_views + 1, else: page_views
+
+    user_agent = get_header(conn, "user-agent", nil)
+
+    request_data = %{
+      request_id: generate_uuid(),
+      method: conn.method,
+      path: conn.request_path,
+      status_code: conn.status,
+      duration_ms: System.monotonic_time(:millisecond) - start_time,
+      user_agent: user_agent,
+      remote_ip: format_ip(remote_ip(conn)),
+      referer: get_header(conn, "referer", "Direct"),
+      device_type: Utility.get_device_type(user_agent),
+      session_id: session_id,
+      session_page_views: page_views,
+      inserted_at: Utility.inserted_at()
+    }
+
+    case create_request_log(request_data) do
+      {:ok, request_log} -> PubSub.broadcast(request_log)
+      # Silently ignore validation errors to not affect user applications
+      {:error, _changeset} -> :ok
+    end
 
     conn
     |> put_resp_cookie("pa_session_id", session_id, max_age: @five_min, same_site: "Lax")
-    |> put_resp_cookie("pa_page_views", Integer.to_string(page_views + 1),
+    |> put_resp_cookie("pa_page_views", Integer.to_string(page_views),
       max_age: @five_min,
       same_site: "Lax"
     )
-    |> Plug.Conn.register_before_send(fn conn ->
-      try do
-        end_time = System.monotonic_time(:millisecond)
-        page_views = String.to_integer(conn.cookies["pa_page_views"] || "0")
-        request_duration = end_time - start_time
+  end
 
-        user_agent = get_header(conn, "user-agent", "unknown")
-
-        request_data = %{
-          request_id: generate_uuid(),
-          method: Map.get(conn, :method, "unknown"),
-          path: Map.get(conn, :request_path, "unknown"),
-          status_code: Map.get(conn, :status, 500),
-          duration_ms: request_duration,
-          user_agent: user_agent,
-          remote_ip: format_ip(remote_ip(conn)),
-          referer: get_header(conn, "referer", "Direct"),
-          device_type: Utility.get_device_type(user_agent),
-          session_id: conn.cookies["pa_session_id"],
-          session_page_views: page_views,
-          inserted_at: Utility.inserted_at()
-        }
-
-        case create_request_log(request_data) do
-          {:ok, request_log} ->
-            PubSub.broadcast(request_log)
-
-          {:error, _changeset} ->
-            # Silently ignore validation errors to not affect user applications
-            :ok
-        end
-      rescue
-        _error ->
-          # Silently ignore all errors to ensure user applications are never affected
-          :ok
-      end
-
-      conn
-    end)
+  defp html_response?(conn) do
+    conn
+    |> get_resp_header("content-type")
+    |> List.first("")
+    |> String.starts_with?("text/html")
   end
 
   # Creates a validated RequestLog struct using Ecto changesets.
@@ -140,10 +144,10 @@ defmodule PhoenixAnalytics.Plugs.RequestTracker do
 
   defp generate_uuid, do: Utility.uuid()
 
-  defp hash_ip(ip), do: :erlang.phash2(ip, 1_000_000) |> Integer.to_string()
+  # 2^32 buckets: with 1M, collisions made new visitors look like returning ones
+  defp hash_ip(ip), do: :erlang.phash2(ip, 4_294_967_296) |> Integer.to_string()
 
-  defp format_ip({a, b, c, d}), do: "#{a}.#{b}.#{c}.#{d}" |> hash_ip
-  defp format_ip(ip), do: to_string(ip) |> hash_ip
+  defp format_ip(ip), do: hash_ip(ip)
 
   defp remote_ip(conn = %Plug.Conn{}) do
     remote_ip =

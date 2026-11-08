@@ -9,7 +9,7 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>"
     />
     <.live_title suffix="">
-      <%= assigns[:page_title] || "Phoenix Analytics" %>
+      {assigns[:page_title] || "Phoenix Analytics"}
     </.live_title>
 
     <style>
@@ -21,6 +21,6 @@
   </head>
 
   <body class="bg-background text-foreground">
-    <%= @inner_content %>
+    {@inner_content}
   </body>
 </html>

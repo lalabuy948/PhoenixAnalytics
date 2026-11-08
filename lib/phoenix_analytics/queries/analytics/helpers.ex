@@ -13,6 +13,43 @@ defmodule PhoenixAnalytics.Queries.Helpers do
   @dev ~w(/phoenix/live_reload/ /dev/)
 
   @doc """
+  Keeps only page views: successful GETs of non-asset, non-dev paths.
+
+  Known limitation: JSON/XHR GETs (e.g. `/api/...`) also count, since rows don't record
+  whether the response was HTML. The fix is persisting an `is_page` flag at track time.
+  """
+  def page_views(query) do
+    query
+    |> exclude_bots()
+    |> filter_get_requests()
+    |> filter_successful()
+    |> exclude_non_page()
+    |> exclude_dev()
+  end
+
+  @doc """
+  Restricts a query grouped by session to visits: sessions with an id and at least
+  one HTML page view. Asset-only or API-only sessions (counter 0) are not visits.
+  Shared by bounce rate, views per visit, visit duration and the pages-per-visit chart
+  so their numbers agree.
+  """
+  def visit_sessions(grouped_query) do
+    from(r in grouped_query,
+      where: not is_nil(r.session_id),
+      having: max(r.session_page_views) > 0
+    )
+  end
+
+  @doc """
+  Excludes requests classified as bots at track time. Visitor metrics use this;
+  server metrics (requests, errors, latency) keep bot traffic since it is real load.
+  Rows tracked before bot detection (NULL or a regular device type) are kept.
+  """
+  def exclude_bots(query) do
+    from(r in query, where: is_nil(r.device_type) or r.device_type != "bot")
+  end
+
+  @doc """
   Excludes non-page requests (static files, assets, etc.) from a query.
   """
   def exclude_non_page(query) do
@@ -60,14 +97,25 @@ defmodule PhoenixAnalytics.Queries.Helpers do
   end
 
   @doc """
-  Filters query to exclude internal referrers.
+  Keeps requests that came with a referer (not NULL, blank or "Direct").
+  Internal-domain filtering happens in Elixir on the parsed host.
   """
-  def filter_external_referrers(query, app_domain) do
-    from(r in query,
-      where:
-        not like(r.referer, ^"%#{app_domain}%") and
-          not like(r.referer, ^"%unknown%")
-    )
+  def filter_has_referer(query) do
+    from(r in query, where: r.referer != "Direct" and r.referer != "")
+  end
+
+  @doc """
+  Filters query to only include static file requests (by extension).
+  """
+  def filter_static_files(query) do
+    [first | rest] = @static
+
+    condition =
+      Enum.reduce(rest, dynamic([r], like(r.path, ^"%#{first}")), fn ext, acc ->
+        dynamic([r], ^acc or like(r.path, ^"%#{ext}"))
+      end)
+
+    from(r in query, where: ^condition)
   end
 
   # Private helper functions
@@ -80,63 +128,53 @@ defmodule PhoenixAnalytics.Queries.Helpers do
 
   defp exclude_asset_paths(query) do
     Enum.reduce(@paths, query, fn path, q ->
-      from(r in q, where: not like(r.path, ^"%#{path}%"))
+      from(r in q, where: not like(r.path, ^"#{path}%"))
     end)
   end
 
   defp exclude_dev_paths(query) do
     Enum.reduce(@dev, query, fn path, q ->
-      from(r in q, where: not like(r.path, ^"%#{path}%"))
+      from(r in q, where: not like(r.path, ^"#{path}%"))
     end)
   end
 
   defp filter_from_date(query, nil), do: query
 
-  defp filter_from_date(query, from_date) do
-    # Convert Date to NaiveDateTime if needed
-    naive_from_date =
-      case from_date do
-        %Date{} -> NaiveDateTime.new!(from_date, ~T[00:00:00])
-        %NaiveDateTime{} -> from_date
-        date_string when is_binary(date_string) ->
-          case NaiveDateTime.from_iso8601(date_string) do
-            {:ok, naive_dt} -> naive_dt
-            {:error, _} ->
-              # Try parsing as date only first, then add time
-              case Date.from_iso8601(String.slice(date_string, 0, 10)) do
-                {:ok, date} -> NaiveDateTime.new!(date, ~T[00:00:00])
-                {:error, _} -> from_date
-              end
-          end
-        _ -> from_date
-      end
-
-    from(r in query, where: r.inserted_at >= ^naive_from_date)
-  end
+  defp filter_from_date(query, from_date),
+    do: from(r in query, where: r.inserted_at >= ^start_of(from_date))
 
   defp filter_to_date(query, nil), do: query
 
-  defp filter_to_date(query, to_date) do
-    # Convert Date to NaiveDateTime if needed
-    naive_to_date =
-      case to_date do
-        %Date{} -> NaiveDateTime.new!(to_date, ~T[23:59:59])
-        %NaiveDateTime{} -> to_date
-        date_string when is_binary(date_string) ->
-          case NaiveDateTime.from_iso8601(date_string) do
-            {:ok, naive_dt} -> naive_dt
-            {:error, _} ->
-              # Try parsing as date only first, then add time
-              case Date.from_iso8601(String.slice(date_string, 0, 10)) do
-                {:ok, date} -> NaiveDateTime.new!(date, ~T[23:59:59])
-                {:error, _} -> to_date
-              end
-          end
-        _ -> to_date
-      end
+  defp filter_to_date(query, to_date),
+    do: from(r in query, where: r.inserted_at <= ^end_of(to_date))
 
-    from(r in query, where: r.inserted_at <= ^naive_to_date)
+  @doc """
+  Converts a range start (`Date`, `NaiveDateTime` or ISO string) to a `NaiveDateTime`.
+  Dates start at 00:00:00.
+  """
+  def start_of(value), do: to_naive(value, ~T[00:00:00])
+
+  @doc """
+  Converts a range end (`Date`, `NaiveDateTime` or ISO string) to a `NaiveDateTime`.
+  Dates end at 23:59:59.
+  """
+  def end_of(value), do: to_naive(value, ~T[23:59:59])
+
+  defp to_naive(%Date{} = date, time), do: NaiveDateTime.new!(date, time)
+  defp to_naive(%NaiveDateTime{} = datetime, _time), do: datetime
+
+  defp to_naive(string, time) when is_binary(string) do
+    case NaiveDateTime.from_iso8601(string) do
+      {:ok, datetime} ->
+        datetime
+
+      {:error, _} ->
+        case Date.from_iso8601(String.slice(string, 0, 10)) do
+          {:ok, date} -> NaiveDateTime.new!(date, time)
+          {:error, _} -> string
+        end
+    end
   end
 
-
+  defp to_naive(other, _time), do: other
 end

@@ -28,15 +28,17 @@ defmodule PhoenixAnalytics.Web.Live.Components.VisitsChart do
     interval = assigns.interval
 
     # Check if date_range or interval has changed
-    should_refresh = 
-      socket.assigns[:date_range] != date_range || 
-      socket.assigns[:interval] != interval
+    should_refresh =
+      socket.assigns[:date_range] != date_range ||
+        socket.assigns[:interval] != interval
 
     socket = assign(socket, assigns)
 
     if should_refresh do
       {:ok,
-       assign_async(socket, :chart_data, fn -> {:ok, %{chart_data: chart_data(date_range, interval)}} end)}
+       assign_async(socket, :chart_data, fn ->
+         {:ok, %{chart_data: chart_data(date_range, interval)}}
+       end)}
     else
       {:ok, socket}
     end
@@ -45,16 +47,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.VisitsChart do
   defp chart_data(%{from: from, to: to} = _date_range, interval) do
     cache_key = "visits_per_period:#{interval}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_data(from, to, interval) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        []
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_data(from, to, interval) end)
   end
 
   defp fetch_data(from, to, interval) do

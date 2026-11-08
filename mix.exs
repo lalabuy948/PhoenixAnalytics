@@ -1,7 +1,7 @@
 defmodule PhoenixAnalytics.MixProject do
   use Mix.Project
 
-  @version "0.4.2"
+  @version "0.5.0"
 
   def project do
     [
@@ -69,7 +69,7 @@ defmodule PhoenixAnalytics.MixProject do
       # --- dev deps ---
       {:ex_doc, "~> 0.33", only: :dev},
       {:esbuild, "~> 0.8", only: :dev, runtime: false},
-      {:tailwind, "~> 0.1", only: :dev, runtime: false},
+      {:tailwind, "~> 0.5", only: :dev, runtime: false},
       # Database adapters for development and testing
       {:postgrex, "~> 0.17", only: [:dev, :test]},
       {:ecto_sqlite3, "~> 0.12", only: [:dev, :test]},

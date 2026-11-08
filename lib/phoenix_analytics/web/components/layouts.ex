@@ -10,8 +10,13 @@ defmodule PhoenixAnalytics.Web.Layouts do
 
   use PhoenixAnalytics.Web, :html
 
-  @css :code.priv_dir(:phoenix_analytics) |> Path.join("static/assets/app.css") |> File.read!()
-  @js :code.priv_dir(:phoenix_analytics) |> Path.join("static/assets/app.js") |> File.read!()
+  @css_path :code.priv_dir(:phoenix_analytics) |> Path.join("static/assets/app.css")
+  @js_path :code.priv_dir(:phoenix_analytics) |> Path.join("static/assets/app.js")
+  @external_resource @css_path
+  @external_resource @js_path
+
+  @css File.read!(@css_path)
+  @js File.read!(@js_path)
 
   def get_content(:css), do: @css
   def get_content(:js), do: @js

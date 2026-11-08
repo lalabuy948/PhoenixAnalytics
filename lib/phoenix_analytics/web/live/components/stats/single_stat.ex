@@ -35,6 +35,9 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         :views_per_visit -> "Views per Visit"
         :visit_duration -> "Visit Duration"
         :bounce_rate -> "Bounce Rate"
+        :error_rate -> "Error Rate"
+        :p95_response_time -> "p95 Response Time"
+        :p99_response_time -> "p99 Response Time"
       end
 
     # Check if date_range has changed
@@ -58,16 +61,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
   defp stat_data(source, %{from: from, to: to} = _date_range) do
     cache_key = "stat:#{source}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_stat_data(source, from, to) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        0
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_stat_data(source, from, to) end)
   end
 
   defp fetch_stat_data(source, from, to) do
@@ -79,6 +73,9 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         :views_per_visit -> Analytics.average_views_per_visit(from, to)
         :visit_duration -> Analytics.average_visit_duration(from, to)
         :bounce_rate -> Analytics.bounce_rate(from, to)
+        :error_rate -> Analytics.error_rate(from, to)
+        :p95_response_time -> Analytics.response_time_percentile(from, to, 95)
+        :p99_response_time -> Analytics.response_time_percentile(from, to, 99)
       end
 
     repo = PhoenixAnalytics.Config.get_repo()
@@ -115,16 +112,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
   defp chart_data(source, %{from: from, to: to} = _date_range) do
     cache_key = "stat_chart:#{source}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_chart_data(source, from, to) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        []
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_chart_data(source, from, to) end)
   end
 
   defp fetch_chart_data(source, from, to) do
@@ -136,6 +124,9 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         :views_per_visit -> Analytics.views_per_visit_per_period_limited(from, to)
         :visit_duration -> Analytics.visit_duration_per_period_limited(from, to)
         :bounce_rate -> Analytics.bounce_rate_per_period_limited(from, to)
+        :error_rate -> Analytics.error_rate_per_period_limited(from, to)
+        :p95_response_time -> Analytics.response_time_percentile_per_period_limited(from, to, 95)
+        :p99_response_time -> Analytics.response_time_percentile_per_period_limited(from, to, 99)
       end
 
     repo = PhoenixAnalytics.Config.get_repo()
@@ -150,7 +141,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         []
 
       _ ->
-        for [date, hits] <- result do
+        for %{date: date, hits: hits} <- result do
           %{"date" => date, "hits" => hits}
         end
     end

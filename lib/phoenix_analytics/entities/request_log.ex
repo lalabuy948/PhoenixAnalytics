@@ -13,16 +13,16 @@ defmodule PhoenixAnalytics.Entities.RequestLog do
   @timestamps_opts [type: :naive_datetime, inserted_at: :inserted_at, updated_at: false]
 
   schema "requests" do
-    field :method, :string
-    field :path, :string
-    field :status_code, :integer
-    field :duration_ms, :integer
-    field :user_agent, :string
-    field :remote_ip, :string
-    field :referer, :string
-    field :device_type, :string
-    field :session_id, :string
-    field :session_page_views, :integer
+    field(:method, :string)
+    field(:path, :string)
+    field(:status_code, :integer)
+    field(:duration_ms, :integer)
+    field(:user_agent, :string)
+    field(:remote_ip, :string)
+    field(:referer, :string)
+    field(:device_type, :string)
+    field(:session_id, :string)
+    field(:session_page_views, :integer)
 
     timestamps(inserted_at: :inserted_at, updated_at: false)
   end
@@ -32,7 +32,20 @@ defmodule PhoenixAnalytics.Entities.RequestLog do
   """
   def changeset(request_log, attrs) do
     request_log
-    |> cast(attrs, [:request_id, :method, :path, :status_code, :duration_ms, :user_agent, :remote_ip, :referer, :device_type, :session_id, :session_page_views, :inserted_at])
+    |> cast(attrs, [
+      :request_id,
+      :method,
+      :path,
+      :status_code,
+      :duration_ms,
+      :user_agent,
+      :remote_ip,
+      :referer,
+      :device_type,
+      :session_id,
+      :session_page_views,
+      :inserted_at
+    ])
     |> validate_required([:request_id, :method, :path, :status_code, :duration_ms])
     |> validate_inclusion(:status_code, 100..599)
     |> validate_number(:duration_ms, greater_than_or_equal_to: 0)

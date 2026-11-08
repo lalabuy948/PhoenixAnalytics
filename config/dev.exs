@@ -9,8 +9,8 @@ config :phoenix_analytics,
   app_domain: "localhost",
   cache_ttl: 60
 
-config :esbuild, :version, "0.17.11"
-config :tailwind, :version, "3.4.13"
+config :esbuild, :version, "0.25.4"
+config :tailwind, :version, "4.3.3"
 
 # Configure esbuild (the version is required)
 config :esbuild,
@@ -25,9 +25,8 @@ config :esbuild,
 config :tailwind,
   phoenix_analytics: [
     args: ~w(
-      --config=tailwind.config.js
-      --input=css/app.css
-      --output=../priv/static/assets/app.css
+      --input=assets/css/app.css
+      --output=priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__)
+    cd: Path.expand("..", __DIR__)
   ]

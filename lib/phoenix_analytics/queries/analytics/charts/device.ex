@@ -23,6 +23,6 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Device do
       device: r.device_type,
       count: count(r.request_id)
     })
-    |> order_by([r], desc: count(r.request_id))
+    |> order_by([r], desc: count(r.request_id), asc: r.device_type)
   end
 end

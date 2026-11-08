@@ -17,7 +17,7 @@ export function nFormatter(num: number, digits: number) {
   ];
   const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
   const item = lookup.findLast((item) => num >= item.value);
-  return item
-    ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol)
-    : "0";
+  // Values below 1 (e.g. 0.4% error rate) have no lookup entry; keep their decimals
+  const { value, symbol } = item ?? { value: 1, symbol: "" };
+  return (num / value).toFixed(digits).replace(regexp, "").concat(symbol);
 }

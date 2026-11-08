@@ -6,11 +6,11 @@ defmodule PhoenixAnalytics.Web.Live.Components.Footer do
   @impl true
   def render(assigns) do
     ~H"""
-    <footer class="mx-auto max-w-screen-sm my-20">
+    <footer class="mx-auto max-w-[40rem] my-20">
       <div class="flex items-center justify-between mt-16 gap-2 px-4 py-2 sm:px-6 lg:px-2 text-sm">
         <%!-- Left side of footer --%>
         <div class="flex items-center gap-4 font-semibold leading-6">
-          <p><%= Date.utc_today().year %></p>
+          <p>{Date.utc_today().year}</p>
         </div>
 
         <%!-- Mid of footer --%>

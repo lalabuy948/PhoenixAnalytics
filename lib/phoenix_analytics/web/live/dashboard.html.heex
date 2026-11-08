@@ -52,6 +52,30 @@
     stat_unit="%"
     module={PhoenixAnalytics.Web.Live.Components.SingleStat}
   />
+
+  <.live_component
+    id="error-rate-stat"
+    source={:error_rate}
+    date_range={@date_range}
+    stat_unit="%"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="p95-response-time-stat"
+    source={:p95_response_time}
+    date_range={@date_range}
+    stat_unit="time"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="p99-response-time-stat"
+    source={:p99_response_time}
+    date_range={@date_range}
+    stat_unit="time"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
 </div>
 
 <.live_component
@@ -85,6 +109,71 @@
   />
 </div>
 
+<div class="mt-16 grid flex-1 scroll-mt-20 items-start gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:gap-10">
+  <.live_component
+    id="entry-pages-chart"
+    source={:entry_pages}
+    chart_title="Entry Pages"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+
+  <.live_component
+    id="exit-pages-chart"
+    source={:exit_pages}
+    chart_title="Exit Pages"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+
+  <.live_component
+    id="visitor-types-chart"
+    source={:visitor_types}
+    chart_title="New vs Returning"
+    footer="Visitors seen before the selected range count as returning"
+    unit="Visitors"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.DeviceChart}
+  />
+</div>
+
+<div class="mt-16 grid flex-1 scroll-mt-20 items-start gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:gap-10">
+  <.live_component
+    id="pages-per-visit-chart"
+    source={:pages_per_visit}
+    chart_title="Pages per Visit"
+    footer="Visits grouped by HTML pages viewed"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+
+  <.live_component
+    id="referer-landings-chart"
+    source={:referer_landings}
+    chart_title="Referrer → Landing Page"
+    footer="Visits from external sites by the page they landed on"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+
+  <.live_component
+    id="time-to-second-page-chart"
+    source={:time_to_second_page}
+    chart_title="Time to Second Page"
+    footer="Visits with 2+ pages, by time between the first two"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
+</div>
+
+<div class="mt-16">
+  <.live_component
+    id="traffic-heatmap"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.HeatmapChart}
+  />
+</div>
+
 <div class="mt-16">
   <.live_component
     id="statuses-chart"
@@ -98,7 +187,7 @@
   <.live_component
     id="slowest-pages-chart"
     source={:pages}
-    chart_title="Slowest Pages"
+    chart_title="Slowest Endpoints"
     date_range={@date_range}
     module={PhoenixAnalytics.Web.Live.Components.ResChart}
   />
@@ -129,4 +218,4 @@
   />
 </div>
 
-<.live_component id="header" module={PhoenixAnalytics.Web.Live.Components.Footer} />
+<.live_component id="footer" module={PhoenixAnalytics.Web.Live.Components.Footer} />
