@@ -31,7 +31,7 @@ defmodule PhoenixAnalytics.Migration do
         {:ok, "Table created successfully"}
 
       {:error, reason} ->
-        IO.puts("Failed to apply migration: #{reason}")
+        IO.puts("Failed to apply migration: #{inspect(reason)}")
         {:error, reason}
     end
   end
@@ -50,7 +50,7 @@ defmodule PhoenixAnalytics.Migration do
         {:ok, "Table dropped successfully"}
 
       {:error, reason} ->
-        IO.puts("Failed to roll back migration: #{reason}")
+        IO.puts("Failed to roll back migration: #{inspect(reason)}")
         {:error, reason}
     end
   end
