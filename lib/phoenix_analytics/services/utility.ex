@@ -8,23 +8,15 @@ defmodule PhoenixAnalytics.Services.Utility do
   """
 
   @doc """
-  Returns the current UTC timestamp in database-compatible format.
-
-  This function generates a timestamp string that is compatible with standard
-  database TIMESTAMP data types. The timestamp is in UTC and includes millisecond precision.
+  Returns the current UTC timestamp truncated to seconds, matching the `requests` schema.
 
   ## Examples
 
       iex> PhoenixAnalytics.Services.Utility.inserted_at()
-      "2023-05-15 14:30:45.123"
-
-  Returns a string in the format "YYYY-MM-DD HH:MM:SS.mmm".
+      ~N[2023-05-15 14:30:45]
   """
   def inserted_at do
-    NaiveDateTime.utc_now()
-    |> NaiveDateTime.truncate(:millisecond)
-    |> NaiveDateTime.to_string()
-    |> String.replace("T", " ")
+    NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   end
 
   @doc """
@@ -46,6 +38,7 @@ defmodule PhoenixAnalytics.Services.Utility do
   ## Returns
 
   A string indicating the device type:
+    * "bot" for crawlers, scripts and HTTP libraries, or a missing user agent
     * "mobile" for mobile devices
     * "tablet" for tablet devices
     * "desktop" for desktop devices or any unrecognized device type
@@ -63,9 +56,58 @@ defmodule PhoenixAnalytics.Services.Utility do
   """
   def get_device_type(agent_string) do
     cond do
-      String.contains?(agent_string, "Pad") -> "tablet"
+      bot?(agent_string) -> "bot"
+      String.contains?(agent_string, ["iPad", "Tablet"]) -> "tablet"
       String.contains?(agent_string, "Mobile") -> "mobile"
+      # Android without "Mobile" in the UA is a tablet
+      String.contains?(agent_string, "Android") -> "tablet"
       true -> "desktop"
+    end
+  end
+
+  # Lowercase substrings. "bot" alone catches most crawlers (Googlebot, TelegramBot,
+  # Pingdom.com_bot_...); the Cubot phone brand is stripped first to avoid false positives.
+  # okhttp is deliberately absent: it is the default UA of real Android app users.
+  @bot_markers ~w(
+    bot crawler crawl/ spider slurp facebookexternalhit ia_archiver whatsapp/
+    curl/ libcurl wget/ python- aiohttp go-http-client java/ libwww apache-httpclient
+    axios/ node-fetch undici hackney/ req/ mint/ guzzle ruby php/ dart:io
+    postmanruntime insomnia/ httpie/ pingdom datadog kube-probe healthcheck googlehc/
+    headlesschrome phantomjs lighthouse
+  )
+
+  @doc """
+  Returns true for crawler, script, monitor and HTTP-library user agents, or a missing one.
+
+  Matching is a substring heuristic: bots that send a browser user agent are not detected.
+
+  ## Examples
+
+      iex> PhoenixAnalytics.Services.Utility.bot?("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+      true
+
+      iex> PhoenixAnalytics.Services.Utility.bot?("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+      false
+  """
+  def bot?(nil), do: true
+
+  def bot?(agent_string) do
+    case agent_string |> String.trim() |> String.downcase() |> String.replace("cubot", "") do
+      "" -> true
+      agent -> :binary.match(agent, bot_pattern()) != :nomatch
+    end
+  end
+
+  # Compiled once per node; compiled patterns can't live in module attributes
+  defp bot_pattern do
+    case :persistent_term.get({__MODULE__, :bot_pattern}, nil) do
+      nil ->
+        pattern = :binary.compile_pattern(@bot_markers)
+        :persistent_term.put({__MODULE__, :bot_pattern}, pattern)
+        pattern
+
+      pattern ->
+        pattern
     end
   end
 
