@@ -82,14 +82,17 @@ export function ResChart({
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
               hide
             />
             <XAxis dataKey="duration" type="number" hide />
             <ChartTooltip
               cursor={false}
               content={
-                <ChartTooltipContent className="w-[175px]" indicator="dot" />
+                <ChartTooltipContent
+                  className="w-[175px]"
+                  nameKey="path"
+                  indicator="dot"
+                />
               }
             />
             <Bar
@@ -100,6 +103,9 @@ export function ResChart({
             >
               <LabelList
                 dataKey="path"
+                formatter={(value: string) =>
+                  value.length > 28 ? `${value.slice(0, 27)}…` : value
+                }
                 position="insideLeft"
                 fill="var(--color-label)"
                 offset={8}
@@ -111,7 +117,7 @@ export function ResChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm mt-2">
         <div className="leading-none text-muted-foreground">
-          Request duration for {chartTitle.toLowerCase()}
+          Average request duration for {chartTitle.toLowerCase()}
         </div>
       </CardFooter>
     </Card>

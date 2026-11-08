@@ -10,7 +10,6 @@ defmodule PhoenixAnalytics.Services.Cache do
   """
 
   @cache :pa_cache
-  @ttl Application.compile_env(:phoenix_analytics, :cache_ttl, 120)
 
   @doc false
   def name() do
@@ -56,41 +55,37 @@ defmodule PhoenixAnalytics.Services.Cache do
       iex> PhoenixAnalytics.Services.Cache.add("existing_key", "updated_value")
       {:ok, true}
   """
-  def add(key, value), do: Cachex.put(@cache, key, value, expire: :timer.seconds(@ttl))
+  def add(key, value), do: Cachex.put(@cache, key, value, expire: :timer.seconds(ttl()))
 
   @doc """
-  Fetches a value from the cache for the given key, or computes and caches it if not present.
+  Returns the cached value for `key`, or computes it with `callback` and caches it.
 
-  ## Parameters
-
-    * `key` - The key to fetch from the cache.
-    * `callback` - A function that computes the value if it's not in the cache.
-
-    ## Returns
-
-      * `{:ok, value}` - If the value was found in the cache.
-
-      * `{:commit, value}` - If the value was successfully computed and cached.
-
-      * `{:error, reason}` - If there was an error fetching or computing the value.
+  Errors raised by `callback` are re-raised (Cachex would otherwise wrap them in a
+  `Cachex.Error`), so dashboard components fail loudly inside `assign_async`
+  instead of silently rendering "no data". Failed results are never cached.
 
   ## Examples
 
       iex> PhoenixAnalytics.Services.Cache.fetch("some_key", fn -> "computed_value" end)
-      {:commit, "computed_value"}
-
-      iex> PhoenixAnalytics.Services.Cache.fetch("existing_key", fn -> "new_value" end)
-      {:ok, "cached_value"}
+      "computed_value"
   """
   def fetch(key, callback) do
-    cond do
-      @ttl > 0 ->
-        Cachex.fetch(@cache, key, fn _ -> {:commit, callback.()} end,
-          expire: :timer.seconds(@ttl)
-        )
+    ttl = ttl()
 
-      true ->
-        {:ok, callback.()}
+    if ttl > 0 do
+      case Cachex.fetch(@cache, key, fn _ -> {:commit, callback.()} end,
+             expire: :timer.seconds(ttl)
+           ) do
+        {status, value} when status in [:ok, :commit] ->
+          value
+
+        {:error, error} ->
+          raise "PhoenixAnalytics query #{inspect(key)} failed: #{inspect(error)}"
+      end
+    else
+      callback.()
     end
   end
+
+  defp ttl, do: PhoenixAnalytics.Config.get_cache_ttl()
 end

@@ -153,6 +153,5 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Requests do
   """
   def total_requests_per_period_limited(from_date, to_date) do
     total_requests_per_period(from_date, to_date, "day")
-    |> limit(30)
   end
 end

@@ -21,6 +21,7 @@ defmodule PhoenixAnalytics.Queries.Analytics do
   # Re-export all the functions for easy access
   defdelegate popular_pages(from_date, to_date), to: Popular
   defdelegate popular_referer(from_date, to_date), to: Popular
+  defdelegate top_referers(rows), to: Popular
   defdelegate popular_not_found(from_date, to_date), to: Popular
   defdelegate popular_user_agents(from_date, to_date), to: Popular
   defdelegate popular_device_types(from_date, to_date), to: Popular
@@ -41,6 +42,7 @@ defmodule PhoenixAnalytics.Queries.Analytics do
   defdelegate statuses_per_period(from_date, to_date, interval), to: Statuses
   defdelegate total_requests_per_period(from_date, to_date, interval), to: Requests
   defdelegate slowest_pages(from_date, to_date), to: Slowest
+  defdelegate top_endpoints(rows), to: Slowest
   defdelegate slowest_resources(from_date, to_date), to: Slowest
   defdelegate visits_per_period(from_date, to_date, interval), to: Visits
 

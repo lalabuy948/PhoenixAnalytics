@@ -17,6 +17,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   """
   def unique_visitors(from_date, to_date) do
     RequestLog
+    |> Helpers.exclude_bots()
     |> Helpers.filter_by_date(from_date, to_date)
     |> select([r], count(r.remote_ip, :distinct))
   end
@@ -26,9 +27,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   """
   def total_pageviews(from_date, to_date) do
     RequestLog
-    |> Helpers.filter_get_requests()
-    |> Helpers.filter_successful()
-    |> Helpers.exclude_non_page()
+    |> Helpers.page_views()
     |> Helpers.filter_by_date(from_date, to_date)
     |> select([r], count(r.request_id))
   end
@@ -46,9 +45,17 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   Gets average views per visit for a given date range.
   """
   def average_views_per_visit(from_date, to_date) do
-    RequestLog
-    |> Helpers.filter_by_date(from_date, to_date)
-    |> select([r], fragment("CAST(AVG(?) AS FLOAT)", r.session_page_views))
+    session_views =
+      RequestLog
+      |> Helpers.exclude_bots()
+      |> Helpers.filter_by_date(from_date, to_date)
+      |> group_by([r], r.session_id)
+      |> Helpers.visit_sessions()
+      |> select([r], %{page_views: max(r.session_page_views)})
+
+    from(sv in subquery(session_views),
+      select: fragment("CAST(AVG(?) AS FLOAT(53))", sv.page_views)
+    )
   end
 
   @doc """
@@ -65,8 +72,10 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
         :sqlite ->
           # SQLite version using julianday function
           RequestLog
+          |> Helpers.exclude_bots()
           |> Helpers.filter_by_date(from_date, to_date)
           |> group_by([r], r.session_id)
+          |> Helpers.visit_sessions()
           |> select([r], %{
             session_id: r.session_id,
             duration:
@@ -80,8 +89,10 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
         :mysql ->
           # MySQL version using TIMESTAMPDIFF
           RequestLog
+          |> Helpers.exclude_bots()
           |> Helpers.filter_by_date(from_date, to_date)
           |> group_by([r], r.session_id)
+          |> Helpers.visit_sessions()
           |> select([r], %{
             session_id: r.session_id,
             duration:
@@ -95,13 +106,15 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
         _ ->
           # PostgreSQL version using EXTRACT
           RequestLog
+          |> Helpers.exclude_bots()
           |> Helpers.filter_by_date(from_date, to_date)
           |> group_by([r], r.session_id)
+          |> Helpers.visit_sessions()
           |> select([r], %{
             session_id: r.session_id,
             duration:
               fragment(
-                "EXTRACT(EPOCH FROM (MAX(?) - MIN(?))) * 1000",
+                "CAST(EXTRACT(EPOCH FROM (MAX(?) - MIN(?))) * 1000 AS NUMERIC)",
                 r.inserted_at,
                 r.inserted_at
               )
@@ -109,7 +122,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
       end
 
     from(sd in subquery(session_durations),
-      select: fragment("CAST(AVG(?) AS FLOAT)", sd.duration)
+      select: fragment("CAST(AVG(?) AS FLOAT(53))", sd.duration)
     )
   end
 
@@ -120,8 +133,10 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
     # Calculate bounce rate: sessions with only 1 page view
     session_stats =
       RequestLog
+      |> Helpers.exclude_bots()
       |> Helpers.filter_by_date(from_date, to_date)
       |> group_by([r], r.session_id)
+      |> Helpers.visit_sessions()
       |> select([r], %{
         session_id: r.session_id,
         page_views: max(r.session_page_views)
@@ -131,7 +146,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
       select: %{
         bounce_rate:
           fragment(
-            "CAST(ROUND(100.0 * SUM(CASE WHEN ? = 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS FLOAT)",
+            "CAST(ROUND(100.0 * SUM(CASE WHEN ? = 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS FLOAT(53))",
             ss.page_views
           )
       }
@@ -144,7 +159,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   def average_response_time(from_date, to_date) do
     RequestLog
     |> Helpers.filter_by_date(from_date, to_date)
-    |> select([r], fragment("CAST(AVG(?) AS FLOAT)", r.duration_ms))
+    |> select([r], fragment("CAST(AVG(?) AS FLOAT(53))", r.duration_ms))
   end
 
   @doc """

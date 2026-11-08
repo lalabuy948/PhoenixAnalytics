@@ -58,16 +58,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
   defp stat_data(source, %{from: from, to: to} = _date_range) do
     cache_key = "stat:#{source}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_stat_data(source, from, to) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        0
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_stat_data(source, from, to) end)
   end
 
   defp fetch_stat_data(source, from, to) do
@@ -115,16 +106,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
   defp chart_data(source, %{from: from, to: to} = _date_range) do
     cache_key = "stat_chart:#{source}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_chart_data(source, from, to) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        []
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_chart_data(source, from, to) end)
   end
 
   defp fetch_chart_data(source, from, to) do
@@ -150,7 +132,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.SingleStat do
         []
 
       _ ->
-        for [date, hits] <- result do
+        for %{date: date, hits: hits} <- result do
           %{"date" => date, "hits" => hits}
         end
     end

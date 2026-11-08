@@ -115,7 +115,7 @@ IO.puts("------------------")
 end)
 
 {popular_referers, _} = test_query.("popular referers", fn ->
-  Analytics.popular_referer(week_ago, today) |> repo.all()
+  Analytics.popular_referer(week_ago, today) |> repo.all() |> Analytics.top_referers()
 end)
 
 {popular_404s, _} = test_query.("popular 404s", fn ->

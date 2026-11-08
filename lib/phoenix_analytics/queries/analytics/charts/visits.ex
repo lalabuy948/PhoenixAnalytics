@@ -14,6 +14,10 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
 
   @doc """
   Gets visits per period for a given date range and interval.
+
+  Counts distinct sessions with any non-asset request in the period, so API-only
+  sessions are included; `Stat.bounce_rate/2` and friends only count sessions
+  with an HTML page view.
   """
   def visits_per_period(from_date, to_date, interval \\ "day")
       when interval in @valid_intervals do
@@ -22,6 +26,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
 
     RequestLog
     |> Helpers.exclude_non_page()
+    |> Helpers.exclude_bots()
     |> Helpers.filter_by_date(from_date, to_date)
     |> apply_grouping_and_selection(database_type, interval)
   end
@@ -34,7 +39,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("strftime('%Y-%m-%d %H:00:00', ?)", r.inserted_at))
         |> select([r], %{
           date: fragment("strftime('%Y-%m-%d %H:00:00', ?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("strftime('%Y-%m-%d %H:00:00', ?)", r.inserted_at))
@@ -44,7 +49,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE(?)", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE(?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE(?)", r.inserted_at))
@@ -54,7 +59,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("strftime('%Y-%m', ?)", r.inserted_at))
         |> select([r], %{
           date: fragment("strftime('%Y-%m', ?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("strftime('%Y-%m', ?)", r.inserted_at))
@@ -64,7 +69,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("strftime('%Y', ?)", r.inserted_at))
         |> select([r], %{
           date: fragment("strftime('%Y', ?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("strftime('%Y', ?)", r.inserted_at))
@@ -79,7 +84,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE_FORMAT(?, '%Y-%m-%d %H:00:00')", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE_FORMAT(?, '%Y-%m-%d %H:00:00')", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE_FORMAT(?, '%Y-%m-%d %H:00:00')", r.inserted_at))
@@ -89,7 +94,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE(?)", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE(?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE(?)", r.inserted_at))
@@ -99,7 +104,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE_FORMAT(?, '%Y-%m')", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE_FORMAT(?, '%Y-%m')", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE_FORMAT(?, '%Y-%m')", r.inserted_at))
@@ -109,7 +114,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE_FORMAT(?, '%Y')", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE_FORMAT(?, '%Y')", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE_FORMAT(?, '%Y')", r.inserted_at))
@@ -124,7 +129,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE_TRUNC('hour', ?)", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE_TRUNC('hour', ?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE_TRUNC('hour', ?)", r.inserted_at))
@@ -134,7 +139,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE(?)", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE(?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE(?)", r.inserted_at))
@@ -144,7 +149,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE_TRUNC('month', ?)", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE_TRUNC('month', ?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE_TRUNC('month', ?)", r.inserted_at))
@@ -154,7 +159,7 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Visits do
         |> group_by([r], fragment("DATE_TRUNC('year', ?)", r.inserted_at))
         |> select([r], %{
           date: fragment("DATE_TRUNC('year', ?)", r.inserted_at),
-          visits: count(r.request_id),
+          visits: count(r.session_id, :distinct),
           unique_visitors: count(r.remote_ip, :distinct)
         })
         |> order_by([r], fragment("DATE_TRUNC('year', ?)", r.inserted_at))

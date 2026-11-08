@@ -47,16 +47,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.RequestsChart do
   def chart_data(%{from: from, to: to} = _date_range, interval) do
     cache_key = "requests_chart:#{interval}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_chart_data(from, to, interval) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        []
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_chart_data(from, to, interval) end)
   end
 
   defp fetch_chart_data(from, to, interval) do

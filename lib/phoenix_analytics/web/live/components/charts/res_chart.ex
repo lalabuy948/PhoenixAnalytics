@@ -4,7 +4,6 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
   use PhoenixAnalytics.Web, :live_component
 
   alias PhoenixAnalytics.Services.Cache
-  alias PhoenixAnalytics.Services.Telemetry
 
   alias PhoenixAnalytics.Queries.Analytics
 
@@ -46,40 +45,24 @@ defmodule PhoenixAnalytics.Web.Live.Components.ResChart do
   defp chart_data(source, %{from: from, to: to} = _date_range) do
     cache_key = "slowest_chart:#{source}:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_data(source, from, to) end)
+    Cache.fetch(cache_key, fn -> fetch_data(source, from, to) end)
+  end
 
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        []
+  defp fetch_data(:pages, from, to) do
+    from
+    |> Analytics.slowest_pages(to)
+    |> PhoenixAnalytics.Config.get_repo().all()
+    |> Analytics.top_endpoints()
+    |> Enum.map(&%{"path" => label(&1), "duration" => &1.duration})
+  end
 
-      _ ->
-        value
+  defp fetch_data(:resources, from, to) do
+    for row <- PhoenixAnalytics.Config.get_repo().all(Analytics.slowest_resources(from, to)) do
+      %{"path" => label(row), "duration" => row.duration}
     end
   end
 
-  defp fetch_data(source, from, to) do
-    query =
-      case source do
-        :pages -> Analytics.slowest_pages(from, to)
-        :resources -> Analytics.slowest_resources(from, to)
-      end
-
-    repo = PhoenixAnalytics.Config.get_repo()
-    result = repo.all(query)
-
-    case result do
-      [] ->
-        []
-
-      {:error, reason} ->
-        Telemetry.log_error(:fetch_data, reason)
-        []
-
-      _ ->
-        for %{path: path, duration: duration} <- result do
-          %{"path" => path, "duration" => duration}
-        end
-    end
-  end
+  @doc false
+  def label(%{method: method, path: path}), do: "#{method} #{path}"
+  def label(%{path: path}), do: path
 end

@@ -44,16 +44,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.DeviceChart do
   defp chart_data(%{from: from, to: to} = _date_range) do
     cache_key = "devices_usage:#{from}:#{to}"
 
-    {_, value} = Cache.fetch(cache_key, fn -> fetch_data(from, to) end)
-
-    # Handle Cachex.Error structs that can't be JSON encoded
-    case value do
-      %Cachex.Error{} ->
-        []
-
-      _ ->
-        value
-    end
+    Cache.fetch(cache_key, fn -> fetch_data(from, to) end)
   end
 
   defp fetch_data(from, to) do

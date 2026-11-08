@@ -148,10 +148,10 @@ defmodule PhoenixAnalyticsTest do
         path: "/api/users",
         status_code: 201,
         duration_ms: 300,
-        user_agent: "curl/7.68.0",
+        user_agent: "Mozilla/5.0 (X11; Linux x86_64) Firefox/120.0",
         remote_ip: "192.168.1.4",
         referer: nil,
-        device_type: "unknown",
+        device_type: "desktop",
         session_id: "session_4",
         session_page_views: 1,
         inserted_at: last_month
@@ -182,10 +182,9 @@ defmodule PhoenixAnalyticsTest do
       last_month: last_month,
       last_year: last_year,
       expected: %{
-        today: %{requests: 3, unique_visitors: 2, sessions: 2, pageviews: 3, visits: 3},
-        # visits count all requests
-        yesterday: %{requests: 2, unique_visitors: 1, sessions: 1, pageviews: 1, visits: 2},
-        # 1 visit (POST included in visits)
+        # visits = distinct sessions
+        today: %{requests: 3, unique_visitors: 2, sessions: 2, pageviews: 3, visits: 2},
+        yesterday: %{requests: 2, unique_visitors: 1, sessions: 1, pageviews: 1, visits: 1},
         last_month: %{requests: 1, unique_visitors: 1, sessions: 1, pageviews: 0, visits: 1},
         last_year: %{requests: 1, unique_visitors: 1, sessions: 1, pageviews: 1, visits: 1}
       }
@@ -558,28 +557,16 @@ defmodule PhoenixAnalyticsTest do
     test "slowest pages analytics" do
       create_test_fixtures()
 
-      start_date = ~D[2025-01-14]
-      end_date = ~D[2025-01-15]
+      results = TestRepo.all(Analytics.slowest_pages(~D[2025-01-14], ~D[2025-01-15]))
 
-      query = Analytics.slowest_pages(start_date, end_date)
-      results = TestRepo.all(query)
-
-      # Should return pages ordered by average duration
       assert length(results) > 0
 
-      # Verify structure
-      Enum.each(results, fn result ->
-        assert Map.has_key?(result, :path)
-        assert Map.has_key?(result, :duration)
+      for result <- results do
+        assert is_binary(result.method)
         assert is_binary(result.path)
-        assert is_float(result.duration)
-        assert result.duration > 0
-      end)
-
-      # Results should be ordered by duration (descending)
-      durations = Enum.map(results, & &1.duration)
-      sorted_durations = Enum.sort(durations, :desc)
-      assert durations == sorted_durations
+        assert result.total_ms > 0
+        assert result.hits > 0
+      end
     end
 
     test "slowest resources analytics" do
@@ -637,9 +624,8 @@ defmodule PhoenixAnalyticsTest do
       assert current_year != nil
       assert last_year != nil
 
-      # Current year should have data from today + yesterday
-      # 3 + 2 requests (all requests for visits)
-      assert current_year.visits == 5
+      # Current year should have data from today + yesterday: 2 + 1 sessions
+      assert current_year.visits == 3
       assert current_year.unique_visitors >= 2
     end
   end
@@ -662,9 +648,9 @@ defmodule PhoenixAnalyticsTest do
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
-        assert Map.has_key?(result, :unique_visitors)
-        assert is_integer(result.unique_visitors)
-        assert result.unique_visitors > 0
+        assert Map.has_key?(result, :hits)
+        assert is_integer(result.hits)
+        assert result.hits > 0
       end)
     end
 
@@ -683,10 +669,10 @@ defmodule PhoenixAnalyticsTest do
       # Verify structure
       Enum.each(results, fn result ->
         assert Map.has_key?(result, :date)
-        assert Map.has_key?(result, :pageviews)
-        assert is_integer(result.pageviews)
+        assert Map.has_key?(result, :hits)
+        assert is_integer(result.hits)
         # Could be 0 for periods with no successful page views
-        assert result.pageviews >= 0
+        assert result.hits >= 0
       end)
 
       # Find results and verify pageview counts (only successful GET requests count)
@@ -695,11 +681,11 @@ defmodule PhoenixAnalyticsTest do
 
       assert today_result != nil
       # All 3 today requests are successful GET
-      assert today_result.pageviews == 3
+      assert today_result.hits == 3
 
       assert yesterday_result != nil
       # Only 1 successful GET yesterday (1 is 404)
-      assert yesterday_result.pageviews == 1
+      assert yesterday_result.hits == 1
     end
 
     test "total requests per period limited" do
@@ -723,6 +709,336 @@ defmodule PhoenixAnalyticsTest do
         assert is_integer(result.hits)
         assert result.hits > 0
       end)
+    end
+  end
+
+  describe "RequestTracker plug" do
+    import Plug.Test
+    import Plug.Conn
+
+    alias PhoenixAnalytics.Plugs.RequestTracker
+
+    setup do
+      PhoenixAnalytics.Services.PubSub.subscribe()
+      :ok
+    end
+
+    defp track(conn, content_type) do
+      conn
+      |> RequestTracker.call([])
+      |> put_resp_content_type(content_type)
+      |> send_resp(200, "")
+    end
+
+    test "first HTML request starts a session with one page view" do
+      conn = track(conn(:get, "/"), "text/html")
+
+      assert_receive {:request_sent, log}
+      assert log.session_page_views == 1
+      assert log.session_id == conn.resp_cookies["pa_session_id"].value
+      assert conn.resp_cookies["pa_page_views"].value == "1"
+      assert log.referer == "Direct"
+      assert %NaiveDateTime{} = log.inserted_at
+    end
+
+    test "non-HTML responses keep the session but do not count as page views" do
+      conn =
+        conn(:get, "/assets/app.js")
+        |> put_req_cookie("pa_session_id", "abc")
+        |> put_req_cookie("pa_page_views", "2")
+        |> track("application/javascript")
+
+      assert_receive {:request_sent, log}
+      assert log.session_id == "abc"
+      assert log.session_page_views == 2
+      assert conn.resp_cookies["pa_page_views"].value == "2"
+    end
+
+    test "popular referers excludes Direct traffic" do
+      TestRepo.insert_all(RequestLog, [
+        %{
+          request_id: "r1",
+          method: "GET",
+          path: "/",
+          status_code: 200,
+          duration_ms: 1,
+          referer: "Direct",
+          inserted_at: ~N[2025-01-15 12:00:00]
+        },
+        %{
+          request_id: "r2",
+          method: "GET",
+          path: "/",
+          status_code: 200,
+          duration_ms: 1,
+          referer: "https://google.com",
+          inserted_at: ~N[2025-01-15 12:00:00]
+        }
+      ])
+
+      results =
+        Analytics.popular_referer(~D[2025-01-15], ~D[2025-01-15])
+        |> TestRepo.all()
+        |> Analytics.top_referers()
+
+      assert Enum.map(results, & &1.source) == ["google.com"]
+    end
+  end
+
+  describe "Helpers date bounds" do
+    alias PhoenixAnalytics.Queries.Helpers
+
+    test "start_of and end_of accept dates, datetimes and ISO strings" do
+      assert Helpers.start_of(~D[2025-01-15]) == ~N[2025-01-15 00:00:00]
+      assert Helpers.end_of(~D[2025-01-15]) == ~N[2025-01-15 23:59:59]
+      assert Helpers.start_of(~N[2025-01-15 10:00:00]) == ~N[2025-01-15 10:00:00]
+      assert Helpers.start_of("2025-01-15 10:00:00") == ~N[2025-01-15 10:00:00]
+      assert Helpers.end_of("2025-01-15") == ~N[2025-01-15 23:59:59]
+    end
+  end
+
+  describe "Bot detection" do
+    alias PhoenixAnalytics.Services.Utility
+
+    @bots [
+      "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+      "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+      "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+      "Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)",
+      "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.2; +https://openai.com/gptbot)",
+      "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ChatGPT-User/1.0; +https://openai.com/bot",
+      "DuckDuckBot-Https/1.1; (+https://duckduckgo.com/duckduckbot)",
+      "Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)",
+      "TelegramBot (like TwitterBot)",
+      "Pingdom.com_bot_version_1.4_(http://www.pingdom.com/)",
+      "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)",
+      "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+      "WhatsApp/2.23.20.0",
+      "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)",
+      "curl/8.4.0",
+      "Wget/1.21.4",
+      "python-requests/2.31.0",
+      "python-httpx/0.27.0",
+      "Go-http-client/2.0",
+      "PostmanRuntime/7.36.0",
+      "kube-probe/1.29",
+      "ELB-HealthChecker/2.0",
+      "hackney/1.20.1",
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/120.0.0.0 Safari/537.36",
+      "",
+      "   "
+    ]
+
+    @browsers [
+      {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+       "desktop"},
+      {"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
+       "desktop"},
+      {"Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1",
+       "mobile"},
+      {"Mozilla/5.0 (iPad; CPU OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1",
+       "tablet"},
+      {"Mozilla/5.0 (Linux; Android 13; CUBOT_X30) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+       "mobile"},
+      {"Mozilla/5.0 (Linux; Android 13; SM-X700) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+       "tablet"},
+      {"Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/440.0.0.30.106;FBBV/539017577]",
+       "mobile"},
+      {"Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 307.0.0.34.111 (iPhone14,5; iOS 17_1; en_US)",
+       "mobile"},
+      {"Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-S911B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.36",
+       "mobile"},
+      {"okhttp/4.12.0", "desktop"}
+    ]
+
+    setup do
+      PhoenixAnalytics.Services.PubSub.subscribe()
+    end
+
+    test "crawlers, scripts, monitors and blank user agents are bots" do
+      for ua <- @bots, do: assert(Utility.get_device_type(ua) == "bot", ua)
+      assert Utility.bot?(nil)
+    end
+
+    test "browsers and in-app browsers keep their device type" do
+      for {ua, type} <- @browsers, do: assert(Utility.get_device_type(ua) == type, ua)
+    end
+
+    test "tracked bot requests are broadcast as bots" do
+      Plug.Test.conn(:get, "/")
+      |> Plug.Conn.put_req_header("user-agent", "curl/8.4.0")
+      |> PhoenixAnalytics.Plugs.RequestTracker.call([])
+      |> Plug.Conn.send_resp(200, "")
+
+      assert_receive {:request_sent, %{device_type: "bot"}}
+    end
+
+    test "requests without a user agent are broadcast as bots" do
+      Plug.Test.conn(:get, "/")
+      |> PhoenixAnalytics.Plugs.RequestTracker.call([])
+      |> Plug.Conn.send_resp(200, "")
+
+      assert_receive {:request_sent, %{device_type: "bot", user_agent: nil}}
+    end
+
+    test "bots are excluded from visitor metrics but not server metrics" do
+      base = %{method: "GET", path: "/", status_code: 200, duration_ms: 1, session_page_views: 1}
+
+      TestRepo.insert_all(RequestLog, [
+        Map.merge(base, %{
+          request_id: "human",
+          device_type: "desktop",
+          remote_ip: "h",
+          session_id: "s1",
+          session_page_views: 2,
+          inserted_at: ~N[2025-01-15 10:00:00]
+        }),
+        Map.merge(base, %{
+          request_id: "legacy",
+          device_type: nil,
+          remote_ip: "l",
+          session_id: "s2",
+          session_page_views: 2,
+          inserted_at: ~N[2025-01-15 10:00:00]
+        }),
+        Map.merge(base, %{
+          request_id: "bot",
+          device_type: "bot",
+          remote_ip: "b",
+          session_id: "s3",
+          inserted_at: ~N[2025-01-15 10:00:00]
+        })
+      ])
+
+      day = ~D[2025-01-15]
+      assert TestRepo.one(Analytics.unique_visitors(day, day)) == 2
+      assert TestRepo.one(Analytics.total_pageviews(day, day)) == 2
+      assert TestRepo.one(Analytics.bounce_rate(day, day)) == %{bounce_rate: 0.0}
+      assert TestRepo.one(Analytics.total_requests(day, day)) == 3
+
+      assert "bot" in Enum.map(TestRepo.all(Analytics.devices_usage(day, day)), & &1.device)
+    end
+  end
+
+  describe "Slowest endpoints" do
+    alias PhoenixAnalytics.Queries.Analytics.Charts.Slowest
+
+    defp insert_requests(requests) do
+      rows =
+        for {request, i} <- Enum.with_index(requests) do
+          {method, path, status, duration, device} =
+            if tuple_size(request) == 4, do: Tuple.insert_at(request, 4, nil), else: request
+
+          %{
+            request_id: "slow_#{i}",
+            method: method,
+            path: path,
+            status_code: status,
+            duration_ms: duration,
+            device_type: device,
+            inserted_at: ~N[2025-01-15 10:00:00]
+          }
+        end
+
+      TestRepo.insert_all(RequestLog, rows)
+    end
+
+    defp slowest(min_samples \\ 1) do
+      ~D[2025-01-15]
+      |> Analytics.slowest_pages(~D[2025-01-15])
+      |> TestRepo.all()
+      |> Slowest.top_endpoints(min_samples)
+      |> Enum.map(&Map.delete(&1, :hits))
+    end
+
+    test "separates methods on the same path and includes redirects" do
+      insert_requests([
+        {"GET", "/checkout", 200, 80},
+        {"GET", "/checkout", 200, 120},
+        {"POST", "/checkout", 302, 2000},
+        {"POST", "/checkout", 500, 9000},
+        {"GET", "/missing", 404, 5000}
+      ])
+
+      assert slowest() == [
+               %{method: "POST", path: "/checkout", duration: 2000.0},
+               %{method: "GET", path: "/checkout", duration: 100.0}
+             ]
+    end
+
+    test "status 399 counts, 400 does not" do
+      insert_requests([{"GET", "/a", 399, 10}, {"GET", "/b", 400, 20}])
+      assert slowest() == [%{method: "GET", path: "/a", duration: 10.0}]
+    end
+
+    test "excludes assets and dev paths but keeps bots" do
+      insert_requests([
+        {"GET", "/app.js", 200, 900},
+        {"GET", "/dev/dashboard", 200, 900},
+        {"GET", "/crawled", 200, 50, "bot"},
+        {"GET", "/", 200, 10}
+      ])
+
+      assert slowest() == [
+               %{method: "GET", path: "/crawled", duration: 50.0},
+               %{method: "GET", path: "/", duration: 10.0}
+             ]
+    end
+
+    test "collapses id segments into one endpoint with a weighted average" do
+      insert_requests([
+        {"GET", "/users/1", 200, 100},
+        {"GET", "/users/2", 200, 200},
+        {"GET", "/users/2", 200, 300},
+        {"GET", "/orders/0b6f3c1e-2a4d-4c8e-9f10-1a2b3c4d5e6f/items", 200, 40},
+        {"GET", "/v2/report", 200, 5}
+      ])
+
+      assert slowest() == [
+               %{method: "GET", path: "/users/:id", duration: 200.0},
+               %{method: "GET", path: "/orders/:id/items", duration: 40.0},
+               %{method: "GET", path: "/v2/report", duration: 5.0}
+             ]
+    end
+
+    test "skips endpoints below the minimum sample count" do
+      insert_requests([
+        {"GET", "/rare", 200, 9000},
+        {"GET", "/busy", 200, 100},
+        {"GET", "/busy", 200, 100},
+        {"GET", "/busy", 200, 100}
+      ])
+
+      assert slowest(3) == [%{method: "GET", path: "/busy", duration: 100.0}]
+    end
+
+    test "returns the top 6, ties ordered by path then method" do
+      insert_requests(for path <- ~w(/g /f /e /d /c /b /a), do: {"GET", path, 200, 10})
+
+      assert Enum.map(slowest(), & &1.path) == ~w(/a /b /c /d /e /f)
+    end
+
+    test "labels endpoints with their method, resources without" do
+      alias PhoenixAnalytics.Web.Live.Components.ResChart
+      assert ResChart.label(%{method: "POST", path: "/checkout"}) == "POST /checkout"
+      assert ResChart.label(%{path: "/app.js"}) == "/app.js"
+    end
+  end
+
+  describe "Cache" do
+    alias PhoenixAnalytics.Services.Cache
+
+    setup do
+      Application.put_env(:phoenix_analytics, :cache_ttl, 60)
+      on_exit(fn -> Application.put_env(:phoenix_analytics, :cache_ttl, 0) end)
+    end
+
+    test "re-raises callback errors instead of returning a Cachex error, and caches nothing" do
+      key = "cache_test:#{System.unique_integer()}"
+
+      assert_raise RuntimeError, ~r/failed/, fn -> Cache.fetch(key, fn -> raise "boom" end) end
+      assert Cache.fetch(key, fn -> :computed end) == :computed
+      assert Cache.fetch(key, fn -> :recomputed end) == :computed
     end
   end
 end
