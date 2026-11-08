@@ -4,6 +4,8 @@ defmodule PhoenixAnalytics.Web do
   @doc false
   def html do
     quote do
+      use Phoenix.Component
+
       import Phoenix.Controller, only: [get_csrf_token: 0]
 
       unquote(html_helpers())
@@ -37,8 +39,6 @@ defmodule PhoenixAnalytics.Web do
 
   defp html_helpers do
     quote do
-      use Phoenix.Component
-
       import Phoenix.HTML
       import PhoenixAnalytics.Web.CoreComponents
 
