@@ -14,6 +14,7 @@ defmodule PhoenixAnalytics.Queries.Analytics do
     Charts.Slowest,
     Charts.Statuses,
     Charts.Visits,
+    Charts.Heatmap,
     Stats.Stat,
     Stats.PerPeriod
   }
@@ -55,6 +56,7 @@ defmodule PhoenixAnalytics.Queries.Analytics do
   defdelegate top_endpoints(rows), to: Slowest
   defdelegate slowest_resources(from_date, to_date), to: Slowest
   defdelegate visits_per_period(from_date, to_date, interval), to: Visits
+  defdelegate traffic_heatmap(from_date, to_date), to: Heatmap
 
   # Period-based stats functions
   defdelegate unique_visitors_per_period_limited(from_date, to_date), to: PerPeriod

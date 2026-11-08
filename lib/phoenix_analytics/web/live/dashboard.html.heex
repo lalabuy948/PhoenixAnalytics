@@ -168,6 +168,14 @@
 
 <div class="mt-16">
   <.live_component
+    id="traffic-heatmap"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.HeatmapChart}
+  />
+</div>
+
+<div class="mt-16">
+  <.live_component
     id="statuses-chart"
     date_range={@date_range}
     interval={@interval}

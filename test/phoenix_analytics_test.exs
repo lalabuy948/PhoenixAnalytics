@@ -1176,6 +1176,62 @@ defmodule PhoenixAnalyticsTest do
     end
   end
 
+  describe "Traffic heatmap" do
+    defp heatmap(from, to), do: TestRepo.all(Analytics.traffic_heatmap(from, to))
+
+    test "counts page views per weekday and hour, ordered" do
+      # 2025-01-12 is a Sunday, 2025-01-13 a Monday, 2025-01-18 a Saturday; inserted out of order
+      insert_page_views([
+        {"c", "/", ~N[2025-01-18 00:00:00], []},
+        {"b", "/", ~N[2025-01-13 23:59:59], []},
+        {"a", "/", ~N[2025-01-13 02:00:00], []},
+        {"a", "/", ~N[2025-01-12 09:15:00], []},
+        {"a", "/", ~N[2025-01-12 09:45:00], []}
+      ])
+
+      assert heatmap(~D[2025-01-12], ~D[2025-01-18]) == [
+               %{weekday: 0, hour: 9, hits: 2},
+               %{weekday: 1, hour: 2, hits: 1},
+               %{weekday: 1, hour: 23, hits: 1},
+               %{weekday: 6, hour: 0, hits: 1}
+             ]
+    end
+
+    test "sums the same weekday and hour across weeks" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-13 10:00:00], []},
+        {"b", "/", ~N[2025-01-20 10:30:00], []}
+      ])
+
+      assert heatmap(~D[2025-01-13], ~D[2025-01-20]) == [%{weekday: 1, hour: 10, hits: 2}]
+    end
+
+    test "only counts page views" do
+      insert_page_views([
+        {"a", "/app.js", ~N[2025-01-13 10:00:00], []},
+        {"a", "/form", ~N[2025-01-13 10:00:00], [method: "POST"]},
+        {"a", "/missing", ~N[2025-01-13 10:00:00], [status: 404]},
+        {"a", "/", ~N[2025-01-13 11:00:00], []}
+      ])
+
+      assert heatmap(~D[2025-01-13], ~D[2025-01-13]) == [%{weekday: 1, hour: 11, hits: 1}]
+    end
+
+    test "only counts the date range" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-12 23:59:59], []},
+        {"a", "/", ~N[2025-01-13 10:00:00], []},
+        {"a", "/", ~N[2025-01-14 00:00:00], []}
+      ])
+
+      assert heatmap(~D[2025-01-13], ~D[2025-01-13]) == [%{weekday: 1, hour: 10, hits: 1}]
+    end
+
+    test "is empty without traffic" do
+      assert heatmap(~D[2025-01-13], ~D[2025-01-13]) == []
+    end
+  end
+
   describe "Bot detection" do
     alias PhoenixAnalytics.Services.Utility
 

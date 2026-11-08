@@ -8,6 +8,7 @@ import { PopularChart } from "@/PopularChart";
 import { DateRangePicker } from "@/DateRangePicker";
 import { SingleStat } from "@/SingleStat";
 import { RequestsChart } from "@/RequestsChart";
+import { HeatmapChart } from "@/HeatmapChart";
 
 export default {
   ThemeToggle,
@@ -20,4 +21,5 @@ export default {
   DateRangePicker,
   SingleStat,
   RequestsChart,
+  HeatmapChart,
 };
