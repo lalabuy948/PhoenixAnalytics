@@ -113,6 +113,33 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Popular do
   def exit_pages(from_date, to_date), do: session_boundary_pages(from_date, to_date, :desc)
 
   @doc """
+  Gets (referer URL, landing page) visit counts for sessions whose first page view
+  in the range came with a referer. Feed the rows to `top_referer_landings/1`.
+
+  Only the landing row's referer counts: a session that starts Direct or from an
+  internal page never counts, even if a later page view has an external referer.
+  """
+  def referer_landing_pages(from_date, to_date) do
+    from_date
+    |> session_boundaries(to_date, :asc)
+    |> Helpers.filter_has_referer()
+    |> group_by([p], [p.referer, p.path])
+    |> select([p], %{referer: p.referer, path: p.path, visits: count()})
+  end
+
+  @doc """
+  Like `top_referers/2`, but labels rows "host → /path".
+  """
+  def top_referer_landings(rows, limit \\ 9) do
+    top_external(
+      rows,
+      &"#{referer_host(&1.referer)} → #{&1.path}",
+      &referer_host(&1.referer),
+      limit
+    )
+  end
+
+  @doc """
   Returns the referer's host without "www.", or the raw referer when it has none
   (e.g. "newsletter").
   """

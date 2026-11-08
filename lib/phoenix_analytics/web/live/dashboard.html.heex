@@ -146,6 +146,15 @@
     date_range={@date_range}
     module={PhoenixAnalytics.Web.Live.Components.PopularChart}
   />
+
+  <.live_component
+    id="referer-landings-chart"
+    source={:referer_landings}
+    chart_title="Referrer → Landing Page"
+    footer="Visits from external sites by the page they landed on"
+    date_range={@date_range}
+    module={PhoenixAnalytics.Web.Live.Components.PopularChart}
+  />
 </div>
 
 <div class="mt-16">

@@ -56,6 +56,13 @@ defmodule PhoenixAnalytics.Web.Live.Components.PopularChart do
     |> Analytics.top_referers()
   end
 
+  defp fetch_data(:referer_landings, from, to) do
+    from
+    |> Analytics.referer_landing_pages(to)
+    |> PhoenixAnalytics.Config.get_repo().all()
+    |> Analytics.top_referer_landings()
+  end
+
   defp fetch_data(source, from, to) do
     query =
       case source do

@@ -1511,4 +1511,132 @@ defmodule PhoenixAnalyticsTest do
       assert Cache.fetch(key, fn -> :recomputed end) == :computed
     end
   end
+
+  describe "Referrer landing pages" do
+    alias PhoenixAnalytics.Queries.Analytics.Charts.Popular
+
+    defp insert_landings(views) do
+      rows =
+        for {{session, path, referer, at}, i} <- Enum.with_index(views) do
+          %{
+            request_id: "land_#{i}",
+            method: "GET",
+            path: path,
+            status_code: 200,
+            duration_ms: 1,
+            referer: referer,
+            session_id: session,
+            session_page_views: i + 1,
+            inserted_at: at
+          }
+        end
+
+      TestRepo.insert_all(RequestLog, rows)
+    end
+
+    defp landings do
+      ~D[2025-01-15]
+      |> Analytics.referer_landing_pages(~D[2025-01-15])
+      |> TestRepo.all()
+      |> Popular.top_referer_landings()
+    end
+
+    test "pairs each session's external referer host with its first page" do
+      insert_landings([
+        {"a", "/blog/post", "https://news.ycombinator.com/item?id=1", ~N[2025-01-15 10:00:00]},
+        {"a", "/pricing", "https://test.com/blog/post", ~N[2025-01-15 10:01:00]},
+        {"b", "/blog/post", "https://news.ycombinator.com/item?id=2", ~N[2025-01-15 11:00:00]},
+        {"c", "/", "https://www.google.com/", ~N[2025-01-15 12:00:00]}
+      ])
+
+      assert landings() == [
+               %{source: "news.ycombinator.com → /blog/post", visits: 2},
+               %{source: "google.com → /", visits: 1}
+             ]
+    end
+
+    test "skips direct, internal and later-in-session referers" do
+      insert_landings([
+        {"direct", "/", "Direct", ~N[2025-01-15 10:00:00]},
+        {"direct", "/x", "https://google.com/", ~N[2025-01-15 10:01:00]},
+        {"internal", "/", "https://test.com/", ~N[2025-01-15 11:00:00]},
+        {"none", "/", nil, ~N[2025-01-15 12:00:00]}
+      ])
+
+      assert landings() == []
+    end
+
+    test "uses the URI host, or the raw referer when there is none" do
+      assert Popular.top_referer_landings([
+               %{referer: "newsletter", path: "/", visits: 3},
+               %{referer: "android-app://com.slack", path: "/", visits: 3},
+               %{referer: "https://t.co/abc", path: "/", visits: 3}
+             ]) == [
+               %{source: "com.slack → /", visits: 3},
+               %{source: "newsletter → /", visits: 3},
+               %{source: "t.co → /", visits: 3}
+             ]
+    end
+
+    test "returns the top 9 by visits, ties ordered by label" do
+      rows =
+        for(i <- 1..12, do: %{referer: "https://s#{i}.com/", path: "/", visits: i}) ++
+          [%{referer: "https://b.com/", path: "/", visits: 12}]
+
+      assert Enum.map(Popular.top_referer_landings(rows), &{&1.source, &1.visits}) ==
+               [{"b.com → /", 12}, {"s12.com → /", 12}] ++
+                 for(i <- 11..5//-1, do: {"s#{i}.com → /", i})
+    end
+
+    test "many unique URLs from one host collapse into one row" do
+      insert_landings(
+        for i <- 1..600 do
+          {"s#{i}", "/", "https://t.co/#{i}", ~N[2025-01-15 10:00:00]}
+        end ++ [{"g", "/", "https://www.Google.com/", ~N[2025-01-15 10:00:00]}]
+      )
+
+      assert landings() == [
+               %{source: "t.co → /", visits: 600},
+               %{source: "google.com → /", visits: 1}
+             ]
+    end
+
+    test "a bot hit at the start of a session doesn't hide the human landing" do
+      base = %{method: "GET", status_code: 200, duration_ms: 1, session_id: "a"}
+
+      TestRepo.insert_all(RequestLog, [
+        Map.merge(base, %{
+          request_id: "bot",
+          path: "/from-bot",
+          referer: "https://bot.example/",
+          device_type: "bot",
+          inserted_at: ~N[2025-01-15 09:59:00]
+        }),
+        Map.merge(base, %{
+          request_id: "human",
+          path: "/landing",
+          referer: "https://google.com/",
+          device_type: "desktop",
+          inserted_at: ~N[2025-01-15 10:00:00]
+        })
+      ])
+
+      assert landings() == [%{source: "google.com → /landing", visits: 1}]
+    end
+
+    test "own domain and its subdomains are internal; mentions of it are not" do
+      insert_landings([
+        {"a", "/", "https://test.com/", ~N[2025-01-15 10:00:00]},
+        {"b", "/", "https://blog.test.com/post", ~N[2025-01-15 10:00:00]},
+        {"c", "/", "https://google.com/search?q=test.com", ~N[2025-01-15 10:00:00]},
+        {"d", "/", "https://nottest.com/", ~N[2025-01-15 10:00:00]},
+        {"e", "/", "", ~N[2025-01-15 10:00:00]}
+      ])
+
+      assert landings() == [
+               %{source: "google.com → /", visits: 1},
+               %{source: "nottest.com → /", visits: 1}
+             ]
+    end
+  end
 end
