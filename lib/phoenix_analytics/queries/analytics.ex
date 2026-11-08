@@ -25,6 +25,8 @@ defmodule PhoenixAnalytics.Queries.Analytics do
   defdelegate popular_not_found(from_date, to_date), to: Popular
   defdelegate popular_user_agents(from_date, to_date), to: Popular
   defdelegate popular_device_types(from_date, to_date), to: Popular
+  defdelegate entry_pages(from_date, to_date), to: Popular
+  defdelegate exit_pages(from_date, to_date), to: Popular
 
   # Stats functions
   defdelegate unique_visitors(from_date, to_date), to: Stat

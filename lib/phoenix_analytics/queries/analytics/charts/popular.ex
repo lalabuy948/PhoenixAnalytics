@@ -97,6 +97,22 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Popular do
   end
 
   @doc """
+  Gets the most common first page of a session for a given date range.
+
+  Sessions are clipped to the range: a session that started before `from_date`
+  counts its first in-range page view as its entry (same for exits after `to_date`).
+  Cookie-less clients (bots, curl) get a new session per request, so their
+  landing pages count as both entry and exit.
+  """
+  def entry_pages(from_date, to_date), do: session_boundary_pages(from_date, to_date, :asc)
+
+  @doc """
+  Gets the most common last page of a session for a given date range.
+  See `entry_pages/2` for how sessions are clipped to the range.
+  """
+  def exit_pages(from_date, to_date), do: session_boundary_pages(from_date, to_date, :desc)
+
+  @doc """
   Returns the referer's host without "www.", or the raw referer when it has none
   (e.g. "newsletter").
   """
@@ -126,4 +142,44 @@ defmodule PhoenixAnalytics.Queries.Analytics.Charts.Popular do
 
   defp internal_host?(host, app_domain),
     do: host == app_domain or String.ends_with?(host, "." <> app_domain)
+
+  defp session_boundary_pages(from_date, to_date, direction) do
+    from(p in session_boundaries(from_date, to_date, direction),
+      group_by: p.path,
+      select: %{source: p.path, visits: count()},
+      order_by: [desc: count(), asc: p.path],
+      limit: 9
+    )
+  end
+
+  # First (:asc) or last (:desc) page view of every session in the range
+  defp session_boundaries(from_date, to_date, direction) do
+    # inserted_at has 1s precision: the session's page counter, then request_id, break ties
+    page_views = RequestLog |> Helpers.page_views() |> Helpers.filter_by_date(from_date, to_date)
+
+    ranked =
+      from(r in page_views,
+        where: not is_nil(r.session_id),
+        windows: [
+          session: [
+            partition_by: r.session_id,
+            order_by: [
+              {^direction, r.inserted_at},
+              {^direction, r.session_page_views},
+              {^direction, r.request_id}
+            ]
+          ]
+        ],
+        select: %{
+          path: r.path,
+          referer: r.referer,
+          at: r.inserted_at,
+          # next row in window order: the 2nd page view for :asc
+          next_at: over(lead(r.inserted_at), :session),
+          rank: over(row_number(), :session)
+        }
+      )
+
+    from(p in subquery(ranked), where: p.rank == 1)
+  end
 end

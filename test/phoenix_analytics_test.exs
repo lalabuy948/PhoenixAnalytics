@@ -191,6 +191,23 @@ defmodule PhoenixAnalyticsTest do
     }
   end
 
+  defp insert_page_views(views) do
+    rows =
+      for {{session, path, at, opts}, i} <- Enum.with_index(views) do
+        %{
+          request_id: Keyword.get(opts, :id, "pv_#{i}"),
+          method: Keyword.get(opts, :method, "GET"),
+          path: path,
+          status_code: Keyword.get(opts, :status, 200),
+          duration_ms: 1,
+          session_id: session,
+          inserted_at: at
+        }
+      end
+
+    TestRepo.insert_all(RequestLog, rows)
+  end
+
   defp insert_statuses(statuses) do
     rows =
       for {{status, at}, i} <- Enum.with_index(statuses) do
@@ -963,6 +980,108 @@ defmodule PhoenixAnalyticsTest do
       assert_raise FunctionClauseError, fn ->
         Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], 101)
       end
+    end
+  end
+
+  describe "Entry and exit pages" do
+    defp entry_pages, do: TestRepo.all(Analytics.entry_pages(~D[2025-01-15], ~D[2025-01-15]))
+    defp exit_pages, do: TestRepo.all(Analytics.exit_pages(~D[2025-01-15], ~D[2025-01-15]))
+
+    test "first and last page view of each session" do
+      insert_page_views([
+        {"a", "/", ~N[2025-01-15 10:00:00], []},
+        {"a", "/pricing", ~N[2025-01-15 10:01:00], []},
+        {"a", "/signup", ~N[2025-01-15 10:02:00], []},
+        {"b", "/", ~N[2025-01-15 11:00:00], []},
+        {"b", "/pricing", ~N[2025-01-15 11:01:00], []},
+        {"c", "/blog", ~N[2025-01-15 12:00:00], []}
+      ])
+
+      assert entry_pages() == [%{source: "/", visits: 2}, %{source: "/blog", visits: 1}]
+
+      assert exit_pages() == [
+               %{source: "/blog", visits: 1},
+               %{source: "/pricing", visits: 1},
+               %{source: "/signup", visits: 1}
+             ]
+    end
+
+    test "ignores assets, non-GET, non-200 and session-less requests" do
+      insert_page_views([
+        {"a", "/app.js", ~N[2025-01-15 10:00:00], []},
+        {"a", "/form", ~N[2025-01-15 10:00:30], [method: "POST"]},
+        {"a", "/missing", ~N[2025-01-15 10:00:40], [status: 404]},
+        {"a", "/home", ~N[2025-01-15 10:01:00], []},
+        {nil, "/orphan", ~N[2025-01-15 10:02:00], []}
+      ])
+
+      assert entry_pages() == [%{source: "/home", visits: 1}]
+      assert exit_pages() == [%{source: "/home", visits: 1}]
+    end
+
+    test "sessions are clipped to the date range" do
+      insert_page_views([
+        {"a", "/before", ~N[2025-01-14 23:59:00], []},
+        {"a", "/inside", ~N[2025-01-15 00:01:00], []},
+        {"a", "/after", ~N[2025-01-16 00:01:00], []}
+      ])
+
+      assert entry_pages() == [%{source: "/inside", visits: 1}]
+      assert exit_pages() == [%{source: "/inside", visits: 1}]
+    end
+
+    test "ignores dev paths" do
+      insert_page_views([
+        {"a", "/dev/dashboard", ~N[2025-01-15 10:00:00], []},
+        {"a", "/home", ~N[2025-01-15 10:01:00], []},
+        {"a", "/phoenix/live_reload/frame", ~N[2025-01-15 10:02:00], []}
+      ])
+
+      assert entry_pages() == [%{source: "/home", visits: 1}]
+      assert exit_pages() == [%{source: "/home", visits: 1}]
+    end
+
+    test "returns the top 9, ties ordered by path" do
+      insert_page_views(
+        for i <- 1..12 do
+          {"s#{i}", "/p#{String.pad_leading("#{i}", 2, "0")}", ~N[2025-01-15 10:00:00], []}
+        end
+      )
+
+      assert Enum.map(entry_pages(), & &1.source) == for(i <- 1..9, do: "/p0#{i}")
+    end
+
+    test "same-second ties use the session page counter before request_id" do
+      rows = [
+        %{request_id: "z", session_page_views: 1, path: "/first"},
+        %{request_id: "a", session_page_views: 2, path: "/second"}
+      ]
+
+      TestRepo.insert_all(
+        RequestLog,
+        for row <- rows do
+          Map.merge(row, %{
+            method: "GET",
+            status_code: 200,
+            duration_ms: 1,
+            session_id: "s",
+            inserted_at: ~N[2025-01-15 10:00:00]
+          })
+        end
+      )
+
+      assert entry_pages() == [%{source: "/first", visits: 1}]
+      assert exit_pages() == [%{source: "/second", visits: 1}]
+    end
+
+    test "breaks same-second ties by request_id" do
+      insert_page_views([
+        {"a", "/first", ~N[2025-01-15 10:00:00], [id: "1"]},
+        {"a", "/second", ~N[2025-01-15 10:00:00], [id: "2"]}
+      ])
+
+      assert entry_pages() == [%{source: "/first", visits: 1}]
+      assert exit_pages() == [%{source: "/second", visits: 1}]
     end
   end
 
