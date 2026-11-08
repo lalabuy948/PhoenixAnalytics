@@ -2,20 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.5.0] - 05-10-2026
+## [0.5.0] - 08-11-2026
 
 ### 🚨 BREAKING CHANGES
 
 - **Modern browsers only**: The dashboard is now built with Tailwind CSS v4 and daisyUI 5 and requires Safari 16.4+, Chrome 111+ or Firefox 128+
+- **Bots excluded from visitor metrics**: Crawlers, scripts, monitors and requests without a user agent are tagged as `bot` and no longer count towards visitors, page views, visits or bounce rate. Server metrics (requests, errors, response times) still include them. Numbers will drop compared to 0.4.x
+- **Visits count sessions**: The visits chart counts distinct sessions instead of requests
+
+### ⬆️ Upgrading
+
+- Add a migration that calls `PhoenixAnalytics.Migration.add_indexes()` again to create the new `(remote_ip, inserted_at)` index used by new vs returning visitors. Existing indexes are skipped
 
 ### ✨ New Features
 
 - **Tailwind CSS v4 + daisyUI 5**: CSS-first config, matching the defaults of new Phoenix 1.8 apps
 - **Latest Phoenix**: Tested against Phoenix 1.8.15 and LiveView 1.2 (LiveView 1.1 is still supported)
+- **Error rate**: Share of 5xx responses, with a daily trend
+- **p95 / p99 response time**: Response time percentiles, with daily trends
+- **Entry and exit pages**: First and last page of each visit
+- **New vs returning visitors**: Visitors seen before the selected range count as returning
+- **Pages per visit**: Visits grouped by how many pages they viewed
+- **Referrer → landing page**: Which page visitors from each external site land on
+- **Time to second page**: How long visitors take to open a second page
+- **Traffic heatmap**: Page views by weekday and hour
+- **Bot detection**: Requests are classified as `bot` from the user agent
 
 ### 🐛 Bug Fixes
 
 - **Custom root layout**: Charts and stats no longer render blank when the dashboard runs inside a host app's root layout (`:root_layout` + `analytics_head/1`). The dashboard now registers its React hooks on the host's LiveSocket instead of starting a second one
+- **Page views**: Only HTML responses increase the session page counter, so assets and API calls no longer inflate views per visit and hide bounces
+- **Top referers**: Grouped by host, own domain and subdomains excluded
+- **Slowest endpoints**: Grouped by method and path with ids collapsed (`/users/:id`), one-off slow requests ignored
+- **Visitor hashing**: Fewer IP hash collisions
+- **Query errors**: Failed dashboard queries are no longer cached as empty results
+- **Batcher**: A database outage no longer crashes the request batcher
+- **Elixir 1.20**: No compile warnings (#50)
 
 ### 🔧 Improvements
 
