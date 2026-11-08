@@ -1299,6 +1299,97 @@ defmodule PhoenixAnalyticsTest do
     end
   end
 
+  describe "Pages per visit distribution" do
+    defp insert_sessions(sessions) do
+      rows =
+        for {{session, page_views, device, at}, i} <- Enum.with_index(sessions) do
+          %{
+            request_id: "ppv_#{i}",
+            method: "GET",
+            path: "/",
+            status_code: 200,
+            duration_ms: 1,
+            session_id: session,
+            session_page_views: page_views,
+            device_type: device,
+            inserted_at: at
+          }
+        end
+
+      TestRepo.insert_all(RequestLog, rows)
+    end
+
+    @at ~N[2025-01-15 10:00:00]
+
+    defp distribution,
+      do: TestRepo.all(Analytics.pages_per_visit_distribution(~D[2025-01-15], ~D[2025-01-15]))
+
+    test "buckets sessions by their highest page view count, ordered" do
+      insert_sessions([
+        {"many", 40, nil, @at},
+        {"six", 6, "desktop", @at},
+        {"one", 1, "desktop", @at},
+        {"two", 1, "desktop", @at},
+        {"two", 2, "desktop", @at},
+        {"s3", 3, "mobile", @at},
+        {"s4", 4, "mobile", @at},
+        {"s5", 5, "mobile", @at}
+      ])
+
+      assert distribution() == [
+               %{source: "1 page", visits: 1},
+               %{source: "2 pages", visits: 1},
+               %{source: "3-5 pages", visits: 3},
+               %{source: "6+ pages", visits: 2}
+             ]
+    end
+
+    test "drops sessions without page views, bots and session-less rows" do
+      insert_sessions([
+        {"assets_only", 0, "desktop", @at},
+        {"crawler", 1, "bot", @at},
+        {nil, 1, "desktop", @at},
+        {"real", 1, "desktop", @at}
+      ])
+
+      assert distribution() == [%{source: "1 page", visits: 1}]
+    end
+
+    test "a bot row inside a human session is ignored" do
+      insert_sessions([{"mixed", 1, "desktop", @at}, {"mixed", 9, "bot", @at}])
+      assert distribution() == [%{source: "1 page", visits: 1}]
+    end
+
+    test "sessions straddling the range start keep their cumulative counter" do
+      insert_sessions([
+        {"edge", 4, "desktop", ~N[2025-01-14 23:59:00]},
+        {"edge", 5, "desktop", ~N[2025-01-15 00:01:00]}
+      ])
+
+      assert distribution() == [%{source: "3-5 pages", visits: 1}]
+    end
+
+    test "is empty when nothing is in range" do
+      insert_sessions([{"old", 1, "desktop", ~N[2025-01-14 10:00:00]}])
+      assert distribution() == []
+    end
+
+    test "agrees with bounce rate and views per visit" do
+      insert_sessions([
+        {"bounce", 1, "desktop", @at},
+        {"deep", 1, "desktop", @at},
+        {"deep", 2, "desktop", @at},
+        {"assets_only", 0, "desktop", @at},
+        {nil, 3, "desktop", @at}
+      ])
+
+      day = ~D[2025-01-15]
+      assert TestRepo.one(Analytics.bounce_rate(day, day)) == %{bounce_rate: 50.0}
+      assert TestRepo.one(Analytics.average_views_per_visit(day, day)) == 1.5
+      assert distribution() == [%{source: "1 page", visits: 1}, %{source: "2 pages", visits: 1}]
+    end
+  end
+
   describe "Slowest endpoints" do
     alias PhoenixAnalytics.Queries.Analytics.Charts.Slowest
 

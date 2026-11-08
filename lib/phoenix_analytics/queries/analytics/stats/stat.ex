@@ -230,6 +230,38 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   end
 
   @doc """
+  Distribution of visits by page views per session: "1 page", "2 pages", "3-5 pages", "6+ pages".
+  Sessions without an HTML page view (asset-only, API-only) are not visits and are dropped.
+
+  Sessions straddling the range edge are bucketed by their cumulative page counter,
+  not by pages viewed inside the range.
+  """
+  def pages_per_visit_distribution(from_date, to_date) do
+    sessions =
+      RequestLog
+      |> Helpers.exclude_bots()
+      |> Helpers.filter_by_date(from_date, to_date)
+      |> group_by([r], r.session_id)
+      |> Helpers.visit_sessions()
+      |> select([r], %{
+        # labels sort lexically in bucket order
+        bucket:
+          fragment(
+            "CASE WHEN MAX(?) = 1 THEN '1 page' WHEN MAX(?) = 2 THEN '2 pages' WHEN MAX(?) <= 5 THEN '3-5 pages' ELSE '6+ pages' END",
+            r.session_page_views,
+            r.session_page_views,
+            r.session_page_views
+          )
+      })
+
+    from(s in subquery(sessions),
+      group_by: s.bucket,
+      select: %{source: s.bucket, visits: count()},
+      order_by: s.bucket
+    )
+  end
+
+  @doc """
   Gets average response time for a given date range.
   """
   def average_response_time(from_date, to_date) do

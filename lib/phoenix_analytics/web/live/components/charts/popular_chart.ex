@@ -63,6 +63,7 @@ defmodule PhoenixAnalytics.Web.Live.Components.PopularChart do
         :not_founds -> Analytics.popular_not_found(from, to)
         :entry_pages -> Analytics.entry_pages(from, to)
         :exit_pages -> Analytics.exit_pages(from, to)
+        :pages_per_visit -> Analytics.pages_per_visit_distribution(from, to)
       end
 
     # Let DB errors raise: assign_async renders the empty fallback and nothing gets cached
