@@ -154,6 +154,49 @@ defmodule PhoenixAnalytics.Queries.Analytics.Stats.Stat do
   end
 
   @doc """
+  Gets the percentage of 5xx responses over all requests
+  (assets and API calls included, same denominator as `total_requests`) for a given date range.
+  """
+  def error_rate(from_date, to_date) do
+    RequestLog
+    |> Helpers.filter_by_date(from_date, to_date)
+    |> select(
+      [r],
+      fragment(
+        "CAST(ROUND(100.0 * SUM(CASE WHEN ? >= 500 THEN 1 ELSE 0 END) / COUNT(*), 2) AS FLOAT(53))",
+        r.status_code
+      )
+    )
+  end
+
+  @doc """
+  Gets the `pct`-th percentile (nearest-rank) response time in ms for a given date range.
+
+  Uses window functions only (no `percentile_cont`), so it runs on Postgres,
+  SQLite 3.25+ and MySQL 8.
+  """
+  def response_time_percentile(from_date, to_date, pct) when pct in 1..100 do
+    # Collapse to distinct durations first so the window sort runs over a few
+    # thousand values instead of every row in the range
+    histogram =
+      from(r in Helpers.filter_by_date(RequestLog, from_date, to_date),
+        group_by: r.duration_ms,
+        windows: [ordered: [order_by: r.duration_ms], all: []],
+        select: %{
+          duration: r.duration_ms,
+          cumulative: over(sum(count(r.request_id)), :ordered),
+          total: over(sum(count(r.request_id)), :all)
+        }
+      )
+
+    # Nearest rank: smallest value whose cumulative count >= pct% of total, compared without division
+    from(h in subquery(histogram),
+      where: h.cumulative * 100 >= h.total * ^pct,
+      select: min(h.duration)
+    )
+  end
+
+  @doc """
   Gets average response time for a given date range.
   """
   def average_response_time(from_date, to_date) do

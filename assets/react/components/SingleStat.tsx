@@ -61,12 +61,14 @@ export function SingleStat({
       <CardContent className="flex flex-row items-baseline gap-4 p-4 pt-0">
         <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
           {statUnit === "time"
-            ? statData < 60000
-              ? `${(statData / 1000).toFixed(2)}s`
-              : `${(statData / 60000).toFixed(2)}m`
+            ? statData < 1000
+              ? `${Math.round(statData)}ms`
+              : statData < 60000
+                ? `${(statData / 1000).toFixed(2)}s`
+                : `${(statData / 60000).toFixed(2)}m`
             : nFormatter(statData, 2)}
           <span className="text-sm font-normal text-muted-foreground">
-            {statUnit}/period
+            {statUnit === "%" ? "%" : statUnit === "time" ? "" : `${statUnit}/period`}
           </span>
         </div>
         

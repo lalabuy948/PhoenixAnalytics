@@ -52,6 +52,30 @@
     stat_unit="%"
     module={PhoenixAnalytics.Web.Live.Components.SingleStat}
   />
+
+  <.live_component
+    id="error-rate-stat"
+    source={:error_rate}
+    date_range={@date_range}
+    stat_unit="%"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="p95-response-time-stat"
+    source={:p95_response_time}
+    date_range={@date_range}
+    stat_unit="time"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
+
+  <.live_component
+    id="p99-response-time-stat"
+    source={:p99_response_time}
+    date_range={@date_range}
+    stat_unit="time"
+    module={PhoenixAnalytics.Web.Live.Components.SingleStat}
+  />
 </div>
 
 <.live_component

@@ -191,6 +191,22 @@ defmodule PhoenixAnalyticsTest do
     }
   end
 
+  defp insert_statuses(statuses) do
+    rows =
+      for {{status, at}, i} <- Enum.with_index(statuses) do
+        %{
+          request_id: "status_#{i}",
+          method: "GET",
+          path: "/",
+          status_code: status,
+          duration_ms: 1,
+          inserted_at: at
+        }
+      end
+
+    TestRepo.insert_all(RequestLog, rows)
+  end
+
   describe "Daily Analytics Queries" do
     test "unique visitors - today vs yesterday" do
       fixtures = create_test_fixtures()
@@ -782,6 +798,171 @@ defmodule PhoenixAnalyticsTest do
         |> Analytics.top_referers()
 
       assert Enum.map(results, & &1.source) == ["google.com"]
+    end
+  end
+
+  describe "Error rate" do
+    test "is the percentage of 5xx responses over all requests" do
+      insert_statuses([
+        {200, ~N[2025-01-15 12:00:00]},
+        {404, ~N[2025-01-15 12:00:00]},
+        {500, ~N[2025-01-15 12:00:00]},
+        {503, ~N[2025-01-15 12:00:00]},
+        {200, ~N[2025-01-14 12:00:00]},
+        {200, ~N[2025-01-14 12:00:00]},
+        {502, ~N[2025-01-14 12:00:00]}
+      ])
+
+      assert TestRepo.one(Analytics.error_rate(~D[2025-01-15], ~D[2025-01-15])) == 50.0
+      assert TestRepo.one(Analytics.error_rate(~D[2025-01-14], ~D[2025-01-15])) == 42.86
+    end
+
+    test "per period returns one rate per day" do
+      insert_statuses([
+        {200, ~N[2025-01-14 12:00:00]},
+        {200, ~N[2025-01-14 12:00:00]},
+        {502, ~N[2025-01-14 12:00:00]},
+        {500, ~N[2025-01-15 12:00:00]},
+        {200, ~N[2025-01-15 12:00:00]}
+      ])
+
+      assert TestRepo.all(Analytics.error_rate_per_period_limited(~D[2025-01-14], ~D[2025-01-15])) ==
+               [%{date: "2025-01-14", hits: 33.33}, %{date: "2025-01-15", hits: 50.0}]
+    end
+
+    test "counts 500..599 but not 499" do
+      insert_statuses([
+        {499, ~N[2025-01-15 12:00:00]},
+        {500, ~N[2025-01-15 12:00:00]},
+        {599, ~N[2025-01-15 12:00:00]},
+        {200, ~N[2025-01-15 12:00:00]}
+      ])
+
+      assert TestRepo.one(Analytics.error_rate(~D[2025-01-15], ~D[2025-01-15])) == 50.0
+    end
+
+    test "is 0.0 when there are no 5xx responses" do
+      insert_statuses([{200, ~N[2025-01-15 12:00:00]}, {404, ~N[2025-01-15 12:00:00]}])
+
+      assert TestRepo.one(Analytics.error_rate(~D[2025-01-15], ~D[2025-01-15])) == 0.0
+
+      assert TestRepo.all(Analytics.error_rate_per_period_limited(~D[2025-01-15], ~D[2025-01-15])) ==
+               [%{date: "2025-01-15", hits: 0.0}]
+    end
+
+    test "is nil for an empty range" do
+      assert TestRepo.one(Analytics.error_rate(~D[2025-01-01], ~D[2025-01-01])) == nil
+    end
+  end
+
+  # Tests run on SQLite only; Postgres 14 and MySQL 8.0 equivalence was verified manually
+  describe "Response time percentiles" do
+    defp insert_durations(durations_by_day) do
+      rows =
+        for {at, durations} <- durations_by_day,
+            {duration, i} <- Enum.with_index(durations) do
+          %{
+            request_id: "dur_#{at}_#{i}",
+            method: "GET",
+            path: "/",
+            status_code: 200,
+            duration_ms: duration,
+            inserted_at: at
+          }
+        end
+
+      TestRepo.insert_all(RequestLog, rows)
+    end
+
+    test "nearest-rank percentile over the range" do
+      # 1..100 shuffled: p95 = 95, p99 = 99, p50 = 50
+      insert_durations([{~N[2025-01-15 12:00:00], Enum.shuffle(1..100)}])
+
+      for {pct, expected} <- [{50, 50}, {95, 95}, {99, 99}, {100, 100}] do
+        assert TestRepo.one(
+                 Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], pct)
+               ) ==
+                 expected
+      end
+    end
+
+    test "small samples round the rank up" do
+      # 10 values: rank for p95 = ceil(9.5) = 10
+      insert_durations([{~N[2025-01-15 12:00:00], [10, 20, 30, 40, 50, 60, 70, 80, 90, 1000]}])
+
+      assert TestRepo.one(Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], 95)) ==
+               1000
+
+      assert TestRepo.one(Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], 50)) ==
+               50
+    end
+
+    test "per period computes the percentile within each day" do
+      insert_durations([
+        {~N[2025-01-14 12:00:00], Enum.to_list(1..20)},
+        {~N[2025-01-15 12:00:00], [5, 500]}
+      ])
+
+      assert TestRepo.all(
+               Analytics.response_time_percentile_per_period_limited(
+                 ~D[2025-01-14],
+                 ~D[2025-01-15],
+                 95
+               )
+             ) == [%{date: "2025-01-14", hits: 19}, %{date: "2025-01-15", hits: 500}]
+    end
+
+    test "is nil for an empty range" do
+      assert TestRepo.one(Analytics.response_time_percentile(~D[2025-01-01], ~D[2025-01-01], 95)) ==
+               nil
+    end
+
+    defp percentile(durations, pct) do
+      TestRepo.delete_all(RequestLog)
+      insert_durations([{~N[2025-01-15 12:00:00], durations}])
+      TestRepo.one(Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], pct))
+    end
+
+    test "handles ties" do
+      assert percentile([1, 2, 2, 2, 100], 50) == 2
+    end
+
+    test "all-equal durations return that duration" do
+      assert percentile([5, 5, 5, 5], 95) == 5
+    end
+
+    test "single row is every percentile" do
+      assert percentile([42], 95) == 42
+      assert percentile([42], 99) == 42
+    end
+
+    test "p99 on fewer than 100 rows is the max" do
+      assert percentile(Enum.to_list(1..20), 99) == 20
+    end
+
+    test "per period with pct 100 is the daily max" do
+      insert_durations([
+        {~N[2025-01-14 12:00:00], [3, 1, 2]},
+        {~N[2025-01-15 12:00:00], [7, 9]}
+      ])
+
+      assert TestRepo.all(
+               Analytics.response_time_percentile_per_period_limited(
+                 ~D[2025-01-14],
+                 ~D[2025-01-15],
+                 100
+               )
+             ) == [%{date: "2025-01-14", hits: 3}, %{date: "2025-01-15", hits: 9}]
+    end
+
+    test "rejects percentiles outside 1..100" do
+      assert_raise FunctionClauseError, fn ->
+        Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], 0)
+      end
+
+      assert_raise FunctionClauseError, fn ->
+        Analytics.response_time_percentile(~D[2025-01-15], ~D[2025-01-15], 101)
+      end
     end
   end
 
